@@ -1,0 +1,76 @@
+.body-Form{
+    width: 30%;
+    height: 100%;
+    overflow: auto;
+    border-right: solid 0.5px var(--bs-gray-ccc);
+    padding: 15px;
+  }
+  
+  /* Div general el cual esta dividido en 2 columanas separadas*/
+  .container-DataInfo {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    gap: 20px;
+    border-bottom: solid 0.5px var(--bs-gray-ccc);
+  }
+  
+  /* Div general el cual esta dividido en 2 columnas separadas, pero este se usa cuando se tienen mas de 1 Div General  */
+  .container-BodyData{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .containerInfo{
+    width: 100%;
+    padding-top: 15px;
+  }
+  
+  .containerInfo label{
+    font-family: var(--font-family);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .containerInfo select, input{
+    border: none;
+    border-radius: 4px;
+    padding-left: 5px;
+    height: 28px;
+    width: 100%;
+  }
+  
+  /* Div General que se usa para almacenar los demas Divs cuando se va a realizar busqueda por filtrado */
+  .container-DataInfoFind{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 0.5px var(--bs-gray-ccc);
+  }
+  
+  /* Div que almacena la barra de busqueda */
+  .container-Find{
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    align-items: end;
+    margin-bottom: 10px;
+  }
+
+  .container-Select, .container-Input{
+    margin-top: 5px;
+    border: 0.5px solid var(--bs-gray-ccc);
+    border-radius: 4px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
