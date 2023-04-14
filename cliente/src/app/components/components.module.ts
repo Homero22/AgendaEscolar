@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConferenciasComponent } from './conferencias/conferencias.component';
+import { FormularioComponent } from './formulario/formulario.component';
 
 
 
@@ -12,7 +13,9 @@ import { ConferenciasComponent } from './conferencias/conferencias.component';
     CommonModule,
   ],
   exports: [
-    ConferenciasComponent
+    ConferenciasComponent,
+    // FormularioComponent
+    
   ]
 })
 export class ComponentsModule { }

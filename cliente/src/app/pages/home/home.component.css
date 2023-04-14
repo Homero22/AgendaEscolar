@@ -93,8 +93,10 @@
 }
 
 .container-Main{
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .container-Header{
@@ -137,6 +139,7 @@ p{
 
 .container-BtnLogin{
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
