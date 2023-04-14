@@ -1,0 +1,97 @@
+<!-- <p>conferencias works!</p> -->
+<!-- id_conferencia serial [primary key]
+int_dia integer
+dt_fecha date
+dt_hora_ini time
+dt_hora_fin time 
+str_area varchar
+id_expositor integer
+fl_costo float -->
+
+<div class="body-Form">
+    <form class="formFather">
+  
+    <div class="container-DataInfoFind">
+  
+        <div class="containerInfo">
+            <label class="lbl-info" for="nombre">Título de la Conferencia:</label>
+          <div class="container-Input">
+            <input type="text"  placeholder="Ingrese el título de la Conferencia" >
+          </div>
+        </div>
+        
+        <div class="containerInfo">
+            <label class="lbl-info" >Área Tecnonógica:</label>
+            <div class="container-Select">
+                <select > 
+                  <option [selected]="true" placeholder="Seleccione un Rol" select disabled >Seleccione un Área </option>
+                  <option>              Sistemas                  </option>
+                  <option> Electónica </option>
+                    <option> Telecomunicaciones </option>
+                    <option> Diseño Grafico </option>
+                </select>
+              </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" >Día del Evento:</label>
+            <div class="container-Select">
+                <select > 
+                  <option [selected]="true" placeholder="Seleccione un Rol" select disabled > Seleccione el día </option>
+                  <option>1</option>
+                  <option> 2 </option>
+                    <option> 3 </option>
+                </select>
+              </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" for="nombre">Costo de la Conferencia:</label>
+          <div class="container-Input">
+            <input type="Number"  placeholder="Ingrese el costo de la Conferencia" min="0">
+          </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" >Expositor de la Conferencia:</label>
+            <div class="container-Select">
+                <select > 
+                  <option [selected]="true" select disabled > Seleccione el Expositor </option>
+                  <option>Homero Ojeda </option>
+                  <option> Pablo Bolaños </option>
+                    <option> Diego Logroño </option>
+                </select>
+              </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" for="nombre">Fecha de la Conferencia:</label>
+          <div class="container-Input">
+            <input type="date"  placeholder="Ingrese el costo de la Conferencia" min="0">
+          </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" for="nombre">Hora de Inicio:</label>
+          <div class="container-Input">
+            <input type="time"  placeholder="Ingrese el costo de la Conferencia" min="0">
+          </div>
+        </div>
+
+        <div class="containerInfo">
+            <label class="lbl-info" for="nombre">Hora de Finalización:</label>
+          <div class="container-Input">
+            <input type="time"  placeholder="Ingrese el costo de la Conferencia" min="0">
+          </div>
+        </div>
+
+    </div>
+
+  
+    <div class="cont">
+    <button  class="btn-primary-add" type="submit">Guardar</button>
+    </div>
+    
+    </form>
+  </div>
+
