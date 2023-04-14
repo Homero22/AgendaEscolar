@@ -11,7 +11,7 @@ export class HomeComponent {
 
 mostrarForm = false;
 
-cerrarFormulario: boolean = true;
+cerrarFormulario: boolean = false;
 
 private destroy$ = new Subject<any>();
 
@@ -27,7 +27,7 @@ constructor(
     .pipe(takeUntil(this.destroy$))
     .subscribe((message) => {
       this.cerrarFormulario = message;
-      this.mostrarForm = this.cerrarFormulario;
+      this.mostrarForm = false;
     });
   }
 
