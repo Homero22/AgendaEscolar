@@ -48,5 +48,16 @@ export class ModalService implements AfterContentInit {
       modalGeneral.classList.remove('show');
       modalGeneral.style.opacity = 1;}
     }
+
+    private cerrarForm$ = new BehaviorSubject<boolean>(false);
+
+    get selectMessage$(): Observable<any> {
+      return this.cerrarForm$.asObservable();
+    }
+
+    setMessageCerrar(message: any) {
+      this.cerrarForm$.next(message);
+    }
+
   }
 
