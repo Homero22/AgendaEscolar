@@ -7,15 +7,16 @@ import { FormularioComponent } from './formulario/formulario.component';
 
 @NgModule({
   declarations: [
-    ConferenciasComponent
+    ConferenciasComponent,
+    FormularioComponent
   ],
   imports: [
     CommonModule,
   ],
   exports: [
     ConferenciasComponent,
-    // FormularioComponent
-    
+    FormularioComponent
+
   ]
 })
 export class ComponentsModule { }
