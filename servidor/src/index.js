@@ -6,7 +6,7 @@ import { configVariables } from "../src/config/variables.config.js";
 import { sequelize } from "./database/database.js";
 async function main(port) {
     try {
-        await sequelize.sync({ force: false });
+        await sequelize.sync({ force: true });
         sequelize.authenticate().then(() => {
             console.log("Connection has been established successfully.");
         }).catch((error) => {
