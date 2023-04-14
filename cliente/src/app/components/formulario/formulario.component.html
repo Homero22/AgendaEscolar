@@ -1,0 +1,51 @@
+<h1 id="tituloLogeo">Registro</h1>
+    <div class="caja">
+        <form id="myForm">
+            <div class="container-BtnCerrar" (click)="cerrarForm()">
+              <button class="btn-cerrar">
+                <i class="material-icons">highlight_off</i>
+
+              </button>
+            </div>
+            <label for="cedula">Cedula:</label>
+            <input type="number" id="cedula" name="cedula" required><br>
+
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" name="nombres" required><br>
+
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required><br>
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" required><br>
+
+            <label for="genero">Género:</label>
+            <select id="genero" name="genero" required>
+              <option value="">Seleccionar</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+              <option value="Otro">Otro</option>
+            </select><br>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" required><br>
+
+            <label for="tipo">¿Eres estudiante, docente, público en general?:</label>
+            <select id="tipo" name="tipo" required>
+              <option value="">Seleccionar</option>
+              <option value="Estudiante">Estudiante</option>
+              <option value="Docente">Docente</option>
+              <option value="Publico">Público en general</option>
+            </select><br>
+            <div id="despliegueInstitucion">
+                <label for="institucion" id="lin">Institución a la que perteneces:</label><br>
+                <input type="text" id="institucionL">
+            </div>
+            <div id="Unidiadeducativa">
+                <label for="unidad" id="unl">Unidad Educativa a la que perteneces:</label>
+                <input type="text" id="unidadL">
+            </div><br>
+
+            <input type="submit" value="Enviar">
+          </form>
+    </div>

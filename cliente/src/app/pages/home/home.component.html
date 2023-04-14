@@ -25,8 +25,17 @@
         <button class="btn-Login">
           INGRESAR
         </button>
+
+        <button class="btn-Login" (click)="inscribirse()">
+          INSCRIBIRSE
+        </button>
       </div>
     </div>
+
+    <div class="container-Main" *ngIf="this.mostrarForm">
+      <app-formulario></app-formulario>
+    </div>
+
 
     <div class="container-Footer">
       <app-footer></app-footer>
