@@ -8,6 +8,8 @@ import { AdminModule } from './pages/admin/admin.module';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeModule } from './pages/home/home.module';
 import { ConfiguracionModule } from './pages/configuracion/configuracion.module';
+import { FormsModule } from '@angular/forms';
+import { ModalModule } from './modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ConfiguracionModule } from './pages/configuracion/configuracion.module'
     AdminModule,
     HomeModule,
     AdminModule,
-    ConfiguracionModule
+    ConfiguracionModule,
+    FormsModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

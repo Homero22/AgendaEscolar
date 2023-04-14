@@ -1,7 +1,7 @@
 .Footer{
-  width: 100%;
+  width: 100vw;
   height: 25px;
-  background-color: #de0a0a;
+  background-color: #0d6efd;
   display: grid;
   place-content: center;
 }
