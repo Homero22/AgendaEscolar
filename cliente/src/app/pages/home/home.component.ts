@@ -11,7 +11,7 @@ export class HomeComponent {
 
 mostrarForm = false;
 
-cerrarFormulario: boolean = false;
+cerrarFormulario: boolean = true;
 
 private destroy$ = new Subject<any>();
 
@@ -20,11 +20,14 @@ constructor(
 ) { }
 
   ngOnInit(): void {
+
+
+
     this.srvNodal.selectMessage$
     .pipe(takeUntil(this.destroy$))
     .subscribe((message) => {
       this.cerrarFormulario = message;
-      this.mostrarForm = !this.cerrarFormulario;
+      this.mostrarForm = this.cerrarFormulario;
     });
   }
 
