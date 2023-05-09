@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ComponentsModule } from "../../components/components.module";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 
 
@@ -16,7 +19,9 @@ import { ComponentsModule } from "../../components/components.module";
     imports: [
         CommonModule,
         SharedModule,
-        ComponentsModule
+        ComponentsModule,
+        MatSlideToggleModule,
+        MatSidenavModule
     ]
 })
 export class HomeModule { }
