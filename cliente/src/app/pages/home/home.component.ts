@@ -9,31 +9,11 @@ import { ModalService } from 'src/app/core/services/modal.service';
 })
 export class HomeComponent {
 
-mostrarForm = false;
-
-cerrarFormulario: boolean = false;
-
 private destroy$ = new Subject<any>();
 
 constructor(
   public srvNodal: ModalService
 ) { }
 
-  ngOnInit(): void {
-
-
-
-    this.srvNodal.selectMessage$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((message) => {
-      this.cerrarFormulario = message;
-      this.mostrarForm = false;
-    });
-  }
-
-  inscribirse(){
-    this.mostrarForm = true;
-  }
-
-
+  ngOnInit(): void {}
 }

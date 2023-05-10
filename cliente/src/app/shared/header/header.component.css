@@ -1,0 +1,25 @@
+.header-Container{
+  height: 100%;
+}
+
+.mat-toolbar-single-row{
+  height: 10vh;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.sideBar-Container {
+  padding: 10px 0px 0px 16px;
+}
+
+mat-drawer {
+  width: 200px;
+}
+
+.menu-Container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

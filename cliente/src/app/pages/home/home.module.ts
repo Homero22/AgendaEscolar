@@ -6,6 +6,8 @@ import { ComponentsModule } from "../../components/components.module";
 
 
 
+
+
 @NgModule({
     declarations: [
         HomeComponent
@@ -16,7 +18,7 @@ import { ComponentsModule } from "../../components/components.module";
     imports: [
         CommonModule,
         SharedModule,
-        ComponentsModule
+        ComponentsModule,
     ]
 })
 export class HomeModule { }
