@@ -1,1 +1,19 @@
-<p>header works!</p>
+<div class="header-Container">
+
+    <mat-toolbar>
+     <button type="button" mat-icon-button (click)="drawer.toggle()">
+      <i class="material-icons">menu</i>
+    </button>
+    <span>ClassBudy</span>
+  </mat-toolbar>
+  <mat-drawer #drawer class="sideBar-Container" mode="over" >
+    <div class="menu-Container">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <i class="material-icons">menu</i>
+      </button>
+      <span>ClassBudy</span>
+    </div>
+  </mat-drawer>
+
+</div>
+

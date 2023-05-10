@@ -9,8 +9,6 @@ import { ModalService } from 'src/app/core/services/modal.service';
 })
 export class HomeComponent {
 
-showFiller = false;
-
 private destroy$ = new Subject<any>();
 
 constructor(

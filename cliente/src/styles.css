@@ -8,10 +8,7 @@
 --bs-gray-ccc: #ccc;
 --font-family: "Roboto", Arial, sans-serif;
 --font-weight-bold: 600;
-
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Variables Globales Designadas */
 

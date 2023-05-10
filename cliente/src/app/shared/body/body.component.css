@@ -1,0 +1,16 @@
+.body-Container {
+  width: 100vw;
+  height: 86vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sideBarContent-Container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sideBar-Container {
+  padding: 20px;
+}

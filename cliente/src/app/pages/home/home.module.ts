@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ComponentsModule } from "../../components/components.module";
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 
 
@@ -20,8 +19,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         CommonModule,
         SharedModule,
         ComponentsModule,
-        MatSlideToggleModule,
-        MatSidenavModule
     ]
 })
 export class HomeModule { }
