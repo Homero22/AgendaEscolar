@@ -1,10 +1,29 @@
 <div class="header-Container">
 
-    <mat-toolbar>
-     <button type="button" mat-icon-button (click)="drawer.toggle()">
-      <i class="material-icons">menu</i>
-    </button>
-    <span>ClassBudy</span>
+    <mat-toolbar class="mat-toolbar">
+
+      <div>
+        <button type="button" mat-icon-button (click)="drawer.toggle()">
+          <i class="material-icons">menu</i>
+        </button>
+        <span>ClassBudy</span>
+      </div>
+
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menu="matMenu" class="mat-Menu">
+          <button mat-menu-item class="btn-Menu">
+            <i class="material-icons">settings</i>
+            <span>Ajustes</span>
+          </button>
+          <button mat-menu-item class="btn-Menu">
+            <i class="material-icons">exit_to_app</i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </div>
   </mat-toolbar>
   <mat-drawer #drawer class="sideBar-Container" mode="over" >
     <div class="menu-Container">
@@ -12,6 +31,15 @@
         <i class="material-icons">menu</i>
       </button>
       <span>ClassBudy</span>
+    </div>
+
+    <div class="menu-Options">
+      <button mat-button [matMenuTriggerFor]="menuDeberes">Deberes</button>
+      <mat-menu #menuDeberes="matMenu">
+        <button mat-menu-item>Todas</button>
+        <button mat-menu-item>Pendientes</button>
+        <button mat-menu-item>Finalizadas</button>
+      </mat-menu>
     </div>
   </mat-drawer>
 
