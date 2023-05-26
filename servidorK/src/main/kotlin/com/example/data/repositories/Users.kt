@@ -12,6 +12,7 @@ object Users {
     }
     fun getById(id: Int) = transaction{
         val response = UsersDAO.findById(id.toLong())?.toUser()
+        return@transaction response
     }
     fun save(user: User) = transaction{
         val response = UsersDAO.new {
@@ -24,9 +25,11 @@ object Users {
             paisId = user.paisId
             nivelEstudio = user.nivelEstudio
             estado = user.estado
+            fechaCreacion = java.time.LocalDateTime.now()
         }
         return@transaction response.toUser()
     }
+
     fun update(id:Int, user: User) = transaction{
         val response = UsersDAO.findById(id.toLong())?.apply {
             nombre= user.nombre
@@ -39,6 +42,10 @@ object Users {
             nivelEstudio = user.nivelEstudio
             estado = user.estado
         }?.toUser()
+        return@transaction response
+    }
+    fun delete(id:Int) = transaction{
+        val response = UsersDAO.findById(id.toLong())?.delete()
         return@transaction response
     }
 }
