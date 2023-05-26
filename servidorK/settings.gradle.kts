@@ -1,1 +1,1 @@
-rootProject.name = "com.example.classbuddy"
+rootProject.name = "com.example.servidor"
