@@ -1,0 +1,20 @@
+.main-Container{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header-Container{
+  width: 100vw;
+  height: 10vh;
+}
+
+.body-Container{
+  width: 100vw;
+  height: 86vh;
+}
+
+.footer-Container{
+  width: 100vw;
+  height: 4vh;
+}

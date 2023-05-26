@@ -6,9 +6,12 @@ import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
-
-
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
 
@@ -21,7 +24,13 @@ import { MenuComponent } from './menu/menu.component';
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   exports: [
     BodyComponent,

@@ -10,7 +10,7 @@ export class ConferenciasService {
 
   private url = 'https://26.241.69.100:4000/conferencias';
 
-  
+
 
   constructor(private http: HttpClient) { }
 

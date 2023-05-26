@@ -1,46 +1,37 @@
+<div class="full-Container">
+  <div class="fullBody-Container">
 
+    <div class="header">
+      <h1>ClassBuddy</h1>
+    </div>
 
-<div class="contenedor-Full">
+    <div class="content-Container">
+      <div class="img-Container">
 
-  <div class="fill"></div>
+      </div>
 
-  <div class="container-Background">
-    <img class="imgBackground-Uno" src="../../../assets/img/CES_img_one.jpeg" alt="background_one">
-    <img class="imgBackground-Dos" src="../../../assets/img/CES_img_2.jpg" alt="background_two">
-  </div>
+      <div class="login-Container">
+        <div class="login-Header">
+          <p>Iniciar Sesión</p>
+        </div>
+        <div class="login-Body">
+          <mat-form-field>
+            <mat-label>Ingrese email</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
 
-  <div class="content">
-    <div class="container-Header">
-      <div class="container-Info">
-        <img class="logo-Ces" src="../../../assets/img/CES_logo.jpg" alt="CES_logo">
-        <div class="logo-Sistema">
-          <p>
-            SISTEMA GESTIÓN
-            <br>
-            EVENTOS
-          </p>
+          <mat-form-field>
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
       </div>
-      <div class="container-BtnLogin">
-        <button class="btn-Login">
-          INGRESAR
-        </button>
-
-        <button class="btn-Login" (click)="inscribirse()">
-          INSCRIBIRSE
-        </button>
-      </div>
-    </div>
-
-    <div class="container-Main" *ngIf="this.mostrarForm">
-      <app-formulario></app-formulario>
-    </div>
-
-
-    <div class="container-Footer">
-      <app-footer></app-footer>
     </div>
 
   </div>
-
 </div>
+

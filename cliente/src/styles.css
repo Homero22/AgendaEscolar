@@ -1,12 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+/* Variables Globales de Angular Material */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-:root{
---bs-gray-ccc: #ccc;
---font-family: "Roboto", Arial, sans-serif;
---font-weight-bold: 600;
-
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+input:focus {
+  background-color: transparent
+}
+
+:root{
+  /*Colores*/
+  --primary-color: #f5e3ae;
+  --secondary-color: #fff5d6;
+  --tertiary-color: #e1e6d3;
+  --quaternary-color: #b1ccc4;
+  --quinary-color: #4e5861;
+
+  /*Tamaños*/
+  --title-font-size: 24px;
+  --font-size: 12px;
+
+  /*weight*/
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+
+  /*Otros*/
+  --border-radius: 6px;
+}
+
+/* Variables Globales Designadas */
+.full-Container{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
