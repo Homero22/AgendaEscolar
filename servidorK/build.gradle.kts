@@ -8,24 +8,25 @@ val exposedVersion : String by project
 plugins {
     kotlin("jvm") version "1.8.21"
     id("io.ktor.plugin") version "2.3.0"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
+                id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
 }
 
 group = "com.example"
 version = "0.0.1"
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("io.ktor.server.netty.EngineMain")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
-
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+
+    //Ktor
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
