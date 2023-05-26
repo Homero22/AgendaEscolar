@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-network-tls-certificates-jvm:2.3.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.ktor" artifactId="ktor-network-tls-certificates-jvm" version="2.3.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network-tls-certificates-jvm/2.3.0/718fd5a33dfd8b014421027aac161343bf7263ad/ktor-network-tls-certificates-jvm-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-network-tls-certificates-jvm/2.3.0/5d76d96ae9d629755c1570385587ea2d7e15a37d/ktor-network-tls-certificates-jvm-2.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

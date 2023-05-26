@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-server-caching-headers-jvm:2.3.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.ktor" artifactId="ktor-server-caching-headers-jvm" version="2.3.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-caching-headers-jvm/2.3.0/78d33c6ce66c6e7d7a734f5993d590eec8f68d04/ktor-server-caching-headers-jvm-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-caching-headers-jvm/2.3.0/e9e6af4a4886606ad70b6b5164271b631134f28a/ktor-server-caching-headers-jvm-2.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
