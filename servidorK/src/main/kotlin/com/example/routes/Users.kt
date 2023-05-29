@@ -18,7 +18,7 @@ fun Route.usuariosRouting() {
             //Obtenemos el offset de usuarios a mostrar
             val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
             //Obtenemos los usuarios
-            call.respond(Users.getAll(limit, offset.toLong()))
+            call.respond(HttpStatusCode(200,"OK"),Users.getAll(limit, offset))
 
         }
 
@@ -28,7 +28,7 @@ fun Route.usuariosRouting() {
             try {
                 //Guardamos el usuario
                 val response = Users.save(user)
-                call.respond(HttpStatusCode.Created, response)
+                call.respond(HttpStatusCode.Created, "Usuario creado correctamente")
             }catch (
                 cause: Throwable
             ){
@@ -38,13 +38,20 @@ fun Route.usuariosRouting() {
         get("/{id}") {
             //Obtenemos el id del usuario a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            //Obtenemos el usuario
-            val response = Users.getById(id)
-            if (response != null) {
-                call.respond(response)
-            } else {
-                call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
+            try {
+                //Obtenemos el usuario
+                val response = Users.getById(id)
+                if (response != null) {
+                    call.respond(HttpStatusCode(200, "OK"), response)
+                } else {
+                    call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
+                }
+            }catch (
+                cause: Throwable
+            ){
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
+
         }
         put("/{id}") {
             //Obtenemos el id del usuario a actualizar
@@ -53,8 +60,10 @@ fun Route.usuariosRouting() {
             val user = call.receive<User>()
             //Actualizamos el usuario
             try {
-                val response = Users.update(id, user)
-                if (response != null) {
+                val user = Users.getById(id)
+
+                if (user != null) {
+                    val response = Users.update(id, user)
                     call.respond(HttpStatusCode.OK,response)
                 } else {
                     call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
