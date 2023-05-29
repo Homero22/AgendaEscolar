@@ -23,3 +23,19 @@ mat-drawer {
   flex-direction: row;
   align-items: center;
 }
+
+.mat-toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-toolbar div{
+  display: flex;
+  align-items: center;
+}
+
+.btn-Menu{
+  display: flex;
+  align-items: center;
+}

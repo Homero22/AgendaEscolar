@@ -4,13 +4,39 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input:focus {
+  background-color: transparent
+}
+
 :root{
---bs-gray-ccc: #ccc;
---font-family: "Roboto", Arial, sans-serif;
---font-weight-bold: 600;
+  /*Colores*/
+  --primary-color: #172C3C;
+  --secondary-color: #1E1E1E;
+  --tertiary-color: #FFFF;
+  --quaternary-color: #D6D6D6;
+  --quinary-color: #686868;
+
+  /*Tamaños*/
+  --title-font-size: 24px;
+  --font-size: 12px;
+
+  /*weight*/
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+
+  /*Otros*/
+  --border-radius: 6px;
 }
 
 /* Variables Globales Designadas */
+.full-Container{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
