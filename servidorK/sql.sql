@@ -56,4 +56,17 @@ CREATE TABLE seguridad.tb_pais(
 );
 INSERT INTO seguridad.tb_pais (str_pais_nombre, str_pais_acronimo)
 VALUES ('Nombre del país', 'Acronimo');
+<<<<<<< HEAD
 >>>>>>> 379bc9dd3647f4db9c0ebb319f40b8c29d2fd44d
+=======
+
+create table negocio.tb_apuntes (
+    id BIGSERIAL PRIMARY KEY,
+    int_usuario_materia_id INT,
+    str_apunte_titulo VARCHAR(255),
+    str_apunte_texto TEXT,
+    int_apunte_materia INT,
+    time_recordatorio TIME,
+    dt_fecha_creacion TIMESTAMP DEFAULT current_timestamp
+)
+>>>>>>> ee5d076258fd767cde123c1090cb8d0d57e1ad30
