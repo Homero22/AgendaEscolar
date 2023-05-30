@@ -6,8 +6,8 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 object Countries : CrudRepository<Country, Int> {
 
-    override fun getAll(limit: Int) = transaction {
-        val response = CountryDAO.all().limit(limit)
+    override fun getAll(limit: Int, offset:Int ) = transaction {
+        val response = CountryDAO.all().limit(limit, offset.toLong())
         return@transaction response.map { it.toCountry() }
     }
 
@@ -19,26 +19,26 @@ object Countries : CrudRepository<Country, Int> {
         entity.id = CountryDAO.new {
             nombre = entity.nombre
             acronimo = entity.acronimo
+            estado = entity.estado
         }.id.value
         return@transaction entity
     }
 
-    override fun update(id: Int, entity: Country)= transaction {
-        val country = CountryDAO.findById(id)?:return@transaction false
-        country.apply{
+    override fun update(id: Int, entity: Country): Country= transaction {
+        val response = CountryDAO.findById(id)?.apply {
             nombre = entity.nombre
             acronimo = entity.acronimo
-        }
-        entity.id=id
-        return@transaction true
+            estado = entity.estado
+        }?.toCountry()
+        return@transaction response!!
     }
 
     override fun delete(id: Int)= transaction {
-        val country = CountryDAO.findById(id)?:return@transaction false
+        val country = CountryDAO.findById(id)?:return@transaction
         country.apply {
             estado = "INACTIVO"
         }
-        return@transaction true
+        return@transaction
     }
     fun isEmpty()= transaction {
         return@transaction CountryDAO.all().empty()

@@ -1,11 +1,10 @@
 package com.example.data.models
 
 import kotlinx.serialization.Serializable
-import java.time.LocalDateTime
 
 @Serializable
 data class User(
-    val id: Int,
+    val id: Int = 0,
     val nombre: String,
     val apellido: String,
     val rol: String,
@@ -14,6 +13,6 @@ data class User(
     val contrasena: String,
     val paisId: Int,
     val nivelEstudio: String,
-    val fechaCreacion: String = LocalDateTime.now().toString(),
-    val estado: String = "ACTIVO"
+    val fechaCreacion: String,
+    val estado: String,
 )
