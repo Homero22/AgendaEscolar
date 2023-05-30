@@ -8,6 +8,6 @@ data class Note(
     var usuarioMateriaId: Int,
     var apunteTitulo: String,
     var apunteTexto: String,
-    var recordatorio: String,
+    var apunteRecordatorio: String,
     var fechaCreacion: String,
 )
