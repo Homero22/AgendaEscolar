@@ -14,11 +14,11 @@ input:focus {
 
 :root{
   /*Colores*/
-  --primary-color: #f5e3ae;
-  --secondary-color: #fff5d6;
-  --tertiary-color: #e1e6d3;
-  --quaternary-color: #b1ccc4;
-  --quinary-color: #4e5861;
+  --primary-color: #172C3C;
+  --secondary-color: #1E1E1E;
+  --tertiary-color: #FFFF;
+  --quaternary-color: #D6D6D6;
+  --quinary-color: #686868;
 
   /*Tamaños*/
   --title-font-size: 24px;
