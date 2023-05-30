@@ -7,5 +7,5 @@ data class Country(
     var id: Int,
     val nombre: String,
     val acronimo: String,
-    val estado: String = "ACTIVO"
+    val estado: String,
 )
