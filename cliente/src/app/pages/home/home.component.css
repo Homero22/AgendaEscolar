@@ -26,6 +26,8 @@
   justify-content: center;
   gap: 5rem;
   padding: 10px;
+  flex: wrap;
+
 }
 
 .img-Container {
@@ -44,6 +46,8 @@
   /* border-radius: var(--border-radius); */
   align-items: center;
   justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
   /* border: 1px solid #000; */
 }
 
@@ -120,3 +124,26 @@
   font-weight: var(--font-weight-500);
   cursor: pointer;
 }
+
+@media screen and (max-width: 900px) {
+  /* Estilos para dispositivos móviles con ancho máximo de 600px */
+  .img-Container {
+    display: none;
+  }
+  
+  .login-Container {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .login-Header {
+    display: none;
+  }
+  
+  .login-Body {
+    border-radius: var(--border-radius);
+  }
+}
+
+
+
