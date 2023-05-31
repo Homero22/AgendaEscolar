@@ -36,6 +36,7 @@ dependencies {
     //Base de datos
     implementation("org.postgresql:postgresql:$postgresVersion")
     implementation("com.h2database:h2:$h2Version")
+    implementation("mysql:mysql-connector-java:8.0.22")
 
     //ORM Exposed
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")

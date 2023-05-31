@@ -2,8 +2,10 @@ package com.example.plugins
 
 import com.example.routes.countriesRouting
 import com.example.routes.usuariosRouting
+
 import com.example.routes.horariosRouting
 import com.example.routes.UsumateRouting
+
 import com.example.routes.homeworksRouting
 import com.example.routes.notesRouting
 import io.ktor.server.application.*
