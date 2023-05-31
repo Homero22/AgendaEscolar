@@ -19,6 +19,9 @@ input:focus {
   --tertiary-color: #FFFF;
   --quaternary-color: #D6D6D6;
   --quinary-color: #686868;
+  --color-Black: #000;
+  --color-White: #fff;
+  --color-Shadow: #efefef;
 
   /*Tamaños*/
   --title-font-size: 24px;
