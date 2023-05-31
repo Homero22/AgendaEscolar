@@ -26,7 +26,7 @@ fun Route.notesRouting(){
             try{
                 //Guardamos el Apunte
                 val response = Notes.save(apunte)
-                call.respond(HttpStatusCode(200, "Apunte Guardado con Exito!"))
+                call.respond(HttpStatusCode.Created, "Apunte Creado correctamente" )
             }catch (
                 cause: Throwable
             ){
@@ -41,9 +41,9 @@ fun Route.notesRouting(){
                 //Obtenemos el apunte
                 val response = Notes.getById(id)
                 if (response != null){
-                    call.respond(HttpStatusCode(200, "Apunte encontrado!"), response)
+                    call.respond(HttpStatusCode(200, "OK"), response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Apunte no Encontrado :(")
+                    call.respond(HttpStatusCode.NotFound, "Apunte no Encontrado")
                 }
             }catch (
                 cause: Throwable
@@ -56,15 +56,15 @@ fun Route.notesRouting(){
             //Obtenemos el id del Apunte a Actualizar
             val id = call.parameters["id"]?.toIntOrNull() ?:0
             //Obtenemos el apunte a actualizar
-            val apunte = call.receive<Note>()
+            val note = call.receive<Note>()
             //Actualizamos el apunte
             try{
                 val note = Notes.getById(id)
                 if(note != null){
                     val response = Notes.update(id, note)
-                    call.respond(HttpStatusCode.OK,response)
+                    call.respond(HttpStatusCode( 200, "OK"), response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Apunte no encontrado :(")
+                    call.respond(HttpStatusCode.NotFound, "Apunte no encontrado")
                 }
             }catch (
                 cause: Throwable
