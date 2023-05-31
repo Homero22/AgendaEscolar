@@ -7,31 +7,46 @@
 
     <div class="content-Container">
       <div class="img-Container">
-
       </div>
-
       <div class="login-Container">
         <div class="login-Header">
           <p>Iniciar Sesión</p>
         </div>
         <div class="login-Body">
+
+          <label>Correo Electrónico</label>
           <mat-form-field>
-            <mat-label>Ingrese email</mat-label>
+            <mat-label>Ingrese su Correo</mat-label>
             <input matInput placeholder="pat@example.com" [formControl]="email" required>
             <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
+          <label>Contraseña</label>
           <mat-form-field>
-            <mat-label>Enter your password</mat-label>
+            <mat-label>Ingrese su Contraseña</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
           </mat-form-field>
+
+    <div class="header">
+      <h1>ClassBuddy</h1>
+    </div>
+
+          <div class="login-Button">
+            <button mat-raised-button color="var(#172C3C)">Iniciar Sesión</button>
+
+            <button mat-raised-button color="accent">Registrarse</button>
+
+            <button mat-raised-button color="warn">Olvidé mi Contraseña</button>
+
+          </div>
+
         </div>
       </div>
     </div>
 
   </div>
 </div>
-
