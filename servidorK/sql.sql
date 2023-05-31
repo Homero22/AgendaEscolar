@@ -1,6 +1,6 @@
 CREATE DATABASE classBuddyBD;
 
-//creasion de esquemas de seguridad y negocio
+--creasion de esquemas de seguridad y negocio
 CREATE SCHEMA seguridad;
 CREATE SCHEMA negocio;
 
@@ -46,14 +46,6 @@ CREATE TABLE negocio.tb_tarea (
     time_recordatorio TIME,
 )
 
-/*
-    var usuarioMateriaId = integer("int_usuario_materia_id")
-    var apunteTitulo = varchar("str_apunte_titulo", 255)
-    var apunteTexto = text("str_apunte_texto")
-    var apunteRecordatorio = time("time_recordatorio")
-    var fechaCreacion = datetime("dt_fecha_creacion")
-*/
-
 CREATE TABLE negocio.tb_apuntes(
     id BIGSERIAL PRIMARY KEY,
     int_usuario_materia_id INT,
@@ -79,3 +71,8 @@ CREATE TABLE negocio.tb_horario (
     time_hora_fin TIME,
     str_dia VARCHAR(255)
 );
+
+--FORANIAS
+-- ALTER TABLE negocio.tb_usuario_materia ADD CONSTRAINT fk_usuario_materia_usuario FOREIGN KEY (int_usuario_id) REFERENCES seguridad.tb_usuarios(id);
+-- ALTER TABLE negocio.tb_usuario_materia ADD CONSTRAINT fk_usuario_materia_materia FOREIGN KEY (int_materia_id) REFERENCES negocio.tb_materia(id);
+
