@@ -4,6 +4,7 @@ import { MateriaComponent } from './materia/materia.component';
 import { ApuntesComponent } from './apuntes/apuntes.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { HorarioComponent } from './horario/horario.component';
+import { RegistroComponent } from './registro/registro.component';
 
 
 
@@ -12,7 +13,8 @@ import { HorarioComponent } from './horario/horario.component';
     MateriaComponent,
     ApuntesComponent,
     TareasComponent,
-    HorarioComponent
+    HorarioComponent,
+    RegistroComponent
   ],
   imports: [
     CommonModule,
