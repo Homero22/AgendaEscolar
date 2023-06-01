@@ -7,14 +7,14 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime
 
-object Users : LongIdTable("seguridad.tb_usuarios") {
+object Users : LongIdTable("tb_usuarios") {
 
     val nombre = varchar("str_usuario_nombre", 255)
     val apellido = varchar("str_usuario_apellido", 255)
     val rol = varchar("str_usuario_rol", 255)
     val telefono = varchar("str_usuario_telefono", 255).uniqueIndex()
     val correo = varchar("str_usuario_correo", 255).uniqueIndex()
-    val contrasena = varchar("str_usuario_contraseña", 255)
+    val contrasena = varchar("str_usuario_contrasena", 255)
     val paisId = integer("str_pais_id")
     val nivelEstudio = varchar("str_nivel_estudio", 255)
     val fechaCreacion = datetime("dt_fecha_creacion")
