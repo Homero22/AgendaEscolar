@@ -7,7 +7,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime
 
-object Users : LongIdTable("seguridad.tb_usuarios") {
+object Users : LongIdTable("tb_usuarios") {
 
     val nombre = varchar("str_usuario_nombre", 255)
     val apellido = varchar("str_usuario_apellido", 255)

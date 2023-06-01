@@ -6,7 +6,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
-object MateriaUsuario : IntIdTable("negocio.tb_usuario_materia") {
+object MateriaUsuario : IntIdTable("tb_usuario_materia") {
     val idUsuario = integer("int_usuario_id").uniqueIndex()
     val idMateria = integer("int_materia_id").uniqueIndex()
     val materiaAcro = varchar("str_materia_acro", 255)

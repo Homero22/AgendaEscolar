@@ -9,7 +9,7 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
-object Homeworks : LongIdTable("negocio.tb_tarea"){
+object Homeworks : LongIdTable("tb_tarea"){
     val usuarioMateria = integer("int_usuario_materia_id")
     val tareaTitulo = text("str_tarea_titulo")
     val tareaDescripcion= text("str_tarea_descripcion")

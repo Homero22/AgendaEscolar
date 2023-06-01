@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
-object Notes : LongIdTable("negocio.tb_apuntes"){
+object Notes : LongIdTable("tb_apuntes"){
     var usuarioMateriaId = integer("int_usuario_materia_id")
     var apunteTitulo = varchar("str_apunte_titulo", 255)
     var apunteTexto = text("str_apunte_texto")

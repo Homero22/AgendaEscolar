@@ -1,5 +1,6 @@
 package com.example.data.repositories
 
+import com.example.data.entities.Users
 import com.example.data.entities.UsersDAO
 import com.example.data.models.User
 import org.jetbrains.exposed.sql.transactions.transaction

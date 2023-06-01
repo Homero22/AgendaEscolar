@@ -7,7 +7,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.javatime.time
 
-object Horarios : IntIdTable("negocio.tb_horario") {
+object Horarios : IntIdTable("tb_horario") {
     val usuarioMateria = integer("int_usuario_materia_id")
     val hora_inicio = time("time_hora_inicio")
     val hora_fin = time("time_hora_fin")
