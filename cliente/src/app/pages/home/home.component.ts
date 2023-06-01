@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 import { FormControl, Validators } from '@angular/forms';
-import { ModalService } from 'src/app/core/services/modal.service';
-
 
 @Component({
   selector: 'app-home',
@@ -16,17 +14,18 @@ export class HomeComponent {
 private destroy$ = new Subject<any>();
 
 constructor(
+  // public fb: FormBuilder,
 ) {
   this.email = new FormControl('', [Validators.required, Validators.email]);
 }
 
 ngOnInit(): void {}
 getErrorMessage() {
-  if (this.email.hasError('required')) {
-    return 'You must enter a value';
-  }
+  // if (this.email.hasError('required')) {
+  //   return 'Debe ingresar un correo electrónico';
+  // }
 
-  return this.email.hasError('email') ? 'Not a valid email' : '';
+  return this.email.hasError('email') ? 'Correo ingresado no valido' : '';
 }
 
 ngOnDestroy(): void {
