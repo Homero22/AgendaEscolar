@@ -43,12 +43,7 @@
 .login-Container {
   width: 35%;
   height: 85%;
-  /* border-radius: var(--border-radius); */
-  align-items: center;
-  justify-content: center;
   max-width: 400px;
-  margin: 0 auto;
-  /* border: 1px solid #000; */
 }
 
 .login-Header {
@@ -125,7 +120,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 786px) {
   /* Estilos para dispositivos móviles con ancho máximo de 600px */
   .img-Container {
     display: none;
