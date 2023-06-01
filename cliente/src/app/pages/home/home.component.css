@@ -15,7 +15,6 @@
   color: var(--tertiary-color);
   background-color: var(--primary-color);
   padding: 0px 10px 0px 10px;
-  /* border-bottom: 1px solid #5f5e5e; */
 }
 
 .content-Container {
@@ -65,10 +64,7 @@
   padding: 0px 30px 0px 30px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
-  /* background-color: var(--quaternary-color); */
-  /* background-color: #efefef; */
   background-color: var(--color-Shadow);
   gap: 5px;
   border-bottom-left-radius: var(--border-radius);
@@ -88,8 +84,18 @@
 
 .login-Button button {
   width: 100%;
-  /* height: 100%; */
+  color: var(--tertiary-color);
   background-color: var(--primary-color);
+}
+
+/*botón desabihilitado*/
+.login-Button button:disabled {
+  background-color: var(--quinary-color);
+}
+
+
+.mat-mdc-form-field {
+  width: -webkit-fill-available;
 }
 
 .login-Option {
@@ -139,6 +145,7 @@
     border-radius: var(--border-radius);
   }
 }
+
 
 
 
