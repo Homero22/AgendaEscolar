@@ -34,12 +34,9 @@ getErrorMessage() {
   return this.email.hasError('email') ? 'Correo ingresado no valido' : '';
 }
   submitForm() {
-    if (this.loginForm.valid) {
       const formData = this.loginForm.value;
       console.log(formData.email);
       console.log(formData.password);
-      // Aquí puedes hacer lo que necesites con los valores de los inputs
-    }
   }
 
 
