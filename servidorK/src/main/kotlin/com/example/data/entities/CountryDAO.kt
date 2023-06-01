@@ -27,4 +27,5 @@ class CountryDAO(id: EntityID<Int>) : IntEntity(id) {
 
         )
     }
+
 }
