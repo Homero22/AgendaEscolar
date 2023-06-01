@@ -5,6 +5,7 @@ import { TareasComponent } from './tareas/tareas.component';
 import { HorarioComponent } from './horario/horario.component';
 import { RegistroComponent } from './registro/registro.component';
 import { MateriaComponent } from './Materia/materia.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,7 +19,15 @@ import { MateriaComponent } from './Materia/materia.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule
   ],
-  exports: []
+  exports: [
+    ApuntesComponent,
+    TareasComponent,
+    HorarioComponent,
+    RegistroComponent,
+    MateriaComponent
+
+  ]
 })
 export class ComponentsModule { }
