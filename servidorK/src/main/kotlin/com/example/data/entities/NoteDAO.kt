@@ -1,5 +1,6 @@
 package com.example.data.entities
 
+import com.example.data.entities.Homeworks.references
 import com.example.data.models.Note
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -9,7 +10,7 @@ import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
 object Notes : LongIdTable("tb_apuntes"){
-    var usuarioMateriaId = integer("int_usuario_materia_id")
+    var usuarioMateriaId = integer("int_usuario_materia_id").references(MateriaUsuario.id)
     var apunteTitulo = varchar("str_apunte_titulo", 255)
     var apunteTexto = text("str_apunte_texto")
     var apunteRecordatorio = time("time_recordatorio")
