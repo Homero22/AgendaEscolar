@@ -24,6 +24,23 @@ CREATE TABLE seguridad.tb_pais(
     str_pais_acronimo varchar,
     str_pais_estado varchar default 'ACTIVO'
 );
+<<<<<<< HEAD
+INSERT INTO seguridad.tb_pais (str_pais_nombre, str_pais_acronimo)
+VALUES ('Nombre del país', 'Acronimo');
+
+
+//Tarea
+create table negocio.tb_tarea (
+  id serial,
+  int_usuario_materia_id int,
+  str_tarea_titulo text,
+  str_tarea_descripcion text,
+  dt_fecha_creacion timestamp default  now(),
+  dt_fecha_fin time,
+  str_tarea_estado varchar(15),
+  time_recordatorio time
+);
+=======
 
 create table negocio.tb_apuntes (
     id BIGSERIAL PRIMARY KEY,
@@ -76,3 +93,4 @@ CREATE TABLE negocio.tb_horario (
 -- ALTER TABLE negocio.tb_usuario_materia ADD CONSTRAINT fk_usuario_materia_usuario FOREIGN KEY (int_usuario_id) REFERENCES seguridad.tb_usuarios(id);
 -- ALTER TABLE negocio.tb_usuario_materia ADD CONSTRAINT fk_usuario_materia_materia FOREIGN KEY (int_materia_id) REFERENCES negocio.tb_materia(id);
 
+>>>>>>> f9dde74c475cc7591a7f6a33ab62829f4d807d76
