@@ -1,5 +1,6 @@
 package com.example.data.entities
 
+import com.example.data.entities.Homeworks.references
 import com.example.data.models.SubjectUser
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
