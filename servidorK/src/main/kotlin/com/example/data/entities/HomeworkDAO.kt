@@ -1,6 +1,7 @@
 package com.example.data.entities
 
 
+import com.example.data.entities.Homeworks.references
 import com.example.data.models.Homework
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -10,7 +11,7 @@ import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
 object Homeworks : LongIdTable("tb_tarea"){
-    val usuarioMateria = integer("int_usuario_materia_id")
+    val usuarioMateria = integer("int_usuario_materia_id").references(MateriaUsuario.id)
     val tareaTitulo = text("str_tarea_titulo")
     val tareaDescripcion= text("str_tarea_descripcion")
     val fechaCreacion = datetime("dt_fecha_creacion")
