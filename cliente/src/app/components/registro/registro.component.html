@@ -5,13 +5,98 @@
       <h1>ClassBuddy</h1>
     </div>
 
-    <div class="container-RegisterForm">
+    <div class="content-Container">
+      <div class="login-Container">
+        <div class="login-Header">
+          <p>Registro</p>
+        </div>
 
-      <form action="">
+        <div class="login-Body">
 
-      </form>
+          <form [formGroup]="registerForm">
 
+            <div class="container-Data">
+
+              <label for="">Nombres</label>
+              <div class="container-Info">
+                <div class="container-Left">
+                  <mat-form-field>
+                    <mat-label>Nombres</mat-label>
+                    <input matInput placeholder="Ej. Pablo Israel" formControlName="nombre" required>
+                  </mat-form-field>
+                </div>
+                <div class="container-Right">
+                  <mat-form-field>
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput placeholder="Ej. Bolanos Parraga" formControlName="apellido" required>
+                    <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <label for="">Correo Electrónico</label>
+              <div class="container-Info">
+                <div class="container-Left">
+                  <mat-form-field>
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput placeholder="pat@example.com" formControlName="email" required>
+                    <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                  </mat-form-field>
+                </div>
+
+                <div class="container-Right">
+                  <mat-form-field>
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide" >
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <label for="">Información Adicional</label>
+              <div class="container-Info">
+                <div class="container-Left">
+                  <mat-form-field hintLabel="Max 10 characters">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput #input maxlength="10" placeholder="Ex. 0123456789" formControlName="telefono" required>
+                    <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Nivel de Estudio</mat-label>
+                    <mat-select formControlName="nivelEstudio" required>
+                      <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                <div class="container-Right">
+                  <mat-form-field>
+                    <mat-label>País</mat-label>
+                    <mat-select formControlName="nivelEstudio" required>
+                      <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="login-Button">
+              <button mat-raised-button color="primary" [disabled]="registerForm.invalid">Registrarse</button>
+            </div>
+          </form>
+
+          <div class="btn-Register">
+
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>

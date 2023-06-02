@@ -6,8 +6,14 @@ import { HorarioComponent } from './horario/horario.component';
 import { RegistroComponent } from './registro/registro.component';
 import { MateriaComponent } from './Materia/materia.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 
+import {ErrorStateMatcher} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -19,7 +25,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSelectModule
+
   ],
   exports: [
     ApuntesComponent,
