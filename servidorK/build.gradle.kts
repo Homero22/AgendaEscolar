@@ -36,6 +36,7 @@ dependencies {
     //Base de datos
     implementation("org.postgresql:postgresql:$postgresVersion")
     implementation("com.h2database:h2:$h2Version")
+    implementation("mysql:mysql-connector-java:8.0.22")
 
     //ORM Exposed
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
@@ -53,6 +54,7 @@ dependencies {
 
     // Para manejar las fechas
     implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+
 
     //Enviroment
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
