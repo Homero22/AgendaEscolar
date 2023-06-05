@@ -5,7 +5,6 @@ import { BodyComponent } from './body/body.component';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
-import { MenuComponent } from './menu/menu.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,16 +12,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { Error404Component } from './pages/error404/error404.component';
 
 @NgModule({
   declarations: [
-
-
     BodyComponent,
     HeaderComponent,
     MainComponent,
     FooterComponent,
-    MenuComponent
+    Error404Component,
   ],
   imports: [
     CommonModule,
@@ -40,7 +38,7 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     MainComponent,
     FooterComponent,
-    MenuComponent
+    Error404Component,
   ]
 })
 export class SharedModule { }
