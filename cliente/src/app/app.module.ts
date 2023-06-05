@@ -7,7 +7,6 @@ import { AdminModule } from './pages/admin/admin.module';
 import { HomeModule } from './pages/home/home.module';
 import { ConfiguracionModule } from './pages/configuracion/configuracion.module';
 import { FormsModule } from '@angular/forms';
-import { ModalModule } from './modal/modal.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,7 +25,6 @@ import { AppRoutingModule } from './app-routing.module';
     AdminModule,
     ConfiguracionModule,
     FormsModule,
-    ModalModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],
