@@ -1,11 +1,12 @@
 /* Variables Globales de Angular Material */
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin:0;
+  overflow: hidden;
 }
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 100vw;
+  height: 100vh;
 }
 
 input:focus {
@@ -23,6 +24,9 @@ input:focus {
   --color-White: #fff;
   --color-Shadow: #efefef;
 
+  /*Fuentes*/
+  --primary-color-text: #FFFFFF;
+
   /*Tamaños*/
   --title-font-size: 24px;
   --font-size: 12px;
@@ -39,6 +43,5 @@ input:focus {
 /* Variables Globales Designadas */
 .full-Container{
   width: 100vw;
-  height: 100vh;
   overflow: hidden;
 }
