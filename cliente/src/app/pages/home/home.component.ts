@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { LoguinService } from '../../core/services/loguin.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ private destroy$ = new Subject<any>();
 
 constructor(
   public fb: FormBuilder,
+  public srvLoguin: LoguinService
 ) {
   this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -38,6 +40,9 @@ getErrorMessage() {
       console.log(formData.email);
       console.log(formData.password);
   }
+
+
+
 
 
 ngOnDestroy(): void {
