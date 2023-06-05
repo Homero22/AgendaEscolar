@@ -1,2 +1,10 @@
+.container-Header{
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
+  font-weight: var(--font-weight-500);
+  font-size: var(--title-font-size);
+  display: flex;
+  align-items: center;
+}
 
 

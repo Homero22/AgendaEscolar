@@ -9,6 +9,7 @@ import { RecoverPageComponent } from './pages/recover-page/recover-page.componen
 import { LayoutModule } from '../layout/layout.module';
 import { SimpleLayoutComponent } from '../layout/simple-layout/simple-layout.component';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports:[
     LayoutPagesComponent,

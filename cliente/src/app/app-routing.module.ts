@@ -8,28 +8,8 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'ajustes',
-    loadChildren: () => import('./pages/ajustes/ajustes.module').then(m => m.AjustesModule),
-  },
-  {
-    path: 'apuntes',
-    loadChildren: () => import('./pages/apuntes/apuntes.module').then(m => m.ApuntesModule),
-  },
-  {
-    path:'horario',
-    loadChildren: () => import('./pages/horario/horario.module').then(m => m.HorarioModule),
-  },
-  {
-    path: 'materias',
-    loadChildren: () => import('./pages/materias/materias.module').then(m => m.MateriasModule),
-  },
-  {
-    path: 'tareas',
-    loadChildren: () => import('./pages/tareas/tareas.module').then(m => m.TareasModule),
-  },
-  {
-    path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
+    path: 'me',
+    loadChildren: () => import('./my/my.module').then(m => m.MyModule),
   },
   {
     path: '404',

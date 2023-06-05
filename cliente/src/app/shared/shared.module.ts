@@ -31,7 +31,7 @@ import { Error404Component } from './pages/error404/error404.component';
     MatSlideToggleModule,
     MatSidenavModule,
     MatMenuModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
   ],
   exports: [
     BodyComponent,
