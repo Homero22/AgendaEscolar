@@ -8,6 +8,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { RecoverPageComponent } from './pages/recover-page/recover-page.component';
 import { LayoutModule } from '../layout/layout.module';
 import { SimpleLayoutComponent } from '../layout/simple-layout/simple-layout.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SimpleLayoutComponent } from '../layout/simple-layout/simple-layout.com
   imports: [
     CommonModule,
     AuthRoutingModule,
+    MaterialModule
   ],
   exports:[
     LayoutPagesComponent,
