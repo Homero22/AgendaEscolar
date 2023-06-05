@@ -16,14 +16,14 @@
         <div class="login-Body">
 
           <form [formGroup]="loginForm">
-            
+
               <label>Correo Electrónico</label>
               <mat-form-field>
                 <mat-label>Ingrese su Correo</mat-label>
                 <input matInput placeholder="pat@example.com" [formControl]="email" formControlName="email">
                 <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
-            
+
               <label>Contraseña</label>
               <mat-form-field>
                 <mat-label>Ingrese su Contraseña</mat-label>
@@ -33,7 +33,7 @@
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
               </mat-form-field>
-            
+
 
             <div class="login-Button">
               <button mat-raised-button color="primary" (click)="submitForm()" [disabled]="loginForm.invalid">Iniciar Sesión</button>
@@ -50,6 +50,7 @@
               <a routerLink="/recover">Recuperar</a>
             </li>
           </div>
+          <router-outlet></router-outlet>
         </div>
       </div>
     </div>

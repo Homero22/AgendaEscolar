@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatSlideToggleModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterModule.forChild([])
   ],
   exports: [
     BodyComponent,

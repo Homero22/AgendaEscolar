@@ -9,6 +9,7 @@ import { ConfiguracionModule } from './pages/configuracion/configuracion.module'
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from './modal/modal.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -27,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ModalModule,
     BrowserAnimationsModule,
-
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
