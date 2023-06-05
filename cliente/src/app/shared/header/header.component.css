@@ -36,6 +36,6 @@ mat-drawer {
 }
 
 .btn-Menu{
-  display: flex;
-  align-items: center;
+  display: grid;
+  place-content: center;
 }

@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
 import { SimpleLayoutComponent } from './simple-layout/simple-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { AuthRoutingModule } from '../auth/auth-routing.module';
 
 
 @NgModule({
   declarations: [
     FullLayoutComponent,
-    SimpleLayoutComponent
+    SimpleLayoutComponent,
   ],
   imports: [
     CommonModule,
@@ -16,8 +17,9 @@ import { SharedModule } from '../shared/shared.module';
   ],
   exports:[
     FullLayoutComponent,
-    SimpleLayoutComponent
+    SimpleLayoutComponent,
     ]
 })
 
-export class LayoutModule { }
+export class LayoutModule {
+}
