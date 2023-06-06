@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
-import { Loguin , modelRecover} from '../models/loguin'
+import { LoguinModel , modelRecover} from '../models/loguin'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class LoguinService {
   constructor( private http: HttpClient ) {
   }
 
-  postlogin ( loguin: Loguin ) {
+  postlogin ( loguin: LoguinModel ) {
     return this.http.post( this.urlApi_login, loguin,{
       withCredentials: true,
     } );
