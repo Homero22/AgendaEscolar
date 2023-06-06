@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoguinService } from 'src/app/core/services/loguin.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginPageComponent {
 
   constructor(
     public fb: FormBuilder,
+    public srvLoguin: LoguinService
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -40,8 +42,18 @@ export class LoginPageComponent {
       const formData = this.loginForm.value;
       console.log(formData.email);
       console.log(formData.password);
-      // Aquí puedes hacer lo que necesites con los valores de los inputs
+      this.permisses(formData);
     }
+  }
+
+  //función para permitir acceso a la ruta me/welcome desde el servicio
+  permisses( Loguin: any){
+    this.srvLoguin.postlogin(Loguin).subscribe(
+      (res: any) => {
+        console.log(res);
+      }
+    );
+
   }
 
   ngOnDestroy(): void {
