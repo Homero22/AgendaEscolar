@@ -5,6 +5,11 @@ import com.example.services.sendEmail
 
 class recuperarContrasena {
 
+    val keyGMAIL = "yoykktmqdtkqfbtk"
+    val userName = "u2d.8bits@gmail.com"
+
+
+
     //Metodos recuperarContrasena
     fun recoverPassword(correo: String): Int {
 

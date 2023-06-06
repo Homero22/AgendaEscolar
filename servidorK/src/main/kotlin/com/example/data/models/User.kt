@@ -26,4 +26,3 @@ data class LoginRequest(
 data class RecoverRequest(
     val email: String
 )
-
