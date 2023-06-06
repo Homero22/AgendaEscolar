@@ -27,6 +27,7 @@ fun Route.loguinRouting(){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
+
     }
 }
 /*
