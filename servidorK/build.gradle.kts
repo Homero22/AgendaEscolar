@@ -6,9 +6,10 @@ val h2Version : String by project
 val exposedVersion : String by project
 
 plugins {
+    application
     kotlin("jvm") version "1.8.21"
     id("io.ktor.plugin") version "2.3.0"
-                id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
 }
 
 group = "com.example"
@@ -63,4 +64,7 @@ dependencies {
     //Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    //MAIL
+    implementation("com.sun.mail:javax.mail:1.6.2")
 }

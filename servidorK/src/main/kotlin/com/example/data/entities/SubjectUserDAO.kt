@@ -1,6 +1,6 @@
 package com.example.data.entities
 
-import com.example.data.entities.Homeworks.references
+
 import com.example.data.models.SubjectUser
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -8,8 +8,9 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
 object MateriaUsuario : IntIdTable("tb_usuario_materia") {
-    val idUsuario = integer("int_usuario_id").uniqueIndex()
+
     val idMateria = integer("int_materia_id").references(Subjects.id)
+    val idUsuario = long("int_usuario_id").references(Users.id)
     val materiaAcro = varchar("str_materia_acro", 255)
     val materiaColor = varchar("str_materia_color", 255)
     val profesorNombre = varchar("str_nombre_profesor", 255)
