@@ -63,7 +63,6 @@ export class RecoverPageComponent {
    .subscribe((res) => {
     console.log("Usuarios => ", res);
   });
-  
   }
 
  //Metodo destroy
