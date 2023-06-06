@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoguinService } from 'src/app/core/services/loguin.service';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -48,11 +48,14 @@ export class LoginPageComponent {
 
   //función para permitir acceso a la ruta me/welcome desde el servicio
   permisses( Loguin: any){
-    this.srvLoguin.postlogin(Loguin).subscribe(
+    this.srvLoguin.postlogin(Loguin)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
       (res: any) => {
         console.log(res);
       }
-    );
+
+    )
 
   }
 

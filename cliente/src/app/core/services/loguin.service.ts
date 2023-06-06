@@ -8,13 +8,16 @@ import { Loguin } from '../models/loguin'
 })
 export class LoguinService {
 
-  private urlApi_login: string = config.URL_API + 'login';
+  private urlApi_login: string = config.URL_API_BASE + 'login';
 
   constructor( private http: HttpClient ) {
   }
 
   postlogin ( loguin: Loguin ) {
-    return this.http.post( this.urlApi_login, loguin );
+    return this.http.post( this.urlApi_login, loguin )
+    // {
+    //   withCredentials: true,
+    // }
   }
 }
 
