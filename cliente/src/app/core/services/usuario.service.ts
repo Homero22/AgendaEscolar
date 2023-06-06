@@ -9,7 +9,7 @@ import { ShowUsuarioModel } from '../models/usuario';
 export class UsuarioService {
 
   //Rutas de los servicios
-  private urlApi_Usuarios: string = config.URL_API_BASE + "/users";
+  private urlApi_Usuarios: string = config.URL_API_BASE + "users";
 
   //Constructor
   constructor(private http: HttpClient) { }
@@ -18,7 +18,10 @@ export class UsuarioService {
 
   //listar Usuarios
   getUsuarios(){
-    return this.http.get<ShowUsuarioModel>(this.urlApi_Usuarios);
+    return this.http.get<ShowUsuarioModel>(this.urlApi_Usuarios,
+      {
+        withCredentials: true
+      });
   }
 
   //crear - registrar Usuario
