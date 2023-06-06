@@ -44,12 +44,12 @@ export class RegisterPageComponent {
       nombre:
         [
           '',
-          [ Validators.required]
+          [ Validators.required, Validators.pattern("^[a-zA-Z ]*$")]
         ],
       apellido:
         [
           '',
-          [ Validators.required]
+          [ Validators.required, Validators.pattern("^[a-zA-Z ]*$")]
         ],
         rol:
         [
@@ -111,15 +111,27 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
-    //transformamos de string a number el pais
-    // this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
-    // this.srvUsuario.postUser(this.registerForm.value)
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next: (usuarioData) => {
-    //     console.log('Informacion de Usuario =>', usuarioData);
-    //   }
-    // });
+    this.srvUsuario.postUser(this.registerForm.value)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (usuarioData) => {
+        console.log("Informacion de Usuario => ", usuarioData);
+        if(usuarioData.status == true){
+          Swal.fire({
+            icon: 'success',
+            title: 'Usuario registrado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }else if(usuarioData.status == false){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Correo o Contraseña ya registrados!',
+          })
+        }
+      }
+    });
 }
 
 getUsers(){

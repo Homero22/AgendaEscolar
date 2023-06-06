@@ -7,6 +7,8 @@ import io.ktor.server.response.*
 
 
 data class Response(val status: Boolean, val message: String, val body: List<Any>)
+
+data class ResponseSingle(val status: Boolean, val message: String, val body: Any)
 data class ErrorResponse(val status: Boolean, val message: String)
 suspend fun sendJsonResponse(call: ApplicationCall, status: HttpStatusCode, response: Any) {
     val gson = Gson()
