@@ -33,7 +33,6 @@ fun Route.usuariosRouting() {
             }catch (e: Throwable){
 
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
-
                 // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
