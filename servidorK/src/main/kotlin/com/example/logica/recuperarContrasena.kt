@@ -11,12 +11,12 @@ class recuperarContrasena {
 
 
     //Metodos recuperarContrasena
-    fun recoverPassword(correo: String): String? {
+    fun recoverPassword(correo: String): Int {
 
         //Verificamos que el email que se envio es valido usando la funcion search de la clase Users
         val user = Users.search(correo)
         if (user == null) {
-            return "El correo no existe"
+            return 0
         }
         else{
             // se declara el contenido del correo, destinatario, asunto y cuerpo
@@ -29,7 +29,7 @@ class recuperarContrasena {
                     "Equipo de desarrollo de la aplicación ClassBuddy"
 
             sendEmail(destinatario, asunto, cuerpo)
-            return "Correo enviado correctamente"
+            return 1
         }
 
     }
