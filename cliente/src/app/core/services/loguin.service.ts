@@ -14,10 +14,9 @@ export class LoguinService {
   }
 
   postlogin ( loguin: Loguin ) {
-    return this.http.post( this.urlApi_login, loguin )
-    // {
-    //   withCredentials: true,
-    // }
+    return this.http.post( this.urlApi_login, loguin,{
+      withCredentials: true,
+    } );
   }
 }
 
