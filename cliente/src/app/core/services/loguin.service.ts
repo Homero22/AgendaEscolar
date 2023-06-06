@@ -9,6 +9,7 @@ import { LoguinModel, ShowLoguinModel } from '../models/loguin'
 export class LoguinService {
 
   private urlApi_login: string = config.URL_API_BASE + 'login';
+  private urlApi_recover: string = config.URL_API_BASE + 'recover';
 
   constructor( private http: HttpClient ) {
   }
@@ -17,6 +18,14 @@ export class LoguinService {
     return this.http.post<ShowLoguinModel>(this.urlApi_login, loguinData,{
       withCredentials: true,
     } );
+  }
+
+  //funcion para recuperar contraseña
+
+  postrecover(email: String){
+    return this.http.post(this.urlApi_recover, email, {
+      withCredentials: true,
+    });
   }
 }
 
