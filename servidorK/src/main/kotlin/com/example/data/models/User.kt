@@ -22,3 +22,8 @@ data class LoginRequest(
     val password: String
 )
 
+@Serializable
+data class RecoverRequest(
+    val email: String
+)
+
