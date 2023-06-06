@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
 import { Loguin } from '../models/loguin'
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,11 @@ export class LoguinService {
       withCredentials: true,
     } );
   }
+
+  // postlogin(loguin: Loguin): Observable<any> {
+  //   // const loginRequest = { email, password };
+  //   return this.http.post(this.urlApi_login, loguin);
+  // }
 
   //funcion para recuperar contraseña
 
