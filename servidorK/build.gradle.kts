@@ -63,4 +63,7 @@ dependencies {
     //Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    //Cors
+    implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
 }
