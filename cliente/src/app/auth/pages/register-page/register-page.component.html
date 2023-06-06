@@ -67,8 +67,10 @@
                 <mat-label>Pais</mat-label>
                 <mat-select formControlName="paisId">
                   <mat-option >-- Seleccione --</mat-option>
-                  <mat-option value=1>ECUADOR</mat-option>
-                  <mat-option value=2>COLOMBIA</mat-option>
+                  <mat-option
+                    *ngFor="let pais of countries, let i = index"
+                    [value]="pais.id">{{pais.nombre}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

@@ -44,12 +44,12 @@ export class RegisterPageComponent {
       nombre:
         [
           '',
-          [ Validators.required, Validators.pattern("^[a-zA-Z ]*$")]
+          [ Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
         ],
       apellido:
         [
           '',
-          [ Validators.required, Validators.pattern("^[a-zA-Z ]*$")]
+          [ Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
         ],
         rol:
         [
@@ -95,6 +95,7 @@ export class RegisterPageComponent {
   //Metodo ngOnInit
   ngOnInit(): void {
     console.log(this.fechaActual);
+    this.getCountries();
     this.getUsers();
     // this.getCountries();
   }
@@ -148,21 +149,21 @@ getUsers(){
 
 
   //Metodo para obtener los paises
-  // getCountries() {
-  //   this.srvCountries.getCountries()
-  //   .pipe(takeUntil(this.destroy$))
-  //   .subscribe({
-  //     next: (countriesData) => {
-  //       console.log('Informacion de Estados Body =>', countriesData);
-  //       this.countries = countriesData.body;
+  getCountries() {
+    this.srvCountries.getCountries()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (countriesData) => {
+        console.log('Informacion de Estados Body =>', countriesData);
+        this.countries = countriesData.body;
 
-  //       console.log("Paises => ", this.countries)
-  //     },
-  //     error: (err: any) => {
-  //       console.log("Error al obtener los paises => ", err);
-  //     },
-  //   });
-  // }
+        console.log("Paises Body => ", this.countries)
+      },
+      error: (err: any) => {
+        console.log("Error al obtener los paises => ", err);
+      },
+    });
+  }
 
   //Metodo destroy
   ngOnDestroy(): void {

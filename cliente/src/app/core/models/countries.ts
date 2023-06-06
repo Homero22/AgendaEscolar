@@ -1,5 +1,7 @@
 export interface ShowCountriesModel{
-    body: CountryModel[];
+  status: boolean;
+  message: string;
+  body: CountryModel[];
 }
 
 export interface CountryModel{
