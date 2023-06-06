@@ -47,4 +47,12 @@ object Users : CrudRepository<User, Int> {
    override fun delete(id:Int)= transaction {
        return@transaction UsersDAO.findById(id.toLong())?.delete()
    }
+
+
+
+
+    //Funcion para devolver contraseña de usuario dado un correo
+    fun getContrasena(correo: String): String? = transaction {
+        return@transaction UsersDAO.find { Users.correo eq correo }.firstOrNull()?.contrasena
+    }
 }

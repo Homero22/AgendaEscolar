@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 
 @Component({
   selector: 'app-register-page',
@@ -26,6 +27,7 @@ export class RegisterPageComponent {
 
   constructor(
     private formBuilder: FormBuilder,
+    public srvUsuario: UsuarioService
   ) {
 
     this.email = new FormControl('', [Validators.required, Validators.email]);
@@ -80,6 +82,11 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
+    this.srvUsuario.getUsuarios()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((res) => {
+      console.log("Usuarios => ", res);
+    });
   }
 
   //Metodo destroy
