@@ -39,10 +39,6 @@ export class RegisterPageComponent {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
     this.registerForm = this.formBuilder.group({
-      id:
-        [
-          0,
-        ],
       nombre:
         [
           '',
@@ -53,40 +49,40 @@ export class RegisterPageComponent {
           '',
           [ Validators.required]
         ],
-        email: this.email,
-        password:
+        rol:
         [
-          '',
-          [ Validators.required]
+          'USUARIO',
         ],
         telefono:
         [
           '',
           [ Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]
         ],
-        pais:
+        correo: this.email,
+        contrasena:
+        [
+          '',
+          [ Validators.required]
+        ],
+        paisId:
         [
           //Hacemos que se seleccione el valor como numero
           0,
           [ Validators.required]
         ],
-        estudio:
+        nivelEstudio:
         [
           '',
           [ Validators.required]
-        ],
-        rol:
-        [
-          'USUARIO',
-        ],
-        estado:
-        [
-          'ACTIVO',
         ],
         fechaCreacion:
         [
           this.fechaActual
         ],
+        estado:
+        [
+          'ACTIVO',
+        ]
     });
   }
 
@@ -112,6 +108,8 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
+    //transformamos de string a number el pais
+    this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
     this.srvUsuario.postUser(this.registerForm.value)
     .pipe(takeUntil(this.destroy$))
     .subscribe({

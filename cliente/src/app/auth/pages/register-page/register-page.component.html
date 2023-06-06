@@ -29,14 +29,14 @@
             <div class="col">
               <mat-form-field class="w-12">
                 <mat-label >Ingresa tu email</mat-label>
-                <input matInput placeholder="pat@example.com" [formControl]="email" formControlName="email">
+                <input matInput placeholder="pat@example.com" [formControl]="email" formControlName="correo">
                 <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
             <div class="col">
               <mat-form-field class="w-12">
                 <mat-label>Ingresa tu contraseña</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasena">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -54,7 +54,7 @@
               </mat-form-field>
               <mat-form-field class="w-12  mt-3">
                 <mat-label>Nivel de Educación</mat-label>
-                <mat-select formControlName="estudio">
+                <mat-select formControlName="nivelEstudio">
                   <mat-option >-- Seleccione --</mat-option>
                   <mat-option value="BACHILLER">BACHILLER</mat-option>
                   <mat-option value="UNIVERSITARIO">UNIVERSITARIO</mat-option>
@@ -65,7 +65,7 @@
             <div class="col">
               <mat-form-field class="w-12">
                 <mat-label>Pais</mat-label>
-                <mat-select formControlName="pais">
+                <mat-select formControlName="paisId">
                   <mat-option >-- Seleccione --</mat-option>
                   <mat-option value=1>ECUADOR</mat-option>
                   <mat-option value=2>COLOMBIA</mat-option>

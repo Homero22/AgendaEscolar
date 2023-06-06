@@ -27,7 +27,6 @@ export interface addUsuarioModel{
   body: addUsuarioData;
 }
 export interface addUsuarioData{
-  id: number;
   nombre: string;
   apellido: string;
   rol:string;
