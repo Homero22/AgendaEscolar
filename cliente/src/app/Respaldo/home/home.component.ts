@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { LoguinService } from '../../core/services/loguin.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ private destroy$ = new Subject<any>();
 
 constructor(
   public fb: FormBuilder,
+  public srvLoguin: LoguinService
 ) {
   this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -34,13 +36,13 @@ getErrorMessage() {
   return this.email.hasError('email') ? 'Correo ingresado no valido' : '';
 }
   submitForm() {
-    if (this.loginForm.valid) {
       const formData = this.loginForm.value;
       console.log(formData.email);
       console.log(formData.password);
-      // Aquí puedes hacer lo que necesites con los valores de los inputs
-    }
   }
+
+
+
 
 
 ngOnDestroy(): void {
