@@ -1,8 +1,7 @@
 //Mostrar Usuarios
 export interface ShowUsuarioModel{
-  status: boolean;
+  status: number;
   message: string;
-  body: UsuarioModel[];
 }
 
 export interface UsuarioModel{
@@ -22,9 +21,8 @@ export interface UsuarioModel{
 //Crear Usuario
 
 export interface addUsuarioModel{
-  status: boolean;
+  status: number;
   message: string;
-  body: addUsuarioData;
 }
 export interface addUsuarioData{
   nombre: string;

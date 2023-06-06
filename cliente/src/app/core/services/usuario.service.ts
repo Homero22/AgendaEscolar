@@ -18,7 +18,7 @@ export class UsuarioService {
 
   //listar Usuarios
   getUsuarios(){
-    return this.http.get<ShowUsuarioModel>(`${this.urlApi_Usuarios}`,
+    return this.http.get<any>(`${this.urlApi_Usuarios}`,
       {
         withCredentials: true
       });
@@ -26,7 +26,7 @@ export class UsuarioService {
 
   //crear - registrar Usuario
   postUser(dataUsuario: addUsuarioData){
-    return this.http.post<ShowUsuarioModel>(`${this.urlApi_Usuarios}`, dataUsuario,
+    return this.http.post<any>(`${this.urlApi_Usuarios}`, dataUsuario,
       {
         withCredentials: true
       });

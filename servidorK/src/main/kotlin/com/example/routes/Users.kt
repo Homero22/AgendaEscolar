@@ -8,6 +8,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
+
 fun Route.usuariosRouting() {
 
     route("/users") {
@@ -18,24 +19,48 @@ fun Route.usuariosRouting() {
             //Obtenemos el offset de usuarios a mostrar
             val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
             //Obtenemos los usuarios
-            call.respond(HttpStatusCode(200,"OK"),Users.getAll(limit, offset))
+            call.respond( HttpStatusCode(200,"OK"),Users.getAll(limit, offset))
 
         }
 
         post {
             //Obtenemos el usuario a guardar
             val user = call.receive<User>()
+
+            //declaramos el JSON que se va a enviar
+            val responseJSON = mapOf(
+                "status" to 200,
+                "message" to "Usuario creado correctamente",
+                "body" to user
+            )
+
             println(user)
-            try {
-                //Guardamos el usuario
-                val response = Users.save(user)
-                call.respond(HttpStatusCode.Created)
-            }catch (
-                cause: Throwable
-            ){
-                println(cause.message)
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            //Verificamos que el correo ingresado y el numero de telefono no exista en la base de datos
+            val userCorreo = Users.search(user.correo)
+            val userTelefono = Users.searchPhone(user.telefono)
+            if (userCorreo != null) {
+                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El correo ya existe"))
+            } else if (userTelefono != null) {
+                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El teléfono ya existe"))
+            }else{
+                try {
+                    //Guardamos el usuario
+                    val response = Users.save(user)
+                    call.respond(HttpStatusCode.Created,  responseJSON)
+                }catch (
+                    cause: Throwable
+                ){
+                    println(cause.message)
+                    call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                }
             }
+
+
+
+
+
+
+
         }
         get("/{id}") {
             //Obtenemos el id del usuario a buscar

@@ -5,6 +5,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { CountryModel, ShowCountriesModel } from 'src/app/core/models/countries';
 import { CountrieService } from 'src/app/core/services/countrie.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-register-page',
@@ -93,6 +95,7 @@ export class RegisterPageComponent {
   //Metodo ngOnInit
   ngOnInit(): void {
     console.log(this.fechaActual);
+    this.getUsers();
     // this.getCountries();
   }
 
@@ -109,16 +112,28 @@ export class RegisterPageComponent {
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
     //transformamos de string a number el pais
-    this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
-    this.srvUsuario.postUser(this.registerForm.value)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (usuarioData) => {
-        console.log('Informacion de Usuario Body =>', usuarioData);
+    // this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
+    // this.srvUsuario.postUser(this.registerForm.value)
+    // .pipe(takeUntil(this.destroy$))
+    // .subscribe({
+    //   next: (usuarioData) => {
+    //     console.log('Informacion de Usuario =>', usuarioData);
+    //   }
+    // });
+}
 
-      }
-    });
-  }
+getUsers(){
+  this.srvUsuario.getUsuarios()
+.pipe(takeUntil(this.destroy$))
+.subscribe({
+  next: (usuarioData) => {
+    console.log('Informacion de Usuario =>', usuarioData);
+   }
+  });
+}
+
+
+
 
   //Metodo para obtener los paises
   // getCountries() {
