@@ -24,5 +24,6 @@ fun Application.configureRouting() {
         homeworksRouting()
         notesRouting()
         loguinRouting()
+        recoverRouting()
     }
 }

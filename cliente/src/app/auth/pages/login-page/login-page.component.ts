@@ -52,7 +52,7 @@ export class LoginPageComponent {
     .pipe(takeUntil(this.destroy$))
     .subscribe(
       (res: any) => {
-        console.log(res);
+        console.log("rspuesta server -> ",res);
       }
 
     )
