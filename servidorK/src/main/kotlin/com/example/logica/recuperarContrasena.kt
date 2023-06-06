@@ -1,11 +1,13 @@
 package com.example.logica
 
 import com.example.data.repositories.Users
-import java.util.*
-import javax.mail.*
-import javax.mail.internet.*
 
 class recuperarContrasena {
+
+    val keyGMAIL = "yoykktmqdtkqfbtk"
+    val userName = "u2d.8bits@gmail.com"
+
+
 
     //Metodos recuperarContrasena
     fun recuperarContrasena(correo: String): String? {

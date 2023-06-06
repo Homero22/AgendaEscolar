@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import config from 'config/config';
-import { ShowUsuarioModel } from '../models/usuario';
+import { ShowUsuarioModel, addUsuarioData } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,19 @@ export class UsuarioService {
 
   //listar Usuarios
   getUsuarios(){
-    return this.http.get<ShowUsuarioModel>(this.urlApi_Usuarios,
+    return this.http.get<ShowUsuarioModel>(`${this.urlApi_Usuarios}`,
       {
         withCredentials: true
       });
   }
 
   //crear - registrar Usuario
+  postUser(dataUsuario: addUsuarioData){
+    return this.http.post<ShowUsuarioModel>(`${this.urlApi_Usuarios}`, dataUsuario,
+      {
+        withCredentials: true
+      });
+  }
 
   //modificar - actualizar Usuario
 
