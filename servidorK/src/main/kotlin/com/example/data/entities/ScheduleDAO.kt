@@ -1,5 +1,6 @@
 package com.example.data.entities
 
+import com.example.data.entities.Homeworks.references
 import com.example.data.models.Schedule
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -7,8 +8,8 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.javatime.time
 
-object Horarios : IntIdTable("negocio.tb_horario") {
-    val usuarioMateria = integer("int_usuario_materia_id")
+object Horarios : IntIdTable("tb_horario") {
+    val usuarioMateria = integer("int_usuario_materia_id").references(MateriaUsuario.id)
     val hora_inicio = time("time_hora_inicio")
     val hora_fin = time("time_hora_fin")
     val dia = varchar("str_dia", 255)

@@ -1,5 +1,7 @@
-// import { environment } from 'src/app/environments/environments.ts';
+import { environment } from "src/app/environments/environments";
 
 export default {
-  URL_BASE: '//26.241.69.100:4000/',
+  URL_BASE: environment.url,
+  URL_BASE_PATH: environment.baseUrl,
+  URL_API_BASE: environment.urlApi,
 };

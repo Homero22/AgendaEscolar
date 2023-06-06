@@ -6,11 +6,17 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
-object Countries : IntIdTable("seguridad.tb_pais") {
+object Countries : IntIdTable("tb_pais") {
     val nombre = varchar("str_pais_nombre", 255).uniqueIndex()
     val acronimo = varchar("str_pais_acronimo", 255).uniqueIndex()
     var estado = varchar("str_pais_estado", 255)
 }
+//crear esta tabla en el esquema seguridad
+
+
+
+
+
 //clase que mapea la tabla de paises
 class CountryDAO(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<CountryDAO>(Countries)
@@ -27,4 +33,5 @@ class CountryDAO(id: EntityID<Int>) : IntEntity(id) {
 
         )
     }
+
 }
