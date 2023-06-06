@@ -1,5 +1,3 @@
-// import { environment } from 'src/app/environments/environments.ts';
-
 import { environment } from "src/app/environments/environments";
 
 export default {

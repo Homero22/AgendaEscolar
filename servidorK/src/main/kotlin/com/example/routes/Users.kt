@@ -93,4 +93,7 @@ fun Route.usuariosRouting() {
             }
         }
     }
+    //ruta para seguridad, loguin, logout, registro
+
+
 }
