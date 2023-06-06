@@ -3,6 +3,9 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Subject, takeUntil } from 'rxjs';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { LoguinService } from 'src/app/core/services/loguin.service';
+import {modelRecover} from 'src/app/core/models/loguin'
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-recover-page',
@@ -57,11 +60,26 @@ export class RecoverPageComponent {
 
  //Metodo para registrar un usuario
  recoverUser() {
+  Swal.fire({
+    title: "Cargando..",
+    text: "Contraseña enviada al correo electrónico", 
+    didOpen() {
+      Swal.showLoading();
+    }, 
+  });
    console.log("Formulario de registro: ", this.registerForm.value);
    this.srvLogin.postrecover(this.registerForm.value)
    .pipe(takeUntil(this.destroy$)) 
-   .subscribe((res) => {
+   .subscribe((res: modelRecover) => {
     console.log("Usuarios => ", res);
+    Swal.close();
+    if (res.status){
+      console.log("Exito en recuperar la contraseña")
+      Swal.fire({
+        title: res.message, 
+      })    
+    }
+
   });
   }
 
