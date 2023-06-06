@@ -1,6 +1,7 @@
 package com.example.logica
 
 import com.example.data.repositories.Users
+import com.example.services.sendEmail
 
 class recuperarContrasena {
 
@@ -10,19 +11,26 @@ class recuperarContrasena {
 
 
     //Metodos recuperarContrasena
-    fun recuperarContrasena(correo: String): String? {
+    fun recoverPassword(correo: String): String? {
 
         //Verificamos que el email que se envio es valido usando la funcion search de la clase Users
         val user = Users.search(correo)
+        if (user == null) {
+            return "El correo no existe"
+        }
+        else{
+            // se declara el contenido del correo, destinatario, asunto y cuerpo
+            val destinatario = correo
+            val asunto = "Recuperación de contraseña"
+            val cuerpo = "Hola ${user.nombre} ${user.apellido},\n\n" +
+                    "Tu contraseña es: ${user.contrasena}\n\n" +
+                    "Gracias por usar nuestra aplicación.\n\n" +
+                    "Atentamente,\n" +
+                    "Equipo de desarrollo de la aplicación ClassBuddy"
 
-        //Llamamos a la funcion getContrasena de la clase Users
-        val contrasena = com.example.data.repositories.Users.getContrasena(correo)
+            sendEmail(destinatario, asunto, cuerpo)
+            return "Correo enviado correctamente"
+        }
 
-        //Enviamos un correo electronico con la contrasena
-        //sendEmail(correo, contrasena)
-
-        return contrasena
     }
-
-
 }

@@ -66,4 +66,9 @@ dependencies {
 
     //Cors
     implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
+
+    //MAIL
+    implementation("com.sun.mail:javax.mail:1.6.2")
+    implementation("javax.mail:javax.mail-api:1.6.2")
+    implementation("com.sun.mail:javax.mail:1.6.2")
 }
