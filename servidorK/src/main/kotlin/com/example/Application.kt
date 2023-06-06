@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.data.controllers.DataBaseManager
+import com.example.plugins.configureHTTP
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
 import com.typesafe.config.ConfigFactory
@@ -17,4 +18,5 @@ fun Application.module() {
     configureSerialization()
     //configureDatabases()
     configureRouting()
+    configureHTTP()
 }
