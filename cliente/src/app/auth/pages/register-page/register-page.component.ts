@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FloatLabelType } from '@angular/material/form-field';
 import { Subject, takeUntil } from 'rxjs';
+import { CountryModel, ShowCountriesModel } from 'src/app/core/models/countries';
+import { CountrieService } from 'src/app/core/services/countrie.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-register-page',
@@ -21,13 +25,17 @@ export class RegisterPageComponent {
   //declaracion del destroy$
   destroy$ = new Subject<any>();
 
+  //Declaramos la varible para paises
+  countries!: CountryModel[];
+
 
   //Creacion del formulario para registro
   registerForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    public srvUsuario: UsuarioService
+    public srvUsuario: UsuarioService,
+    public srvCountries: CountrieService
   ) {
 
     this.email = new FormControl('', [Validators.required, Validators.email]);
@@ -43,32 +51,53 @@ export class RegisterPageComponent {
           '',
           [ Validators.required]
         ],
-        email: this.email,
-        password:
+        rol:
         [
-          '',
-          [ Validators.required]
+          'USUARIO',
         ],
         telefono:
         [
           '',
           [ Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]
         ],
-        pais:
+        correo: this.email,
+        contrasena:
         [
           '',
           [ Validators.required]
         ],
-        estudio:
+        paisId:
+        [
+          //Hacemos que se seleccione el valor como numero
+          0,
+          [ Validators.required]
+        ],
+        nivelEstudio:
         [
           '',
           [ Validators.required]
         ],
+        fechaCreacion:
+        [
+          this.fechaActual
+        ],
+        estado:
+        [
+          'ACTIVO',
+        ]
     });
   }
 
+
+  fechaActual: string = new Date().toISOString();
+
+
   //Metodo ngOnInit
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.fechaActual);
+    this.getUsers();
+    // this.getCountries();
+  }
 
   //Metodo para obtener los errores del email
   getErrorMessage() {
@@ -82,12 +111,46 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
-    this.srvUsuario.getUsuarios()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((res) => {
-      console.log("Usuarios => ", res);
-    });
-  }
+    //transformamos de string a number el pais
+    // this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
+    // this.srvUsuario.postUser(this.registerForm.value)
+    // .pipe(takeUntil(this.destroy$))
+    // .subscribe({
+    //   next: (usuarioData) => {
+    //     console.log('Informacion de Usuario =>', usuarioData);
+    //   }
+    // });
+}
+
+getUsers(){
+  this.srvUsuario.getUsuarios()
+.pipe(takeUntil(this.destroy$))
+.subscribe({
+  next: (usuarioData) => {
+    console.log('Informacion de Usuario =>', usuarioData);
+   }
+  });
+}
+
+
+
+
+  //Metodo para obtener los paises
+  // getCountries() {
+  //   this.srvCountries.getCountries()
+  //   .pipe(takeUntil(this.destroy$))
+  //   .subscribe({
+  //     next: (countriesData) => {
+  //       console.log('Informacion de Estados Body =>', countriesData);
+  //       this.countries = countriesData.body;
+
+  //       console.log("Paises => ", this.countries)
+  //     },
+  //     error: (err: any) => {
+  //       console.log("Error al obtener los paises => ", err);
+  //     },
+  //   });
+  // }
 
   //Metodo destroy
   ngOnDestroy(): void {

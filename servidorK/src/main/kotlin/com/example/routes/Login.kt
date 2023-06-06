@@ -6,7 +6,6 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.Serializable
 
 fun Route.loguinRouting(){
 
@@ -19,7 +18,7 @@ fun Route.loguinRouting(){
                 val user = Users.search(loginRequest.email)
 
                 if (user != null && user.contrasena == loginRequest.password) {
-                    call.respond(HttpStatusCode.OK, "Login successful")
+                    call.respond(HttpStatusCode.OK,Users)
                 } else {
                     call.respond(HttpStatusCode.Unauthorized, "Invalid credentials")
                 }
