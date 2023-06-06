@@ -25,13 +25,15 @@ fun Route.usuariosRouting() {
         post {
             //Obtenemos el usuario a guardar
             val user = call.receive<User>()
+            println(user)
             try {
                 //Guardamos el usuario
                 val response = Users.save(user)
-                call.respond(HttpStatusCode.Created, "Usuario creado correctamente")
+                call.respond(HttpStatusCode.Created)
             }catch (
                 cause: Throwable
             ){
+                println(cause.message)
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
