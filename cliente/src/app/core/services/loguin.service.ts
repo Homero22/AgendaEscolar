@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
-import { Loguin } from '../models/loguin'
+import { Loguin , modelRecover} from '../models/loguin'
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class LoguinService {
   //funcion para recuperar contraseña
 
   postrecover(email: String){
-    return this.http.post(this.urlApi_recover, email, {
+    return this.http.post<modelRecover>(this.urlApi_recover, email, {
       withCredentials: true,
     });
   }
