@@ -2,6 +2,7 @@ package com.example.data.repositories
 import com.example.data.entities.Users
 import com.example.data.entities.UsersDAO
 import com.example.data.models.User
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.like
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -53,9 +54,6 @@ object Users : CrudRepository<User, Int> {
    override fun delete(id:Int)= transaction {
        return@transaction UsersDAO.findById(id.toLong())?.delete()
    }
-
-
-
 
     //Funcion para devolver contraseña de usuario dado un correo
     fun getContrasena(correo: String): String? = transaction {
