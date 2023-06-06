@@ -39,9 +39,9 @@ fun Route.usuariosRouting() {
             val userCorreo = Users.search(user.correo)
             val userTelefono = Users.searchPhone(user.telefono)
             if (userCorreo != null) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El correo ya existe"))
+                call.respond(HttpStatusCode.BadRequest, "El correo ya existe")
             } else if (userTelefono != null) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El teléfono ya existe"))
+                call.respond(HttpStatusCode.BadRequest, "El telefono ya existe")
             }else{
                 try {
                     //Guardamos el usuario
