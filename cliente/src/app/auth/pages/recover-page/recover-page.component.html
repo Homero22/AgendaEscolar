@@ -1,1 +1,30 @@
-<p>recover-page works!</p>
+<div class="flex flex-column mt-2 full-container">
+
+    <div class="login-Container">
+      <div class="login-Header">
+        <p>Recuperación de Contraseña</p>
+      </div>
+  
+      <div class="login-Body">
+  
+        <form class="mt-2" [formGroup]="registerForm">
+
+            <label for="">Correo Electrónico</label>
+            <div class="grid">
+              <div class="col">
+                <mat-form-field class="w-12">
+                  <mat-label >Ingresa tu email</mat-label>
+                  <input matInput placeholder="pat@example.com" [formControl]="email" formControlName="email">
+                  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          <div class="login-Button">
+            <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="recoverUser()">Enviar Contraseña</button>
+          </div>
+          <br>  
+        </form>
+      </div>
+    </div>
+  </div>
+  
