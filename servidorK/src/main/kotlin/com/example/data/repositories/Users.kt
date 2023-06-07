@@ -63,4 +63,15 @@ object Users : CrudRepository<User, Int> {
     fun getContrasena(correo: String): String? = transaction {
         return@transaction UsersDAO.find { Users.correo eq correo }.firstOrNull()?.contrasena
     }
+
+    //Funcion para devolver los datos de un usuario dado un correo o telefono
+    fun getUser(correo: String, telefono: String): User? = transaction {
+        val userEmail = UsersDAO.find { Users.correo eq correo }.singleOrNull()?.toUser()
+        val userPhone = UsersDAO.find { Users.telefono eq telefono }.singleOrNull()?.toUser()
+        if ((userEmail != null) || (userPhone != null)) {
+            //retornamos todo el usuario que tiene el correo ingresado o telefono ingresado
+            return@transaction userEmail ?: userPhone
+        }
+        return@transaction null
+    }
 }
