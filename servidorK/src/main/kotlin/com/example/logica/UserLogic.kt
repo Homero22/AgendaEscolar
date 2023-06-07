@@ -30,5 +30,16 @@ class UserLogic {
         return user!!
     }
 
+    // Funcion para Ingresar un nuevo usuario validando que el correo y el telefono no existan en la base de datos
+    fun insertarUsuario(user: User): Boolean {
+        val verificarCorreo = verificarCorreo(user.correo)
+        val verificarTelefono = verificarTelefono(user.telefono)
+        if (!verificarCorreo && !verificarTelefono) {
+            Users.save(user)
+            return true
+        }
+        return false
+    }
+
 
 }

@@ -2,18 +2,16 @@ package com.example.routes
 
 import com.example.data.models.User
 import com.example.data.repositories.Users
+import com.example.data.repositories.cGenerica
 import com.example.logica.UserLogic
-import com.example.utils.ErrorResponse
-import com.example.utils.Response
-import com.example.utils.ResponseSingle
-import com.example.utils.sendJsonResponse
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import java.lang.Boolean.TRUE
 
-
+val oUser = cGenerica<Users>();
 fun Route.usuariosRouting() {
 
     route("/users") {
@@ -24,9 +22,10 @@ fun Route.usuariosRouting() {
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 //Obtenemos el offset de usuarios a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-
+                //Llama al metodo getALL de la clase generica
+                val u = oUser.gGetAll(Users,limit,offset);
                 //variable response
-                val response = Response(true, "Usuarios obtenidos correctamente", Users.getAll(limit, offset))
+                val response = Response(true, "Usuarios obtenidos correctamente", u)
 
                 //Enviamos la respuesta
                 sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -44,40 +43,18 @@ fun Route.usuariosRouting() {
             try{
                 //Obtenemos el usuario a guardar
                 val user = call.receive<User>()
-
-                println(user)
-
-                //Verificamos que el correo ingresado y el numero de telefono no exista en la base de datos por medio de la funcion de UserLogic
-                val verificarCorreo = UserLogic().verificarCorreo(user.correo)
-                val verificarTelefono = UserLogic().verificarTelefono(user.telefono)
-
-
-
-
-                if (verificarCorreo == TRUE || verificarTelefono == TRUE) {
-
-                    //Buscamos el usuario que tenga el correo ingresado o el numero de telefono ingresado
-                    val user = UserLogic().searchUser(user.correo, user.telefono)
-
-                    val response = ResponseSingle(false, "Verifique los Datos Ingresados", user)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-
-                }else{
-
-                    //Guardamos el usuario
-                    val newUser = Users.save(user)
-
-                    val response = ResponseSingle(true, "Usuario creado correctamente", newUser)
-
-                    //Enviamos la respuesta
+                //Logica
+                val valido = UserLogic().insertarUsuario(user)
+                if (valido) {
+                    val response = ResponseSingle(true, "Usuario creado correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.Created, response)
-
+                } else {
+                    val response = ResponseEmpty(false, "Verifique los Datos Ingresados")
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }
             catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
-                // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }

@@ -5,7 +5,7 @@ import com.example.data.models.User
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-object Users : CrudRepository<User, Int> {
+object Users : CrudRepository<User, Int>() {
 
     //loguin con email and password
     fun search(email: String): User? = transaction {

@@ -4,7 +4,7 @@ import com.example.data.models.Note
 import io.ktor.http.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Notes : CrudRepository<Note, Int>{
+object Notes : CrudRepository<Note, Int>() {
     override fun getAll(limit: Int, offset: Int): List<Note> = transaction{
         val response = NotesDAO.all().limit(limit, offset.toLong())
         return@transaction response.map {it.toNotes()}
