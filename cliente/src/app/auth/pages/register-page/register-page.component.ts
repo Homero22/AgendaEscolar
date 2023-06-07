@@ -112,25 +112,75 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
+
+    //Swal con mensaje de Cargando
+    Swal.fire({
+      title: 'Cargando',
+      text: 'Por favor espere...',
+      allowOutsideClick: false,
+      //denegamos que el usuario puedar salir por medio del ESC
+      allowEscapeKey: false,
+      //Colocamos la animacion de loading
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     this.srvUsuario.postUser(this.registerForm.value)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (usuarioData) => {
+
         console.log("Informacion de Usuario => ", usuarioData);
         if(usuarioData.status == true){
+          Swal.close();
           Swal.fire({
-            icon: 'success',
-            title: 'Usuario registrado correctamente',
-            showConfirmButton: false,
-            timer: 1500
+            title:'Se ha resgistrado con éxito!',
+            icon:'success',
+            confirmButtonText: 'Aceptar',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = '/auth/ingreso';
+            }
           })
+
         }else if(usuarioData.status == false){
+          Swal.close();
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Correo o Contraseña ya registrados!',
+            title:'Opps!',
+            icon:'error',
+            text: 'Parece que el correo o contraseña ya fueron registrados!',
+            confirmButtonText: 'Aceptar',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: true
           })
         }
+      },
+      error: (err: any) => {
+        console.log("Error al registrar el usuario => ", err);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Parece que surgio un error al registrarte!',
+          //colocamos un boton de confirmacion
+          confirmButtonText: 'Aceptar',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: true
+        })
+      },
+      complete: () => {
+        this.registerForm.reset();
+
+        //hacer que me redireccione al login
+
+
       }
     });
 }
