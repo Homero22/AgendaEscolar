@@ -12,6 +12,7 @@ import io.ktor.server.routing.*
 fun Route.countriesRouting() {
     route("/countries") {
         get {
+
             //GET /countries
             try {
                 //Obtenemos el limite de paises a mostrar

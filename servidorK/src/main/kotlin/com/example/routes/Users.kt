@@ -8,12 +8,13 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
+
 fun Route.usuariosRouting() {
 
     route("/users") {
         //GET /users
         get {
-            //Obtenemos el limite de usuarios a mostrar
+             //Obtenemos el limite de usuarios a mostrar
             val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
             //Obtenemos el offset de usuarios a mostrar
             val offset = call.parameters["offset"]?.toIntOrNull() ?: 0

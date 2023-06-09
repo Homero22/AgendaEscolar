@@ -3,6 +3,7 @@ package com.example
 import com.example.data.controllers.DataBaseManager
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
+import com.example.services.sendEmail
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
 import io.ktor.server.config.*
@@ -17,5 +18,12 @@ fun Application.module() {
     configureSerialization()
     //configureDatabases()
     configureRouting()
+
+        val to = "estefygonzalez68@gmail.com"
+        val subject = "¡Hola desde Ktor!"
+        val body = "¡Hola! Este es un correo electrónico de prueba."
+
+        sendEmail(to, subject, body)
+
 
 }
