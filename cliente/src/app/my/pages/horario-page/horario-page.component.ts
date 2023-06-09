@@ -10,8 +10,10 @@ import { createEventId } from './event-utils';
 @Component({
   selector: 'app-horario-page',
   templateUrl: './horario-page.component.html',
-styleUrls: ['./horario-page.component.css']
+  styles: [
+  ]
 })
+<<<<<<< HEAD
   export class HorarioPageComponent {
 
     calendarVisible = true;
@@ -90,5 +92,8 @@ styleUrls: ['./horario-page.component.css']
 
       this.calendarVisible = true;
     }
+=======
+export class HorarioPageComponent {
+>>>>>>> parent of 6236ba7 (Actualizacion apartado Visual)
 
 }
