@@ -19,7 +19,7 @@ fun Route.loguinRouting(){
                 val user = Users.search(loginRequest.email)
 
                 if (user != null && user.contrasena == loginRequest.password) {
-                    call.respond(HttpStatusCode.OK, "Login successful")
+                    call.respond(HttpStatusCode.OK,Users)
                 } else {
                     call.respond(HttpStatusCode.Unauthorized, "Invalid credentials")
                 }
@@ -30,7 +30,6 @@ fun Route.loguinRouting(){
 
     }
 }
-/*
+
 @Serializable
 data class LoginRequest(val email: String, val password: String)
-*/

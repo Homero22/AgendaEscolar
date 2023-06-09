@@ -9,13 +9,18 @@ import org.h2.util.json.JSONObject
 
 class recuperarContrasena {
 
+    val keyGMAIL = "yoykktmqdtkqfbtk"
+    val userName = "u2d.8bits@gmail.com"
+
+
+
     //Metodos recuperarContrasena
-    fun recoverPassword(correo: String): String? {
+    fun recoverPassword(correo: String): Int {
 
         //Verificamos que el email que se envio es valido usando la funcion search de la clase Users
         val user = Users.search(correo)
         if (user == null) {
-            return  "El correo no existe"
+            return 0
         }
         else{
             // se declara el contenido del correo, destinatario, asunto y cuerpo
@@ -27,12 +32,8 @@ class recuperarContrasena {
                     "Atentamente,\n" +
                     "Equipo de desarrollo de la aplicación ClassBuddy"
 
-             // Enviar el correo electrónico y obtener el resultado
-            val enviadoExitosamente = sendEmail(correo, asunto, cuerpo)
-
-            val message = if (enviadoExitosamente) "Correo enviado correctamente" else "Error al enviar el correo"
-
-            return message
+            sendEmail(destinatario, asunto, cuerpo)
+            return 1
         }
 
     }

@@ -1,13 +1,16 @@
 package com.example.routes
 
-import com.example.data.models.*
 import com.example.data.models.RecoverRequest
 import com.example.logica.recuperarContrasena
+import com.example.utils.ErrorResponse
+import com.example.utils.Response
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
+
+
 
 fun Route.recoverRouting(){
 
@@ -19,15 +22,28 @@ fun Route.recoverRouting(){
                 val recoverRequest = call.receive<RecoverRequest>()
                 //llamar al método recoverPassword de la clase recuperarContrasena
                 val user = recuperarContrasena().recoverPassword(recoverRequest.email)
-                if (user != null) {
-                    //responder con un status true, messege y el usuario
-                    call.respond(HttpStatusCode.OK,user)
+                println("LLega de la CAPA LOGICA"+user)
+                if (user ==1) {
+                    val response = Response(true, "Tu contrasena se envio a tu correo exitosamente", emptyList())
 
+                    // Envia la respuesta JSON exitosa
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 } else {
-                    call.respond(HttpStatusCode.Unauthorized, "El correo no existe")
+
+                    // Crea el objeto de respuesta para el error
+                    val errorResponse = Response(false, "El correo no existe", emptyList())
+
+                    // Envia la respuesta JSON de error
+                    sendJsonResponse(call, HttpStatusCode.Unauthorized, errorResponse)
+
                 }
             }catch ( cause: Throwable ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+
+                // Crea el objeto de respuesta para el error en el catch
+                val errorResponse = ErrorResponse(false, cause.message ?: "Error desconocido")
+
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
 
