@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { createEventId } from './event-utils';
 
 @Component({
   selector: 'app-horario-page',
@@ -23,12 +23,12 @@ styleUrls: ['./horario-page.component.css']
         listPlugin,
       ],
       headerToolbar: {
-        left: 'prev,next today',
+        // left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'timeGridWeek'
       },
-      initialView: 'dayGridMonth',
-      initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+      initialView: 'timeGridWeek',
+      // initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
       weekends: true,
       editable: true,
       selectable: true,
@@ -47,11 +47,12 @@ styleUrls: ['./horario-page.component.css']
 
     constructor(private changeDetector: ChangeDetectorRef) {
     }
-
+    // Para que el calendario desapareza
     handleCalendarToggle() {
       this.calendarVisible = !this.calendarVisible;
     }
 
+    // Para quitar los fines de semana
     handleWeekendsToggle() {
       const { calendarOptions } = this;
       calendarOptions.weekends = !calendarOptions.weekends;
@@ -83,6 +84,11 @@ styleUrls: ['./horario-page.component.css']
     handleEvents(events: EventApi[]) {
       this.currentEvents = events;
       this.changeDetector.detectChanges();
+    }
+
+    ngOnInit(): void {
+
+      this.calendarVisible = true;
     }
 
 }
