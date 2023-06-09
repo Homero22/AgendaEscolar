@@ -72,8 +72,6 @@ dependencies {
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
 
-    ///JSON
-    implementation ("com.google.code.gson:gson:2.8.9")
     //Gson
     implementation ("com.google.code.gson:gson:2.10.1")
 }
