@@ -4,75 +4,42 @@
 
       <div>
         <button type="button" mat-icon-button (click)="drawer.toggle()">
-          <i class="material-icons" id="i-menu">menu</i>
+          <i class="material-icons">menu</i>
         </button>
-        <span class="span-Title">ClassBudy</span>
+        <span>ClassBudy</span>
       </div>
 
       <div>
         <button mat-icon-button [matMenuTriggerFor]="menu">
-          <i class="material-icons" id="i-menu">arrow_drop_down</i>
+          <i class="material-icons">arrow_drop_down</i>
         </button>
         <mat-menu #menu="matMenu" class="mat-Menu">
-          <button mat-flat-button class="btn-Menu">
-            <i class="material-icons">person</i>
-            <span>Mi Cuenta</span>
+          <button mat-menu-item class="btn-Menu">
+            <i class="material-icons">settings</i>
+            <span>Ajustes</span>
           </button>
-          <button mat-flat-button class="btn-Menu">
-            <i class="material-icons">logout</i>
-            <span>Configuración</span>
+          <button mat-menu-item class="btn-Menu">
+            <i class="material-icons">exit_to_app</i>
+            <span>Cerrar Sesión</span>
           </button>
         </mat-menu>
       </div>
   </mat-toolbar>
   <mat-drawer #drawer class="sideBar-Container" mode="over" >
-    <div class="menu-Title py-2 mb-3">
-      <button type="button" class="btn-Toggle" (click)="drawer.toggle()">
-        <i class="material-icons" id="i-menu">swap_horiz</i>
+    <div class="menu-Container">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <i class="material-icons">menu</i>
       </button>
+      <span>ClassBudy</span>
     </div>
 
-    <div class="menu-Container">
-      <div class="menu-Options">
-        <button mat-button class="btn-Option" routerLink="/me/welcome">
-          <i class="material-icons">home</i>
-          <p>Inicio</p>
-        </button>
-        <button mat-button class="btn-Option" routerLink="/me/schedule">
-          <i class="material-icons">calendar_month</i>
-          <p>Horario</p>
-        </button>
-        <button mat-button class="btn-Option" routerLink="/me/signatures">
-          <i class="material-icons">backup_table</i>
-          <p>Materias</p>
-        </button>
-        <button mat-button class="btn-Option" [matMenuTriggerFor]="menuDeberes" routerLink="/me/homeworks">
-          <i class="material-icons">auto_stories</i>
-          <p>
-            Tareas
-            <i class="material-icons">arrow_drop_down</i>
-          </p>
-        </button>
-        <mat-menu #menuDeberes="matMenu">
-          <button mat-menu-item>Todas</button>
-          <button mat-menu-item>Pendientes</button>
-          <button mat-menu-item>Finalizadas</button>
-        </mat-menu>
-        <button mat-button class="btn-Option" routerLink="/me/notes">
-          <i class="material-icons">sticky_note_2</i>
-          <p>Apuntes</p>
-        </button>
-      </div>
-
-
-      <div class="menu-Settings">
-        <button mat-button class="btn-Option" routerLink="/me/settings">
-          <i class="material-icons">account_circle</i>
-          <p>Mi Cuenta</p>
-        </button>
-      </div>
-
-
+    <div class="menu-Options">
+      <button mat-button [matMenuTriggerFor]="menuDeberes">Deberes</button>
+      <mat-menu #menuDeberes="matMenu">
+        <button mat-menu-item>Todas</button>
+        <button mat-menu-item>Pendientes</button>
+        <button mat-menu-item>Finalizadas</button>
+      </mat-menu>
     </div>
   </mat-drawer>
 
