@@ -11,23 +11,50 @@
 }
 
 .sideBar-Container {
-  padding: 10px 0px 0px 16px;
+  background-color: var(--secondary-color);
 }
 
 mat-drawer {
   width: 200px;
 }
 
-.menu-Container{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.btn-Toggle{
+border-radius: 20px;
+border: 3px solid var(--tertiary-color);
+background-color: var(--secondary-color);
+width: 60px;
+height: 30px;
+}
+
+.btn-Toggle:hover{
+  background-color: var(--quinary-color);
+}
+
+
+.menu-Title{
+  display: grid;
+  place-items: center;
 }
 
 .mat-toolbar{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--primary-color);
+}
+
+.material-icons{
+  cursor: pointer;
+}
+
+#i-menu{
+  color: var(--tertiary-color);
+}
+
+.span-Title{
+  font-size: var(--title-font-size);
+  font-weight: var(--font-weight-600);
+  color: var(--tertiary-color);
 }
 
 .mat-toolbar div{
@@ -36,6 +63,59 @@ mat-drawer {
 }
 
 .btn-Menu{
-  display: grid;
-  place-content: center;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+width: 100%;
 }
+
+.menu-Container, .menu-Options, .menu-Settings{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.menu-Options{
+  gap: 20px;
+  align-items: center;
+}
+
+.menu-Settings{
+  gap: 20px;
+  align-items: center;
+}
+
+.menu-Container{
+  justify-content: space-between;
+  height: 85%;
+}
+
+.btn-Option{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+  cursor: pointer;
+  width: 85%;
+}
+
+.btn-Option i, p{
+  color: var(--tertiary-color);
+}
+
+.btn-Option:hover{
+  background-color: var(--tertiary-color);
+}
+
+.btn-Option:hover i, .btn-Option:hover p{
+  color: var(--secondary-color);
+}
+
+.btn-Option p{
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size);
+}
+
+

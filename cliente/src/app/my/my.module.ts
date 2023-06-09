@@ -10,6 +10,8 @@ import { AjustesPageComponent } from './pages/ajustes-page/ajustes-page.componen
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { HorarioPageComponent } from './pages/horario-page/horario-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { ComponentsModule } from '../components/components.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -25,7 +27,18 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     MyRoutingModule,
-    SharedModule
+    SharedModule,
+    ComponentsModule,
+    FullCalendarModule
+  ],
+  exports: [
+    FullLayoutPageComponent,
+    MateriaPageComponent,
+    TareasPageComponent,
+    ApuntesPageComponent,
+    AjustesPageComponent,
+    WelcomePageComponent,
+    HorarioPageComponent
   ]
 })
 export class MyModule { }
