@@ -1,4 +1,4 @@
-<div class="flex flex-column mt-5 full-container">
+<div class="flex flex-column mt-2 full-container">
 
   <div class="login-Container">
     <div class="login-Header">
@@ -7,16 +7,81 @@
 
     <div class="login-Body">
 
-      <form>
+      <form class="mt-2" [formGroup]="registerForm">
+        <label for="">Nombres</label>
+          <div class="grid">
+            <div class="col">
+              <mat-form-field appearance="fill" class="w-12">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Ex. Pablo" formControlName="nombre">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill" class="w-12">
+                <mat-label>Apellidos</mat-label>
+                <input matInput placeholder="Ex. Bolaños" formControlName="apellido">
+              </mat-form-field>
+            </div>
+          </div>
 
-          <label>Nombres</label>
-          <label>Correo Electrónico</label>
-          <label>Información Adicional</label>
+          <label for="">Correo Electrónico</label>
+          <div class="grid">
+            <div class="col">
+              <mat-form-field class="w-12">
+                <mat-label >Ingresa tu email</mat-label>
+                <input matInput placeholder="pat@example.com" [formControl]="email" formControlName="correo">
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="w-12">
+                <mat-label>Ingresa tu contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasena">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+          <label for="">Información Adiconal</label>
+          <div class="grid">
+            <div class="col">
+              <mat-form-field hintLabel="Max 10 characters" class="w-12">
+                <mat-label>Ingrese número telefónico</mat-label>
+                <input matInput #input maxlength="10" placeholder="Ex. Nougat" formControlName="telefono">
+                <mat-icon matSuffix>call</mat-icon>
+                <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+              </mat-form-field>
+              <mat-form-field class="w-12  mt-3">
+                <mat-label>Nivel de Educación</mat-label>
+                <mat-select formControlName="nivelEstudio">
+                  <mat-option >-- Seleccione --</mat-option>
+                  <mat-option value="BACHILLER">BACHILLER</mat-option>
+                  <mat-option value="UNIVERSITARIO">UNIVERSITARIO</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
+            <div class="col">
+              <mat-form-field class="w-12">
+                <mat-label>Pais</mat-label>
+                <mat-select formControlName="paisId">
+                  <mat-option >-- Seleccione --</mat-option>
+                  <mat-option
+                    *ngFor="let pais of countries, let i = index"
+                    [value]="pais.id">{{pais.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
 
         <div class="login-Button">
-          <button mat-raised-button color="primary">Registrarse</button>
+          <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="registerUser()">Registrarse</button>
         </div>
+
+        <a class="login-Option mb-1"  routerLink="/auth/ingreso">Ya tienes cuenta ?</a>
+
       </form>
     </div>
   </div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-horario',
@@ -6,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./horario.component.css']
 })
 export class HorarioComponent {
-
 }

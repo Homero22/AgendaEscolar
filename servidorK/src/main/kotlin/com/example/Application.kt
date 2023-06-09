@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.data.controllers.DataBaseManager
+import com.example.plugins.configureHTTP
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
 import com.example.services.sendEmail
@@ -18,12 +19,6 @@ fun Application.module() {
     configureSerialization()
     //configureDatabases()
     configureRouting()
-
-        val to = "estefygonzalez68@gmail.com"
-        val subject = "¡Hola desde Ktor!"
-        val body = "¡Hola! Este es un correo electrónico de prueba."
-
-        sendEmail(to, subject, body)
-
+    configureHTTP()
 
 }
