@@ -3,7 +3,7 @@ import com.example.data.entities.ScheduleDAO
 import com.example.data.models.Schedule
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Schedules : CrudRepository<Schedule, Int> {
+object Schedules : CrudRepository<Schedule, Int>() {
     override fun getAll(limit: Int, offset: Int) = transaction {
         val response = ScheduleDAO.all().limit(limit, offset.toLong())
         return@transaction response.map { it.toSchedule()}
