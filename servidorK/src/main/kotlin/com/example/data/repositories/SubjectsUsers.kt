@@ -1,4 +1,5 @@
 package com.example.data.repositories
+import com.example.data.entities.MateriaUsuario
 import com.example.data.entities.SubjectUserDAO
 import com.example.data.models.SubjectUser
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -42,6 +43,11 @@ object SubjectsUsers : CrudRepository<SubjectUser, Int> {
     }
     fun isEmpty()= transaction {
         return@transaction SubjectUserDAO.all().empty()
+    }
+    //funcion para comprobar si existe una materia
+    fun existSubject(idMateria: Int)= transaction {
+        val response = SubjectUserDAO.find { MateriaUsuario.idMateria eq idMateria }
+        return@transaction response
     }
 
 }

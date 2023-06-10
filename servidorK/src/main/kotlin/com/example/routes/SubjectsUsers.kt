@@ -2,6 +2,7 @@ package com.example.routes
 
 import com.example.data.models.SubjectUser
 import com.example.data.repositories.SubjectsUsers
+import com.example.logica.SubjectLogic
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -49,6 +50,7 @@ fun Route.UsumateRouting() {
         post {
 
             val subjectu = call.receive<SubjectUser>()
+            val respuesta = SubjectLogic().createSubject(subjectu)
             try {
                 //Guardamos el pais
                 val response = SubjectsUsers.save(subjectu)
