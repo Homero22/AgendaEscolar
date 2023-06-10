@@ -4,7 +4,7 @@ import com.example.data.entities.SubjectDAO
 import com.example.data.models.Subject
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Subjects : CrudRepository<Subject, Int>  {
+object Subjects : CrudRepository<Subject, Int> () {
     override fun getAll(limit: Int, offset: Int): List<Subject> = transaction {
         val response = SubjectDAO.all().limit(limit, offset.toLong())
         return@transaction response.map { it.toSubject() }
