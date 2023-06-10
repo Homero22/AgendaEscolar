@@ -2,8 +2,12 @@ package com.example.logica
 
 import com.example.data.models.User
 import com.example.data.repositories.Users
+import com.example.data.repositories.cGenerica
 
 class UserLogic {
+
+    //Declaramos un objeto de tipo generico
+    val obj = cGenerica<Users>()
 
     //Metodo para verificar si el correo ya existe en la base de datos
     fun verificarCorreo(correo: String): Boolean {
@@ -39,6 +43,15 @@ class UserLogic {
             return true
         }
         return false
+    }
+
+    fun getAll(limit:Int, offset:Int): List<User> {
+
+        return obj.gGetAll(Users,limit,offset) as List<User>
+    }
+
+    fun getById(id: Int): User? {
+        return obj.gGgetById(Users,id) as User?
     }
 
 

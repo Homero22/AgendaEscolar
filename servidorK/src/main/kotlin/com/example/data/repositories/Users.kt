@@ -12,6 +12,7 @@ object Users : CrudRepository<User, Int>() {
         return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser()
     }
 
+
     //verificar que el numero de telefono no este registrado
     fun searchPhone(telefono: String): User? = transaction {
         return@transaction UsersDAO.find { Users.telefono eq  telefono }.singleOrNull()?.toUser()

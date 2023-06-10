@@ -22,15 +22,16 @@ fun Route.usuariosRouting() {
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 //Obtenemos el offset de usuarios a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-                //Llama al metodo getALL de la clase generica
-                val u = oUser.gGetAll(Users,limit,offset);
-                //variable response
-                val response = Response(true, "Usuarios obtenidos correctamente", u)
-
-                //Enviamos la respuesta
-                sendJsonResponse(call, HttpStatusCode.OK, response)
+                //Lógica
+                val u = UserLogic().getAll(limit, offset);
+                if(u!=null){
+                    val response = Response(true, "Usuarios obtenidos correctamente", u)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false, "No existen usuarios")
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (e: Throwable){
-
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
                 // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
@@ -49,7 +50,7 @@ fun Route.usuariosRouting() {
                     val response = ResponseSingle(true, "Usuario creado correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.Created, response)
                 } else {
-                    val response = ResponseEmpty(false, "Verifique los Datos Ingresados")
+                    val response = ResponseEmpty(false, "Correo o teléfono ya registrados. Verifique los datos ingresados")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }
@@ -59,22 +60,16 @@ fun Route.usuariosRouting() {
             }
         }
 
-
-
         get("/{id}") {
             //Obtenemos el id del usuario a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Obtenemos el usuario
-                val getUser = Users.getById(id)
-
-                if (getUser != null) {
-
-                    val response = ResponseSingle(true, "Usuario obtenido correctamente", getUser)
+                //Lógica
+                val user = UserLogic().getById(id)
+                if (user != null) {
+                    val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
-
                 } else {
-
                     val response = Response(false, "Usuario no encontrado", emptyList())
                     sendJsonResponse(call, HttpStatusCode.BadRequest, response)
                 }

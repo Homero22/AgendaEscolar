@@ -6,18 +6,7 @@ import com.example.data.models.Subject
 import com.example.data.models.User
 import java.lang.IllegalArgumentException
 
-class cGenerica <T > {
-
-
-   fun insertar(obj:T){
-
-      when(obj){
-         is Users ->{
-             println("LLega a insertar")
-         }
-       }
-
-   }
+class cGenerica <T> {
 
     fun <T> gGetAll(obj: T, limit: Int, offset: Int): List<Any> {
         return when(obj) {
@@ -37,7 +26,7 @@ class cGenerica <T > {
         }
     }
 
-    fun save (obj: T, entity: Any): Any {
+    fun gSave (obj: T, entity: Any): Any {
         return when(obj) {
             is Users -> {
                 obj.save(entity as User)
@@ -54,6 +43,44 @@ class cGenerica <T > {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
+    // Buscar un valor en especifico  y devovler un objeto
+    fun gSearch(obj: T, valor: String): Any? {
+        return when(obj) {
+            is Users -> {
+                if(valor.contains("@")) {
+                    obj.search(valor)
+                }else{
+                    obj.searchPhone(valor)
+                }
+            }
+            is Countries -> {
+                obj.search(valor)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    // Obtener un objeto por su id
+
+    fun gGgetById(obj: T, id: Int): Any? {
+        return when(obj) {
+            is Users -> {
+                obj.getById(id)
+            }
+            is Countries -> {
+                obj.getById(id)
+            }
+            is Subjects -> {
+                obj.getById(id)
+            }
+            is Notes ->{
+                obj.getById(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
 
 
 

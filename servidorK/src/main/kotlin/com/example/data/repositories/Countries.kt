@@ -46,5 +46,9 @@ object Countries : CrudRepository<Country, Int>() {
         return@transaction CountryDAO.all().empty()
     }
 
+    fun search(name: String): Country? = transaction {
+        return@transaction CountryDAO.find { Countries.nombre eq  name }.singleOrNull()?.toCountry()
+    }
+
 
 }
