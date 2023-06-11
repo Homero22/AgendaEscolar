@@ -56,8 +56,13 @@ object Users : CrudRepository<User, Int>() {
         }?.toUser()
         return@transaction response!!
     }
-   override fun delete(id:Int)= transaction {
-       return@transaction UsersDAO.findById(id.toLong())?.delete()
+   override fun delete(id:Int): Any = transaction {
+        val user = UsersDAO.findById(id.toLong())?:return@transaction
+        user.apply {
+            estado = "INACTIVO"
+        }
+        return@transaction
+    }
    }
 
     //Funcion para devolver contraseña de usuario dado un correo
@@ -75,4 +80,3 @@ object Users : CrudRepository<User, Int>() {
         }
         return@transaction null
     }
-}

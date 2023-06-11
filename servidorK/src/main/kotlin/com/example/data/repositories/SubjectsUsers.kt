@@ -37,17 +37,16 @@ object SubjectsUsers : CrudRepository<SubjectUser, Int> (){
         return@transaction response!!
     }
 
-    override fun delete(id: Int) = transaction {
-        val subju = SubjectUserDAO.findById(id) ?: return@transaction
-        subju.delete()
+    override fun delete(id: Int): Any = transaction {
+        return@transaction SubjectUserDAO.findById(id)?.delete() ?: false
     }
+
     fun isEmpty()= transaction {
         return@transaction SubjectUserDAO.all().empty()
     }
     //funcion para comprobar si existe una materia
-    fun existSubject(idMateria: Int)= transaction {
-        val response = SubjectUserDAO.find { MateriaUsuario.idMateria eq idMateria }
-        return@transaction response
+    fun existSubject(idMateria: Int): Int? = transaction {
+        return@transaction SubjectUserDAO.find { MateriaUsuario.idMateria eq idMateria }.singleOrNull()?.id?.value
     }
 
 }

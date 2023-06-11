@@ -1,9 +1,7 @@
 package com.example.data.repositories
 
-import com.example.data.models.Country
-import com.example.data.models.Note
-import com.example.data.models.Subject
-import com.example.data.models.User
+import com.example.data.entities.MateriaUsuario
+import com.example.data.models.*
 import java.lang.IllegalArgumentException
 
 class cGenerica <T> {
@@ -20,6 +18,9 @@ class cGenerica <T> {
                 obj.getAll(limit, offset)
             }
             is Notes ->{
+                obj.getAll(limit,offset)
+            }
+            is SubjectsUsers ->{
                 obj.getAll(limit,offset)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -60,6 +61,14 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+    fun gSearch(obj: T, valor: Int): Any? {
+        return when(obj) {
+            is SubjectsUsers -> {
+                SubjectsUsers.existSubject(valor)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
 
     // Obtener un objeto por su id
 
@@ -77,10 +86,42 @@ class cGenerica <T> {
             is Notes ->{
                 obj.getById(id)
             }
+            is SubjectsUsers ->{
+                obj.getById(id)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
 
+    fun gUpdate(obj: T, id: Int, entity: Any): Any {
+        return when(obj) {
+            is SubjectsUsers -> {
+                obj.update(id, entity as SubjectUser)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gDelete(obj: T, id: Int): Any {
+       return when(obj) {
+            is Users -> {
+                obj.delete(id)
+            }
+            is Countries -> {
+                obj.delete(id)
+            }
+            is Subjects -> {
+                obj.delete(id)
+            }
+            is Notes ->{
+                obj.delete(id)
+            }
+            is SubjectsUsers ->{
+                obj.delete(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+       }
 
 
 
