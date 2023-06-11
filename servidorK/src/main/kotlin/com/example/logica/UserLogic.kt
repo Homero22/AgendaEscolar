@@ -29,10 +29,10 @@ class UserLogic {
 
 
     //Metodo para devolver el usuario que tiene el correo ingresado o telefono ingresado
-    fun searchUser(correo: String, telefono: String): User {
+    /*fun searchUser(correo: String, telefono: String): User {
         val user = Users.getUser(correo, telefono)
         return user!!
-    }
+    }*/
 
     // Funcion para Ingresar un nuevo usuario validando que el correo y el telefono no existan en la base de datos
     fun insertarUsuario(user: User): Boolean {
@@ -46,12 +46,16 @@ class UserLogic {
     }
 
     fun getAll(limit:Int, offset:Int): List<User> {
-
         return obj.gGetAll(Users,limit,offset) as List<User>
+
     }
 
     fun getById(id: Int): User? {
         return obj.gGgetById(Users,id) as User?
+    }
+    //funcion para guaradar un usuario
+    fun save(entity: User): User {
+        return obj.gSave(Users,entity) as User
     }
 
 

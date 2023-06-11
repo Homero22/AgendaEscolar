@@ -7,5 +7,5 @@ abstract class  CrudRepository <T,ID>{
     abstract fun getById(id: ID): T?
     abstract fun save(entity: T): T
     abstract fun update(id:ID, entity: T):T?
-    abstract fun delete(id: ID): Unit?
+    abstract fun delete(id: ID): Any
 }

@@ -16,22 +16,24 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
 
 
-
     override fun save(entity: Subject) = transaction {
-       val response = SubjectDAO.new {
+        val response = SubjectDAO.new {
             nombre = entity.nombre
         }
         return@transaction response.toSubject()
     }
 
-    override fun update(id: Int, entity: Subject) : Subject = transaction {
+    override fun update(id: Int, entity: Subject): Subject = transaction {
         val response = SubjectDAO.findById(id)?.apply {
             nombre = entity.nombre
         }?.toSubject()
         return@transaction response!!
     }
 
-    override fun delete(id: Int) = transaction {
-        return@transaction SubjectDAO.findById(id)?.delete()
+    override fun delete(id: Int): Any = transaction {
+        val subject = SubjectDAO.findById(id) ?: return@transaction
+        subject.delete()
+        return@transaction
+
     }
 }

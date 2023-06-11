@@ -46,8 +46,10 @@ object Notes : CrudRepository<Note, Int>() {
         return@transaction response!!
     }
 
-    override fun delete(id: Int) = transaction {
-        return@transaction NotesDAO.findById(id.toLong())?.delete()
+    override fun delete(id: Int): Any = transaction {
+        val note = NotesDAO.findById(id.toLong())?:return@transaction
+        note.delete()
+        return@transaction
     }
 
 }
