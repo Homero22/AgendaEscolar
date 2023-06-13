@@ -1,9 +1,10 @@
 package com.example.data.repositories
+import com.example.data.entities.MateriaUsuario
 import com.example.data.entities.SubjectUserDAO
 import com.example.data.models.SubjectUser
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object SubjectsUsers : CrudRepository<SubjectUser, Int> {
+object SubjectsUsers : CrudRepository<SubjectUser, Int> (){
 
     override fun getAll(limit: Int, offset:Int ) = transaction {
         val response = SubjectUserDAO.all().limit(limit, offset.toLong())
@@ -36,12 +37,16 @@ object SubjectsUsers : CrudRepository<SubjectUser, Int> {
         return@transaction response!!
     }
 
-    override fun delete(id: Int) = transaction {
-        val subju = SubjectUserDAO.findById(id) ?: return@transaction
-        subju.delete()
+    override fun delete(id: Int): Any = transaction {
+        return@transaction SubjectUserDAO.findById(id)?.delete() ?: false
     }
+
     fun isEmpty()= transaction {
         return@transaction SubjectUserDAO.all().empty()
+    }
+    //funcion para comprobar si existe una materia
+    fun existSubject(idMateria: Int): Int? = transaction {
+        return@transaction SubjectUserDAO.find { MateriaUsuario.idMateria eq idMateria }.singleOrNull()?.id?.value
     }
 
 }

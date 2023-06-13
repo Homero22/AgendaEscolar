@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 
+<<<<<<< HEAD
 // import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 // import interactionPlugin from '@fullcalendar/interaction';
 // import dayGridPlugin from '@fullcalendar/daygrid';
@@ -7,11 +8,15 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 // import listPlugin from '@fullcalendar/list';
 import { createEventId } from './event-utils';
 
+=======
+>>>>>>> c46691cdba359dd006d72ab7ca41ad7a8489d9ff
 @Component({
   selector: 'app-horario-page',
   templateUrl: './horario-page.component.html',
-styleUrls: ['./horario-page.component.css']
+  styles: [
+  ]
 })
+<<<<<<< HEAD
   export class HorarioPageComponent {
 
     // calendarVisible = true;
@@ -90,5 +95,8 @@ styleUrls: ['./horario-page.component.css']
 
     //   this.calendarVisible = true;
     // }
+=======
+export class HorarioPageComponent {
+>>>>>>> c46691cdba359dd006d72ab7ca41ad7a8489d9ff
 
 }
