@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.`java-time`.timestamp
 import java.sql.Timestamp
 */
 
-object Homeworks: CrudRepository<Homework, Int> {
+object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para obtener todas las tareas
     override fun getAll(limit: Int, offset: Int): List<Homework> = transaction{
         //Imprimer los parámetros de la funcion

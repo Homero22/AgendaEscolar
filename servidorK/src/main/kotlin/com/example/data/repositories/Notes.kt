@@ -4,7 +4,7 @@ import com.example.data.models.Note
 import io.ktor.http.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Notes : CrudRepository<Note, Int>{
+object Notes : CrudRepository<Note, Int>() {
     override fun getAll(limit: Int, offset: Int): List<Note> = transaction{
         val response = NotesDAO.all().limit(limit, offset.toLong())
         return@transaction response.map {it.toNotes()}
@@ -46,8 +46,10 @@ object Notes : CrudRepository<Note, Int>{
         return@transaction response!!
     }
 
-    override fun delete(id: Int) = transaction {
-        return@transaction NotesDAO.findById(id.toLong())?.delete()
+    override fun delete(id: Int): Any = transaction {
+        val note = NotesDAO.findById(id.toLong())?:return@transaction
+        note.delete()
+        return@transaction
     }
 
 }
