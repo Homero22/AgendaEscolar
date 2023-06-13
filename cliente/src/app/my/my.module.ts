@@ -11,7 +11,6 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { HorarioPageComponent } from './pages/horario-page/horario-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
-import { FullCalendarModule } from '@fullcalendar/angular';
 import { MaterialModule } from '../material/material.module';
 
 
@@ -30,7 +29,6 @@ import { MaterialModule } from '../material/material.module';
     MyRoutingModule,
     SharedModule,
     ComponentsModule,
-    FullCalendarModule,
     MaterialModule
   ],
   exports: [
