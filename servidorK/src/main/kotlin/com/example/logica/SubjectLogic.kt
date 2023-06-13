@@ -30,9 +30,10 @@ class SubjectLogic {
         return obj.gGetAll(SubjectsUsers,limit,offset) as List<SubjectUser>
     }
 
-    fun getOne(id: Int): Any {
-        return obj.gGgetById(SubjectsUsers,id) as SubjectUser
+    fun getOne(id: Int): SubjectUser? {
+        return obj.gGgetById(SubjectsUsers, id) as? SubjectUser
     }
+
 
     fun actualizar(id: Int, subjectu: SubjectUser): Any {
         return obj.gUpdate(SubjectsUsers,id,subjectu) as SubjectUser

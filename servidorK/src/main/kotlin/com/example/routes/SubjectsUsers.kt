@@ -40,11 +40,9 @@ fun Route.UsumateRouting() {
             }
         }
         get("/{id}") {
-            //GET /countries/{id}
-            //Obtenemos el id del pais a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                val respuesta = SubjectLogic().getOne(id);
+                val respuesta: SubjectUser? = SubjectLogic().getOne(id)
                 if (respuesta != null) {
                     val response = ResponseSingle(true, "Materia obtenida correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
