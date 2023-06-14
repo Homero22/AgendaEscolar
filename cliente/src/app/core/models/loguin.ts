@@ -2,6 +2,7 @@ export interface ShowLoguinModel {
   status: boolean;
   message: string;
   body: LoguinData[];
+  token: string;
 }
 
 export interface LoguinData{

@@ -43,18 +43,19 @@ export class LoginPageComponent {
   submitForm() {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-      this.permisses(formData);
+      this.iniciaSesion(formData);
     }
   }
 
   //función para permitir acceso a la ruta me/welcome desde el servicio
-  permisses( Loguin: LoguinModel){
+  iniciaSesion( Loguin: LoguinModel){
     this.srvLoguin.postlogin(Loguin)
     .pipe(takeUntil(this.destroy$))
     .subscribe(
       (res: ShowLoguinModel) => {
         console.log("rspuesta server -> ",res);
         if(res.status){
+          localStorage.setItem('token', res.token);
            this.router.navigate(['/me/welcome']);
         }
         else{
@@ -63,10 +64,17 @@ export class LoginPageComponent {
           //mostrar error de contraseña o correo incorrecto
           this.getErrorMessage()
         }
+      },(error) => {
+        // Error de acceso denegado (401 Unauthorized)
+        if (error.status === 401) {
+          // Aquí puedes redirigir al usuario a una página de acceso denegado o mostrar un mensaje apropiado
+          this.router.navigate(['/access-denied']);
+        } else {
+          // Otro tipo de error, manejarlo según corresponda
+          console.error("Error en la solicitud:", error);
+        }
       }
-
     )
-
   }
 
   ngOnDestroy(): void {
