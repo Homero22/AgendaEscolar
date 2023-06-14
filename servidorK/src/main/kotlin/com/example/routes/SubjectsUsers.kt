@@ -30,7 +30,7 @@ fun Route.UsumateRouting() {
                     val response = Response(true, "Materias obtenidas correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false, "No existen materias")
+                    val response = ResponseEmpty(false, "No existen materias", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
@@ -49,7 +49,7 @@ fun Route.UsumateRouting() {
                     val response = ResponseSingle(true, "Materia obtenida correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false, "No existe la materia")
+                    val response = ResponseEmpty(false, "No existe la materia", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                     }
             }catch (
@@ -85,7 +85,7 @@ fun Route.UsumateRouting() {
                     val response = ResponseSingle(true, "Materia actualizada correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false, "No existe la materia")
+                    val response = ResponseEmpty(false, "No existe la materia", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
@@ -101,10 +101,10 @@ fun Route.UsumateRouting() {
             try {
                val respuesta = SubjectLogic().eliminar(id)
                 if (respuesta == 1) {
-                    val response = ResponseEmpty(true, "Materia eliminada correctamente")
+                    val response = ResponseEmpty(true, "Materia eliminada correctamente", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else if (respuesta == 0){
-                    val response = ResponseEmpty(false, "No existe la materia")
+                    val response = ResponseEmpty(false, "No existe la materia", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
