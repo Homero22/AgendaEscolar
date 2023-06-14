@@ -1,12 +1,11 @@
 package com.example.routes
 import com.example.data.models.LoginRequest
 import com.example.data.repositories.Users
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.Serializable
 
 fun Route.loguinRouting(){
 
@@ -16,20 +15,26 @@ fun Route.loguinRouting(){
         post {
             try {
                 val loginRequest = call.receive<LoginRequest>()
-                val user = Users.search(loginRequest.email)
+                val user = Users.searchEmail(loginRequest.email)
 
                 if (user != null && user.contrasena == loginRequest.password) {
-                    call.respond(HttpStatusCode.OK,Users)
+                    val response = ResponseSingle(true, "Credenciales Validadas", user)
+                    sendJsonResponse(call, HttpStatusCode.OK    , response)
+                    //call.respond(HttpStatusCode.OK,Users)
                 } else {
-                    call.respond(HttpStatusCode.Unauthorized, "Invalid credentials")
+                    val response = Response(false, "Credenciales Invalidadas", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.OK , response)
                 }
-            }catch ( cause: Throwable ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
 
     }
 }
-
+/*
 @Serializable
 data class LoginRequest(val email: String, val password: String)
+*/
