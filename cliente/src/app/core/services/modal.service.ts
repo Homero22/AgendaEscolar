@@ -24,5 +24,8 @@ export class ModalService implements AfterContentInit {
       this.cerrarForm$.next(message);
     }
 
+
+
+
   }
 
