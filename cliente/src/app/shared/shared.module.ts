@@ -13,6 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { Error404Component } from './pages/error404/error404.component';
+import { DenegadoComponent } from './pages/denegado/denegado.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { Error404Component } from './pages/error404/error404.component';
     MainComponent,
     FooterComponent,
     Error404Component,
+    DenegadoComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { Error404Component } from './pages/error404/error404.component';
     MainComponent,
     FooterComponent,
     Error404Component,
+    DenegadoComponent,
   ]
 })
 export class SharedModule { }
