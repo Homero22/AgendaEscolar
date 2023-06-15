@@ -29,7 +29,7 @@ import { MaterialModule } from '../material/material.module';
     MyRoutingModule,
     SharedModule,
     ComponentsModule,
-    MaterialModule
+    MaterialModule,
   ],
   exports: [
     FullLayoutPageComponent,

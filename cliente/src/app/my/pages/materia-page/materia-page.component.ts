@@ -11,6 +11,17 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class MateriaPageComponent {
 
+  elementForm: {
+    form: string,
+    title: string,
+  } = {
+    form: '',
+    title: ''
+  }
+
+
+
+
   //LOGICA DE LA PAGINA
   nombre ="APRENDIENDO HTML- CSS- TS";
   nombres: string[] = ['CIENCIAS', 'MATEMATICAS', 'FUNDAMENTOS DE PROGRAMACIÓN y algo mas java c xd ciencias ','CIENCIAS', 'MATEMATICAS', 'FUNDAMENTOS DE PROGRAMACIÓN','CIENCIAS', 'MATEMATICAS', 'FUNDAMENTOS DE PROGRAMACIÓN','CIENCIAS', 'MATEMATICAS', 'FUNDAMENTOS DE PROGRAMACIÓN'];
@@ -21,7 +32,7 @@ export class MateriaPageComponent {
     constructor(
       private srvMateria: MateriaService,
 
-    ) { 
+    ) {
 
     }
 
@@ -37,15 +48,16 @@ export class MateriaPageComponent {
         next:(materiaData)=>{
           console.log("Informacion de Obtener Materias",materiaData);
         }
-      
+
       });
     }
 
-    
 
-
-
-
+    ngOnDestroy(): void {
+      console.log("ngOnDestroy");
+      this.destroy$.next({});
+      this.destroy$.complete();
+    }
 }
 
 
