@@ -3,10 +3,9 @@ package com.example.data.repositories
 import com.example.data.entities.Countries
 import com.example.data.entities.CountryDAO
 import com.example.data.models.Country
-import com.example.data.models.User
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object Countries : CrudRepository<Country, Int> {
+object Countries : CrudRepository<Country, Int>() {
 
     override fun getAll(limit: Int, offset:Int ) = transaction {
         val response = CountryDAO.all().limit(limit, offset.toLong())
@@ -45,6 +44,11 @@ object Countries : CrudRepository<Country, Int> {
     fun isEmpty()= transaction {
         return@transaction CountryDAO.all().empty()
     }
+
+    fun search(name: String): Country? = transaction {
+        return@transaction CountryDAO.find { Countries.nombre eq  name }.singleOrNull()?.toCountry()
+    }
+
 
 
 }

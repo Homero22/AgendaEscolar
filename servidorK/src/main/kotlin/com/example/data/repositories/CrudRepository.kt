@@ -2,10 +2,10 @@ package com.example.data.repositories
 
 import java.time.LocalTime
 
-interface  CrudRepository <T,ID>{
-    fun getAll(limit:Int,offset:Int): List<T>?
-    fun getById(id: ID): T?
-    fun save(entity: T): T
-    fun update(id:ID, entity: T):T?
-    fun delete(id: ID): Unit?
+abstract class  CrudRepository <T,ID>{
+    abstract fun getAll(limit:Int, offset:Int): List<T>?
+    abstract fun getById(id: ID): T?
+    abstract fun save(entity: T): T
+    abstract fun update(id:ID, entity: T):T?
+    abstract fun delete(id: ID): Any
 }

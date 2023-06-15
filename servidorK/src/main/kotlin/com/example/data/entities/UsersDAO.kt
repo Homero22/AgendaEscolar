@@ -1,6 +1,5 @@
 package com.example.data.entities
 
-import com.example.data.entities.Homeworks.references
 import com.example.data.models.User
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -19,7 +18,7 @@ object Users : LongIdTable("tb_usuarios") {
     val paisId = integer("str_pais_id").references(Countries.id)
     val nivelEstudio = varchar("str_nivel_estudio", 255)
     val fechaCreacion = datetime("dt_fecha_creacion")
-    val estado = varchar("str_usuario_estado", 255)
+    val estado = varchar("str_usuario_estado", 255).default("ACTIVO")
 }
 
 //clase que mapea la tabla de usuarios

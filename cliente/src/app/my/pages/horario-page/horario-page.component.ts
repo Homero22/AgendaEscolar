@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-horario-page',
@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class HorarioPageComponent {
 
-}
+  export class HorarioPageComponent {
+  }

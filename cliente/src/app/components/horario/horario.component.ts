@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-horario',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HorarioComponent {
 
+  calendarVisible = true;
+  // calendarOptions: CalendarOptions = {
+  //   plugins: [
+  //     interactionPlugin,
+  //     dayGridPlugin,
+  //     timeGridPlugin,
+  //     listPlugin,
+  //   ],
 }

@@ -5,12 +5,13 @@ import com.example.data.models.User
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-object Users : CrudRepository<User, Int> {
+object Users : CrudRepository<User, Int>() {
 
     //loguin con email and password
-    fun search(email: String): User? = transaction {
+    fun searchEmail(email: String): User? = transaction {
         return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser()
     }
+
 
     //verificar que el numero de telefono no este registrado
     fun searchPhone(telefono: String): User? = transaction {
@@ -55,12 +56,27 @@ object Users : CrudRepository<User, Int> {
         }?.toUser()
         return@transaction response!!
     }
-   override fun delete(id:Int)= transaction {
-       return@transaction UsersDAO.findById(id.toLong())?.delete()
+   override fun delete(id:Int): Any = transaction {
+        val user = UsersDAO.findById(id.toLong())?:return@transaction
+        user.apply {
+            estado = "INACTIVO"
+        }
+        return@transaction
+    }
    }
 
     //Funcion para devolver contraseña de usuario dado un correo
     fun getContrasena(correo: String): String? = transaction {
         return@transaction UsersDAO.find { Users.correo eq correo }.firstOrNull()?.contrasena
     }
-}
+
+    //Funcion para devolver los datos de un usuario dado un correo o telefono
+    fun getUser(correo: String, telefono: String): User? = transaction {
+        val userEmail = UsersDAO.find { Users.correo eq correo }.singleOrNull()?.toUser()
+        val userPhone = UsersDAO.find { Users.telefono eq telefono }.singleOrNull()?.toUser()
+        if ((userEmail != null) || (userPhone != null)) {
+            //retornamos todo el usuario que tiene el correo ingresado o telefono ingresado
+            return@transaction userEmail ?: userPhone
+        }
+        return@transaction null
+    }

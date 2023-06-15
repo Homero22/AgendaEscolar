@@ -2,81 +2,85 @@ package com.example.routes
 
 import com.example.data.models.User
 import com.example.data.repositories.Users
+import com.example.data.repositories.cGenerica
+import com.example.logica.UserLogic
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-
+val oUser = cGenerica<Users>();
 fun Route.usuariosRouting() {
 
     route("/users") {
         //GET /users
         get {
-            //Obtenemos el limite de usuarios a mostrar
-            val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
-            //Obtenemos el offset de usuarios a mostrar
-            val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-            //Obtenemos los usuarios
-            call.respond( HttpStatusCode(200,"OK"),Users.getAll(limit, offset))
+            try {
+                //Obtenemos el limite de usuarios a mostrar
+                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+                //Obtenemos el offset de usuarios a mostrar
+                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+                //Lógica
+                val u = UserLogic().getAll(limit, offset);
+                if(u!=null){
+                    val response = Response(true, "Usuarios obtenidos correctamente", u)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false, "No existen usuarios", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
+            }
 
         }
 
         post {
-            //Obtenemos el usuario a guardar
-            val user = call.receive<User>()
 
-            //declaramos el JSON que se va a enviar
-            val responseJSON = mapOf(
-                "status" to 200,
-                "message" to "Usuario creado correctamente",
-                "body" to user
-            )
 
-            println(user)
-            //Verificamos que el correo ingresado y el numero de telefono no exista en la base de datos
-            val userCorreo = Users.search(user.correo)
-            val userTelefono = Users.searchPhone(user.telefono)
-            if (userCorreo != null) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El correo ya existe"))
-            } else if (userTelefono != null) {
-                call.respond(HttpStatusCode.BadRequest, mapOf("status" to 400, "message" to "El teléfono ya existe"))
-            }else{
-                try {
-                    //Guardamos el usuario
-                    val response = Users.save(user)
-                    call.respond(HttpStatusCode.Created,  responseJSON)
-                }catch (
-                    cause: Throwable
-                ){
-                    println(cause.message)
-                    call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            try{
+                //Obtenemos el usuario a guardar
+                val user = call.receive<User>()
+                //Logica
+                val valido = UserLogic().insertarUsuario(user)
+                if (valido) {
+                    val response = ResponseSingle(true, "Usuario creado correctamente", user)
+                    sendJsonResponse(call, HttpStatusCode.Created, response)
+                } else {
+                    val response = ResponseEmpty(
+                        false,
+                        "Correo o teléfono ya registrados. Verifique los datos ingresados",
+                        emptyList()
+                    )
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }
-
-
-
-
-
-
-
+            catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
+            }
         }
+
         get("/{id}") {
             //Obtenemos el id del usuario a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Obtenemos el usuario
-                val response = Users.getById(id)
-                if (response != null) {
-                    call.respond(HttpStatusCode(200, "OK"), response)
+                //Lógica
+                val user = UserLogic().getById(id)
+                if (user != null) {
+                    val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 } else {
-                    call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
+                    val response = Response(false, "Usuario no encontrado", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
                 }
-            }catch (
-                cause: Throwable
-            ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
 
         }
@@ -86,19 +90,27 @@ fun Route.usuariosRouting() {
             //Obtenemos el usuario a actualizar
             val user = call.receive<User>()
             //Actualizamos el usuario
+
             try {
                 val user = Users.getById(id)
 
                 if (user != null) {
-                    val response = Users.update(id, user)
-                    call.respond(HttpStatusCode.OK,response)
+                    val udtUser = Users.update(id, user)
+
+                    val response = ResponseSingle(true, "Usuario actualizado correctamente", udtUser)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+
+
                 } else {
-                    call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
+                    val response = Response(false, "Usuario no encontrado", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
                 }
             }catch (
-                cause: Throwable
+                e: Throwable
             ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
 
         }
@@ -107,16 +119,24 @@ fun Route.usuariosRouting() {
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             //Eliminamos el usuario
             try {
-                val response = Users.delete(id)
-                if (response != null) {
-                    call.respond(HttpStatusCode.OK,response)
+
+
+                val dltUser = Users.delete(id)
+                if (dltUser != null) {
+
+                    val response = ResponseSingle(true, "Usuario eliminado correctamente", dltUser)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+
                 } else {
-                    call.respond(HttpStatusCode.NotFound, "Usuario no encontrado")
+                    val response = Response(false, "Usuario no encontrado", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
                 }
             }catch (
-                cause: Throwable
+                e: Throwable
             ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
     }

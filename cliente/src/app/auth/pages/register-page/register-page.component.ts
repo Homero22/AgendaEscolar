@@ -44,12 +44,12 @@ export class RegisterPageComponent {
       nombre:
         [
           '',
-          [ Validators.required]
+          [ Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
         ],
       apellido:
         [
           '',
-          [ Validators.required]
+          [ Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
         ],
         rol:
         [
@@ -95,6 +95,7 @@ export class RegisterPageComponent {
   //Metodo ngOnInit
   ngOnInit(): void {
     console.log(this.fechaActual);
+    this.getCountries();
     this.getUsers();
     // this.getCountries();
   }
@@ -111,15 +112,77 @@ export class RegisterPageComponent {
   //Metodo para registrar un usuario
   registerUser() {
     console.log("Formulario de registro: ", this.registerForm.value);
-    //transformamos de string a number el pais
-    // this.registerForm.value.paisId = Number(this.registerForm.value.paisId);
-    // this.srvUsuario.postUser(this.registerForm.value)
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next: (usuarioData) => {
-    //     console.log('Informacion de Usuario =>', usuarioData);
-    //   }
-    // });
+
+    //Swal con mensaje de Cargando
+    Swal.fire({
+      title: 'Cargando',
+      text: 'Por favor espere...',
+      allowOutsideClick: false,
+      //denegamos que el usuario puedar salir por medio del ESC
+      allowEscapeKey: false,
+      //Colocamos la animacion de loading
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    this.srvUsuario.postUser(this.registerForm.value)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (usuarioData) => {
+
+        console.log("Informacion de Usuario => ", usuarioData);
+        if(usuarioData.status == true){
+          Swal.close();
+          Swal.fire({
+            title:'Se ha resgistrado con éxito!',
+            icon:'success',
+            confirmButtonText: 'Aceptar',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = '/auth/ingreso';
+            }
+          })
+
+        }else if(usuarioData.status == false){
+          Swal.close();
+          Swal.fire({
+            title:'Opps!',
+            icon:'error',
+            text: 'Parece que el correo o contraseña ya fueron registrados!',
+            confirmButtonText: 'Aceptar',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showConfirmButton: true
+          })
+        }
+      },
+      error: (err: any) => {
+        console.log("Error al registrar el usuario => ", err);
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Parece que surgio un error al registrarte!',
+          //colocamos un boton de confirmacion
+          confirmButtonText: 'Aceptar',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showConfirmButton: true
+        })
+      },
+      complete: () => {
+        this.registerForm.reset();
+
+        //hacer que me redireccione al login
+
+
+      }
+    });
 }
 
 getUsers(){
@@ -136,21 +199,21 @@ getUsers(){
 
 
   //Metodo para obtener los paises
-  // getCountries() {
-  //   this.srvCountries.getCountries()
-  //   .pipe(takeUntil(this.destroy$))
-  //   .subscribe({
-  //     next: (countriesData) => {
-  //       console.log('Informacion de Estados Body =>', countriesData);
-  //       this.countries = countriesData.body;
+  getCountries() {
+    this.srvCountries.getCountries()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (countriesData) => {
+        console.log('Informacion de Estados Body =>', countriesData);
+        this.countries = countriesData.body;
 
-  //       console.log("Paises => ", this.countries)
-  //     },
-  //     error: (err: any) => {
-  //       console.log("Error al obtener los paises => ", err);
-  //     },
-  //   });
-  // }
+        console.log("Paises Body => ", this.countries)
+      },
+      error: (err: any) => {
+        console.log("Error al obtener los paises => ", err);
+      },
+    });
+  }
 
   //Metodo destroy
   ngOnDestroy(): void {

@@ -2,6 +2,9 @@ package com.example.routes
 
 import com.example.data.models.Country
 import com.example.data.repositories.Countries
+import com.example.utils.ErrorResponse
+import com.example.utils.Response
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -12,6 +15,7 @@ import io.ktor.server.routing.*
 fun Route.countriesRouting() {
     route("/countries") {
         get {
+
             //GET /countries
             try {
                 //Obtenemos el limite de paises a mostrar
@@ -21,11 +25,12 @@ fun Route.countriesRouting() {
                 //Obtenemos los paises
                 val countries = Countries.getAll(limit, offset)
 
-                call.respond(HttpStatusCode.OK, countries)
-            }catch (
-                cause: Throwable
-            ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                val response = Response(true, "Paises obtenidos correctamente", countries)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
         get("/{id}") {
