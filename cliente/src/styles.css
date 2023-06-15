@@ -1,3 +1,4 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
 /* Variables Globales de Angular Material */
 *{
   margin:0;
@@ -30,6 +31,8 @@ input:focus {
   /*Tamaños*/
   --title-font-size: 24px;
   --font-size: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
 
   /*weight*/
   --font-weight-400: 400;
@@ -45,4 +48,21 @@ input:focus {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+}
+
+.btn-agg {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+  gap: 10px;
+  cursor: pointer;
+}
+
+.btn-agg:hover {
+  background-color: var(--quinary-color);
+  color: var(--tertiary-color);
 }

@@ -1,18 +1,17 @@
 <div class="full-container">
-    <div class="card-container purple-container overflow-hidden ">
-        <div class="flex">
-      
-            <button class="btn-agg">
-              <mat-card-header>
-                <mat-card-title-group>
-                  <mat-card-title>AGREGAR</mat-card-title>
-                  <i class="material-icons">add</i>
-                </mat-card-title-group>
-              </mat-card-header>
-            </button>
+    <div class="m-3 container-Title">
 
-        </div>
+      <div>
+        <h1>Mis Materias</h1>
       </div>
+
+      <div class="">
+        <app-button>
+          [form]="'agregarMateria'"
+          [title]="'Agregar Materia'"
+        </app-button>
+      </div>
+    </div>
 
       <mat-grid-list cols="4" rowHeight="2:1">
         <div class="card-container">
@@ -36,9 +35,9 @@
 
       </mat-grid-list>
 
-      
+
 
 
 
   </div>
-  
+
