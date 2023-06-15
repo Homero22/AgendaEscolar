@@ -6,9 +6,10 @@ val h2Version : String by project
 val exposedVersion : String by project
 
 plugins {
+    application
     kotlin("jvm") version "1.8.21"
     id("io.ktor.plugin") version "2.3.0"
-                id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
 }
 
 group = "com.example"
@@ -67,13 +68,16 @@ dependencies {
     //Cors
     implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
 
+
     //MAIL
     implementation("com.sun.mail:javax.mail:1.6.2")
     implementation("javax.mail:javax.mail-api:1.6.2")
     implementation("com.sun.mail:javax.mail:1.6.2")
 
+
     //Gson
     implementation ("com.google.code.gson:gson:2.10.1")
+
 
     //Token
     implementation ("io.jsonwebtoken:jjwt-api:0.11.2")

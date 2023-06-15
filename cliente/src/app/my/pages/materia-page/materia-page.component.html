@@ -1,1 +1,43 @@
-<p>materia-page works!</p>
+<div class="full-container">
+    <div class="m-3 container-Title">
+
+      <div>
+        <h1>Mis Materias</h1>
+      </div>
+
+      <div class="">
+        <app-button>
+          [form]="'agregarMateria'"
+          [title]="'Agregar Materia'"
+        </app-button>
+      </div>
+    </div>
+
+      <mat-grid-list cols="4" rowHeight="2:1">
+        <div class="card-container">
+            <div class="card" *ngFor="let nombre of nombres">
+              <div class="flex">
+                <mat-card class="flex-1 md:flex-none flex align-items-center justify-content-center bg-indigo-500 font-bold border-round  custom-card">
+                  <button class="btn-mat-card">
+                    <mat-card-header>
+                      <mat-card-content>
+                        {{ nombre }}
+                      </mat-card-content>
+                      <mat-card-title-group>
+                        <i class="material-icons">create</i>
+                      </mat-card-title-group>
+                    </mat-card-header>
+                  </button>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+
+      </mat-grid-list>
+
+
+
+
+
+  </div>
+

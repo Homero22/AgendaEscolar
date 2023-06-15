@@ -1,6 +1,5 @@
 package com.example.data.entities
 
-import com.example.data.entities.Homeworks.references
 import com.example.data.models.User
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass

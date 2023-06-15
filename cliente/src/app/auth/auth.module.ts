@@ -6,10 +6,8 @@ import { LayoutPagesComponent } from './pages/layout-pages/layout-pages.componen
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { RecoverPageComponent } from './pages/recover-page/recover-page.component';
-import { LayoutModule } from '../layout/layout.module';
-import { SimpleLayoutComponent } from '../layout/simple-layout/simple-layout.component';
 import { MaterialModule } from '../material/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SubjectUser(
-    var id: Int,
-    val idUsuario: Int,
+    var id: Int=0,
+    val idUsuario: Long,
     val idMateria: Int,
     val materiaAcro: String,
     val materiaColor: String,

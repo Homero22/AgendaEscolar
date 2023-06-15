@@ -25,7 +25,7 @@ fun Route.UsumateRouting() {
                 //Obtenemos el offset de paises a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //Obtenemos los paises
-        val respuesta = SubjectLogic().getAll(limit, offset);
+                val respuesta = SubjectLogic().getAll(limit, offset);
                 if (respuesta != null) {
                     val response = Response(true, "Materias obtenidas correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -40,11 +40,9 @@ fun Route.UsumateRouting() {
             }
         }
         get("/{id}") {
-            //GET /countries/{id}
-            //Obtenemos el id del pais a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                val respuesta = SubjectLogic().getOne(id);
+                val respuesta: SubjectUser? = SubjectLogic().getOne(id)
                 if (respuesta != null) {
                     val response = ResponseSingle(true, "Materia obtenida correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
