@@ -5,6 +5,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
   templateUrl: './horario-page.component.html',
   styleUrls: ['./horario-page.component.css']
 })
-export class HorarioPageComponent {
 
-}
+  export class HorarioPageComponent {
+  }

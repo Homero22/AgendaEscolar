@@ -2,7 +2,7 @@
 /* Variables Globales de Angular Material */
 *{
   margin:0;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
