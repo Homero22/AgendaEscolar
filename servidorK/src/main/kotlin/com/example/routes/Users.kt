@@ -9,7 +9,6 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import java.lang.Boolean.TRUE
 
 val oUser = cGenerica<Users>();
 fun Route.usuariosRouting() {
@@ -28,7 +27,7 @@ fun Route.usuariosRouting() {
                     val response = Response(true, "Usuarios obtenidos correctamente", u)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false, "No existen usuarios")
+                    val response = ResponseEmpty(false, "No existen usuarios", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (e: Throwable){
@@ -41,6 +40,7 @@ fun Route.usuariosRouting() {
 
         post {
 
+
             try{
                 //Obtenemos el usuario a guardar
                 val user = call.receive<User>()
@@ -50,7 +50,11 @@ fun Route.usuariosRouting() {
                     val response = ResponseSingle(true, "Usuario creado correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.Created, response)
                 } else {
-                    val response = ResponseEmpty(false, "Correo o teléfono ya registrados. Verifique los datos ingresados")
+                    val response = ResponseEmpty(
+                        false,
+                        "Correo o teléfono ya registrados. Verifique los datos ingresados",
+                        emptyList()
+                    )
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }

@@ -11,7 +11,7 @@ class UserLogic {
 
     //Metodo para verificar si el correo ya existe en la base de datos
     fun verificarCorreo(correo: String): Boolean {
-        val user = Users.search(correo)
+        val user = Users.searchEmail(correo)
         if (user == null) {
             return false
         }

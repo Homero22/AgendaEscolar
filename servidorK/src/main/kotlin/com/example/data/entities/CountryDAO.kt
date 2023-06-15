@@ -9,7 +9,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 object Countries : IntIdTable("tb_pais") {
     val nombre = varchar("str_pais_nombre", 255).uniqueIndex()
     val acronimo = varchar("str_pais_acronimo", 255).uniqueIndex()
-    var estado = varchar("str_pais_estado", 255)
+    val estado = varchar("str_pais_estado", 255)
 }
 //crear esta tabla en el esquema seguridad
 
