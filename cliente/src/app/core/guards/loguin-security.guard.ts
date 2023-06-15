@@ -18,7 +18,7 @@ export class loguinSecurityGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      alert("hasUser -> "+this.hasUser());
+      // alert("hasUser -> "+this.hasUser());
 
     if (this.hasUser()) {
       return true;
