@@ -4,7 +4,7 @@ import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 
-fun sendEmail(to: String, subject: String, body: String) {
+fun sendEmail(to: String, subject: String, body: String): Boolean {
 
     val keyGMAIL = "yoykktmqdtkqfbtk"
     val userName = "u2d.8bits@gmail.com"
@@ -30,8 +30,9 @@ fun sendEmail(to: String, subject: String, body: String) {
         message.setText(body)
 
         Transport.send(message)
-        println("Correo electrónico enviado exitosamente.")
+        return true
     } catch (e: MessagingException) {
         e.printStackTrace()
+        return false
     }
 }

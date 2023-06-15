@@ -6,6 +6,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
   styles: [
   ]
 })
-export class HorarioPageComponent {
 
-}
+  export class HorarioPageComponent {
+  }

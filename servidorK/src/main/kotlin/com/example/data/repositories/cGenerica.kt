@@ -50,7 +50,7 @@ class cGenerica <T> {
         return when(obj) {
             is Users -> {
                 if(valor.contains("@")) {
-                    obj.search(valor)
+                    obj.searchEmail(valor)
                 }else{
                     obj.searchPhone(valor)
                 }

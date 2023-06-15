@@ -2,6 +2,12 @@
   height: 100%;
 }
 
+.cont-Header{
+  background-color: var(--primary-color);
+  color: var(--tertiary-color)
+}
+
+
 .mat-toolbar-single-row{
   height: 10vh;
 }
@@ -11,7 +17,9 @@
 }
 
 .sideBar-Container {
-  padding: 10px 0px 0px 16px;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--secondary-color);
 }
 
 mat-drawer {
@@ -20,8 +28,10 @@ mat-drawer {
 
 .menu-Container{
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  color: var(--tertiary-color);
+  width: 100%;
 }
 
 .mat-toolbar{
@@ -36,6 +46,40 @@ mat-drawer {
 }
 
 .btn-Menu{
-  display: grid;
-  place-content: center;
+  background: none;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 35px;
+}
+
+.menu-Options, .container-Options, .container-Settings{
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-Options{
+  height: 85%;
+  justify-content: space-between;
+}
+
+.container-Options{
+  gap: 20px;
+}
+
+.btn-Option{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.btn-Option i, p{
+  color: var(--tertiary-color);
+}
+
+.btn-Option:hover{
+  background-color: var( --quinary-color);
 }

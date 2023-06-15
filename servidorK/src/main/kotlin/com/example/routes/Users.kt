@@ -27,7 +27,7 @@ fun Route.usuariosRouting() {
                     val response = Response(true, "Usuarios obtenidos correctamente", u)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false, "No existen usuarios")
+                    val response = ResponseEmpty(false, "No existen usuarios", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (e: Throwable){
@@ -50,7 +50,11 @@ fun Route.usuariosRouting() {
                     val response = ResponseSingle(true, "Usuario creado correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.Created, response)
                 } else {
-                    val response = ResponseEmpty(false, "Correo o teléfono ya registrados. Verifique los datos ingresados")
+                    val response = ResponseEmpty(
+                        false,
+                        "Correo o teléfono ya registrados. Verifique los datos ingresados",
+                        emptyList()
+                    )
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }
