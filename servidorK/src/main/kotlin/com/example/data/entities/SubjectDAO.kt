@@ -7,7 +7,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IntIdTable
 
 
-object Subjects: IntIdTable("negocio.tb_materia"){
+object Subjects: IntIdTable("tb_materia"){
     val nombre = varchar("str_materia_nombre", 255)
 }
 class SubjectDAO (id: EntityID<Int>) : IntEntity(id){

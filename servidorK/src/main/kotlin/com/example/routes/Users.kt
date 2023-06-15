@@ -40,6 +40,7 @@ fun Route.usuariosRouting() {
 
         post {
 
+
             try{
                 //Obtenemos el usuario a guardar
                 val user = call.receive<User>()

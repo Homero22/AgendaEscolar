@@ -2,6 +2,8 @@ package com.example.routes
 
 import com.example.data.models.Subject
 import com.example.data.repositories.Subjects
+import com.example.utils.Response
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -15,7 +17,8 @@ fun Route.subjectsRouting(){
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 val subjects = Subjects.getAll(limit, offset)
-                call.respond(HttpStatusCode.OK, subjects)
+                val r = Response(true, "Materias obtenidas correctamente", subjects)
+                sendJsonResponse(call, HttpStatusCode.OK, r)
             }catch (
                 cause: Throwable
             ) {
