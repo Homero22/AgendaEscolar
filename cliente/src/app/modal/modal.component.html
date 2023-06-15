@@ -1,24 +1,26 @@
 <div class="modal-Body">
 
-  <div class="modal-Title m-2">
-    <h3 mat-dialog-title>{{titleModal}}</h3>
+  <div class="modal-Title px-2">
+    <p>{{titleModal}}</p>
 
-    <button mat-icon-button mat-dialog-close>
+    <button mat-button mat-dialog-close class="btn-Close">
       <i class="material-icons">close</i>
     </button>
   </div>
 
-  <div *ngIf="titleModal === 'agregarMateria'">
+<div mat-dialog-content class="modal-Content">
+  <div *ngIf="titleModal === 'Agregar Materia'">
     <app-agregar-materia></app-agregar-materia>
   </div>
 
-  <div *ngIf="titleModal === 'editarMateria'">
+  <div *ngIf="titleModal === 'Editar Materia'">
       <app-editar-materia></app-editar-materia>
   </div>
+</div>
 
-  <div mat-dialog-actions>
+  <div class="modal-Actions px-2">
 
-    <button>Cancelar</button>
+    <button mat-button class="btn-Cancel">Cancelar</button>
 
   </div>
 
