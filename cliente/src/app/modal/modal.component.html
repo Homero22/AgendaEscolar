@@ -1,12 +1,25 @@
-<div class="">
-    <div class="modal-Title">
-      <h1 mat-dialog-title>{{titleModal}}</h1>
-    </div>
-</div>
+<div class="modal-Body">
 
+  <div class="modal-Title m-2">
+    <h3 mat-dialog-title>{{titleModal}}</h3>
 
-<h1 mat-dialog-title>Favorite Animal</h1>
-<div mat-dialog-content>
-  My favorite animal is:
+    <button mat-icon-button mat-dialog-close>
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+
+  <div *ngIf="titleModal === 'agregarMateria'">
+    <app-agregar-materia></app-agregar-materia>
+  </div>
+
+  <div *ngIf="titleModal === 'editarMateria'">
+      <app-editar-materia></app-editar-materia>
+  </div>
+
+  <div mat-dialog-actions>
+
+    <button>Cancelar</button>
+
+  </div>
 
 </div>

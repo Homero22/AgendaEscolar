@@ -6,10 +6,10 @@
       </div>
 
       <div class="">
-        <app-button>
-          [form]="'agregarMateria'"
-          [title]="'Agregar Materia'"
-        </app-button>
+        <button class="btn-agg" (click)="openModal('Agregar Materia')">
+          <i class="material-icons">add</i>
+          <p>Agregar Materia</p>
+        </button>
       </div>
     </div>
 
@@ -24,7 +24,9 @@
                         {{ nombre }}
                       </mat-card-content>
                       <mat-card-title-group>
-                        <i class="material-icons">create</i>
+                        <button mat-button (click)="openModal('Editar Materia')">
+                          <i class="material-icons">create</i>
+                        </button>
                       </mat-card-title-group>
                     </mat-card-header>
                   </button>
