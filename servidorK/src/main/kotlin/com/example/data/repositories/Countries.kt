@@ -1,5 +1,6 @@
 package com.example.data.repositories
 
+import com.example.data.entities.Countries
 import com.example.data.entities.CountryDAO
 import com.example.data.models.Country
 import org.jetbrains.exposed.sql.transactions.transaction

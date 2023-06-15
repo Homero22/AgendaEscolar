@@ -9,14 +9,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
-import java.lang.Boolean.TRUE
 
-<<<<<<< HEAD
-
-
-=======
 val oUser = cGenerica<Users>();
->>>>>>> c46691cdba359dd006d72ab7ca41ad7a8489d9ff
 fun Route.usuariosRouting() {
 
     route("/users") {

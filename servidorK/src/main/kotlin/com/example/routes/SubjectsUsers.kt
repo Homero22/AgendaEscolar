@@ -25,7 +25,7 @@ fun Route.UsumateRouting() {
                 //Obtenemos el offset de paises a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //Obtenemos los paises
-        val respuesta = SubjectLogic().getAll(limit, offset);
+                val respuesta = SubjectLogic().getAll(limit, offset);
                 if (respuesta != null) {
                     val response = Response(true, "Materias obtenidas correctamente", respuesta)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
