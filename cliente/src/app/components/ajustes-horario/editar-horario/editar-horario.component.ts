@@ -5,7 +5,7 @@ import { MateriaService } from 'src/app/core/services/materia.service';
 import { Subject, takeUntil } from 'rxjs';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { Horario, HorarioItem } from 'src/app/core/models/horario';
-
+import { LoguinService } from 'src/app/core/services/loguin.service';
 @Component({
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
@@ -20,6 +20,7 @@ export class EditarHorarioComponent {
   materia!: FormControl;
   selected: any;
   idMateria: any;
+  idUser: any;
 
   hora!: any;
   dia!: any;
@@ -28,7 +29,8 @@ export class EditarHorarioComponent {
     public fb: FormBuilder,
     public srvModal: ModalService,
     public srvMateria: MateriaService,
-    public srvHorario: HorarioService
+    public srvHorario: HorarioService,
+    public srvLoguin: LoguinService
   ) {
     this.materia = new FormControl('', [Validators.required]);
     this.materiaForm = this.fb.group({
@@ -66,6 +68,13 @@ export class EditarHorarioComponent {
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
+    // this.srvLoguin.selectIdUser$
+    // .pipe(takeUntil(this.destroy$))
+    // .subscribe({
+    //   next: (idUser: number)=>{
+    //     this.idUser = idUser;
+    //   }
+    // })
     this.transfor();
   }
 
@@ -134,7 +143,26 @@ export class EditarHorarioComponent {
     }
     
     console.log("terminó la función cambiarMateriaID");
-    
+    this.actualizarHorario();
+  }
+
+  actualizarHorario(){
+
+    //encontrar hora fin = hora inicio + 1
+
+    const horaFin = this.hora + 1;
+    console.log("hora fin", horaFin);
+
+    const addHorario ={
+      id: 0,
+      idMateria: this.selected.id,
+      idUser: 1,
+      hora_inicio: this.hora,
+      hora_fin: horaFin,
+      dia: this.dia
+    }
+
+    console.log("addHorario", addHorario);
   }
 
   

@@ -55,3 +55,23 @@ export interface HorarioItem {
     profesorNombre: string;
   }
   
+  export interface addDataHorario{
+    id: number,
+      idMateria: number,
+      idUser: number,
+      hora_inicio: string,
+      hora_fin: string,
+      dia: string,
+  }
+
+  export interface ModelAddHorario{
+    status: string,
+    messege: string,
+    body: addDataHorario
+  }
+
+  export interface ModelShowHorario{
+    status: string,
+    messege: string,
+    body: HomeroItem[]
+  }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import config from 'config/config';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Horario,  } from '../models/horario';
+import { Horario, addDataHorario, ModelAddHorario,HorarioItem, HomeroItem,ModelShowHorario } from '../models/horario';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Horario,  } from '../models/horario';
 })
 export class HorarioService {
 
-  private urlApi_Materias: string = config.URL_API_BASE + "schedules";
+  private urlApi_Horario: string = config.URL_API_BASE + "schedules";
   constructor(private http: HttpClient) { }
 
   // ------------------------ HORARIO BEHAVIORSUBJECTS ------------------------
@@ -75,4 +76,60 @@ export class HorarioService {
       '11:00': { materia: 'Inglés', horaFin: '12:00', color: '#008000', acronimo: 'ING', id:3  },
       '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS', id:8 }
     }};
+
+    // ------------------------ CRUD ------------------------
+
+    //Actualizar horario por id
+    updateHorario(id: number, horario: addDataHorario){
+      return this.http.put<ModelAddHorario>(`${this.urlApi_Horario}/${id}`, horario,
+    {
+      withCredentials: true
+    });
+
+    }
+
+    //Obtener horario por id
+    getHorario(id: number){
+      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/${id}`,
+    {
+      withCredentials: true
+    });
+    }
+
+    //Obtener horario por id de usuario
+    getHorarioUser(id: number){
+      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/user/${id}`,
+    {
+      withCredentials: true
+    });
+    }
+
+    //----------------------TRANSFORMACIONES----------------------
+
+    transfor(homero: HomeroItem[], horario: Horario): Horario{
+      console.log("transformando en servicio");
+      homero.forEach(obj => {
+        const dia = obj.dia.toLowerCase();
+        const horaInicio = `${obj.hora_inicio.hour}:${obj.hora_inicio.minute}`;
+        const horaFin = `${obj.hora_fin.hour}:${obj.hora_fin.minute}`;
+      
+        if (horario[dia]) {
+          horario[dia] = {}; // Crea el objeto para el día si no existe
+        }
+      
+        if (horario[dia][horaInicio]) {
+          horario[dia][horaInicio] = {} as HorarioItem; // Crea el objeto para la hora si no existe
+        }
+      
+        horario[dia][horaInicio] = {
+          materia: obj.nombre,
+          horaFin: horaFin,
+          color: obj.materiaColor,
+          acronimo: obj.materiaAcro,
+          id: obj.id
+        };
+      });
+      console.log(this.horario);
+      return horario;
+    }
 }
