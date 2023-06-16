@@ -29,10 +29,10 @@ export class EditarHorarioComponent {
   }
 
   ngOnInit(): void {
-    this.idMateria = this.srvModal.selectIdMateria$;
+    // this.idMateria = this.srvModal.selectIdMateria$;
 
     console.log("idMeria", this.idMateria);
-    
+
   }
 
   submitForm() {

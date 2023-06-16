@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
-import { ShowMateriaModel, MateriaData, MateriaModel, addMateriaData } from '../models/materia';
+import { ShowMateriaModel, addMateriaData, MateriaModel, modMateriaModel, addMAteriaDataByID } from '../models/materia';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+const idMateria: number = 0;
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +16,22 @@ private urlApi_Materias: string = config.URL_API_BASE + "subjects";
 datosMateria!: MateriaModel[];
 
 constructor(private http: HttpClient) { }
+
+// ------------------------ MATERIAS BEHAVIORSUBJECTS ------------------------
+
+//behaviorSubject para obtener el idDeMateria
+private idMateria$ = new BehaviorSubject<number>(idMateria);
+
+get selectIdMateria$(): Observable<number>{
+  return this.idMateria$.asObservable();
+}
+
+setIdMateria(_idMateria: number){
+  this.idMateria$.next(_idMateria);
+}
+
+
+// ------------------------ MATERIAS ------------------------
 
 getMaterias(){
   return this.http.get<ShowMateriaModel>(`${this.urlApi_Materias}`,
@@ -29,14 +48,14 @@ postMateria(dataMateria: addMateriaData){
 }
 
 getMateria(id: number){
-  return this.http.get<MateriaModel>(`${this.urlApi_Materias}/${id}`,
+  return this.http.get<modMateriaModel>(`${this.urlApi_Materias}/${id}`,
     {
       withCredentials: true
     });
 }
 
-putMateria(id: number, dataMateria: MateriaData){
-  return this.http.put<MateriaData>(`${this.urlApi_Materias}/${id}`, dataMateria,
+putMateria(id: number, dataMateria: addMAteriaDataByID){
+  return this.http.put<modMateriaModel>(`${this.urlApi_Materias}/${id}`, dataMateria,
     {
       withCredentials: true
     });

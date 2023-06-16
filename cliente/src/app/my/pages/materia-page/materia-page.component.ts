@@ -17,6 +17,8 @@ export class MateriaPageComponent {
 
  titleModal: string = '';
 
+ idMateria!: number;
+
 
 
 
@@ -72,18 +74,28 @@ export class MateriaPageComponent {
       });
     }
 
-    openModal(title: string){
-
-      // Implemenetamos el  servicio de modal para obtener el title
+    openModalEdit(title:string, id: number){
+      console.log("openModalEdit");
+      this.srvMateria.setIdMateria(id);
       this.srvModal.setTitleModal(title);
-
-
-      console.log("openModal");
       this.dialog.open(ModalComponent,{
         width: '60%',
         height: '70%'
       });
     }
+
+    openModal(title: string){
+
+      // Implemenetamos el  servicio de modal para obtener el title
+      this.srvModal.setTitleModal(title);
+        console.log("openModal");
+        this.dialog.open(ModalComponent,{
+          width: '60%',
+          height: '70%'
+        });
+    }
+
+
 
 
     ngOnDestroy(): void {
