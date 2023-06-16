@@ -66,9 +66,9 @@ export class HorarioComponent {
     private srvModal: ModalService,
     private dialog: MatDialog,
 
-  ) {     
+  ) {
     this.pantallaMediana = this.calcularPantallaMediana();
-    
+
   }
 
   ngOnInit() {
@@ -140,7 +140,7 @@ export class HorarioComponent {
   beheviour(){
     console.log("beheviour");
     const idMateria = this.ObtenerIdMateria('8:00', 'lunes')
-    this.srvModal.setIdMateria(idMateria);
+    // this.srvModal.setIdMateria(idMateria);
   }
 
   openModal(){
