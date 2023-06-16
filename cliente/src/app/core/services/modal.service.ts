@@ -1,6 +1,9 @@
 import {AfterContentInit, ElementRef, Injectable, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 
+const idMateria: number = 0;
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,19 +13,34 @@ export class ModalService implements AfterContentInit {
   constructor() {}
 
   ngAfterContentInit(): void {
+    console.log("Error generado de ngAfterContentInit")
     throw new Error('Method not implemented.');
   }
 
+    //BehaviorSubject para obtener el id en Materias
+    private idMateria$ = new BehaviorSubject<number>(idMateria);
 
-    private cerrarForm$ = new BehaviorSubject<boolean>(false);
-
-    get selectMessage$(): Observable<any> {
-      return this.cerrarForm$.asObservable();
+    get selectIdMateria$(): Observable<number>{
+      return this.idMateria$.asObservable();
     }
 
-    setMessageCerrar(message: any) {
-      this.cerrarForm$.next(message);
+    setIdMateria(_idMateria: number){
+      this.idMateria$.next(_idMateria);
     }
+
+    //behaviorSubject para obtener el title del modal
+    private titleModal$ = new BehaviorSubject<string>('');
+
+    get selectTitleModal$(): Observable<string>{
+      return this.titleModal$.asObservable();
+    }
+
+    setTitleModal(_titleModal: string){
+      this.titleModal$.next(_titleModal);
+      //imprimimos el valor del title
+      console.log("Valor del title",_titleModal);
+    }
+
 
   }
 
