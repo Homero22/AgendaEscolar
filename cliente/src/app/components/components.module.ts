@@ -6,6 +6,7 @@ import { ScheduleModule, RecurrenceEditorModule, WeekService, AgendaService, Day
 import { ButtonComponent } from './button/button.component';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
+import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -18,6 +19,7 @@ import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-
   imports: [
     ScheduleModule,
     RecurrenceEditorModule,
+    MaterialModule
   ],
   exports: [
     ApuntesComponent,
