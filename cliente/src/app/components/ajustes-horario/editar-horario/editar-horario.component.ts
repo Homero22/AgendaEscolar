@@ -6,13 +6,13 @@ import { ModalService } from 'src/app/core/services/modal.service';
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
   styleUrls: ['./editar-horario.component.css'],
-  
+
 })
 export class EditarHorarioComponent {
 
   materiaForm!: FormGroup;
   materia!: FormControl;
-  selected = 'option2';
+  selected: any;
   idMateria: any;
 
   constructor(

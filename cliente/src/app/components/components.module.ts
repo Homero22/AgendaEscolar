@@ -9,6 +9,7 @@ import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agreg
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
+import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -17,7 +18,8 @@ import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
-    EditarHorarioComponent
+    EditarHorarioComponent,
+    ConfigurarHorarioComponent
     
   ],
   imports: [

@@ -7,12 +7,11 @@ import { loguinSecurityGuard } from './core/guards/loguin-security.guard';
 const routes: Routes = [
   {
     path: 'auth',
-   // canActivate: [loguinSecurityGuard],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
     path: 'me',
-    // canActivate: [loguinSecurityGuard],
+    canActivate: [loguinSecurityGuard],
     loadChildren: () => import('./my/my.module').then(m => m.MyModule),
   },
   {
