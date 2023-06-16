@@ -1,0 +1,29 @@
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px 8px 8px 20px;
+    border-radius: 4px;
+    z-index: 9999;
+    font-size: 14px;
+    left: 159.362px;
+    top: 13.1125px;
+    width: 200px;
+    height: 90px;
+  }
+  label {
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 15px;
+  }
+  input {
+    width: 80%;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  select{
+    width: 85%;
+    padding: 4px;
+    border-radius: 4px;
+  }

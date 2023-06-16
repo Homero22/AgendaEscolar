@@ -111,7 +111,7 @@ export class AgregarMateriaComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Error al agregar proveedor =>", data);
+              console.log("Error al agregar materia =>", data);
             }
             setTimeout(() => {
               Swal.close();
@@ -124,7 +124,7 @@ export class AgregarMateriaComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             })
-            console.log("Error al agregar proveedor =>", error);
+            console.log("Error al agregar materia =>", error);
           },
           complete: ()=>{
             console.log("Petición completa!");

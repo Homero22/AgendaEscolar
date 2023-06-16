@@ -1,70 +1,29 @@
-import {  Component, HostListener } from '@angular/core';
+import {  Component, HostListener, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal.component';
-
+import { HorarioService } from 'src/app/core/services/horario.service';
+import { MateriaService } from 'src/app/core/services/materia.service';
 
 @Component({
   selector: 'app-horario',
-  // template: '<ejs-schedule></ejs-schedule>',
   templateUrl: './horario.component.html',
   styleUrls: ['./horario.component.css']
 })
-export class HorarioComponent {
+export class HorarioComponent implements OnInit{
 
   pantallaMediana: boolean;
   calendarVisible = true;
-  // calendarOptions: CalendarOptions = {
-  //   plugins: [
-  //     interactionPlugin,
-  //     dayGridPlugin,
-  //     timeGridPlugin,
-  //     listPlugin,
-  //   ],
+  display = false;
+  left = 0;
+  top = 0;
+  tooltipInitialized = false;
 
-
-  horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
-  dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
-  horario: any = {
-    lunes: {
-      '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
-      '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS',id: 2 },
-      '10:00': { materia: 'Inglés', horaFin: '11:00', color: 'verde', acronimo: 'ING',id: 3 },
-      '11:00': { materia: 'Educación Física', horaFin: '12:00', color: 'amarillo', acronimo: 'EDF',id: 4 },
-      '12:00': { materia: 'Artes', horaFin: '13:00', color: 'naranja', acronimo: 'ART',id: 5 }
-    },
-    martes: {
-      '8:00': { materia: 'Ciencias', horaFin: '9:00', color: 'verde', acronimo: 'CIE', id:6 },
-      '9:00': { materia: 'Lengua y Literatura', horaFin: '10:00', color: '#008000', acronimo: 'LEN', id:7 },
-      '10:00': { materia: 'Matemáticas', horaFin: '11:00', color: 'rojo', acronimo: 'MAT', id:1 },
-      '11:00': { materia: 'Ciencias Sociales', horaFin: '12:00', color: 'naranja', acronimo: 'CS', id:8 },
-      '12:00': { materia: 'Música', horaFin: '13:00', color: 'amarillo', acronimo: 'MUS', id:9 }
-    },
-    miércoles: {
-      '8:00': { materia: 'Inglés', horaFin: '9:00', color: 'verde', acronimo: 'ING', id:3 },
-      '9:00': { materia: 'Educación Física', horaFin: '10:00', color: 'amarillo', acronimo: 'EDF', id:4 },
-      '10:00': { materia: 'Lengua y Literatura', horaFin: '11:00', color: '#008000', acronimo: 'LEN', id:7 },
-      '11:00': { materia: 'Ciencias', horaFin: '12:00', color: 'rojo', acronimo: 'CIE', id:6 },
-      '12:00': { materia: 'Matemáticas', horaFin: '13:00', color: 'naranja', acronimo: 'MAT', id:1 }
-    },
-    jueves: {
-      '8:00': { materia: 'Historia', horaFin: '9:00', color: 'rojo', acronimo: 'HIS', id:2 },
-      '9:00': { materia: 'Música', horaFin: '10:00', color: '#008000', acronimo: 'MUS', id:9 },
-      '10:00': { materia: 'Ciencias Sociales', horaFin: '11:00', color: 'naranja', acronimo: 'CS', id:8 },
-      '11:00': { materia: 'Lengua y Literatura', horaFin: '12:00', color: 'azul', acronimo: 'LEN', id:7 },
-      '12:00': { materia: 'Educación Física', horaFin: '13:00', color: 'verde', acronimo: 'EDF', id:4 }
-    },
-    viernes: {
-      '8:00': { materia: 'Artes', horaFin: '9:00', color: '#ccc', acronimo: 'ART', id:5 },
-      '9:00': { materia: 'Ciencias', horaFin: '10:00', color: 'rojo', acronimo: 'CIE', id:6 },
-      '10:00': { materia: 'Matemáticas', horaFin: '11:00', color: '#008000', acronimo: 'MAT', id:1 },
-      '11:00': { materia: 'Inglés', horaFin: '12:00', color: '#008000', acronimo: 'ING', id:3  },
-      '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS', id:8 }
-    }
-  };
   constructor(
     private srvModal: ModalService,
     private dialog: MatDialog,
+    public srvHorario: HorarioService,
+    public srvMateria: MateriaService
 
   ) {
     this.pantallaMediana = this.calcularPantallaMediana();
@@ -82,6 +41,8 @@ export class HorarioComponent {
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
+
+    
   }
 
   @HostListener('window:resize')
@@ -102,8 +63,8 @@ export class HorarioComponent {
   }
 
   ObtenerMateria(hora: string, dia: string): string | null {
-    if (this.horario.hasOwnProperty(dia) && this.horario[dia].hasOwnProperty(hora)) {
-      return this.horario[dia][hora].materia;
+    if (this.srvHorario.horario.hasOwnProperty(dia) && this.srvHorario.horario[dia].hasOwnProperty(hora)) {
+      return this.srvHorario.horario[dia][hora].materia;
     } else {
       return null;
     }
@@ -112,7 +73,7 @@ export class HorarioComponent {
   ObtenerColorMateria(hora: string, dia: string): string {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
-      return this.horario[dia][hora].color;
+      return this.srvHorario.horario[dia][hora].color;
     } else {
       return 'transparent';
     }
@@ -121,7 +82,7 @@ export class HorarioComponent {
   ObtenerAcronimoMateria(hora: string, dia: string): string {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
-      return this.horario[dia][hora].acronimo;
+      return this.srvHorario.horario[dia][hora].acronimo;
     } else {
       return '';
     }
@@ -130,28 +91,42 @@ export class HorarioComponent {
   ObtenerIdMateria(hora: string, dia: string): number {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
-      return this.horario[dia][hora].id;
+      return this.srvHorario.horario[dia][hora].id;
     } else {
       return 0;
     }
   }
 
-  //funcion para pasar el id de la materia al modal
-  beheviour(){
-    console.log("beheviour");
-    const idMateria = this.ObtenerIdMateria('8:00', 'lunes')
-    // this.srvModal.setIdMateria(idMateria);
-  }
-
-  openModal(){
+  openModal(hora: string, dia: string){
     // Implemenetamos el  servicio de modal para obtener el title
-    this.srvModal.setTitleModal("Editar Horario");
-    console.log("openModal");
-    this.dialog.open(ModalComponent,{
-      width: '40%',
-      height: '50%'
-    });
+    if(this.mostrarContenido){
+      this.srvModal.setTitleModal("Editar Horario");
+      console.log("openModal");
+      const idMateria = this.ObtenerIdMateria(hora, dia)
+      this.srvMateria.setIdMateria(idMateria);
+      this.srvHorario.setDia(dia);
+      this.srvHorario.setHora(hora);
+
+
+      this.dialog.open(ModalComponent,{
+        width: '40%',
+        height: '50%'
+      });
+    }
   }
 
+  toggleTooltip() {
+    if(this.mostrarContenido){
+      this.mostrarContenido = false;
+    }else{
+      this.mostrarContenido = true;
+    }
+    // this.tooltipInitialized = true;
+    // this.display = !this.display;
+    // const buttonRect = document.querySelector('button.secondary')!.getBoundingClientRect();
+    // this.left = buttonRect.left + buttonRect.width;
+    // this.top = buttonRect.top;
+  }
 
+  mostrarContenido = false;
 }

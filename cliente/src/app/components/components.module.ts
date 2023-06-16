@@ -1,4 +1,5 @@
 import { NgModule} from '@angular/core';
+// import { BrowserModule } from '@angular/platform-browser';
 import { ApuntesComponent } from './apuntes/apuntes.component';
 import { HorarioComponent } from './horario/horario.component';
 import { TareasComponent } from './tareas/tareas.component';
@@ -11,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -29,7 +32,9 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    MatSlideToggleModule
+    // BrowserModule
   ],
   exports: [
     ApuntesComponent,

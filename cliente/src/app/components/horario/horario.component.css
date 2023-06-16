@@ -247,6 +247,11 @@ td:hover:after {
   transform: translate(-50%, -50%);
 }
 
+.ocultar-estilo td:hover:after {
+  display: none;
+}
+
+
 .headcol:hover:after {
   content: "";
 }
