@@ -1,7 +1,6 @@
 package com.example.routes
 
 import com.example.data.models.Schedule
-import com.example.data.repositories.Schedules
 import com.example.logica.ScheduleLogic
 import com.example.utils.Response
 import com.example.utils.ResponseSingle
@@ -34,16 +33,19 @@ fun Route.horariosRouting() {
             }
         }
         get("/{id}") {
-
+            //GET /schedules/{id}
+            //Aqui recibimos el id del usuario para obtener todos los horarios
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Obtenemos el pais
-                val schedule = Schedules.getById(id)
-                if (schedule != null) {
-                    call.respond(HttpStatusCode.OK, schedule)
-                } else {
-                    call.respond(HttpStatusCode.NotFound, "Horario no encontrado")
-                }
+                //Envio a la capa logica
+                val res = ScheduleLogic().getById(id);
+               if(res==null){
+                   val response = ResponseSingle(false,"No se encontro horario", res)
+                     sendJsonResponse(call, HttpStatusCode.OK, response)
+               }else{
+                   val response = ResponseSingle(true,"Horario obtenido correctamente", res)
+                   sendJsonResponse(call, HttpStatusCode.OK, response)
+               }
             }catch (
                 cause: Throwable
             ){
@@ -74,10 +76,8 @@ fun Route.horariosRouting() {
 
 
             try {
-                //PUT /countries/{id}
-                //Obtenemos el id del pais a actualizar
                 val id = call.parameters["id"]?.toIntOrNull() ?: 0
-                //Obtenemos el pais a actualizar
+
                 val schedule = call.receive<Any>()
                 //envio capa logica
                 val res = ScheduleLogic().actualizarHorario(id,schedule)

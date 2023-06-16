@@ -2,7 +2,6 @@ package com.example.routes
 
 import com.example.data.models.User
 import com.example.data.repositories.Users
-import com.example.data.repositories.cGenerica
 import com.example.logica.UserLogic
 import com.example.utils.*
 import io.ktor.http.*
@@ -44,6 +43,8 @@ fun Route.usuariosRouting() {
             try{
                 //Obtenemos el usuario a guardar
                 val user = call.receive<User>()
+                //imprimir lo que llega
+                println(user)
                 //Logica
                 val valido = UserLogic().insertarUsuario(user)
                 if (valido) {
