@@ -136,6 +136,15 @@ class cGenerica <T> {
         }
        }
 
+    fun gGetByUserId(subjects: T, id: Int): Any? {
+        return when(subjects) {
+            is Subjects -> {
+                subjects.getByIdUser(id.toLong())
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
     //buscamos nombre de materia
     /*
     fun gGetDataSubjects(obj: T): List<Any> {

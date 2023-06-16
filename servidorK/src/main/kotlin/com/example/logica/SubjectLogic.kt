@@ -48,4 +48,16 @@ class SubjectLogic {
     fun getById(id:Int ): Any?  {
         return obj.gGgetById(Subjects,id);
     }
+
+    fun save(subject: Subject): Any {
+        return obj.gSave(Subjects,subject)
+    }
+
+    fun update(id: Int, subject: Subject): Any {
+        return obj.gUpdate(Subjects,id,subject)
+    }
+
+    fun getByUserId(id: Int): Any? {
+        return obj.gGetByUserId(Subjects,id)
+    }
 }
