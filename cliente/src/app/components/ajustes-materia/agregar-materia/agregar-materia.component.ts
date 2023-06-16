@@ -25,9 +25,12 @@ export class AgregarMateriaComponent implements OnInit {
     private srvMateria: MateriaService
   ) {
     this.myForm = this.fb.group({
+      idUser: [
+        this.idUser,
+      ],
       nombre: [
         '',
-        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")],
       ],
       materiaAcro: [
         '',
@@ -37,7 +40,7 @@ export class AgregarMateriaComponent implements OnInit {
         ]
       ],
       materiaColor: [
-        '',
+        '#000000',
        [ Validators.pattern(/^#[0-9A-F]{6}$/i)]
       ],
       profesorNombre: [
@@ -52,6 +55,9 @@ export class AgregarMateriaComponent implements OnInit {
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
     console.log("idUser =>",this.idUser);
+    //declaramos el valor de idUser en el formulario
+    this.myForm.get('idUser')?.setValue(this.idUser);
+    console.log("myForm =>",this.myForm.value);
   }
 
 
@@ -61,11 +67,19 @@ export class AgregarMateriaComponent implements OnInit {
   getColor(event: any) {
     this.selectedColor = event.target.value;
     console.log(this.selectedColor);
-    this.myForm.get('color')?.setValue(this.selectedColor);
+    this.myForm.get('materiaColor')?.setValue(this.selectedColor);
   }
 
 
   saveMateria(){
+
+
+    //colocamos el valor del color en el formulario
+    this.myForm.get('materiaColor')?.setValue(this.selectedColor);
+
+    //colocamos el valor del idUser en el formulario
+    this.myForm.get('idUser')?.setValue(this.idUser);
+
     console.log("Valor que llega al Form de Materia =>",this.myForm.value);
 
     const sendMateriaData = this.myForm.value;
@@ -81,6 +95,7 @@ export class AgregarMateriaComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data)=>{
+            console.log("Data que llega al agregar Materia =>",data);
             if(data.status){
               Swal.fire({
                 title:'Materia agregada con éxito!',
