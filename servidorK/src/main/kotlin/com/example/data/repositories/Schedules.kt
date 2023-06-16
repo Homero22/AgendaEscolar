@@ -1,9 +1,11 @@
 package com.example.data.repositories
 import com.example.data.entities.Horarios
 import com.example.data.entities.ScheduleDAO
+import com.example.data.entities.Subjects
 import com.example.data.models.Schedule
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Schedules : CrudRepository<Schedule, Int>() {
@@ -24,6 +26,8 @@ object Schedules : CrudRepository<Schedule, Int>() {
 
     override fun save(entity: Schedule)= transaction {
         entity.id = ScheduleDAO.new {
+            idMateria = entity.idMateria
+            idUser = entity.idUser
             hora_inicio = java.time.LocalTime.parse(entity.hora_inicio)
             hora_fin = java.time.LocalTime.parse(entity.hora_fin)
             dia = entity.dia
@@ -55,5 +59,47 @@ object Schedules : CrudRepository<Schedule, Int>() {
         logger.info{"HOLAAAAAAA "+response}
         return@transaction response.empty()
     }
+
+    //devolver horarios haciendo join con materias
+    /*
+    *     fun obtenerDatosMaterias(): List<Any> = transaction {
+        val resultado = (Subjects innerJoin MateriaUsuario)
+            .selectAll()
+            .map {
+                mapOf(
+                    "id" to it[Subjects.id].value,
+                    "nombreMateria" to it[Subjects.nombre],
+                    "idUsuario" to it[MateriaUsuario.idUsuario],
+                    "idMateria" to it[MateriaUsuario.idMateria],
+                    "materiaAcro" to it[MateriaUsuario.materiaAcro],
+                    "materiaColor" to it[MateriaUsuario.materiaColor],
+                    "profesorNombre" to it[MateriaUsuario.profesorNombre]
+                )
+            }
+        return@transaction resultado
+    }
+
+    * */
+    fun obtenerHorarios(): List<Any> = transaction {
+        val resultado = (Horarios innerJoin Subjects )
+            .selectAll()
+            .map {
+                mapOf(
+                    "id" to it[Horarios.id].value,
+                    "idMateria" to it[Horarios.idMateria],
+                    "idUser" to it[Horarios.idUser],
+                    "hora_inicio" to it[Horarios.hora_inicio],
+                    "hora_fin" to it[Horarios.hora_fin],
+                    "dia" to it[Horarios.dia],
+                    "nombre" to it[Subjects.nombre],
+                    "materiaAcro" to it[Subjects.materiaAcro],
+                    "materiaColor" to it[Subjects.materiaColor],
+                    "profesorNombre" to it[Subjects.profesorNombre]
+                )
+            }
+        return@transaction resultado
+    }
+
+
 
 }

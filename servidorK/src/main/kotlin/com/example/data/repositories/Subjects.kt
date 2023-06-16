@@ -10,6 +10,10 @@ object Subjects : CrudRepository<Subject, Int> () {
         return@transaction response.map { it.toSubject() }
 
     }
+    fun getAll() = transaction {
+        val response = SubjectDAO.all()
+        return@transaction response.map { it.toSubject() }
+    }
 
     override fun getById(id: Int) = transaction {
         return@transaction SubjectDAO.findById(id)?.toSubject()

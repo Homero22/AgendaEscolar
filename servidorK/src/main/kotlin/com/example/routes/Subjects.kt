@@ -16,10 +16,8 @@ fun Route.subjectsRouting(){
     route("/subjects") {
         get {
             try {
-                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
-                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //enviamos a capa logica
-                val res = SubjectLogic().getAll(limit,offset);
+                val res = SubjectLogic().getAll();
                 if(res!=null){
                     val response = Response(true,"Materias obtenidas correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -37,12 +35,16 @@ fun Route.subjectsRouting(){
         get("/{id}") {
             try {
                 val id = call.parameters["id"]?.toIntOrNull() ?: 0
-                val subject = Subjects.getById(id)
-                if (subject != null) {
-                    call.respond(HttpStatusCode.OK, subject)
-                } else {
-                    call.respond(HttpStatusCode.NotFound, "Materia no encontrada")
+                //Enviamos a capa logica
+                val res = SubjectLogic().getById(id);
+                if(res!=null){
+                    val response = Response(true,"Materia obtenida correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false,"No se encontro materia", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
+
             }catch (
                 cause: Throwable
             ) {
