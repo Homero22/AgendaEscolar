@@ -68,13 +68,7 @@ export class EditarHorarioComponent {
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
-    // this.srvLoguin.selectIdUser$
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next: (idUser: number)=>{
-    //     this.idUser = idUser;
-    //   }
-    // })
+    this.idUser = sessionStorage.getItem("id");
     this.transfor();
   }
 
