@@ -11,6 +11,7 @@ data class Response(val status: Boolean, val message: String, val body: List<Any
 //respuesta sin body
 
 data class ResponseEmpty(val status: Boolean, val message: String, val emptyList: List<Any>)
+data class ResponseSimple(val status: Boolean, val message: String)
 data class ResponseToken(val status: Boolean, val message: String, val body: Any, val token: Any)
 
 data class ResponseSingle(val status: Boolean, val message: String, val body: Any)
