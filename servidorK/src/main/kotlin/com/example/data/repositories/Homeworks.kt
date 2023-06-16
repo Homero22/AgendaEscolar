@@ -1,7 +1,7 @@
 package com.example.data.repositories
 
-import com.example.data.models.Homework
 import com.example.data.entities.HomeworkDAO
+import com.example.data.models.Homework
 import org.jetbrains.exposed.sql.transactions.transaction
 /*
 import org.jetbrains.exposed.sql.`java-time`.datetime
@@ -28,7 +28,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para guardar tarea
     override fun save(entity: Homework) = transaction{
         val response = HomeworkDAO.new {
-            usuarioMateria = entity.usuarioMateria
+            idUser= entity.idUser
+            idMateria = entity.idMateria
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
@@ -43,7 +44,6 @@ object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para actualizar tarea
     override fun update(id:Int, entity: Homework): Homework = transaction{
         val response = HomeworkDAO.findById(id.toLong())?.apply {
-            usuarioMateria = entity.usuarioMateria
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
@@ -54,13 +54,6 @@ object Homeworks: CrudRepository<Homework, Int>() {
         return@transaction response!!
     }
 
-    //funcion para eliminar tarea
-    /*
-    override fun delete(id:Int)= transaction {
-        return@transaction HomeworkDAO.findById(id.toLong())?.delete()
-    }
-    */
-    //funcion para un eliminado logico
     override fun delete(id:Int)= transaction {
         val homework = HomeworkDAO.findById(id.toLong())?:return@transaction
         homework.apply {
