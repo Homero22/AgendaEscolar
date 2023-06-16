@@ -31,7 +31,9 @@ class SubjectLogic {
     }
 
     fun getOne(id: Int): SubjectUser? {
+        // debemos obtener el nombre de 
         return obj.gGgetById(SubjectsUsers, id) as? SubjectUser
+
     }
 
 
