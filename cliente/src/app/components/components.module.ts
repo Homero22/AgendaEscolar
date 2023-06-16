@@ -7,8 +7,8 @@ import { ButtonComponent } from './button/button.component';
 import { CommonModule } from '@angular/common';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
-import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -34,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
+    EditarHorarioComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ModalService } from 'src/app/core/services/modal.service';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 @Component({
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
   styleUrls: ['./editar-horario.component.css'],
+  
 })
 export class EditarHorarioComponent {
 
