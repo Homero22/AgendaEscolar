@@ -214,7 +214,7 @@ tbody {
   }
 */
 
-
+/*
 
 td:hover:after {
   content: "+";
@@ -223,6 +223,32 @@ td:hover:after {
   font-weight: 100;
   color: rgba(0, 0, 0, 0.5);
   position: absolute;
+}
+*/
+td:hover:after {
+  content: "+";
+  display: flex;
+  text-shadow: #e8e8e8;
+  /* background-color:#e8e8e8; */
+  border-radius: 50%;
+  opacity: 0.5;
+  box-shadow: #fff;
+  width: 2rem;
+  /* transform: rotate(45deg); */
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 1.875rem;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 70%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+
+.headcol:hover:after {
+  content: "";
 }
 
 button.secondary {
@@ -250,7 +276,7 @@ button.secondary:focus {
 tr td:nth-child(2), tr td:nth-child(3), .past {
   background: #fafafa;
 }
-
+/*
 .today {
   color: red;
 }
@@ -271,4 +297,4 @@ tr td:nth-child(2), tr td:nth-child(3), .past {
 
 .icon:hover {
   color: red;
-}
+}*/
