@@ -3,6 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import Swal from 'sweetalert2';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-agregar-materia',
@@ -16,13 +17,14 @@ export class AgregarMateriaComponent implements OnInit {
 
   //creamos el formulario myForm
   myForm!: FormGroup;
-
+  close!: boolean;
 
  idUser: any;
 
   constructor(
     private fb: FormBuilder,
-    private srvMateria: MateriaService
+    private srvMateria: MateriaService,
+    private srvModal: ModalService
   ) {
     this.myForm = this.fb.group({
       idUser: [
@@ -106,12 +108,12 @@ export class AgregarMateriaComponent implements OnInit {
               console.log("Materia agregada con éxito =>",data);
             }else{
               Swal.fire({
-                title:'Error al agregar Materia!',
+                title:data.message,
                 icon:'error',
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Error al agregar materia =>", data);
+              console.log("Error al agregar materia =>", data.message);
             }
             setTimeout(() => {
               Swal.close();
@@ -128,7 +130,10 @@ export class AgregarMateriaComponent implements OnInit {
           },
           complete: ()=>{
             console.log("Petición completa!");
+            //cerramos el modal mandando el valor de true al behaviorSubject
+            this.srvModal.setCloseMatDialog(true);
             this.myForm.reset();
+
           }
         })
       }

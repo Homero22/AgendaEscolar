@@ -42,6 +42,16 @@ export class ModalService implements AfterContentInit {
       this.closeModal$.next(_closeModal);
     }
 
+    //Metodo para cerrar el matDialog
+    private closeMatDialog$ = new BehaviorSubject<boolean>(false);
+
+    get selectCloseMatDialog$(): Observable<boolean>{
+      return this.closeMatDialog$.asObservable();
+    }
+
+    setCloseMatDialog(_closeMatDialog: boolean){
+      this.closeMatDialog$.next(_closeMatDialog);
+    }
 
   }
 

@@ -17,12 +17,16 @@ export class EditarMateriaComponent {
   myForm!: FormGroup;
 
   idMateria!: number;
+  idUser!: any;
 
   constructor(
     private fb: FormBuilder,
     private srvMateria: MateriaService
   ) {
     this.myForm = this.fb.group({
+      idUser: [
+        '',
+      ],
       nombre: [
         '',
         [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
@@ -48,6 +52,14 @@ export class EditarMateriaComponent {
   }
 
   ngOnInit(): void {
+
+    this.idUser = sessionStorage.getItem("id");
+    console.log("idUser =>",this.idUser);
+    //declaramos el valor de idUser en el formulario
+    this.myForm.get('idUser')?.setValue(this.idUser);
+    console.log("myForm =>",this.myForm.value);
+
+
     this.completeForm();
   }
 
@@ -90,6 +102,9 @@ export class EditarMateriaComponent {
           },
         });
         this.myForm = this.fb.group({
+          idUser: [
+            materiaData.body.idUser,
+          ],
           nombre: [
             materiaData.body.nombre,
             [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
@@ -136,6 +151,8 @@ export class EditarMateriaComponent {
   saveMateria(){
     console.log("Valor que llega al Form de Materia =>",this.myForm.value);
 
+    this.myForm.get('idUser')?.setValue(this.idUser);
+
     const sendMateriaData = this.myForm.value;
 
     Swal.fire({
@@ -145,26 +162,26 @@ export class EditarMateriaComponent {
       denyButtonText:'Cancelar'
     }).then((result)=>{
       if(result.isConfirmed){
-        this.srvMateria.postMateria(sendMateriaData)
+        this.srvMateria.putMateria(this.idMateria, sendMateriaData)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data)=>{
             if(data.status){
               Swal.fire({
-                title:'Materia agregada con éxito!',
+                title:'Materia modificada con éxito!',
                 icon:'success',
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Materia agregada con éxito =>",data);
+              console.log("Materia modificada con éxito =>",data);
             }else{
               Swal.fire({
-                title:'Error al agregar Materia!',
+                title:'Error al modificar Materia!',
                 icon:'error',
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Error al agregar proveedor =>", data);
+              console.log("Error al modificar materia =>", data);
             }
             setTimeout(() => {
               Swal.close();

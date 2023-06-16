@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ModalService } from '../core/services/modal.service';
+import { MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-modal',
@@ -12,10 +14,14 @@ export class ModalComponent {
   titleModal: string = '';
   modalView!: number;
 
+  close!: boolean;
+
   private destroy$ = new Subject<any>();
 
   constructor(
-    private srvModal: ModalService
+    private srvModal: ModalService,
+    //Cerramos a traves de matDialogRef el componente modal
+    public refMateriaDialog: MatDialogRef<ModalComponent>
   ) { }
 
 
@@ -38,9 +44,22 @@ export class ModalComponent {
       });
   }
 
-  //generamos el metodo para cancelar
-  cancelar() {
+  //generamos el metodo para cerrar el modal
+  closeModal() {
 
+    //le colocamos el valor a close proveniente del servicio
+    this.srvModal.selectCloseMatDialog$
+      .pipe()
+      .subscribe({
+        next: (close) => {
+          this.close = close;
+          console.log("Valor de close =>", close);
+        }
+      });
+
+      if(this.close){
+        this.refMateriaDialog.close();
+      }
   }
 
 
