@@ -3,9 +3,7 @@ package com.example.routes
 import com.example.data.models.Subject
 import com.example.data.repositories.Subjects
 import com.example.logica.SubjectLogic
-import com.example.utils.Response
-import com.example.utils.ResponseEmpty
-import com.example.utils.sendJsonResponse
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -38,10 +36,10 @@ fun Route.subjectsRouting(){
                 //Enviamos a capa logica
                 val res = SubjectLogic().getById(id);
                 if(res!=null){
-                    val response = Response(true,"Materia obtenida correctamente", res)
+                    val response = ResponseSingle(true,"Materia obtenida correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false,"No se encontro materia", res)
+                    val response = ResponseSimple(false,"No se encontro materia")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
 
