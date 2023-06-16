@@ -10,4 +10,5 @@ data class SubjectUser(
     val materiaAcro: String,
     val materiaColor: String,
     val profesorNombre: String
+
 )

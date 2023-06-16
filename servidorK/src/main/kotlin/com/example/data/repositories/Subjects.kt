@@ -19,6 +19,10 @@ object Subjects : CrudRepository<Subject, Int> () {
     override fun save(entity: Subject) = transaction {
         val response = SubjectDAO.new {
             nombre = entity.nombre
+            idUser = entity.idUser
+            materiaAcro = entity.materiaAcro
+            materiaColor = entity.materiaColor
+            profesorNombre = entity.profesorNombre
         }
         return@transaction response.toSubject()
     }
@@ -35,5 +39,11 @@ object Subjects : CrudRepository<Subject, Int> () {
         subject.delete()
         return@transaction
 
+    }
+
+    //funcion para obtener el nombre de la materia
+    fun search(id: Int): String = transaction {
+        val response = SubjectDAO.findById(id)?.toSubject()
+        return@transaction response!!.nombre
     }
 }
