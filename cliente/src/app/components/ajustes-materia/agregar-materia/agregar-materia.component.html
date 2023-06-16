@@ -5,7 +5,7 @@
       <div class="container-Left col">
         <mat-form-field>
           <mat-label>Materia</mat-label>
-          <input matInput placeholder="Nombre de la materia" formControlName="materia" required>
+          <input matInput placeholder="Nombre de la materia" formControlName="nombre" required>
         </mat-form-field>
         <div class="flex gap-2">
           <div class="color-selector">
@@ -14,7 +14,7 @@
           </div>
           <mat-form-field>
             <mat-label>Color</mat-label>
-            <input matInput placeholder="Color de la materia" [value]="selectedColor" formControlName="color" readonly [disabled]="true">
+            <input matInput placeholder="Color de la materia" [value]="selectedColor" formControlName="materiaColor" readonly [disabled]="true">
           </mat-form-field>
         </div>
 
@@ -24,11 +24,11 @@
       <div class="container-Right col">
         <mat-form-field>
           <mat-label>Acrónimo</mat-label>
-          <input matInput placeholder="Acrónimo de la materia" formControlName="acronimo" required>
+          <input matInput placeholder="Acrónimo de la materia" formControlName="materiaAcro" required>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Profesor</mat-label>
-          <input matInput placeholder="Nombre del Profesor" formControlName="profesor" required>
+          <input matInput placeholder="Nombre del Profesor" formControlName="profesorNombre" required>
         </mat-form-field>
       </div>
 

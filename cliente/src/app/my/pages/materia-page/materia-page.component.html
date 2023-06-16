@@ -15,14 +15,16 @@
 
       <mat-grid-list cols="4" rowHeight="2:1">
         <div class="card-container">
-            <div class="card" *ngFor="let nombre of nombres">
+            <div class="card" *ngFor="let nombre of srvMateria.datosMateria, let i = index">
               <div class="flex">
-                <mat-card class="flex-1 md:flex-none flex align-items-center justify-content-center bg-indigo-500 font-bold border-round  custom-card">
-                  <button class="btn-mat-card">
+                <mat-card class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card">
+                  <button class="btn-mat-card" [style.background-color]="nombre.materiaColor">
                     <mat-card-header>
                       <mat-card-content>
-                        {{ nombre }}
+                        {{ nombre.nombre }}
+                        {{nombre.profesorNombre}}
                       </mat-card-content>
+
                       <mat-card-title-group>
                         <button mat-button (click)="openModal('Editar Materia')">
                           <i class="material-icons">create</i>
