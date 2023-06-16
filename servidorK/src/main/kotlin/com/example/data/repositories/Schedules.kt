@@ -1,10 +1,12 @@
 package com.example.data.repositories
 import com.example.data.entities.Horarios
 import com.example.data.entities.ScheduleDAO
+import com.example.data.entities.SubjectDAO
 import com.example.data.entities.Subjects
 import com.example.data.models.Schedule
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -22,6 +24,39 @@ object Schedules : CrudRepository<Schedule, Int>() {
 
     override fun getById(id: Int) = transaction {
         ScheduleDAO.findById(id)?.toSchedule()
+    }
+    //funcion para obtener todos los horarios de un usuario
+    fun getAllByUser(id: Long):List<Any> = transaction {
+
+        //quiero tambien hacer un join con la tabla de materias para obtener el nombre de la materia
+        val res = Horarios
+            .select({ Horarios.idUser eq id })
+            .map {
+                mapOf(
+                    "id" to it[Horarios.id].value,
+                    "idMateria" to it[Horarios.idMateria],
+                    "idUser" to it[Horarios.idUser],
+                    "nombreMateria" to SubjectDAO.get(it[Horarios.idMateria]).nombre,
+                    "hora_inicio" to it[Horarios.hora_inicio],
+                    "dia" to it[Horarios.dia]
+                )
+            }
+        return@transaction res
+
+       /* val horarios = Horarios
+            .select({ Horarios.idUser eq id })
+            .map {
+                mapOf(
+                    "id" to it[Horarios.id].value,
+                    "idMateria" to it[Horarios.idMateria],
+                    "idUser" to it[Horarios.idUser],
+
+                    "hora_inicio" to it[Horarios.hora_inicio],
+                    "hora_fin" to it[Horarios.hora_fin],
+                    "dia" to it[Horarios.dia]
+                )
+            }
+        return@transaction horarios  */
     }
 
     override fun save(entity: Schedule)= transaction {

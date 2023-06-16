@@ -100,6 +100,9 @@ class cGenerica <T> {
             is Notes ->{
                 obj.getById(id)
             }
+            is Schedules ->{
+                obj. getAllByUser(id.toLong())
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
