@@ -102,11 +102,13 @@ export class HorarioComponent implements OnInit{
     this.srvModal.setIdMateria(idMateria);
   }
 
-  openModal(){
+  openModal(hora: string, dia: string){
     // Implemenetamos el  servicio de modal para obtener el title
     if(this.mostrarContenido){
       this.srvModal.setTitleModal("Editar Horario");
       console.log("openModal");
+      const idMateria = this.ObtenerIdMateria(hora, dia)
+      this.srvModal.setIdMateria(idMateria);
       this.dialog.open(ModalComponent,{
         width: '40%',
         height: '50%'

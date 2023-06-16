@@ -38,7 +38,7 @@
           <tr *ngFor="let hora of srvHorario.horas " [ngClass]="{'ocultar-estilo': !mostrarContenido}">
             <td class="headcol">{{hora}}</td>
             <ng-container *ngFor="let dia of srvHorario.dias">
-              <td (click)="openModal()"
+              <td (click)="openModal(hora, dia)"
                   [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }"
                   [ngClass]="{ 'past': dia === 'miércoles' }"
                   [ngClass]="{'ocultar-estilo': !mostrarContenido}"
