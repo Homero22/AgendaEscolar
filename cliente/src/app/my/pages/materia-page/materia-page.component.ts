@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalService } from 'src/app/core/services/modal.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-materia-page',
   templateUrl: './materia-page.component.html',
@@ -27,7 +28,7 @@ export class MateriaPageComponent {
   //SERVICIOS
   destroy$ = new Subject<any>();
     constructor(
-      private srvMateria: MateriaService,
+      public srvMateria: MateriaService,
       private dialog: MatDialog,
       private srvModal: ModalService
     ) {
@@ -42,13 +43,32 @@ export class MateriaPageComponent {
     }
 
     getMaterias(){
+
+      Swal.fire({
+        title: 'Cargando Materias...',
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      });
+
       this.srvMateria.getMaterias()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next:(materiaData)=>{
-          console.log("Informacion de Obtener Materias",materiaData);
+          Swal.close();
+          if(materiaData.body){
+            this.srvMateria.datosMateria = materiaData.body;
+            console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+          }else{
+            console.log("No hay datos");
+          }
+        },
+        error:(err)=>{
+          console.log("Error en la peticion =>",err);
+        },
+        complete:()=>{
+          console.log("Peticion finalizada");
         }
-
       });
     }
 
