@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'me',
-    // canActivate: [loguinSecurityGuard],
+    canActivate: [loguinSecurityGuard],
     loadChildren: () => import('./my/my.module').then(m => m.MyModule),
   },
   {

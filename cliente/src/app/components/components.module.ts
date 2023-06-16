@@ -24,11 +24,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     EditarMateriaComponent,
     EditarHorarioComponent,
     ConfigurarHorarioComponent
-    
+
   ],
   imports: [
-    ScheduleModule, 
-    RecurrenceEditorModule, 
+    ScheduleModule,
+    RecurrenceEditorModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

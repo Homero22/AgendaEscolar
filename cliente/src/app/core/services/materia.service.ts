@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
-import { ShowMateriaModel, MateriaData, MateriaModel } from '../models/materia';
+import { ShowMateriaModel, MateriaData, MateriaModel, addMateriaData } from '../models/materia';
 @Injectable({
   providedIn: 'root'
 })
 export class MateriaService {
 private urlApi_Materias: string = config.URL_API_BASE + "subjects";
+
+
+
+datosMateria!: MateriaModel[];
 
 constructor(private http: HttpClient) { }
 
@@ -17,8 +21,8 @@ getMaterias(){
     });
 }
 
-postMateria(dataMateria: MateriaData){
-  return this.http.post<MateriaData>(`${this.urlApi_Materias}`, dataMateria,
+postMateria(dataMateria: addMateriaData){
+  return this.http.post<ShowMateriaModel>(`${this.urlApi_Materias}`, dataMateria,
     {
       withCredentials: true
     });
