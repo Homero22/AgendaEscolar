@@ -27,11 +27,11 @@ export class HorarioComponent {
   dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
   horario: any = {
     lunes: {
-      '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT' },
-      '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS' },
-      '10:00': { materia: 'Inglés', horaFin: '11:00', color: 'verde', acronimo: 'ING' },
-      '11:00': { materia: 'Educación Física', horaFin: '12:00', color: 'amarillo', acronimo: 'EDF' },
-      '12:00': { materia: 'Artes', horaFin: '13:00', color: 'naranja', acronimo: 'ART' }
+      '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
+      '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS',id: 2 },
+      '10:00': { materia: 'Inglés', horaFin: '11:00', color: 'verde', acronimo: 'ING',id: 3 },
+      '11:00': { materia: 'Educación Física', horaFin: '12:00', color: 'amarillo', acronimo: 'EDF',id: 4 },
+      '12:00': { materia: 'Artes', horaFin: '13:00', color: 'naranja', acronimo: 'ART',id: 5 }
     },
     martes: {
       '8:00': { materia: 'Ciencias', horaFin: '9:00', color: 'verde', acronimo: 'CIE' },
@@ -125,6 +125,22 @@ export class HorarioComponent {
     } else {
       return '';
     }
+  }
+
+  ObtenerIdMateria(hora: string, dia: string): number {
+    const materia = this.ObtenerMateria(hora, dia);
+    if (materia) {
+      return this.horario[dia][hora].id;
+    } else {
+      return 0;
+    }
+  }
+
+  //funcion para pasar el id de la materia al modal
+  beheviour(){
+    console.log("beheviour");
+    const idMateria = this.ObtenerIdMateria('8:00', 'lunes')
+    this.srvModal.setIdMateria(idMateria);
   }
 
   openModal(){

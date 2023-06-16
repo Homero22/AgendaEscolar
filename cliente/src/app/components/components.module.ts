@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -17,11 +18,14 @@ import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-
     AgregarMateriaComponent,
     EditarMateriaComponent,
     EditarHorarioComponent
+    
   ],
   imports: [
     ScheduleModule, 
     RecurrenceEditorModule, 
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     ApuntesComponent,
@@ -30,7 +34,6 @@ import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
-    EditarHorarioComponent,
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
