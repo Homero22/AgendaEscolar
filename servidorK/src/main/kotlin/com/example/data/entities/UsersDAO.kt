@@ -38,7 +38,7 @@ class UsersDAO(id: EntityID<Long>) : LongEntity(id) {
 
     fun toUser():User{
         return User(
-            id.value.toInt(),
+            id.value,
             nombre,
             apellido,
             rol,

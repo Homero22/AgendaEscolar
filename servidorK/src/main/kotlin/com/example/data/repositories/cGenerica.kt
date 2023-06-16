@@ -28,6 +28,9 @@ class cGenerica <T> {
     fun <T> gGetAll(obj: T): List<Any> {
         return when(obj) {
             is Schedules-> {
+                obj.obtenerHorarios();
+            }
+            is Subjects -> {
                 obj.getAll();
             }
 
@@ -71,7 +74,7 @@ class cGenerica <T> {
     }
 
 
-    fun gSearch(obj: T, valor: Int, valor2:String,valor3:String,valor4:String): Any {
+    fun gSearch(obj: T, valor: Int, valor2:String,valor3:String,valor4:String): Boolean {
         return when(obj) {
             is Schedules -> {
                 obj.checkSchedule(valor,valor2,valor3,valor4)

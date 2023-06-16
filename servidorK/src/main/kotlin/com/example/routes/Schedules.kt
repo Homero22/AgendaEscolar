@@ -34,8 +34,7 @@ fun Route.horariosRouting() {
             }
         }
         get("/{id}") {
-            //GET /countries/{id}
-            //Obtenemos el id del pais a buscar
+
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
                 //Obtenemos el pais
@@ -58,7 +57,6 @@ fun Route.horariosRouting() {
             try {
                //envio capa logica
                 val res = ScheduleLogic().crearHorario(schedule)
-
                 if(res==1) {
                     val response = ResponseSingle(true, "Horario creado correctamente", schedule)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -73,15 +71,23 @@ fun Route.horariosRouting() {
             }
         }
         put("/{id}") {
-            //PUT /countries/{id}
-            //Obtenemos el id del pais a actualizar
-            val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            //Obtenemos el pais a actualizar
-            val schedule = call.receive<Schedule>()
+
+
             try {
-                //Actualizamos el pais
-                val response = Schedules.update(id, schedule)
-                call.respond(HttpStatusCode.OK, response)
+                //PUT /countries/{id}
+                //Obtenemos el id del pais a actualizar
+                val id = call.parameters["id"]?.toIntOrNull() ?: 0
+                //Obtenemos el pais a actualizar
+                val schedule = call.receive<Any>()
+                //envio capa logica
+                val res = ScheduleLogic().actualizarHorario(id,schedule)
+                if(res==1) {
+                    val response = ResponseSingle(true, "Horario actualizado correctamente", schedule)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSingle(false, "No se pudo actualizar el horario", schedule)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (
                 cause: Throwable
             ){
@@ -89,13 +95,19 @@ fun Route.horariosRouting() {
             }
         }
         delete("/{id}") {
-            //DELETE /countries/{id}
+
             //Obtenemos el id del pais a eliminar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Eliminamos el pais
-                val response = Schedules.delete(id)
-                call.respond(HttpStatusCode.OK, response)
+                //envio capa logica
+                val res = ScheduleLogic().eliminarHorario(id)
+                if(res==1) {
+                    val response = ResponseSingle(true, "Horario eliminado correctamente", id)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSingle(false, "No se pudo eliminar el horario", id)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (
                 cause: Throwable
             ){
