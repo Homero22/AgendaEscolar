@@ -1,1 +1,16 @@
-<p>configurar-horario works!</p>
+<div class="tooltip"  [style.display]="display ? 'block' : 'none'">
+    <!-- <label for="time-input">Tiempo:</label>
+    <input id="time-input" type="time"> -->
+    <!-- <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date">
+          <input matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field> -->
+    <label for="select-input">Opciones:</label>
+    <mat-slide-toggle [(ngModel)]="horarioConFinDeSemana">Horario con fin de Semana!</mat-slide-toggle>
+  </div>
