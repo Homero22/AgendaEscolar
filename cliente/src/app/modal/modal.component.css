@@ -1,0 +1,45 @@
+.modal-Body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal-Title{
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-Title p{
+  font-weight: var(--font-weight-500);
+}
+
+.btn-Close:hover{
+  background-color: red;
+  color: var(--tertiary-color);
+}
+
+.btn-Cancel{
+  background-color: var(--quinary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.btn-Cancel:hover{
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+}
+
+.modal-Content{
+  height: 80%;
+}
+
+.modal-Actions{
+  border-top: 1px solid black;
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

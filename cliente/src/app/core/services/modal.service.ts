@@ -28,16 +28,18 @@ export class ModalService implements AfterContentInit {
       this.idMateria$.next(_idMateria);
     }
 
+    //behaviorSubject para obtener el title del modal
+    private titleModal$ = new BehaviorSubject<string>('');
 
-    //Funciones Para Modal de Materias
-
-    //Funcion Abrir Modal
-
-    openModal(){
-
+    get selectTitleModal$(): Observable<string>{
+      return this.titleModal$.asObservable();
     }
 
-
+    setTitleModal(_titleModal: string){
+      this.titleModal$.next(_titleModal);
+      //imprimimos el valor del title
+      console.log("Valor del title",_titleModal);
+    }
 
 
   }
