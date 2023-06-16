@@ -7,7 +7,9 @@ import { ButtonComponent } from './button/button.component';
 import { CommonModule } from '@angular/common';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
+import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
@@ -17,12 +19,16 @@ import { MaterialModule } from '../material/material.module';
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
-    EditarHorarioComponent
+    EditarHorarioComponent,
+    ConfigurarHorarioComponent
+    
   ],
   imports: [
-    ScheduleModule,
-    RecurrenceEditorModule,
+    ScheduleModule, 
+    RecurrenceEditorModule, 
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   exports: [
@@ -32,7 +38,7 @@ import { MaterialModule } from '../material/material.module';
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
-    EditarHorarioComponent,
+    EditarHorarioComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
 })
