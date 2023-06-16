@@ -41,6 +41,17 @@ export class ModalService implements AfterContentInit {
       console.log("Valor del title",_titleModal);
     }
 
+    // metodo para cerrar el modal
+    private closeModal$ = new BehaviorSubject<boolean>(false);
+
+    get selectCloseModal$(): Observable<boolean>{
+      return this.closeModal$.asObservable();
+    }
+
+    setCloseModal(_closeModal: boolean){
+      this.closeModal$.next(_closeModal);
+    }
+
 
   }
 
