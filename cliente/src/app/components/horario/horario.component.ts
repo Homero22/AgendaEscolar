@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 
 
 @Component({
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HorarioComponent {
 
+  pantallaMediana: boolean;
   calendarVisible = true;
   // calendarOptions: CalendarOptions = {
   //   plugins: [
@@ -22,6 +24,7 @@ export class HorarioComponent {
 
 
   horas: string[] = ['8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
+  dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
   horario: any = {
     lunes: {
       '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT' },
@@ -59,7 +62,8 @@ export class HorarioComponent {
       '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS' }
     }
   };
-  constructor() { }
+  constructor() {     this.pantallaMediana = this.calcularPantallaMediana();
+  }
 
   ngOnInit() {
     const dia = 'lunes';
@@ -72,6 +76,23 @@ export class HorarioComponent {
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    // Actualizar el valor de pantallaMediana cuando se redimensiona la pantalla
+    this.pantallaMediana = this.calcularPantallaMediana();
+  }
+
+  calcularPantallaMediana(): boolean {
+    // Obtener el ancho de la pantalla
+    const screenWidth = window.innerWidth;
+
+    // Definir el ancho límite para considerar una pantalla como mediana
+    const limiteMediano = 768; // Puedes ajustar este valor según tus necesidades
+
+    // Verificar si el ancho de la pantalla es menor o igual al límite definido
+    return screenWidth <= limiteMediano;
   }
 
   ObtenerMateria(hora: string, dia: string): string | null {

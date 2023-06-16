@@ -35,31 +35,26 @@
         <tbody>
           <tr *ngFor="let hora of horas">
             <td class="headcol">{{hora}}</td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'lunes') }">
-              {{ ObtenerMateria(hora, 'lunes') }}
-            </td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'martes') }">
-              {{ ObtenerMateria(hora, 'martes') }}
-            </td>
-            <td class="past" [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'miércoles') }">
-              {{ ObtenerMateria(hora, 'miércoles') }}
-            </td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'jueves') }">
-              {{ ObtenerMateria(hora, 'jueves') }}
-            </td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'viernes') }">
-              {{ ObtenerMateria(hora, 'viernes') }}
-            </td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'sabado') }">
-              {{ ObtenerMateria(hora, 'viernes') }}
-            </td>
-            <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, 'domingo') }">
-              {{ ObtenerMateria(hora, 'viernes') }}
-            </td>
+            <ng-container *ngFor="let dia of dias">
+              <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }">
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: dia }"></ng-container>
+              </td>
+            </ng-container>
           </tr>
         </tbody>
       </table>
+    </div>
     
-</div>
+    <ng-template #template let-hora let-dia="dia">
+      <ng-container *ngIf="!calcularPantallaMediana(); else acronimoTemplate">
+        {{ ObtenerMateria(hora, dia) }}
+      </ng-container>
+      <ng-template #acronimoTemplate>
+        {{ ObtenerAcronimoMateria(hora, dia) }}
+      </ng-template>
+    </ng-template>
+    
+    
+<!-- </div> -->
 </div>
 </div>
