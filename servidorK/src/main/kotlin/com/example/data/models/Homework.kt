@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Homework (
     val id: Int,
-    val usuarioMateria: Int,
+    val idUser: Long,
+    val idMateria: Int,
     val tareaTitulo: String,
     val tareaDescripcion: String,
     val fechaCreacion: String,
