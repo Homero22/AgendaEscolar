@@ -1,3 +1,4 @@
+
 export interface HorarioItem {
     materia: string;
     horaFin: string;
@@ -5,7 +6,7 @@ export interface HorarioItem {
     acronimo: string;
     id: number;
   }
-  
+ /* 
  export interface HorarioDia {
     [hora: string]: HorarioItem;
   }
@@ -17,6 +18,19 @@ export interface HorarioItem {
     jueves: HorarioDia;
     viernes: HorarioDia;
   }
+*/
+  export interface Horario {
+    [dia: string]: {
+      [hora: string]: {
+        materia: string;
+        horaFin: string;
+        color: string;
+        acronimo: string;
+        id: number;
+      };
+    };
+  }
+  
   
   export interface HomeroItem {
     id: number;

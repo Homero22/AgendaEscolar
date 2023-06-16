@@ -3,6 +3,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { HorarioService } from 'src/app/core/services/horario.service';
+import { MateriaService } from 'src/app/core/services/materia.service';
 
 @Component({
   selector: 'app-horario',
@@ -21,11 +22,12 @@ export class HorarioComponent implements OnInit{
   constructor(
     private srvModal: ModalService,
     private dialog: MatDialog,
-    public srvHorario: HorarioService
+    public srvHorario: HorarioService,
+    public srvMateria: MateriaService
 
-  ) {     
+  ) {
     this.pantallaMediana = this.calcularPantallaMediana();
-    
+
   }
 
   ngOnInit() {
@@ -95,20 +97,17 @@ export class HorarioComponent implements OnInit{
     }
   }
 
-  //funcion para pasar el id de la materia al modal
-  beheviour(){
-    console.log("beheviour");
-    const idMateria = this.ObtenerIdMateria('8:00', 'lunes')
-    this.srvModal.setIdMateria(idMateria);
-  }
-
   openModal(hora: string, dia: string){
     // Implemenetamos el  servicio de modal para obtener el title
     if(this.mostrarContenido){
       this.srvModal.setTitleModal("Editar Horario");
       console.log("openModal");
       const idMateria = this.ObtenerIdMateria(hora, dia)
-      this.srvModal.setIdMateria(idMateria);
+      this.srvMateria.setIdMateria(idMateria);
+      this.srvHorario.setDia(dia);
+      this.srvHorario.setHora(hora);
+
+
       this.dialog.open(ModalComponent,{
         width: '40%',
         height: '50%'

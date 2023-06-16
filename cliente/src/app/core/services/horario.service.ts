@@ -1,15 +1,45 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import config from 'config/config';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Horario,  } from '../models/horario';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorarioService {
 
-  constructor() { }
+  private urlApi_Materias: string = config.URL_API_BASE + "schedules";
+  constructor(private http: HttpClient) { }
+
+  // ------------------------ HORARIO BEHAVIORSUBJECTS ------------------------
+
+  //behaviorSubject para obtener la hora y el dia
+  private hora$ = new BehaviorSubject<string>('');
+  private dia$ = new BehaviorSubject<string>('');
+
+  get selectHora$(): Observable<string>{
+    return this.hora$.asObservable();
+  }
+
+  get selectDia$(): Observable<string>{
+    return this.dia$.asObservable();
+  }
+
+  setHora(_hora: string){
+    this.hora$.next(_hora);
+  }
+
+  setDia(_dia: string){
+    this.dia$.next(_dia);
+  }
+
+  // ------------------------ HORARIO ------------------------
 
   horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
   dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
-  horario: any = {
+  horario: Horario = {
     lunes: {
       '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
       '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS',id: 2 },

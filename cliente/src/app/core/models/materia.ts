@@ -19,13 +19,13 @@ export interface MateriaModel {
 //     body: MateriaData;
 // }
 
-export interface MateriaData {
-  id: number;
-  nombre: string;
-  materiaAcro: string;
-  materiaColor: string;
-  profesorNombre: string;
-}
+// export interface MateriaData {
+//   id: number;
+//   nombre: string;
+//   materiaAcro: string;
+//   materiaColor: string;
+//   profesorNombre: string;
+// }
 
 // --------------------- Agregar Materia ---------------------
 
@@ -36,6 +36,28 @@ export interface addMateriaModel{
 }
 
 export interface addMateriaData{
+  nombre: string;
+  materiaAcro: string;
+  materiaColor: string;
+  profesorNombre: string;
+}
+
+// --------------------- Editar Materia ---------------------
+export interface modMateriaModel {
+  status: boolean;
+  message: string;
+  body: modMateriaData;
+}
+
+export interface modMateriaData {
+  id: number;
+  nombre: string;
+  materiaAcro: string;
+  materiaColor: string;
+  profesorNombre: string;
+}
+
+export interface addMAteriaDataByID{
   nombre: string;
   materiaAcro: string;
   materiaColor: string;

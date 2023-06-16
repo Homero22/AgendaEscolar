@@ -4,7 +4,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { Subject, takeUntil } from 'rxjs';
 import { HorarioService } from 'src/app/core/services/horario.service';
-
+import { Horario, HorarioItem } from 'src/app/core/models/horario';
 
 @Component({
   selector: 'app-editar-horario',
@@ -21,8 +21,8 @@ export class EditarHorarioComponent {
   selected: any;
   idMateria: any;
 
-  hora!: "8:00";
-  dia!: "lunes";
+  hora!: any;
+  dia!: any;
 
   constructor(
     public fb: FormBuilder,
@@ -40,9 +40,29 @@ export class EditarHorarioComponent {
   }
 
   ngOnInit(): void {
-    this.idMateria = this.srvModal.selectIdMateria$;
-    console.log("idMeria", this.idMateria);
-    console.log("datosMateria", this.srvMateria.datosMateria);
+    this.srvMateria.selectIdMateria$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(idMateria: number)=>{
+        this.idMateria = idMateria;
+      }
+    });
+
+    this.srvHorario.selectDia$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (dia: string)=>{
+        this.dia = dia;
+      }
+    })
+    
+    this.srvHorario.selectHora$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (hora: string)=>{
+        this.hora = hora
+      }
+    })
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
@@ -68,6 +88,9 @@ export class EditarHorarioComponent {
         console.log("Peticion finalizada");
       }
     });
+
+    console.log("idMeria", this.idMateria);
+
   }
 
   submitForm() {
@@ -87,31 +110,34 @@ export class EditarHorarioComponent {
     return this.materiaForm.get('acronimo')?.hasError('pattern') ? 'Acrónimo ingresado no válido' : '';
   }
 
-  //obtener la sekccion de la materia
-  onSelectionChange(event: any) {
-    console.log(this.selected);
-  }
-
-  onMateriaSelectionChange(event: any) {
-    this.selected = event.value;
-    console.log('Nombre de la materia:', this.selected.nombre);
-    console.log('ID de la materia:', this.selected.id);
-  }
-
   onSubmit(){
+
     this.cambiarMateriaId(this.hora, this.dia, this.selected.nombre, this.selected.id);
   }
 
+
   cambiarMateriaId(hora: string, dia: string, nuevaMateria: string, nuevoId: number) {
-    if (this.srvHorario.hasOwnProperty(dia) && this.srvHorario.horario[dia].hasOwnProperty(hora)) {
+    console.log("parámetros para cambiar", hora, dia, nuevaMateria, nuevoId);
+  
+    if (this.srvHorario.horario.hasOwnProperty(dia)) {
       const horarioDia = this.srvHorario.horario[dia];
+      if (!horarioDia.hasOwnProperty(hora)) {
+        horarioDia[hora] = {} as HorarioItem;
+      }
       horarioDia[hora].materia = nuevaMateria;
       horarioDia[hora].id = nuevoId;
+      horarioDia[hora].color = this.selected.color;
+      horarioDia[hora].acronimo = this.selected.acronimo;
+  
       console.log('Materia cambiada con éxito.');
       console.log('Nuevo horario:', this.srvHorario.horario);
     }
+    
+    console.log("terminó la función cambiarMateriaID");
+    
   }
 
+  
   homero=[
     {
         "id": 4,
@@ -220,5 +246,9 @@ transfor(){
   console.log(this.horario);
 }
 
+ngOnDestroy(): void {
+  this.destroy$.next({});
+  this.destroy$.complete();
+}
 
 }
