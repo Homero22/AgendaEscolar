@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { ApuntesComponent } from './apuntes/apuntes.component';
 import { HorarioComponent } from './horario/horario.component';
 import { TareasComponent } from './tareas/tareas.component';
@@ -35,6 +35,5 @@ import { MaterialModule } from '../material/material.module';
     EditarHorarioComponent,
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule { }

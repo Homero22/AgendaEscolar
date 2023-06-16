@@ -20,9 +20,8 @@ export class AgregarMateriaComponent implements OnInit {
   //codigo para la peleta de colores
   selectedColor!: string;
 
-  getColor(color: any) {
-    this.selectedColor = color;
-    console.log(this.selectedColor);
+  getColor(color: string): void {
+
   }
 
   ngOnDestroy(): void {
