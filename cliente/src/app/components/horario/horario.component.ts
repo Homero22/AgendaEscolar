@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-horario',
@@ -18,6 +19,9 @@ export class HorarioComponent implements OnInit{
   left = 0;
   top = 0;
   tooltipInitialized = false;
+  idUser: any;
+
+  private destroy$ = new Subject<any>();
 
   constructor(
     private srvModal: ModalService,
@@ -41,7 +45,9 @@ export class HorarioComponent implements OnInit{
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
-
+    this.idUser =  sessionStorage.getItem('id');
+    console.log("id user =>", this.idUser);
+    this.obtenerHorario();
     
   }
 
@@ -106,6 +112,7 @@ export class HorarioComponent implements OnInit{
       this.srvMateria.setIdMateria(idMateria);
       this.srvHorario.setDia(dia);
       this.srvHorario.setHora(hora);
+      this.srvHorario.setIdHorario(0);
 
 
       this.dialog.open(ModalComponent,{
@@ -128,5 +135,16 @@ export class HorarioComponent implements OnInit{
     // this.top = buttonRect.top;
   }
 
+  obtenerHorario(){
+    this.srvHorario.getHorarioUser(1)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (horario: any)=>{
+        this.srvHorario.horario = this.srvHorario.transfor(horario, this.srvHorario.horario)
+        // this.srvHorario.horario = horario;
+        console.log("Horario =>", this.srvHorario.horario);
+      }
+    })
+  }
   mostrarContenido = false;
 }

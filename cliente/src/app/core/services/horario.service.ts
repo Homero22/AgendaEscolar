@@ -19,6 +19,7 @@ export class HorarioService {
   //behaviorSubject para obtener la hora y el dia
   private hora$ = new BehaviorSubject<string>('');
   private dia$ = new BehaviorSubject<string>('');
+  private idHorario$ = new BehaviorSubject<number>(0);
 
   get selectHora$(): Observable<string>{
     return this.hora$.asObservable();
@@ -28,12 +29,20 @@ export class HorarioService {
     return this.dia$.asObservable();
   }
 
+  get selectIdHorario$(): Observable<number>{
+    return this.idHorario$.asObservable();
+  }
+
   setHora(_hora: string){
     this.hora$.next(_hora);
   }
 
   setDia(_dia: string){
     this.dia$.next(_dia);
+  }
+
+  setIdHorario(_idHorario: number){
+    this.idHorario$.next(_idHorario);
   }
 
   // ------------------------ HORARIO ------------------------
@@ -80,13 +89,13 @@ export class HorarioService {
     // ------------------------ CRUD ------------------------
 
     //Actualizar horario por id
-    updateHorario(id: number, horario: addDataHorario){
-      return this.http.put<ModelAddHorario>(`${this.urlApi_Horario}/${id}`, horario,
-    {
-      withCredentials: true
-    });
+    // updateHorario(id: number, horario: addDataHorario){
+    //   return this.http.put<ModelAddHorario>(`${this.urlApi_Horario}/${id}`, horario,
+    // {
+    //   withCredentials: true
+    // });
 
-    }
+    // }
 
     //Obtener horario por id
     getHorario(id: number){
@@ -98,7 +107,7 @@ export class HorarioService {
 
     //Obtener horario por id de usuario
     getHorarioUser(id: number){
-      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/user/${id}`,
+      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/${id}`,
     {
       withCredentials: true
     });

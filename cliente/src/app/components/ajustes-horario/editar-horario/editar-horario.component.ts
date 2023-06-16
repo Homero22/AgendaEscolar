@@ -21,6 +21,7 @@ export class EditarHorarioComponent {
   selected: any;
   idMateria: any;
   idUser: any;
+  idHorario: any;
 
   hora!: any;
   dia!: any;
@@ -65,6 +66,15 @@ export class EditarHorarioComponent {
         this.hora = hora
       }
     })
+
+    this.srvHorario.selectIdHorario$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (idHorario: number)=>{
+        this.idHorario = idHorario;
+      }
+    })
+
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
@@ -148,15 +158,32 @@ export class EditarHorarioComponent {
     console.log("hora fin", horaFin);
 
     const addHorario ={
-      id: 0,
+      id: this.idHorario,
       idMateria: this.selected.id,
-      idUser: 1,
+      idUser: this.idUser,
       hora_inicio: this.hora,
       hora_fin: horaFin,
       dia: this.dia
     }
 
-    console.log("addHorario", addHorario);
+    // this.srvHorario.updateHorario(this.idHorario,addHorario)
+    // .pipe(takeUntil(this.destroy$))
+    // .subscribe({
+    //   next: (horarioData)=>{
+    //     if(horarioData.status){
+    //       console.log("Horario actualizados correctamente =>",horarioData.body);
+    //     }else{
+    //       console.log("No hay datos");
+    //     }
+    //   },
+    //   error:(err)=>{
+    //     console.log("Error en la peticion =>",err);
+    //   },
+    //   complete:()=>{
+    //     console.log("Peticion finalizada");
+    //   }
+    // });
+    // console.log("addHorario", addHorario);
   }
 
   
