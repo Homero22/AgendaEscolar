@@ -21,8 +21,8 @@ class SubjectLogic {
     }
 
     //funcion que obtenga todas las materias de un usuario
-    fun getAll(limit: Int, offset: Int): List<Any> {
-        return obj.gGetAll(Subjects,limit,offset);
+    fun getAll(): List<Any> {
+        return obj.gGetAll(Subjects);
 
     }
 
@@ -43,5 +43,9 @@ class SubjectLogic {
             return 1
         }
         return 0
+    }
+
+    fun getById(id:Int ): Any?  {
+        return obj.gGgetById(Subjects,id);
     }
 }
