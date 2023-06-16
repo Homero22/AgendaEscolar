@@ -38,6 +38,7 @@ object Schedules : CrudRepository<Schedule, Int>() {
                     "idUser" to it[Horarios.idUser],
                     "nombreMateria" to SubjectDAO.get(it[Horarios.idMateria]).nombre,
                     "hora_inicio" to it[Horarios.hora_inicio],
+                    "hora_fin" to it[Horarios.hora_fin],
                     "dia" to it[Horarios.dia]
                 )
             }
