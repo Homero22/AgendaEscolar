@@ -23,7 +23,7 @@ export class HorarioComponent {
   //   ],
 
 
-  horas: string[] = ['8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
+  horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
   dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
   horario: any = {
     lunes: {
