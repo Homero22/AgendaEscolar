@@ -1,7 +1,7 @@
-import { Time } from '@angular/common';
-import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import {  Component, HostListener } from '@angular/core';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/modal/modal.component';
 
 
 @Component({
@@ -62,7 +62,13 @@ export class HorarioComponent {
       '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS' }
     }
   };
-  constructor() {     this.pantallaMediana = this.calcularPantallaMediana();
+  constructor(
+    private srvModal: ModalService,
+    private dialog: MatDialog,
+
+  ) {     
+    this.pantallaMediana = this.calcularPantallaMediana();
+    
   }
 
   ngOnInit() {
@@ -119,6 +125,16 @@ export class HorarioComponent {
     } else {
       return '';
     }
+  }
+
+  openModal(){
+    // Implemenetamos el  servicio de modal para obtener el title
+    this.srvModal.setTitleModal("Editar Horario");
+    console.log("openModal");
+    this.dialog.open(ModalComponent,{
+      width: '40%',
+      height: '50%'
+    });
   }
 
 
