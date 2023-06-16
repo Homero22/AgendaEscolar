@@ -19,10 +19,27 @@ export class AgregarMateriaComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.myForm = this.fb.group({
-      materia: ['', Validators.required],
-      acronimo: ['', Validators.required, Validators.pattern(/^[A-Z]{3}$/)],
-      color: ['', Validators.required, Validators.pattern(/^#[0-9A-F]{6}$/i)],
-      profesor: ['', Validators.required],
+      materia: [
+        '',
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
+      ],
+      acronimo: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Z]{3}$/)
+        ]
+      ],
+      color: [
+        '',
+       [ Validators.pattern(/^#[0-9A-F]{6}$/i)]
+      ],
+      profesor: [
+        '',
+        [Validators.required,
+        Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")
+        ]
+      ],
     });
   }
 
@@ -32,11 +49,17 @@ export class AgregarMateriaComponent implements OnInit {
 
 
   //codigo para la peleta de colores
-  selectedColor!: string;
+  selectedColor: string = '#000000';
 
   getColor(event: any) {
     this.selectedColor = event.target.value;
     console.log(this.selectedColor);
+    this.myForm.get('color')?.setValue(this.selectedColor);
+  }
+
+
+  saveMateria(){
+    console.log("Valor que llega al Form de Materia =>",this.myForm.value);
   }
 
   ngOnDestroy(): void {
