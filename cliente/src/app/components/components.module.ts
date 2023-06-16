@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { ApuntesComponent } from './apuntes/apuntes.component';
 import { HorarioComponent } from './horario/horario.component';
 import { TareasComponent } from './tareas/tareas.component';
@@ -10,6 +10,7 @@ import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
+import { MaterialModule } from '../material/material.module';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -28,6 +29,7 @@ import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule
   ],
   exports: [
     ApuntesComponent,
@@ -39,6 +41,5 @@ import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario
     EditarHorarioComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ComponentsModule { }

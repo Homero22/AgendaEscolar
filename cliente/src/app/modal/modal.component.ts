@@ -38,6 +38,10 @@ export class ModalComponent {
       });
   }
 
+  //generamos el metodo para cancelar
+  cancelar() {
+
+  }
 
 
   ngOnDestry(): void {

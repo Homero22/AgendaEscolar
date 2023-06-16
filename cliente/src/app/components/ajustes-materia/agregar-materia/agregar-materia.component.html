@@ -1,1 +1,43 @@
-<p>agregar-materia works!</p>
+<div class="full-container">
+  <form action="">
+    <div class="grid">
+
+      <div class="container-Left col">
+        <mat-form-field>
+          <mat-label>Materia</mat-label>
+          <input matInput placeholder="Nombre de la materia">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Color</mat-label>
+          <div class="color-selector">
+            <input type="color" id="color-input" (input)="getColor($event)">
+            <div class="color-palette"></div>
+          </div>
+          <input matInput placeholder="Color de la materia" [value]="selectedColor">
+        </mat-form-field>
+
+      </div>
+
+      <div class="container-Right col">
+        <mat-form-field>
+          <mat-label>Acrónimo</mat-label>
+          <input matInput placeholder="Acrónimo de la materia">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Profesor</mat-label>
+          <input matInput placeholder="Nombre del Profesor">
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div class="container-Btn">
+      <button mat-button class="btn-Save">
+        Agregar
+      </button>
+    </div>
+
+  </form>
+
+</div>
