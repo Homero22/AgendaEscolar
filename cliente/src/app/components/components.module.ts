@@ -5,6 +5,8 @@ import { MateriaComponent } from './Materia/materia.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ScheduleModule, RecurrenceEditorModule, WeekService, AgendaService, DayService, MonthAgendaService, MonthService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
 import { ButtonComponent } from './button/button.component';
+import { CommonModule } from '@angular/common';
+
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -14,7 +16,7 @@ import { ButtonComponent } from './button/button.component';
     ButtonComponent
   ],
   imports: [
-    ScheduleModule, RecurrenceEditorModule
+    ScheduleModule, RecurrenceEditorModule, CommonModule
   ],
   exports: [
     ApuntesComponent,
