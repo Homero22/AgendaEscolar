@@ -1,5 +1,60 @@
-<div class="scheduler-container">
+<!-- <div class="scheduler-container">
   <ejs-schedule></ejs-schedule>
+</div> -->
+
+<div class="calendar">
+  
+  <header>
+      <button class="secondary" style="align-self: flex-start; flex: 0 0 1">Editar Horario</button>
+      <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
+        <h1 class="" style="flex: 1;"><span></span><strong>Horario Escolar</strong></h1>
+      </div> 
+      <div style="align-self: flex-start; flex: 0 0 1"></div>
+  </header>
+  
+  <div class="outer">
+
+  
+    <table>
+      <thead>
+        <tr>
+          <th class="headcol"></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th class="today">Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <!-- <th class="secondary">Sábado</th>
+          <th class="secondary">Domingo</th> -->
+        </tr>
+      </thead>
+    </table>
+    
+    <div class="wrap"> 
+      <table class="offset">
+        <tbody>
+          <tr *ngFor="let hora of horas">
+            <td class="headcol">{{hora}}</td>
+            <ng-container *ngFor="let dia of dias">
+              <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }">
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: dia }"></ng-container>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <ng-template #template let-hora let-dia="dia">
+      <ng-container *ngIf="!calcularPantallaMediana(); else acronimoTemplate">
+        {{ ObtenerMateria(hora, dia) }}
+      </ng-container>
+      <ng-template #acronimoTemplate>
+        {{ ObtenerAcronimoMateria(hora, dia) }}
+      </ng-template>
+    </ng-template>
+    
+    
+<!-- </div> -->
 </div>
-
-
+</div>

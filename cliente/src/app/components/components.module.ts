@@ -4,6 +4,8 @@ import { HorarioComponent } from './horario/horario.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ScheduleModule, RecurrenceEditorModule, WeekService, AgendaService, DayService, MonthAgendaService, MonthService, WorkWeekService } from '@syncfusion/ej2-angular-schedule';
 import { ButtonComponent } from './button/button.component';
+import { CommonModule } from '@angular/common';
+
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
 @NgModule({
@@ -16,8 +18,9 @@ import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-
     EditarMateriaComponent
   ],
   imports: [
-    ScheduleModule,
-    RecurrenceEditorModule,
+    ScheduleModule, 
+    RecurrenceEditorModule, 
+    CommonModule
   ],
   exports: [
     ApuntesComponent,

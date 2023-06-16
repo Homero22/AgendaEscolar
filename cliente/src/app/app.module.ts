@@ -22,7 +22,7 @@ import { ModalModule } from './modal/modal.module';
     SharedModule,
     HttpClientModule,
     ScheduleModule,
-    RecurrenceEditorModule
+    RecurrenceEditorModule,
   ],
   bootstrap: [
     AppComponent
