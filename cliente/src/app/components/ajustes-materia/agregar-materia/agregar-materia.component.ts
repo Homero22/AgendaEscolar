@@ -17,6 +17,9 @@ export class AgregarMateriaComponent implements OnInit {
   //creamos el formulario myForm
   myForm!: FormGroup;
 
+
+ idUser: any;
+
   constructor(
     private fb: FormBuilder,
     private srvMateria: MateriaService
@@ -47,7 +50,8 @@ export class AgregarMateriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.idUser = sessionStorage.getItem("id");
+    console.log("idUser =>",this.idUser);
   }
 
 
