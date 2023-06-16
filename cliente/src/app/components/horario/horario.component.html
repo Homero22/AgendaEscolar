@@ -36,7 +36,7 @@
           <tr *ngFor="let hora of horas">
             <td class="headcol">{{hora}}</td>
             <ng-container *ngFor="let dia of dias">
-              <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }">
+              <td (click)="openModal()" [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }">
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: dia }"></ng-container>
               </td>
             </ng-container>
