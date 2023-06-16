@@ -2,6 +2,10 @@ package com.example.routes
 
 import com.example.data.models.Schedule
 import com.example.data.repositories.Schedules
+import com.example.logica.ScheduleLogic
+import com.example.utils.Response
+import com.example.utils.ResponseSingle
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -14,14 +18,15 @@ fun Route.horariosRouting() {
         get {
             //GET /schedules
             try {
-                //Obtenemos el limite de paises a mostrar
-                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
-                //Obtenemos el offset de paises a mostrar
-                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-                //Obtenemos los paises
-                val schedules = Schedules.getAll(limit, offset)
-
-                call.respond(HttpStatusCode.OK, schedules)
+                //Envio a la capa logica
+                val res = ScheduleLogic().getAll();
+                if(res!=null){
+                    val response = Response(true,"Horarios obtenidos correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = Response(false,"No se encontraron horarios", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (
                 cause: Throwable
             ){
@@ -51,9 +56,16 @@ fun Route.horariosRouting() {
             //Obtenemos el pais a guardar
             val schedule = call.receive<Schedule>()
             try {
-                //Guardamos el pais
-                val response = Schedules.save(schedule)
-                call.respond(HttpStatusCode.Created, response)
+               //envio capa logica
+                val res = ScheduleLogic().crearHorario(schedule)
+
+                if(res==1) {
+                    val response = ResponseSingle(true, "Horario creado correctamente", schedule)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSingle(false, "No se pudo crear el horario", schedule)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (
                 cause: Throwable
             ){

@@ -3,21 +3,28 @@
     <div class="grid">
 
       <div class="container-Left col">
+        <label for="" class="mb-2">Materia</label>
         <mat-form-field appearance="fill" class="w-12">
           <mat-label>Materia</mat-label>
           <input matInput placeholder="Ex. Matemática">
         </mat-form-field>
+        <label for="" class="mb-2">Color</label>
         <mat-form-field appearance="fill" class="w-12">
-          <mat-label>Color</mat-label>
-          <input matInput>
+          <div class="color-picker">
+            <label for="colorPicker">
+              <input type="color" name="color" id="colorPicker" value="#1dbbce">
+            </label>
+          </div>
         </mat-form-field>
       </div>
 
       <div class="container-Right col">
+        <label for="" class="mb-2">Acrónimo</label>
         <mat-form-field appearance="fill" class="w-12">
           <mat-label>Acrónimo</mat-label>
           <input matInput placeholder="Ex. Mat">
         </mat-form-field>
+        <label for="" class="mb-2">Profesor</label>
         <mat-form-field appearance="fill" class="w-12">
           <mat-label>Profesor</mat-label>
           <input matInput placeholder="Ex. Homero Ojeda">
@@ -26,9 +33,8 @@
 
     </div>
 
-
     <div class="container-Btn">
-      <button mat-button>
+      <button mat-button class="btn-Save">
         Agregar
       </button>
     </div>

@@ -2,7 +2,9 @@ package com.example.routes
 
 import com.example.data.models.Subject
 import com.example.data.repositories.Subjects
+import com.example.logica.SubjectLogic
 import com.example.utils.Response
+import com.example.utils.ResponseEmpty
 import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -16,9 +18,16 @@ fun Route.subjectsRouting(){
             try {
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-                val subjects = Subjects.getAll(limit, offset)
-                val r = Response(true, "Materias obtenidas correctamente", subjects)
-                sendJsonResponse(call, HttpStatusCode.OK, r)
+                //enviamos a capa logica
+                val res = SubjectLogic().getAll(limit,offset);
+                if(res!=null){
+                    val response = Response(true,"Materias obtenidas correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false,"No se encontraron materias", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
+
             }catch (
                 cause: Throwable
             ) {

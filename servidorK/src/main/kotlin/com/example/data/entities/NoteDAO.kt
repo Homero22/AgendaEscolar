@@ -1,6 +1,5 @@
 package com.example.data.entities
 
-import com.example.data.entities.Homeworks.references
 import com.example.data.models.Note
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
@@ -10,7 +9,8 @@ import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
 object Notes : LongIdTable("tb_apuntes"){
-    var usuarioMateriaId = integer("int_usuario_materia_id").references(MateriaUsuario.id)
+    var idUser = long("int_usuario_materia_id").references(Users.id)
+    var idMateria= integer("int_materia_id").references(Subjects.id)
     var apunteTitulo = varchar("str_apunte_titulo", 255)
     var apunteTexto = text("str_apunte_texto")
     var apunteRecordatorio = time("time_recordatorio")
@@ -21,7 +21,8 @@ object Notes : LongIdTable("tb_apuntes"){
 
 class NotesDAO(id: EntityID<Long>) : LongEntity(id){
     companion object : LongEntityClass<NotesDAO>(Notes)
-    var usuarioMateriaId by Notes.usuarioMateriaId
+    var idUser by Notes.idUser
+    var idMateria by Notes.idMateria
     var apunteTitulo by Notes.apunteTitulo
     var apunteTexto by Notes.apunteTexto
     var apunteRecordatorio by Notes.apunteRecordatorio
@@ -30,7 +31,8 @@ class NotesDAO(id: EntityID<Long>) : LongEntity(id){
     fun toNotes() : Note{
         return Note(
             id.value.toInt(),
-            usuarioMateriaId,
+            idUser,
+            idMateria,
             apunteTitulo,
             apunteTexto,
             apunteRecordatorio.toString(),

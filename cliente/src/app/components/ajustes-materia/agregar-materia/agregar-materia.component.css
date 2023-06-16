@@ -3,3 +3,45 @@
   flex-direction: column;
   align-items: center;
 }
+
+.container-Btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-Save{
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn-Save:hover{
+  background-color: var(--quinary-color);
+  color: var(--tertiary-color);
+}
+
+[type='color']{
+  appearance: none;
+  padding: 0;
+  width: 15px;
+  height: 15px;
+  border: none;
+}
+
+[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+[type='color']::-webkit-color-swatch {
+  border: none;
+}
+
+.color-Picker{
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f9f9;
+}
+
+

@@ -11,7 +11,7 @@ object Users : LongIdTable("tb_usuarios") {
 
     val nombre = varchar("str_usuario_nombre", 255)
     val apellido = varchar("str_usuario_apellido", 255)
-    val rol = varchar("str_usuario_rol", 255)
+    val rol = varchar("str_usuario_rol", 255).default("PUBLICO")
     val telefono = varchar("str_usuario_telefono", 255).uniqueIndex()
     val correo = varchar("str_usuario_correo", 255).uniqueIndex()
     val contrasena = varchar("str_usuario_contrasena", 255)

@@ -1,8 +1,9 @@
 package com.example.data.repositories
 
-import com.example.data.entities.MateriaUsuario
-import com.example.data.models.*
-import java.lang.IllegalArgumentException
+import com.example.data.models.Country
+import com.example.data.models.Note
+import com.example.data.models.Subject
+import com.example.data.models.User
 
 class cGenerica <T> {
 
@@ -20,9 +21,16 @@ class cGenerica <T> {
             is Notes ->{
                 obj.getAll(limit,offset)
             }
-            is SubjectsUsers ->{
-                obj.getAll(limit,offset)
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun <T> gGetAll(obj: T): List<Any> {
+        return when(obj) {
+            is Schedules-> {
+                obj.getAll();
             }
+
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -61,14 +69,17 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
-    fun gSearch(obj: T, valor: Int): Any? {
+
+
+    fun gSearch(obj: T, valor: Int, valor2:String,valor3:String,valor4:String): Any {
         return when(obj) {
-            is SubjectsUsers -> {
-                SubjectsUsers.existSubject(valor)
+            is Schedules -> {
+                obj.checkSchedule(valor,valor2,valor3,valor4)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
 
     // Obtener un objeto por su id
 
@@ -86,17 +97,16 @@ class cGenerica <T> {
             is Notes ->{
                 obj.getById(id)
             }
-            is SubjectsUsers ->{
-                obj.getById(id)
-            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
 
+
+
     fun gUpdate(obj: T, id: Int, entity: Any): Any {
         return when(obj) {
-            is SubjectsUsers -> {
-                obj.update(id, entity as SubjectUser)
+            is Subjects -> {
+                obj.update(id, entity as Subject)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -116,12 +126,22 @@ class cGenerica <T> {
             is Notes ->{
                 obj.delete(id)
             }
-            is SubjectsUsers ->{
-                obj.delete(id)
-            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
        }
+
+    //buscamos nombre de materia
+    /*
+    fun gGetDataSubjects(obj: T): List<Any> {
+        return when(obj) {
+            is Subjects -> {
+                obj.obtenerDatosMaterias();
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+     */
 
 
 
