@@ -19,7 +19,7 @@ export class MateriaPageComponent {
 
  idMateria!: number;
 
-
+ idUser!: any;
 
 
   //LOGICA DE LA PAGINA
@@ -41,6 +41,8 @@ export class MateriaPageComponent {
 
     ngOnInit(): void {
       console.log("ngOnInit");
+      this.idUser = sessionStorage.getItem("id");
+
       this.getMaterias();
     }
 
@@ -53,7 +55,27 @@ export class MateriaPageComponent {
         }
       });
 
-      this.srvMateria.getMaterias()
+      // this.srvMateria.getMaterias()
+      // .pipe(takeUntil(this.destroy$))
+      // .subscribe({
+      //   next:(materiaData)=>{
+      //     Swal.close();
+      //     if(materiaData.body){
+      //       this.srvMateria.datosMateria = materiaData.body;
+      //       console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+      //     }else{
+      //       console.log("No hay datos");
+      //     }
+      //   },
+      //   error:(err)=>{
+      //     console.log("Error en la peticion =>",err);
+      //   },
+      //   complete:()=>{
+      //     console.log("Peticion finalizada");
+      //   }
+      // });
+
+      this.srvMateria.getMateriasUsuario(this.idUser)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next:(materiaData)=>{

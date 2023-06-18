@@ -11,6 +11,8 @@ const idMateria: number = 0;
 export class MateriaService {
 private urlApi_Materias: string = config.URL_API_BASE + "subjects";
 
+private urlApi_MateriasUsuario: string = config.URL_API_BASE + "subjects/user";
+
 
 
 datosMateria!: MateriaModel[];
@@ -32,6 +34,14 @@ setIdMateria(_idMateria: number){
 
 
 // ------------------------ MATERIAS ------------------------
+
+
+getMateriasUsuario(idUser: number){
+  return this.http.get<ShowMateriaModel>(`${this.urlApi_MateriasUsuario}/${idUser}`,
+    {
+      withCredentials: true
+    });
+}
 
 getMaterias(){
   return this.http.get<ShowMateriaModel>(`${this.urlApi_Materias}`,

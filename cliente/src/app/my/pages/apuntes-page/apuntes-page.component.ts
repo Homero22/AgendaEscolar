@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-apuntes-page',
   templateUrl: './apuntes-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./apuntes-page.component.css']
 })
 export class ApuntesPageComponent {
 
