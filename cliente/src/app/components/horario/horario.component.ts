@@ -5,6 +5,7 @@ import { ModalComponent } from 'src/app/modal/modal.component';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Horario, HorarioItem, ModelShowHorario } from 'src/app/core/models/horario';
 
 @Component({
   selector: 'app-horario',
@@ -21,6 +22,9 @@ export class HorarioComponent implements OnInit{
   tooltipInitialized = false;
   idUser: any;
 
+  horario: Horario = {};
+  homero!: any;
+
   private destroy$ = new Subject<any>();
 
   constructor(
@@ -35,6 +39,8 @@ export class HorarioComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.obtenerHorario();
+
     const dia = 'lunes';
     const hora = '8:00';
     const materia = this.ObtenerMateria( hora, dia);
@@ -47,7 +53,6 @@ export class HorarioComponent implements OnInit{
     }
     this.idUser =  sessionStorage.getItem('id');
     console.log("id user =>", this.idUser);
-    this.obtenerHorario();
     
   }
 
@@ -136,15 +141,50 @@ export class HorarioComponent implements OnInit{
   }
 
   obtenerHorario(){
-    this.srvHorario.getHorarioUser(1)
+    this.srvHorario.getHorarioUser(this.idUser)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
-      next: (horario: any)=>{
-        this.srvHorario.horario = this.srvHorario.transfor(horario, this.srvHorario.horario)
-        // this.srvHorario.horario = horario;
-        console.log("Horario =>", this.srvHorario.horario);
+      next: (homero: ModelShowHorario)=>{
+        // this.srvHorario.transfor(horario, this.srvHorario.horario)
+        // this.srvHorario.horario = homero;
+        // transfor(){
+          console.log("transformando");
+          console.log("Horario de homero =>", homero);
+          this.homero = homero.body;
+          console.log("Homero pase al local =>", this.homero);
+          // this.homero = homero.body;
+          // homero.body.forEach(obj => {
+          //   const dia = obj.dia.toLowerCase();
+          //   const horaInicio = `${obj.hora_inicio.hour}:${obj.hora_inicio.minute}`;
+          //   const horaFin = `${obj.hora_fin.hour}:${obj.hora_fin.minute}`;
+          
+          //   if (!this.srvHorario.horario[dia]) {
+          //     this.srvHorario.horario[dia] = {}; // Crea el objeto para el día si no existe
+          //   }
+          
+          //   if (!this.srvHorario.horario[dia][horaInicio]) {
+          //     this.srvHorario.horario[dia][horaInicio] = {} as HorarioItem ; // Crea el objeto para la hora si no existe
+          //   }
+          
+          //   this.srvHorario.horario[dia][horaInicio] = {
+          //     materia: obj.nombre,
+          //     horaFin: horaFin,
+          //     color: obj.materiaColor,
+          //     acronimo: obj.materiaAcro,
+          //     id: obj.id
+          //   };
+          // });
+          // console.log(this.srvHorario.horario);
+        // }
+        // const dataHorario : Horario = {};
+        // const data = this.srvHorario.transfor(homero.body, dataHorario);
+        // console.log("Horario transformado =>", data);
       }
     })
   }
   mostrarContenido = false;
+
+  // ------------------------ Transformar datos ------------------------
+
+ 
 }

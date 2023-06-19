@@ -73,5 +73,5 @@ export interface HorarioItem {
   export interface ModelShowHorario{
     status: string,
     messege: string,
-    body: HomeroItem[]
+    body: HomeroItem
   }

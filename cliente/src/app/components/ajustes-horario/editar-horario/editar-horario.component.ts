@@ -89,7 +89,7 @@ export class EditarHorarioComponent {
       next:(materiaData)=>{
         if(materiaData.body){
           this.srvMateria.datosMateria = materiaData.body;
-          console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+          // console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
         }else{
           console.log("No hay datos");
         }

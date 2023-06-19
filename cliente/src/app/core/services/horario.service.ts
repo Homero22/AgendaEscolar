@@ -50,6 +50,7 @@ export class HorarioService {
   horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
   dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
   horario: Horario = {
+  
     lunes: {
       '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
       '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS',id: 2 },
@@ -86,6 +87,7 @@ export class HorarioService {
       '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS', id:8 }
     }};
 
+    dataHorario!: Horario;
     // ------------------------ CRUD ------------------------
 
     //Actualizar horario por id
@@ -115,7 +117,7 @@ export class HorarioService {
 
     //----------------------TRANSFORMACIONES----------------------
 
-    transfor(homero: HomeroItem[], horario: Horario): Horario{
+    transfor(homero: HomeroItem[], horario: Horario){
       console.log("transformando en servicio");
       homero.forEach(obj => {
         const dia = obj.dia.toLowerCase();
@@ -138,7 +140,8 @@ export class HorarioService {
           id: obj.id
         };
       });
-      console.log(this.horario);
+      console.log("lo que sale del transform ",horario);
+      // this.dataorario = horario;
       return horario;
     }
 }
