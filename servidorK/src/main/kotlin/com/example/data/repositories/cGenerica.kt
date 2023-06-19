@@ -100,6 +100,9 @@ class cGenerica <T> {
             is Notes ->{
                 obj.getById(id)
             }
+            is Schedules ->{
+                obj. getAllByUser(id.toLong())
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -132,6 +135,15 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
        }
+
+    fun gGetByUserId(subjects: T, id: Int): Any? {
+        return when(subjects) {
+            is Subjects -> {
+                subjects.getByIdUser(id.toLong())
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
 
     //buscamos nombre de materia
     /*

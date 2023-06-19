@@ -26,6 +26,7 @@ class ScheduleLogic {
     }
 
     fun actualizarHorario(id: Int, schedule: Any): Any {
+
         return obj.gUpdate(Schedules,id,schedule)
     }
 
@@ -36,6 +37,10 @@ class ScheduleLogic {
             return 1
         }
         return 0
+    }
+
+    fun getById(id: Int): Any {
+        return obj.gGgetById(Schedules,id) ?: return 0
     }
 
 }

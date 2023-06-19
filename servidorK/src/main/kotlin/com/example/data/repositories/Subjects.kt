@@ -1,7 +1,9 @@
 package com.example.data.repositories
 
 import com.example.data.entities.SubjectDAO
+import com.example.data.entities.Subjects
 import com.example.data.models.Subject
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Subjects : CrudRepository<Subject, Int> () {
@@ -16,7 +18,23 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
 
     override fun getById(id: Int) = transaction {
-        return@transaction SubjectDAO.findById(id)?.toSubject()
+       //debo devolver las materias de dado el id del usuario
+        val response = SubjectDAO.findById(id)?.toSubject()
+        return@transaction response
+    }
+    fun getByIdUser (id:Long):List<Any> = transaction {
+        val response = Subjects
+            .select({ Subjects.iduser eq id })
+            .map {
+                mapOf(
+                    "id" to it[Subjects.id].value,
+                    "nombre" to it[Subjects.nombre],
+                    "materiaAcro" to it[Subjects.materiaAcro],
+                    "materiaColor" to it[Subjects.materiaColor],
+                    "profesorNombre" to it[Subjects.profesorNombre]
+                )
+            }
+        return@transaction response
     }
 
 
@@ -34,6 +52,10 @@ object Subjects : CrudRepository<Subject, Int> () {
     override fun update(id: Int, entity: Subject): Subject = transaction {
         val response = SubjectDAO.findById(id)?.apply {
             nombre = entity.nombre
+            profesorNombre = entity.profesorNombre
+            materiaAcro = entity.materiaAcro
+            materiaColor = entity.materiaColor
+
         }?.toSubject()
         return@transaction response!!
     }
