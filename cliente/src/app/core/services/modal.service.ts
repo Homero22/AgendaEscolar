@@ -51,6 +51,13 @@ export class ModalService implements AfterContentInit {
 
     setCloseMatDialog(_closeMatDialog: boolean){
       this.closeMatDialog$.next(_closeMatDialog);
+      console.log("Valor de closeMatDialog =>", _closeMatDialog);
+    }
+
+    // funcion para cerrar el modal tras dar click en el boton save
+    closeModal(){
+      //Cerramos el mat-Dialog
+
     }
 
   }

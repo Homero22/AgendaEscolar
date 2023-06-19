@@ -26,6 +26,7 @@ export class AgregarMateriaComponent implements OnInit {
     private srvMateria: MateriaService,
     private srvModal: ModalService
   ) {
+    //inicializamos el formulario
     this.myForm = this.fb.group({
       idUser: [
         this.idUser,
@@ -72,16 +73,12 @@ export class AgregarMateriaComponent implements OnInit {
     this.myForm.get('materiaColor')?.setValue(this.selectedColor);
   }
 
-
+  // Funcion para guardar la materia
   saveMateria(){
-
-
     //colocamos el valor del color en el formulario
     this.myForm.get('materiaColor')?.setValue(this.selectedColor);
-
     //colocamos el valor del idUser en el formulario
     this.myForm.get('idUser')?.setValue(this.idUser);
-
     console.log("Valor que llega al Form de Materia =>",this.myForm.value);
 
     const sendMateriaData = this.myForm.value;
@@ -133,13 +130,44 @@ export class AgregarMateriaComponent implements OnInit {
             //cerramos el modal mandando el valor de true al behaviorSubject
             this.srvModal.setCloseMatDialog(true);
             this.myForm.reset();
-
+            this.getMaterias();
           }
         })
       }
     })
-
   }
+
+  // funcion para obtener las materias del usuario
+  getMaterias(){
+    Swal.fire({
+      title: 'Cargando Materias...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
+    this.srvMateria.getMateriasUsuario(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(materiaData)=>{
+        Swal.close();
+        if(materiaData.body){
+          this.srvMateria.datosMateria = materiaData.body;
+          console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
+  }
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});

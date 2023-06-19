@@ -72,7 +72,7 @@ putMateria(id: number, dataMateria: addMAteriaDataByID){
 }
 
 deleteMateria(id: number){
-  return this.http.delete<MateriaModel>(`${this.urlApi_Materias}/${id}`,
+  return this.http.delete<ShowMateriaModel>(`${this.urlApi_Materias}/${id}`,
     {
       withCredentials: true
     });

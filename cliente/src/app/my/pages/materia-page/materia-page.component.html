@@ -15,22 +15,26 @@
 
       <mat-grid-list cols="4" rowHeight="2:1">
         <div class="card-container">
-            <div class="card" *ngFor="let nombre of srvMateria.datosMateria, let i = index">
+            <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
               <div class="flex">
-                <mat-card class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card">
-                  <button class="btn-mat-card" [style.background-color]="nombre.materiaColor">
+                <mat-card class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card" id="mat-Card">
+                  <button class="btn-mat-card" [style.background-color]="materia.materiaColor">
                     <mat-card-header>
-                      <mat-card-content>
-                        {{ nombre.nombre }}
-                        {{nombre.profesorNombre}}
-                      </mat-card-content>
-
-                      <mat-card-title-group>
-                        <button mat-button (click)="openModalEdit('Editar Materia', nombre.id)">
+                      <mat-card-title>
+                        <h1>
+                          {{ materia.nombre }}
+                        </h1>
+                      </mat-card-title>
+                    </mat-card-header>
+                      <mat-card-actions class="gap-3">
+                        <button mat-raised-button (click)="openModalEdit('Editar Materia', materia.id)">
                           <i class="material-icons">create</i>
                         </button>
-                      </mat-card-title-group>
-                    </mat-card-header>
+
+                        <button mat-raised-button (click)="deleteMateria(materia.id)">
+                          <i class="material-icons">delete</i>
+                        </button>
+                      </mat-card-actions>
                   </button>
                 </mat-card>
               </div>
