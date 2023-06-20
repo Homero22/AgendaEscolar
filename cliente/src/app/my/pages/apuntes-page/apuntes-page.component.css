@@ -1,11 +1,17 @@
-.container-Apuntes{
-  width: 100%;
-  height: 100%;
-  margin: 1rem;
-  display: grid;
+.container-Title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid var(--secondary-color);
 }
 
-.container-Top{
+.container-Main{
+  display: flex;
+  gap: 1rem;
 }
 
-.container-Main{}
+.container-Left, .container-Right{
+  border: 0.5px solid var(--secondary-color);
+  border-radius: 6px;
+}
+
