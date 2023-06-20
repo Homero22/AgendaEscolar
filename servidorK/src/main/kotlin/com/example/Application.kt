@@ -4,7 +4,6 @@ import com.example.data.controllers.DataBaseManager
 import com.example.plugins.configureHTTP
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
-import com.example.services.sendEmail
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
 import io.ktor.server.config.*
@@ -20,5 +19,4 @@ fun Application.module() {
     //configureDatabases()
     configureRouting()
     configureHTTP()
-
 }

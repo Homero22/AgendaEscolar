@@ -1,9 +1,6 @@
 package com.example.data.repositories
 
-import com.example.data.models.Country
-import com.example.data.models.Note
-import com.example.data.models.Subject
-import com.example.data.models.User
+import com.example.data.models.*
 
 class cGenerica <T> {
 
@@ -19,6 +16,9 @@ class cGenerica <T> {
                 obj.getAll(limit, offset)
             }
             is Notes ->{
+                obj.getAll(limit,offset)
+            }
+            is Homeworks ->{
                 obj.getAll(limit,offset)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -51,6 +51,9 @@ class cGenerica <T> {
             }
             is Notes ->{
                 obj.save(entity as Note)
+            }
+            is Homeworks ->{
+                obj.save(entity as Homework)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -103,6 +106,9 @@ class cGenerica <T> {
             is Schedules ->{
                 obj. getAllByUser(id.toLong())
             }
+            is Homeworks ->{
+                obj.getById(id)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -113,6 +119,9 @@ class cGenerica <T> {
         return when(obj) {
             is Subjects -> {
                 obj.update(id, entity as Subject)
+            }
+            is Homeworks -> {
+                obj.update(id, entity as Homework)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -132,14 +141,29 @@ class cGenerica <T> {
             is Notes ->{
                 obj.delete(id)
             }
+           is Homeworks ->{
+               obj.delete(id)
+           }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
        }
 
-    fun gGetByUserId(subjects: T, id: Int): Any? {
-        return when(subjects) {
+    fun gGetByUserId(obj: T, id: Int): Any? {
+        return when(obj) {
             is Subjects -> {
-                subjects.getByIdUser(id.toLong())
+                obj.getByIdUser(id.toLong())
+            }
+            is Homeworks -> {
+                obj.getAllByUser(id.toLong())
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetByEstado(homeworks: T, id: Int, estado: String): List<Any> {
+        return when(homeworks) {
+            is Homeworks -> {
+                homeworks.getAllByUserAndState(id.toLong(),estado)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
