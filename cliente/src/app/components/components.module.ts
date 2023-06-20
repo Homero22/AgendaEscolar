@@ -13,6 +13,8 @@ import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AgregarApunteComponent } from './ajustes-apunte/agregar-apunte/agregar-apunte.component';
+import { EditarApunteComponent } from './ajustes-apunte/editar-apunte/editar-apunte.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     AgregarMateriaComponent,
     EditarMateriaComponent,
     EditarHorarioComponent,
-    ConfigurarHorarioComponent
+    ConfigurarHorarioComponent,
+    AgregarApunteComponent,
+    EditarApunteComponent
 
   ],
   imports: [
@@ -43,7 +47,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     ButtonComponent,
     AgregarMateriaComponent,
     EditarMateriaComponent,
-    EditarHorarioComponent
+    EditarHorarioComponent,
+    AgregarApunteComponent,
+    EditarApunteComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
 })

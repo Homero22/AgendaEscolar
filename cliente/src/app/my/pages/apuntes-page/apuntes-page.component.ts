@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,6 +12,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./apuntes-page.component.css']
 })
 export class ApuntesPageComponent implements OnInit {
+
+  data = [
+    { id: 1, apunte: 'Apunte 1', materia: 'Materia 1', acciones: 'Acciones 1' },
+    { id: 2, apunte: 'Apunte 2', materia: 'Materia 2', acciones: 'Acciones 2' },
+    { id: 3, apunte: 'Apunte 3', materia: 'Materia 3', acciones: 'Acciones 3' }
+    // Agrega más elementos al array según sea necesario
+  ];
 
   //Variables
   title!: string;
@@ -21,7 +30,8 @@ export class ApuntesPageComponent implements OnInit {
   //Constructor
   constructor(
     private srvModal: ModalService,
-    public srvMateria: MateriaService
+    public srvMateria: MateriaService,
+    public dialog: MatDialog
 
   ) { }
 
@@ -33,18 +43,18 @@ export class ApuntesPageComponent implements OnInit {
   }
 
   //Funcion para abrir el modal
-  openModal(title: string) {}
+  openModal(title: string) {
+    this.srvModal.setTitleModal(title);
+    this.dialog.open(ModalComponent,{
+      width: '500px',
+      height: 'auto'
+    });
+  }
+
+  getApuntes(){}
 
   //Funcion para obtener las materias del usuario Logeado
   getMaterias(){
-    Swal.fire({
-      // Definimos el titulo y el tamano de la letra ebn 12px
-      title: 'Cargando Información de apuntes...',
-      didOpen: () => {
-        Swal.showLoading()
-      }
-    });
-
     this.srvMateria.getMateriasUsuario(this.idUser)
     .pipe(takeUntil(this.destroy$))
     .subscribe({

@@ -55,3 +55,18 @@
   font-size: var(--font-size-16);
   font-weight: var(--font-weight-600);
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}

@@ -13,27 +13,45 @@
   </div>
 
   <div class="contenedor">
-    <div class="columna columna1">
-      <mat-grid-list class="container-MatGrid" cols="1" rowHeight="1:2">
-        <div class="my-2" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-          <div class="flex justify-content-center column-gap-2">
-            <mat-card class="" id="mat-Card">
-              <button mat-stroked-button class="container-Btn"
-              [style.background-color]="materia.materiaColor">
-                <mat-card-content class="mat-Content">
-                  <span class="span-Text">
-                    {{ materia.nombre }}
-                  </span>
-                </mat-card-content>
-              </button>
-            </mat-card>
+    <!-- <div class="columna columna1">
+        <mat-grid-list class="container-MatGrid" cols="1" rowHeight="1:2">
+          <div class="my-2" *ngFor="let materia of srvMateria.datosMateria, let i = index">
+            <div class="flex justify-content-center column-gap-2">
+              <mat-card class="" id="mat-Card">
+                <button mat-stroked-button class="container-Btn"
+                [style.background-color]="materia.materiaColor">
+                  <mat-card-content class="mat-Content">
+                    <span class="span-Text">
+                      {{ materia.nombre }}
+                    </span>
+                  </mat-card-content>
+                </button>
+              </mat-card>
+            </div>
           </div>
-        </div>
-      </mat-grid-list>
-    </div>
-    <div class="columna columna2">
-      <!-- Contenido de la columna 2 -->
-    </div>
+        </mat-grid-list>
+      </div>
+      <div class="columna columna2">
+      </div> -->
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Apunte</th>
+          <th>Materia</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{ item.id }}</td>
+          <td>{{ item.apunte }}</td>
+          <td>{{ item.materia }}</td>
+          <td>{{ item.acciones }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 

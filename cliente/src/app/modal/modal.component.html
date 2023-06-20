@@ -20,6 +20,14 @@
         <app-editar-horario></app-editar-horario>
       </div>
 
+      <div *ngSwitchCase="'Agregar Apunte'">
+        <app-agregar-apunte></app-agregar-apunte>
+      </div>
+
+      <div *ngSwitchCase="'Editar Apunte'">
+        <app-editar-apunte></app-editar-apunte>
+      </div>
+
     </ng-container>
   </div>
   <div class="modal-Actions px-2">
