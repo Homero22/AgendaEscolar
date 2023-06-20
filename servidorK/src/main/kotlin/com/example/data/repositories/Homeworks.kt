@@ -1,7 +1,10 @@
 package com.example.data.repositories
 
 import com.example.data.entities.HomeworkDAO
+import com.example.data.entities.Homeworks
 import com.example.data.models.Homework
+import org.jetbrains.exposed.sql.andWhere
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 /*
 import org.jetbrains.exposed.sql.`java-time`.datetime
@@ -12,10 +15,6 @@ import java.sql.Timestamp
 object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para obtener todas las tareas
     override fun getAll(limit: Int, offset: Int): List<Homework> = transaction{
-        //Imprimer los parámetros de la funcion
-        println(limit)
-        print(offset)
-
         val response = HomeworkDAO.all().limit(limit, offset.toLong())
         return@transaction response.map { it.toHomework() }
     }
@@ -32,9 +31,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
             idMateria = entity.idMateria
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
-            fechaCreacion = java.time.LocalDateTime.now()
-            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
-            //fechaFin = Timestamp.valueOf(entity.fechaFin)
+            fechaCreacion = java.time.LocalTime.now()
+            fechaFin = java.time.LocalTime.parse(entity.fechaFin)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }
@@ -46,8 +44,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
         val response = HomeworkDAO.findById(id.toLong())?.apply {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
-            fechaCreacion = java.time.LocalDateTime.now()
-            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
+            fechaCreacion = java.time.LocalTime.now()
+            fechaFin = java.time.LocalTime.parse(entity.fechaFin)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }?.toHomework()
@@ -55,10 +53,50 @@ object Homeworks: CrudRepository<Homework, Int>() {
     }
 
     override fun delete(id:Int)= transaction {
-        val homework = HomeworkDAO.findById(id.toLong())?:return@transaction
-        homework.apply {
-            tareaEstado = "INACTIVO"
-        }
+        HomeworkDAO.findById(id.toLong())?.delete()
         return@transaction
     }
+
+    //funcion para obtener todas las tareas de un usuario
+    fun getAllByUser(id: Long):List<Any> = transaction {
+        val res = Homeworks
+            .select({ Homeworks.idUser eq id })
+            .map {
+                mapOf(
+                    "id" to it[Homeworks.id].value,
+                    "idUser" to it[Homeworks.idUser],
+                    "idMateria" to it[Homeworks.idMateria],
+                    "tareaTitulo" to it[Homeworks.tareaTitulo],
+                    "tareaDescripcion" to it[Homeworks.tareaDescripcion],
+                    "fechaCreacion" to it[Homeworks.fechaCreacion],
+                    "fechaFin" to it[Homeworks.fechaFin],
+                    "tareaEstado" to it[Homeworks.tareaEstado],
+                    "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
+                )
+            }
+        return@transaction res
+    }
+
+    //funcion para obtener todas las tareas de un usuario dado un estado
+
+    fun getAllByUserAndState(id: Long, state: String):List<Any> = transaction {
+        val res = Homeworks
+            .select({ Homeworks.idUser eq id })
+            .andWhere { Homeworks.tareaEstado eq state }
+            .map {
+                mapOf(
+                    "id" to it[Homeworks.id].value,
+                    "idUser" to it[Homeworks.idUser],
+                    "idMateria" to it[Homeworks.idMateria],
+                    "tareaTitulo" to it[Homeworks.tareaTitulo],
+                    "tareaDescripcion" to it[Homeworks.tareaDescripcion],
+                    "fechaCreacion" to it[Homeworks.fechaCreacion],
+                    "fechaFin" to it[Homeworks.fechaFin],
+                    "tareaEstado" to it[Homeworks.tareaEstado],
+                    "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
+                )
+            }
+        return@transaction res
+    }
+
 }
