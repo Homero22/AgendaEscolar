@@ -7,7 +7,6 @@ import io.ktor.server.config.*
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -52,7 +51,6 @@ object DataBaseManager {
             SchemaUtils.create(Homeworks);
             SchemaUtils.create(Notes);
             SchemaUtils.create(Horarios);
-            SchemaUtils.create(MateriaUsuario);
             SchemaUtils.create(Users);
 
         }

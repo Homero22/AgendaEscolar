@@ -5,7 +5,9 @@
 <div class="calendar">
   
   <header>
-      <button class="secondary" style="align-self: flex-start; flex: 0 0 1">Editar Horario</button>
+      <button class="secondary" style="align-self: flex-start; flex: 0 0 1" (click)="toggleTooltip()">Configurar Horario</button>
+      <app-configurar-horario *ngIf="tooltipInitialized" [content]="'Este es un tooltip'" [left]="left" [top]="top" [display]="display"
+      ></app-configurar-horario>
       <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
         <h1 class="" style="flex: 1;"><span></span><strong>Horario Escolar</strong></h1>
       </div> 
@@ -33,10 +35,14 @@
     <div class="wrap"> 
       <table class="offset">
         <tbody>
-          <tr *ngFor="let hora of horas">
+          <tr *ngFor="let hora of srvHorario.horas " [ngClass]="{'ocultar-estilo': !mostrarContenido}">
             <td class="headcol">{{hora}}</td>
-            <ng-container *ngFor="let dia of dias">
-              <td [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }">
+            <ng-container *ngFor="let dia of srvHorario.dias">
+              <td (click)="openModal(hora, dia)"
+                  [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }"
+                  [ngClass]="{ 'past': dia === 'miércoles' }"
+                  [ngClass]="{'ocultar-estilo': !mostrarContenido}"
+                  >
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: dia }"></ng-container>
               </td>
             </ng-container>
@@ -44,6 +50,7 @@
         </tbody>
       </table>
     </div>
+    
     
     <ng-template #template let-hora let-dia="dia">
       <ng-container *ngIf="!calcularPantallaMediana(); else acronimoTemplate">
@@ -54,7 +61,5 @@
       </ng-template>
     </ng-template>
     
-    
-<!-- </div> -->
 </div>
 </div>

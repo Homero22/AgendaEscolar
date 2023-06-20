@@ -1,27 +1,28 @@
 <div class="modal-Body">
-
   <div class="modal-Title px-2">
     <p>{{titleModal}}</p>
-
     <button mat-button mat-dialog-close class="btn-Close">
       <i class="material-icons">close</i>
     </button>
   </div>
+  <div mat-dialog-content class="modal-Content">
+    <ng-container [ngSwitch]="titleModal">
 
-<div mat-dialog-content class="modal-Content">
-  <div *ngIf="titleModal === 'Agregar Materia'">
-    <app-agregar-materia></app-agregar-materia>
+      <div *ngSwitchCase="'Agregar Materia'">
+        <app-agregar-materia></app-agregar-materia>
+      </div>
+
+      <div *ngSwitchCase="'Editar Materia'">
+        <app-editar-materia></app-editar-materia>
+      </div>
+
+      <div *ngSwitchCase="'Editar Horario'">
+        <app-editar-horario></app-editar-horario>
+      </div>
+
+    </ng-container>
   </div>
-
-  <div *ngIf="titleModal === 'Editar Materia'">
-      <app-editar-materia></app-editar-materia>
-  </div>
-</div>
-
   <div class="modal-Actions px-2">
-
-    <button mat-button class="btn-Cancel">Cancelar</button>
-
+    <button mat-button (click)="closeModal()" class="btn-Cancel">Cancelar</button>
   </div>
-
 </div>

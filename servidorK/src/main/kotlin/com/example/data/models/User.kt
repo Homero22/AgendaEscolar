@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class User(
-    val id: Int=0,
+    val id: Long=0L,
     val nombre: String,
     val apellido: String,
     val rol: String,
@@ -16,13 +16,4 @@ data class User(
     val fechaCreacion: String,
     val estado: String,
 )
-@Serializable
-data class LoginRequest(
-    val email: String,
-    val password: String
-)
 
-@Serializable
-data class RecoverRequest(
-    val email: String
-)

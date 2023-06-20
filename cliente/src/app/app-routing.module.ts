@@ -7,7 +7,6 @@ import { loguinSecurityGuard } from './core/guards/loguin-security.guard';
 const routes: Routes = [
   {
     path: 'auth',
-   // canActivate: [loguinSecurityGuard],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {

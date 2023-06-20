@@ -1,68 +1,33 @@
-import { Time } from '@angular/common';
-import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import {  Component, HostListener, OnInit } from '@angular/core';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/modal/modal.component';
+import { HorarioService } from 'src/app/core/services/horario.service';
+import { MateriaService } from 'src/app/core/services/materia.service';
 
 @Component({
   selector: 'app-horario',
-  // template: '<ejs-schedule></ejs-schedule>',
   templateUrl: './horario.component.html',
   styleUrls: ['./horario.component.css']
 })
-export class HorarioComponent {
+export class HorarioComponent implements OnInit{
 
   pantallaMediana: boolean;
   calendarVisible = true;
-  // calendarOptions: CalendarOptions = {
-  //   plugins: [
-  //     interactionPlugin,
-  //     dayGridPlugin,
-  //     timeGridPlugin,
-  //     listPlugin,
-  //   ],
+  display = false;
+  left = 0;
+  top = 0;
+  tooltipInitialized = false;
 
+  constructor(
+    private srvModal: ModalService,
+    private dialog: MatDialog,
+    public srvHorario: HorarioService,
+    public srvMateria: MateriaService
 
-  horas: string[] = ['8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
-  dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
-  horario: any = {
-    lunes: {
-      '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT' },
-      '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS' },
-      '10:00': { materia: 'Inglés', horaFin: '11:00', color: 'verde', acronimo: 'ING' },
-      '11:00': { materia: 'Educación Física', horaFin: '12:00', color: 'amarillo', acronimo: 'EDF' },
-      '12:00': { materia: 'Artes', horaFin: '13:00', color: 'naranja', acronimo: 'ART' }
-    },
-    martes: {
-      '8:00': { materia: 'Ciencias', horaFin: '9:00', color: 'verde', acronimo: 'CIE' },
-      '9:00': { materia: 'Lengua y Literatura', horaFin: '10:00', color: '#008000', acronimo: 'LEN' },
-      '10:00': { materia: 'Matemáticas', horaFin: '11:00', color: 'rojo', acronimo: 'MAT' },
-      '11:00': { materia: 'Ciencias Sociales', horaFin: '12:00', color: 'naranja', acronimo: 'CS' },
-      '12:00': { materia: 'Música', horaFin: '13:00', color: 'amarillo', acronimo: 'MUS' }
-    },
-    miércoles: {
-      '8:00': { materia: 'Inglés', horaFin: '9:00', color: 'verde', acronimo: 'ING' },
-      '9:00': { materia: 'Educación Física', horaFin: '10:00', color: 'amarillo', acronimo: 'EDF' },
-      '10:00': { materia: 'Lengua y Literatura', horaFin: '11:00', color: '#008000', acronimo: 'LEN' },
-      '11:00': { materia: 'Ciencias', horaFin: '12:00', color: 'rojo', acronimo: 'CIE' },
-      '12:00': { materia: 'Matemáticas', horaFin: '13:00', color: 'naranja', acronimo: 'MAT' }
-    },
-    jueves: {
-      '8:00': { materia: 'Historia', horaFin: '9:00', color: 'rojo', acronimo: 'HIS' },
-      '9:00': { materia: 'Música', horaFin: '10:00', color: '#008000', acronimo: 'MUS' },
-      '10:00': { materia: 'Ciencias Sociales', horaFin: '11:00', color: 'naranja', acronimo: 'CS' },
-      '11:00': { materia: 'Lengua y Literatura', horaFin: '12:00', color: 'azul', acronimo: 'LEN' },
-      '12:00': { materia: 'Educación Física', horaFin: '13:00', color: 'verde', acronimo: 'EDF' }
-    },
-    viernes: {
-      '8:00': { materia: 'Artes', horaFin: '9:00', color: '#ccc', acronimo: 'ART' },
-      '9:00': { materia: 'Ciencias', horaFin: '10:00', color: 'rojo', acronimo: 'CIE' },
-      '10:00': { materia: 'Matemáticas', horaFin: '11:00', color: '#008000', acronimo: 'MAT' },
-      '11:00': { materia: 'Inglés', horaFin: '12:00', color: '#008000', acronimo: 'ING' },
-      '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS' }
-    }
-  };
-  constructor() {     this.pantallaMediana = this.calcularPantallaMediana();
+  ) {
+    this.pantallaMediana = this.calcularPantallaMediana();
+
   }
 
   ngOnInit() {
@@ -76,6 +41,8 @@ export class HorarioComponent {
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
+
+    
   }
 
   @HostListener('window:resize')
@@ -96,8 +63,8 @@ export class HorarioComponent {
   }
 
   ObtenerMateria(hora: string, dia: string): string | null {
-    if (this.horario.hasOwnProperty(dia) && this.horario[dia].hasOwnProperty(hora)) {
-      return this.horario[dia][hora].materia;
+    if (this.srvHorario.horario.hasOwnProperty(dia) && this.srvHorario.horario[dia].hasOwnProperty(hora)) {
+      return this.srvHorario.horario[dia][hora].materia;
     } else {
       return null;
     }
@@ -106,7 +73,7 @@ export class HorarioComponent {
   ObtenerColorMateria(hora: string, dia: string): string {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
-      return this.horario[dia][hora].color;
+      return this.srvHorario.horario[dia][hora].color;
     } else {
       return 'transparent';
     }
@@ -115,11 +82,51 @@ export class HorarioComponent {
   ObtenerAcronimoMateria(hora: string, dia: string): string {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
-      return this.horario[dia][hora].acronimo;
+      return this.srvHorario.horario[dia][hora].acronimo;
     } else {
       return '';
     }
   }
 
+  ObtenerIdMateria(hora: string, dia: string): number {
+    const materia = this.ObtenerMateria(hora, dia);
+    if (materia) {
+      return this.srvHorario.horario[dia][hora].id;
+    } else {
+      return 0;
+    }
+  }
 
+  openModal(hora: string, dia: string){
+    // Implemenetamos el  servicio de modal para obtener el title
+    if(this.mostrarContenido){
+      this.srvModal.setTitleModal("Editar Horario");
+      console.log("openModal");
+      const idMateria = this.ObtenerIdMateria(hora, dia)
+      this.srvMateria.setIdMateria(idMateria);
+      this.srvHorario.setDia(dia);
+      this.srvHorario.setHora(hora);
+
+
+      this.dialog.open(ModalComponent,{
+        width: '40%',
+        height: '50%'
+      });
+    }
+  }
+
+  toggleTooltip() {
+    if(this.mostrarContenido){
+      this.mostrarContenido = false;
+    }else{
+      this.mostrarContenido = true;
+    }
+    // this.tooltipInitialized = true;
+    // this.display = !this.display;
+    // const buttonRect = document.querySelector('button.secondary')!.getBoundingClientRect();
+    // this.left = buttonRect.left + buttonRect.width;
+    // this.top = buttonRect.top;
+  }
+
+  mostrarContenido = false;
 }

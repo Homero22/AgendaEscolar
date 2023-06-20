@@ -1,7 +1,6 @@
 package com.example.data.repositories
 import com.example.data.entities.NotesDAO
 import com.example.data.models.Note
-import io.ktor.http.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Notes : CrudRepository<Note, Int>() {
@@ -13,22 +12,8 @@ object Notes : CrudRepository<Note, Int>() {
     override fun getById(id: Int) = transaction {
         return@transaction NotesDAO.findById(id.toLong())?.toNotes()
     }
-
-    /*override fun save(entity: Note) = transaction {
-        val response = NotesDAO.new{
-            usuarioMateriaId = entity.usuarioMateriaId
-            apunteTitulo = entity.apunteTitulo
-            apunteTexto = entity.apunteTexto
-            apunteRecordatorio = java.time.LocalTime.parse(entity.apunteRecordatorio)
-            fechaCreacion = java.time.LocalDateTime.now()
-        }
-        return@transaction response.toNotes()
-    }
-*/
-
     override fun save(entity: Note) = transaction {
         val response = NotesDAO.new{
-            usuarioMateriaId = entity.usuarioMateriaId
             apunteTitulo = entity.apunteTitulo
             apunteTexto = entity.apunteTexto
             apunteRecordatorio = java.time.LocalTime.parse(entity.apunteRecordatorio)
@@ -38,7 +23,6 @@ object Notes : CrudRepository<Note, Int>() {
     }
     override fun update(id:Int, entity: Note): Note = transaction{
         val response = NotesDAO.findById(id.toLong())?.apply {
-            usuarioMateriaId = entity.usuarioMateriaId
             apunteTitulo = entity.apunteTitulo
             apunteTexto = entity.apunteTexto
             apunteRecordatorio = java.time.LocalTime.parse(entity.apunteRecordatorio)

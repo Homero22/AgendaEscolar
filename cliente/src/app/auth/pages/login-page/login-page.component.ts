@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoguinService } from 'src/app/core/services/loguin.service';
-import { LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
+import { LoguinData, LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
 // import { LoginSecurity } from 'src/app/core/security/loguin';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ export class LoginPageComponent {
   hide = true;          //para el password
   email!: FormControl;  //para el email
   loginForm!: FormGroup;
-
+  idUser!: number;
   private destroy$ = new Subject<any>();
 
   constructor(
@@ -58,6 +58,23 @@ export class LoginPageComponent {
         console.log("rspuesta server -> ",res);
         if(res.status){
           sessionStorage.setItem('token', res.token);
+
+          sessionStorage.setItem('body', JSON.stringify(res.body)),
+          //imprimimos el body
+          console.log("body -> ",res.body);
+
+          const storedBody = sessionStorage.getItem('body');
+          if (storedBody) {
+            const parsedBody = JSON.parse(storedBody);
+            const idUser = parsedBody.id;
+            console.log("Valor del IdUser =>",idUser);
+            sessionStorage.setItem('id', idUser);
+
+            //usamos el behaviorSubject para enviar el id del usuario
+            this.srvLoguin.setIdUser(idUser);
+          }
+
+
            this.router.navigate(['/me/welcome']);
         }
         else{

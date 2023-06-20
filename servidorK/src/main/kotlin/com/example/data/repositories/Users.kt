@@ -63,8 +63,6 @@ object Users : CrudRepository<User, Int>() {
         }
         return@transaction
     }
-   }
-
     //Funcion para devolver contraseña de usuario dado un correo
     fun getContrasena(correo: String): String? = transaction {
         return@transaction UsersDAO.find { Users.correo eq correo }.firstOrNull()?.contrasena
@@ -80,3 +78,8 @@ object Users : CrudRepository<User, Int>() {
         }
         return@transaction null
     }
+
+}
+
+
+

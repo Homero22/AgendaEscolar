@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { Error404Component } from './pages/error404/error404.component';
 import { DenegadoComponent } from './pages/denegado/denegado.component';
 
+
 @NgModule({
   declarations: [
     BodyComponent,
@@ -34,6 +35,7 @@ import { DenegadoComponent } from './pages/denegado/denegado.component';
     MatSidenavModule,
     MatMenuModule,
     RouterModule.forChild([]),
+    MatSlideToggleModule,
   ],
   exports: [
     BodyComponent,

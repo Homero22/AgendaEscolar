@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Note(
     var id: Int,
-    var usuarioMateriaId: Int,
+    var idUser: Long,
+    var idMateria: Int,
     var apunteTitulo: String,
     var apunteTexto: String,
     var apunteRecordatorio: String,

@@ -17,16 +17,6 @@ export class ModalService implements AfterContentInit {
     throw new Error('Method not implemented.');
   }
 
-    //BehaviorSubject para obtener el id en Materias
-    private idMateria$ = new BehaviorSubject<number>(idMateria);
-
-    get selectIdMateria$(): Observable<number>{
-      return this.idMateria$.asObservable();
-    }
-
-    setIdMateria(_idMateria: number){
-      this.idMateria$.next(_idMateria);
-    }
 
     //behaviorSubject para obtener el title del modal
     private titleModal$ = new BehaviorSubject<string>('');
@@ -41,6 +31,34 @@ export class ModalService implements AfterContentInit {
       console.log("Valor del title",_titleModal);
     }
 
+    // metodo para cerrar el modal
+    private closeModal$ = new BehaviorSubject<boolean>(false);
+
+    get selectCloseModal$(): Observable<boolean>{
+      return this.closeModal$.asObservable();
+    }
+
+    setCloseModal(_closeModal: boolean){
+      this.closeModal$.next(_closeModal);
+    }
+
+    //Metodo para cerrar el matDialog
+    private closeMatDialog$ = new BehaviorSubject<boolean>(false);
+
+    get selectCloseMatDialog$(): Observable<boolean>{
+      return this.closeMatDialog$.asObservable();
+    }
+
+    setCloseMatDialog(_closeMatDialog: boolean){
+      this.closeMatDialog$.next(_closeMatDialog);
+      console.log("Valor de closeMatDialog =>", _closeMatDialog);
+    }
+
+    // funcion para cerrar el modal tras dar click en el boton save
+    closeModal(){
+      //Cerramos el mat-Dialog
+
+    }
 
   }
 

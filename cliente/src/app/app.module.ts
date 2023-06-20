@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ScheduleModule, RecurrenceEditorModule, WeekService } from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, RecurrenceEditorModule,  } from '@syncfusion/ej2-angular-schedule';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 import { ModalComponent } from './modal/modal.component';
 import { ModalModule } from './modal/modal.module';
 
@@ -23,6 +25,7 @@ import { ModalModule } from './modal/modal.module';
     HttpClientModule,
     ScheduleModule,
     RecurrenceEditorModule,
+    MatSlideToggleModule,
   ],
   bootstrap: [
     AppComponent
