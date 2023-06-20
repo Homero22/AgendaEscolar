@@ -1,7 +1,7 @@
 export interface ShowApunteModel{
   status: boolean;
   message: string;
-  body: ShowApunteData;
+  body: ShowApunteData[];
 }
 
 export interface ShowApunteData{
@@ -50,6 +50,7 @@ export interface modApunteData {
 }
 
 export interface addApunteByID{
+  id: number;
   idUser: number;
   idMateria: number;
   apunteTitulo: string;

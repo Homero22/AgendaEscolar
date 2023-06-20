@@ -34,7 +34,7 @@
       <div class="columna columna2">
       </div> -->
 
-    <table>
+    <!-- <table>
       <thead>
         <tr>
           <th>#</th>
@@ -44,14 +44,42 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of data">
+        <tr *ngFor="let item of srvApuntes.datosApuntes">
           <td>{{ item.id }}</td>
-          <td>{{ item.apunte }}</td>
-          <td>{{ item.materia }}</td>
-          <td>{{ item.acciones }}</td>
+          <td>{{ item.apunteTitulo }}</td>
+          <td></td>
+          <td>
+
+          </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
+
+    <div class="container-Table w-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Apunte</th>
+            <th scope="col">Materia</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of srvApuntes.datosApuntes">
+            <td>{{ item.apunteTitulo }}</td>
+            <td>{{ item.idMateria }}</td>
+            <td>
+              <!-- <button class="btn btn-outline-primary" (click)="openModal('Editar Apunte', item)">
+                <i class="material-icons">edit</i>
+              </button> -->
+              <button class="btn btn-outline-danger" (click)="deleteApunte(item.id)">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
   </div>
 
 

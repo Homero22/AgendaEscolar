@@ -23,12 +23,9 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Fecha Notificacion</mat-label>
-        <input matInput [matDatepicker]="dp3" formControlName="apunteRecordatorio">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-      </mat-form-field>
+        <mat-label>Tiempo de Recordatorio</mat-label>
+        <input type="time" matInput [(ngModel)]="value_string_time" formControlName="apunteRecordatorio">
+    </mat-form-field>
 
       <div class="container-Btn">
         <button mat-button class="btn-Save" (click)="saveApunte()" [disabled]="myForm.invalid">

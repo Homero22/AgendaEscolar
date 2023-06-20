@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { ApunteService } from 'src/app/core/services/apunte.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalComponent } from 'src/app/modal/modal.component';
@@ -13,12 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ApuntesPageComponent implements OnInit {
 
-  data = [
-    { id: 1, apunte: 'Apunte 1', materia: 'Materia 1', acciones: 'Acciones 1' },
-    { id: 2, apunte: 'Apunte 2', materia: 'Materia 2', acciones: 'Acciones 2' },
-    { id: 3, apunte: 'Apunte 3', materia: 'Materia 3', acciones: 'Acciones 3' }
-    // Agrega más elementos al array según sea necesario
-  ];
+  displayedColumns: string[] = ['#', 'Titulo Apunte', 'Materia', 'Acciones'];
 
   //Variables
   title!: string;
@@ -30,8 +26,9 @@ export class ApuntesPageComponent implements OnInit {
   //Constructor
   constructor(
     private srvModal: ModalService,
-    public srvMateria: MateriaService,
-    public dialog: MatDialog
+    public srvApuntes: ApunteService,
+    public dialog: MatDialog,
+    public srvMateria: MateriaService
 
   ) { }
 
@@ -39,7 +36,7 @@ export class ApuntesPageComponent implements OnInit {
   //ngOnInit
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
-    this.getMaterias();
+    this.getApuntes();
   }
 
   //Funcion para abrir el modal
@@ -51,9 +48,79 @@ export class ApuntesPageComponent implements OnInit {
     });
   }
 
-  getApuntes(){}
+  getApuntes(){
+    Swal.fire({
+      title: 'Cargando Apuntes...',
+      allowOutsideClick: false,
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    });
 
-  //Funcion para obtener las materias del usuario Logeado
+    this.srvApuntes.getApuntesUsuario(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(apunteData )=>{
+        Swal.close();
+        if(apunteData.body){
+          this.srvApuntes.datosApuntes = apunteData.body;
+          console.log("Valor de apunteData.body =>",this.srvApuntes.datosApuntes);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
+  }
+
+  deleteApunte(id: number){
+    Swal.fire({
+      title: '¿Estas seguro de eliminar este Apunte?',
+      text: "No podras revertir esta acción",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.srvApuntes.deleteApunte(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next:(apunteData)=>{
+            if(apunteData.body){
+              Swal.fire(
+                'Eliminado',
+                'El apunte se elimino correctamente',
+                'success'
+              );
+              this.getMaterias();
+            }else{
+              Swal.fire(
+                'Error',
+                'El apunte no se pudo eliminar',
+                'error'
+              );
+            }
+          },
+          error:(err)=>{
+            console.log("Error en la peticion =>",err);
+          },
+          complete:()=>{
+            console.log("Peticion finalizada");
+            this.getApuntes();
+          }
+        });
+
+      }
+    });
+  }
+
+  // Funcion para obtener las materias del usuario Logeado
   getMaterias(){
     this.srvMateria.getMateriasUsuario(this.idUser)
     .pipe(takeUntil(this.destroy$))

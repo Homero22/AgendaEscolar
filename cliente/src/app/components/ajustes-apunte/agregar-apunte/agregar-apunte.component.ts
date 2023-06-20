@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-agregar-apunte',
   templateUrl: './agregar-apunte.component.html',
@@ -18,6 +19,7 @@ export class AgregarApunteComponent implements OnInit {
   close!: boolean;
   idUser: any;
   currentDate!: string;
+  value_string_time: any;
 
 
   constructor(
@@ -27,6 +29,9 @@ export class AgregarApunteComponent implements OnInit {
     public srvMateria: MateriaService
   ) {
     this.myForm = this.fb.group({
+      id:[
+        0,
+      ],
       idUser: [
         this.idUser,
       ],
@@ -66,8 +71,8 @@ export class AgregarApunteComponent implements OnInit {
     console.log("idUser =>",this.idUser)
     this.myForm.get('idUser')?.setValue(this.idUser);
     console.log("Valor del idUser de mhyForm", this.myForm.get('idUser')?.value);
-    this.currentDate = new Date().toLocaleDateString('es-ES');
-    console.log(`Fecha actual: ${this.currentDate}`);
+    this.currentDate = new Date().toISOString().slice(0, 10);
+    console.log("valor de currentDate =>", this.currentDate);
     this.getMaterias();
   }
 
@@ -75,6 +80,11 @@ export class AgregarApunteComponent implements OnInit {
   saveApunte(){
     //imprimimos en consola el valor de myform
     this.myForm.get('fechaCreacion')?.setValue(this.currentDate);
+    console.log("Valor de MyForm =>", this.myForm.value);
+
+    this.transformDate(this.myForm.get('fechaCreacion')?.value);
+
+
     console.log("Valor de MyForm =>", this.myForm.value);
 
     Swal.fire({
@@ -128,6 +138,13 @@ export class AgregarApunteComponent implements OnInit {
       }
     });
 
+  }
+
+  transformDate(dateFin: Date){
+    const datePipe = new DatePipe('en-US');
+    const fechaFormateada = datePipe.transform(dateFin, 'yyyy-MM-dd');
+    this.myForm.get('fechaFin')?.setValue(fechaFormateada);
+    console.log(fechaFormateada); // Resultado: "2023/06/25"
   }
 
   // Funcion para obtener las materias del usuario
