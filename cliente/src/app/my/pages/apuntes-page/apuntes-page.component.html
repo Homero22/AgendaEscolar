@@ -34,29 +34,8 @@
       <div class="columna columna2">
       </div> -->
 
-    <!-- <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Apunte</th>
-          <th>Materia</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of srvApuntes.datosApuntes">
-          <td>{{ item.id }}</td>
-          <td>{{ item.apunteTitulo }}</td>
-          <td></td>
-          <td>
-
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
-
-    <div class="container-Table w-12">
-      <table class="table table-hover">
+    <div class="container-Table w-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
+      <!-- <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">Apunte</th>
@@ -69,16 +48,17 @@
             <td>{{ item.apunteTitulo }}</td>
             <td>{{ item.idMateria }}</td>
             <td>
-              <!-- <button class="btn btn-outline-primary" (click)="openModal('Editar Apunte', item)">
-                <i class="material-icons">edit</i>
-              </button> -->
               <button class="btn btn-outline-danger" (click)="deleteApunte(item.id)">
                 <i class="material-icons">delete</i>
               </button>
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+
+      <mat-card>
+        <mat-card-content>{{apunte.id}}</mat-card-content>
+      </mat-card>
 
   </div>
 
