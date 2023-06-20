@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoguinService } from 'src/app/core/services/loguin.service';
-import { LoguinData, LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
+import { LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
 // import { LoginSecurity } from 'src/app/core/security/loguin';
-import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
+import Swal from 'sweetalert2';
+import { HorarioService } from 'src/app/core/services/horario.service';
 
 @Component({
   selector: 'app-login-page',
@@ -22,7 +25,8 @@ export class LoginPageComponent {
     public fb: FormBuilder,
     public srvLoguin: LoguinService,
     // public secLoguin: LoginSecurity,
-    private router: Router
+    private router: Router,
+    public srvHorario: HorarioService
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -119,6 +123,53 @@ public isNotEmpty(obj: any): boolean {
 
     public isEmptyString(obj: any): boolean {
     return obj == undefined || obj == null || obj == '';
+    }
+
+    obtenerHorario(){
+      Swal.fire({
+        title: 'Cargando Horario...',
+        didOpen: () => {
+          Swal.showLoading()
+        }
+      });
+      this.srvHorario.getHorarioUser(this.idUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (homero: ModelShowHorario)=>{
+          this.srvHorario.dataHorario = homero.body;
+            console.log("Horario de homero =>", homero);
+            // this.srvHorario.dataorario = this.srvHorario.transfor(homero.body, this.srvHorario.horario)
+            this.transf();
+            console.log("Horario transdormado en horario=>", this.srvHorario.horario);
+            Swal.close();
+        }
+      })
+    }
+
+    transf(){
+      const horario: Horario = this.srvHorario.dataHorario.reduce((acc: Horario, item) => {
+        const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
+        const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
+        const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
+      
+        if (!acc[dia]) {
+          acc[dia] = {};
+        }
+      
+        acc[dia][horaInicioStr] = {
+          materia: nombreMateria,
+          horaFin: horaFinStr,
+          color: color,
+          acronimo: acronimo,
+          id: id,
+          idMateria: idMateria
+        };
+      
+        return acc;
+      }, {});
+    
+      console.log("horario transformado =>", horario);
+      this.srvHorario.horario = horario;
     }
 
   ngOnDestroy(): void {
