@@ -3,6 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import Swal from 'sweetalert2';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-agregar-materia',
@@ -16,18 +17,23 @@ export class AgregarMateriaComponent implements OnInit {
 
   //creamos el formulario myForm
   myForm!: FormGroup;
-
+  close!: boolean;
 
  idUser: any;
 
   constructor(
     private fb: FormBuilder,
-    private srvMateria: MateriaService
+    private srvMateria: MateriaService,
+    private srvModal: ModalService
   ) {
+    //inicializamos el formulario
     this.myForm = this.fb.group({
+      idUser: [
+        this.idUser,
+      ],
       nombre: [
         '',
-        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")]
+        [Validators.required, Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")],
       ],
       materiaAcro: [
         '',
@@ -37,7 +43,7 @@ export class AgregarMateriaComponent implements OnInit {
         ]
       ],
       materiaColor: [
-        '',
+        '#000000',
        [ Validators.pattern(/^#[0-9A-F]{6}$/i)]
       ],
       profesorNombre: [
@@ -52,6 +58,9 @@ export class AgregarMateriaComponent implements OnInit {
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
     console.log("idUser =>",this.idUser);
+    //declaramos el valor de idUser en el formulario
+    this.myForm.get('idUser')?.setValue(this.idUser);
+    console.log("myForm =>",this.myForm.value);
   }
 
 
@@ -61,11 +70,15 @@ export class AgregarMateriaComponent implements OnInit {
   getColor(event: any) {
     this.selectedColor = event.target.value;
     console.log(this.selectedColor);
-    this.myForm.get('color')?.setValue(this.selectedColor);
+    this.myForm.get('materiaColor')?.setValue(this.selectedColor);
   }
 
-
+  // Funcion para guardar la materia
   saveMateria(){
+    //colocamos el valor del color en el formulario
+    this.myForm.get('materiaColor')?.setValue(this.selectedColor);
+    //colocamos el valor del idUser en el formulario
+    this.myForm.get('idUser')?.setValue(this.idUser);
     console.log("Valor que llega al Form de Materia =>",this.myForm.value);
 
     const sendMateriaData = this.myForm.value;
@@ -81,6 +94,7 @@ export class AgregarMateriaComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data)=>{
+            console.log("Data que llega al agregar Materia =>",data);
             if(data.status){
               Swal.fire({
                 title:'Materia agregada con éxito!',
@@ -91,12 +105,12 @@ export class AgregarMateriaComponent implements OnInit {
               console.log("Materia agregada con éxito =>",data);
             }else{
               Swal.fire({
-                title:'Error al agregar Materia!',
+                title:data.message,
                 icon:'error',
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Error al agregar materia =>", data);
+              console.log("Error al agregar materia =>", data.message);
             }
             setTimeout(() => {
               Swal.close();
@@ -113,13 +127,47 @@ export class AgregarMateriaComponent implements OnInit {
           },
           complete: ()=>{
             console.log("Petición completa!");
+            //cerramos el modal mandando el valor de true al behaviorSubject
+            this.srvModal.setCloseMatDialog(true);
             this.myForm.reset();
+            this.getMaterias();
           }
         })
       }
     })
-
   }
+
+  // funcion para obtener las materias del usuario
+  getMaterias(){
+    Swal.fire({
+      title: 'Cargando Materias...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
+    this.srvMateria.getMateriasUsuario(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(materiaData)=>{
+        Swal.close();
+        if(materiaData.body){
+          this.srvMateria.datosMateria = materiaData.body;
+          console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
+  }
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});

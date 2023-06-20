@@ -7,6 +7,7 @@ export interface ShowMateriaModel {
 
 export interface MateriaModel {
     id: number;
+    idUser: number;
     nombre: string;
     MateriaAcro: string;
     materiaColor: string;
@@ -36,6 +37,7 @@ export interface addMateriaModel{
 }
 
 export interface addMateriaData{
+  idUser: number;
   nombre: string;
   materiaAcro: string;
   materiaColor: string;
@@ -51,6 +53,7 @@ export interface modMateriaModel {
 
 export interface modMateriaData {
   id: number;
+  idUser: number;
   nombre: string;
   materiaAcro: string;
   materiaColor: string;
@@ -58,6 +61,7 @@ export interface modMateriaData {
 }
 
 export interface addMAteriaDataByID{
+  idUser: number;
   nombre: string;
   materiaAcro: string;
   materiaColor: string;

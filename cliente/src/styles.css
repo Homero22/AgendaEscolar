@@ -53,6 +53,14 @@ input:focus {
   overflow: hidden;
 }
 
+.full-containerRegistro{
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  justify-content: center;
+
+}
+
 .btn-agg {
   width: 150px;
   display: flex;
