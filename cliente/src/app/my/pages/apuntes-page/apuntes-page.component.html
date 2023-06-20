@@ -12,35 +12,31 @@
     </div>
   </div>
 
-  <div class="container-Main m-3">
-    <div class="col-3 container-Left">
-
-      <mat-grid-list cols="1" rowHeight="1:1">
-        <div class="card-container">
-          <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-            <div class="flex">
-              <mat-card
-                class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card"
-                id="mat-Card">
-                <button class="btn-mat-card" [style.background-color]="materia.materiaColor">
-                  <mat-card-header>
-                    <mat-card-title>
-                      <h2>
-                        {{ materia.nombre }}
-                      </h2>
-                    </mat-card-title>
-                  </mat-card-header>
-                </button>
-              </mat-card>
-            </div>
+  <div class="contenedor">
+    <div class="columna columna1">
+      <mat-grid-list class="container-MatGrid" cols="1" rowHeight="1:2">
+        <div class="container-Card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
+          <div class="flex justify-content-center column-gap-2">
+            <mat-card class="" id="mat-Card">
+              <button mat-stroked-button class="container-Btn"
+              [style.background-color]="materia.materiaColor">
+                <mat-card-content class="mat-Content">
+                  <span class="span-Text">
+                    {{ materia.nombre }}
+                  </span>
+                </mat-card-content>
+              </button>
+            </mat-card>
           </div>
         </div>
       </mat-grid-list>
-
     </div>
-
-    <div class="col-8 container-Right">
-      mundo
+    <div class="columna columna2">
+      <!-- Contenido de la columna 2 -->
     </div>
   </div>
+
+
+
 </div>
+
