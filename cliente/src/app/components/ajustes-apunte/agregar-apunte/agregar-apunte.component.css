@@ -1,0 +1,16 @@
+.container-Btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-Save{
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn-Save:hover{
+  background-color: var(--quinary-color);
+  color: var(--tertiary-color);
+}

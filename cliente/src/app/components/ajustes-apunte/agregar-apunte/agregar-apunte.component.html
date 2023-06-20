@@ -1,0 +1,38 @@
+<div class="full-container">
+  <form action="" [formGroup]="myForm" >
+    <div>
+      <mat-form-field class="w-12">
+        <mat-label>Título</mat-label>
+        <input matInput placeholder="Título del Apunte" formControlName="apunteTitulo" required>
+      </mat-form-field>
+
+      <mat-form-field class="w-12">
+        <mat-label>Materia</mat-label>
+        <mat-select formControlName="idMateria">
+          <mat-option >-- Seleccione --</mat-option>
+          <mat-option
+            *ngFor="let materia of srvMateria.datosMateria, let i = index"
+            [value]="materia.id">{{materia.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-12">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput placeholder="Contenido del Apunte" formControlName="apunteTexto"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Tiempo de Recordatorio</mat-label>
+        <input type="time" matInput [(ngModel)]="value_string_time" formControlName="apunteRecordatorio">
+    </mat-form-field>
+
+      <div class="container-Btn">
+        <button mat-button class="btn-Save" (click)="saveApunte()" [disabled]="myForm.invalid">
+          Agregar
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>
