@@ -44,6 +44,10 @@ export class EditarHorarioComponent {
   }
 
   ngOnInit(): void {
+    this.idUser = sessionStorage.getItem("id");
+    //idUser de String a number
+    this.idUser = parseInt(this.idUser);
+
     this.srvMateria.selectIdMateria$
     .pipe(takeUntil(this.destroy$))
     .subscribe({
@@ -79,34 +83,28 @@ export class EditarHorarioComponent {
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
-    this.idUser = sessionStorage.getItem("id");
-    //idUser de String a number
-    this.idUser = parseInt(this.idUser);
-    // this.transfor();
   }
 
   getMaterias(){
-    this.srvMateria.getMaterias()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next:(materiaData)=>{
-        if(materiaData.body){
-          this.srvMateria.datosMateria = materiaData.body;
-          // console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
-        }else{
-          console.log("No hay datos");
+    this.srvMateria.getMateriasUsuario(this.idUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next:(materiaData)=>{
+          Swal.close();
+          if(materiaData.body){
+            this.srvMateria.datosMateria = materiaData.body;
+            console.log(" RES MATERIAS DE USUARIO EN EDITAR HORARIO =>",materiaData);
+          }else{
+            console.log("No hay datos");
+          }
+        },
+        error:(err)=>{
+          console.log("Error en la peticion =>",err);
+        },
+        complete:()=>{
+          console.log("Peticion finalizada");
         }
-      },
-      error:(err)=>{
-        console.log("Error en la peticion =>",err);
-      },
-      complete:()=>{
-        console.log("Peticion finalizada");
-      }
-    });
-
-    console.log("idMeria", this.idMateria);
-
+      });
   }
 
   submitForm() {
@@ -128,21 +126,14 @@ export class EditarHorarioComponent {
 
   onSubmit(){
     const horaFin = this.addHoursToTime(this.hora, 1)
+    const horaIncio = this.addHoursToTime(this.hora, 0)
     console.log("hora fin", horaFin);
-    // const addHorario ={
-    //   id: this.idHorario,
-    //   idMateria: this.selected.id,
-    //   idUser: this.idUser,
-    //   hora_inicio: this.hora,
-    //   hora_fin: horaFin,
-    //   dia: this.dia
-    // }
     const addHorario ={
       id: this.idHorario,
       idMateria: this.selected.id,
       idUser: this.idUser,
-      hora_inicio: "08:00:00",
-      hora_fin: "09:00:00",
+      hora_inicio: horaIncio,
+      hora_fin: horaFin,
       dia: this.dia
     }
     console.log("addHorario", addHorario);
@@ -152,14 +143,44 @@ export class EditarHorarioComponent {
     }
     if(this.idHorario !== -1 && this.idMateria !== undefined){
       console.log("Deseo actualizar el horario", this.idMateria);
-      this.actualizarHorario();
+      this.actualizarHorario(addHorario);
     }
     if ( this.selected.id === undefined && this.idHorario !== -1){
       console.log("Deseo boorar el horario");
     }
+  }
 
-    this.actualizarHorario();
-    // this.cambiarMateriaId(this.hora, this.dia, this.selected.nombre, this.selected.id);
+  deleteHorario(){
+    Swal.fire({
+      title: 'Cargando...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    })
+    this.srvHorario.deleteHorario(this.idHorario)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(horarioData)=>{
+        console.log("Valor de horarioData en deleteHorario =>", horarioData);
+        if(horarioData.status){
+          this.obtenerHorario();
+          Swal.fire({
+            icon: 'success',
+            title: horarioData.messege,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }else{
+          console.log("No se pudo eliminar el horario");
+          Swal.fire({
+            icon: 'error',
+            title: horarioData.messege,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      }
+    })
   }
 
   addHorario(data: addDataHorario){
@@ -192,12 +213,37 @@ export class EditarHorarioComponent {
             timer: 3000
           })
         }
+      },complete:()=>{
+        Swal.close();
       }
     })
   }
 
-  actualizarHorario(){
-    
+  actualizarHorario(data: addDataHorario){
+    this.srvHorario.putHorario(this.idHorario, data)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(horarioData)=>{
+        console.log("Valor de horarioData en actualizarHorario =>", horarioData);
+        if(horarioData.status){
+          this.obtenerHorario();
+          Swal.fire({
+            icon: 'success',
+            title: horarioData.message,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }else{
+          console.log("No se pudo actualizar el horario");
+          Swal.fire({
+            icon: 'error',
+            title: horarioData.message,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      }
+    })
   }
 
   addHoursToTime(time: string, hours: number): string {

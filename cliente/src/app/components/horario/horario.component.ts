@@ -5,7 +5,7 @@ import { ModalComponent } from 'src/app/modal/modal.component';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { Subject, takeUntil } from 'rxjs';
-import { Horario, HorarioItem, ModelShowHorario } from 'src/app/core/models/horario';
+import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -35,6 +35,9 @@ export class HorarioComponent implements OnInit{
     public srvMateria: MateriaService
 
   ) {
+    this.idUser =  sessionStorage.getItem('id');
+    this.idUser = parseInt(this.idUser);
+    console.log("id user =>", this.idUser);
     this.pantallaMediana = this.calcularPantallaMediana();
     this.obtenerHorario();
 
@@ -57,8 +60,7 @@ export class HorarioComponent implements OnInit{
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
-    this.idUser =  sessionStorage.getItem('id');
-    console.log("id user =>", this.idUser);
+    
   }
 
   @HostListener('window:resize')
@@ -137,7 +139,7 @@ export class HorarioComponent implements OnInit{
 
       this.dialog.open(ModalComponent,{
         width: '40%',
-        height: '50%'
+        height: 'auto'
       });
     }
   }

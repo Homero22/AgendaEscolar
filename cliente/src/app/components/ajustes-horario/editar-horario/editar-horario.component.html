@@ -1,7 +1,7 @@
 <form [formGroup]="materiaForm" >
     <label>Seleccione una Meteria</label>
     <mat-form-field>
-      <mat-label>Select an option</mat-label>
+      <mat-label>Seleccione una Opción</mat-label>
       <mat-select [(value)]="selected">
         <mat-option [value]="-1" >Ninguna</mat-option>
         <mat-option [value]="mat" *ngFor="let mat of srvMateria.datosMateria">{{mat.nombre}}</mat-option>
