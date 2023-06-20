@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoguinService } from 'src/app/core/services/loguin.service';
-import { LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
-// import { LoginSecurity } from 'src/app/core/security/loguin';
+import { LoguinModel, ShowLoguinModel, JQuery } from 'src/app/core/models/loguin';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
@@ -15,11 +14,15 @@ import { HorarioService } from 'src/app/core/services/horario.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
+
   hide = true;          //para el password
   email!: FormControl;  //para el email
   loginForm!: FormGroup;
   idUser!: number;
   private destroy$ = new Subject<any>();
+
+  currentIndex: number = 0;
+
 
   constructor(
     public fb: FormBuilder,
@@ -36,7 +39,14 @@ export class LoginPageComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.initCarousel();
+
+  }
+
+  ngAfterViewInit(): void {
+    this.initCarousel(); // Llama a initCarousel() en ngAfterViewInit()
+  }
 
   getErrorMessage() {
     // if (this.email.hasError('required')) {
@@ -177,4 +187,42 @@ public isNotEmpty(obj: any): boolean {
     this.destroy$.complete();
   }
 
+  //para la slide
+
+  initCarousel(): void {
+    const carousel = document.getElementById('carousel');
+  
+    if (carousel) {
+      const slides = carousel.querySelectorAll('.item');
+      const prevButton = carousel.querySelector('.carousel-control.left');
+      const nextButton = carousel.querySelector('.carousel-control.right');
+  
+      const showSlide = (index: number) => {
+        slides[this.currentIndex].classList.remove('active');
+        slides[index].classList.add('active');
+        this.currentIndex = index;
+      };
+  
+      const showNextSlide = () => {
+        const nextIndex = (this.currentIndex + 1) % slides.length;
+        showSlide(nextIndex);
+      };
+  
+      const showPreviousSlide = () => {
+        const prevIndex = (this.currentIndex - 1 + slides.length) % slides.length;
+        showSlide(prevIndex);
+      };
+  
+      if (prevButton) {
+        prevButton.addEventListener('click', showPreviousSlide);
+      }
+  
+      if (nextButton) {
+        nextButton.addEventListener('click', showNextSlide);
+      }
+    }
+  }
+  
+  
+  
 }

@@ -30,3 +30,8 @@ export interface modelRecover{
     message: string;
     body: [];
 }
+
+export interface JQuery {
+  carousel(): void;
+}
+
