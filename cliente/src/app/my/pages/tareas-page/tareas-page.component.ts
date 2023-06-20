@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { takeUntil } from 'rxjs/operators';
 import { TareaService } from 'src/app/core/services/tarea.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tareas-page',
   templateUrl: './tareas-page.component.html',
@@ -86,6 +86,25 @@ export class TareasPageComponent {
     });
   }
 
+
+  deleteTarea(idTarea: number){
+    console.log("Eliminar Tarea", idTarea);
+    this.srvTarea.deleteTarea(idTarea)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(tareaData)=>{
+        Swal.fire({
+          title:'Tarea Eliminada con éxito!',
+          icon:'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.getTareasEstado(1);
+        this.getTareas();
+      }
+
+    });
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next({});
