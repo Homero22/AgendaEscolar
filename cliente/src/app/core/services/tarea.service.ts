@@ -47,8 +47,8 @@ export class TareaService {
       });
   }
 
-  putTarea(dataTarea: any){
-    return this.http.put<any>(`${this.urlApi_Tareas}`, dataTarea,
+  putTarea(idTarea: number, dataTarea: any){
+    return this.http.put<any>(`${this.urlApi_Tareas}/${idTarea}`, dataTarea,
       {
         withCredentials: true
       });
@@ -66,6 +66,13 @@ export class TareaService {
     .set('estado', estado);
     //http://26.241.69.100:8002/homeworks/estado/4?estado=0
     return this.http.get<any>(`${this.urlApi_TareasEstado}/${idUser}`+'?'+params,
+      {
+        withCredentials: true
+      });
+  }
+
+  getTareaId(idTarea: number){
+    return this.http.get<any>(`${this.urlApi_Tareas}/${idTarea}`,
       {
         withCredentials: true
       });

@@ -35,7 +35,7 @@ export class TareasPageComponent {
     console.log("Modal");
     this.srvModal.setTitleModal("Agregar Tarea");
     this.dialog.open(ModalComponent,{
-      width: '40%',
+      width: '60%',
       height: 'auto'
     });
   }
@@ -76,7 +76,16 @@ export class TareasPageComponent {
     return this.srvTarea.tareas.filter((tarea: any) => tarea.tareaEstado === 'FINALIZADA');
   }
   
-  
+  editarTarea(idTarea: number){
+    console.log("Editar Tarea");
+    this.srvTarea.setIdTarea(idTarea);
+    this.srvModal.setTitleModal("Editar Tarea");
+    this.dialog.open(ModalComponent,{
+      width: '60%',
+      height: 'auto'
+    });
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});

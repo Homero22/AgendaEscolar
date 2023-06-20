@@ -38,7 +38,7 @@
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>técnicas de simulación</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button>
+                        <button mat-icon-button (click)="editarTarea(tarea.id)">
                           <mat-icon>edit</mat-icon>
                         </button>
                       </div>
@@ -69,8 +69,8 @@
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>técnicas de simulación</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button>
-                          <mat-icon>edit</mat-icon>
+                        <button mat-icon-button (click)="editarTarea(tarea.id)">
+                          <mat-icon>edit</mat-icon >
                         </button>
                       </div>
                     </mat-list-item>
@@ -101,7 +101,7 @@
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>técnicas de simulación</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button>
+                        <button mat-icon-button (click)="editarTarea(tarea.id)">
                           <mat-icon>edit</mat-icon>
                         </button>
                       </div>

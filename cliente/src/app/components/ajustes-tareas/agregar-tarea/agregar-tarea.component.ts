@@ -63,7 +63,7 @@ export class AgregarTareaComponent {
       fechaCreacion: [
         '',
       ],
-      fechaFin: [this.formatDate(new Date()), [Validators.required]],
+      fechaFin:[ '', [Validators.required]],
 
       tareaDescripcion: [
         '',
@@ -90,13 +90,6 @@ export class AgregarTareaComponent {
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
     }
-  }
-
-  formatDate(date: Date | null): string {
-    if (date) {
-      return this.datePipe.transform(date, 'yyyy-MM-dd') || '';
-    }
-    return '';
   }
   
   transforDate(dateFin: Date){
@@ -156,14 +149,57 @@ console.log(fechaFormateada); // Resultado: "2023/06/25"
             icon: 'success',
             title: 'Tarea Agregada',
             showConfirmButton: false,
-            timer: 1500
+            timer: 3000
           });
           this.myForm.reset();
+          this.getTareasEstado(1);
+          this.getTareas();
         }else{
           console.log("No hay datos");
         }
       }
     });
+  }
+
+  getTareasEstado(estado: number){
+    this.srvTarea.getTareasEstado(this.idUser,estado)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(tareaData)=>{
+        if(tareaData.body){
+          this.srvTarea.tareasPendientes = tareaData.body;
+          console.log("Valor de tareasPendientes =>",this.srvTarea.tareasPendientes);
+        }else{
+          console.log("No hay datos");
+        }
+      }
+    });
+  }
+
+  getTareas() {
+    this.srvTarea.getTareasUsuario(this.idUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (tareaData) => {
+          if (tareaData.body) {
+            this.srvTarea.tareas = tareaData.body;
+            console.log("Valor de tareas =>", this.srvTarea.tareas);
+            this.srvTarea.tareasRealizadas = this.filterTareasFinalizadas();
+  
+          } else {
+            console.log("No hay datos");
+          }
+        }
+      });
+  }
+  
+  filterTareasFinalizadas() {
+    return this.srvTarea.tareas.filter((tarea: any) => tarea.tareaEstado === 'FINALIZADA');
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
   }
 
 }

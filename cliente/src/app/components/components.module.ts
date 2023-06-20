@@ -62,7 +62,8 @@ import { DatePipe } from '@angular/common';
     AgregarMateriaComponent,
     EditarMateriaComponent,
     EditarHorarioComponent,
-    AgregarTareaComponent
+    AgregarTareaComponent,
+    EditarTareaComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
 })
