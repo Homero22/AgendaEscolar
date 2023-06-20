@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import config from 'config/config';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Horario, addDataHorario, ModelAddHorario,HorarioItem, HomeroItem,ModelShowHorario } from '../models/horario';
