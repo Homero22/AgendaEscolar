@@ -37,6 +37,7 @@ setIdMateria(_idMateria: number){
 
 
 getMateriasUsuario(idUser: number){
+  console.log("idUser en gerMateriasUsuario =>",idUser);
   return this.http.get<ShowMateriaModel>(`${this.urlApi_MateriasUsuario}/${idUser}`,
     {
       withCredentials: true

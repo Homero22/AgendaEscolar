@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { MyRoutingModule } from './my-routing.module';
 import { FullLayoutPageComponent } from './pages/full-layout-page/full-layout-page.component';
@@ -30,6 +31,7 @@ import { MaterialModule } from '../material/material.module';
     SharedModule,
     ComponentsModule,
     MaterialModule,
+    MatExpansionModule
   ],
   exports: [
     FullLayoutPageComponent,
