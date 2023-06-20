@@ -15,6 +15,14 @@ import { MaterialModule } from '../material/material.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AgregarTareaComponent } from './ajustes-tareas/agregar-tarea/agregar-tarea.component';
 import { EditarTareaComponent } from './ajustes-tareas/editar-tarea/editar-tarea.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+// import {matTimepickerModule} from 'mat-timepicker';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @NgModule({
   declarations: [
@@ -37,7 +45,13 @@ import { EditarTareaComponent } from './ajustes-tareas/editar-tarea/editar-tarea
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    // MatTimepickerModule,
+
     // BrowserModule
   ],
   exports: [
@@ -50,6 +64,6 @@ import { EditarTareaComponent } from './ajustes-tareas/editar-tarea/editar-tarea
     EditarHorarioComponent,
     AgregarTareaComponent
   ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
 })
 export class ComponentsModule { }

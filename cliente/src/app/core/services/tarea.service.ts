@@ -28,9 +28,9 @@ export class TareaService {
 
 
   // ------------------------ TAREAS ------------------------
-  tareasPendientes!: any;
-  tareasRealizadas!: any;
-  tareas!: any;
+  tareasPendientes: any = [];
+  tareasRealizadas: any = [];
+  tareas: any = [];
 
   getTareasUsuario(idUser: number){
     console.log("idUser en gerTareasUsuario =>",idUser);

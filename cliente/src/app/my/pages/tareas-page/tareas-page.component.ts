@@ -55,20 +55,28 @@ export class TareasPageComponent {
     });
   }
 
-  getTareas(){
+  getTareas() {
     this.srvTarea.getTareasUsuario(this.idUser)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next:(tareaData)=>{
-        if(tareaData.body){
-          this.srvTarea.tareas = tareaData.body;
-          console.log("Valor de tareas =>",this.srvTarea.tareas);
-        }else{
-          console.log("No hay datos");
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (tareaData) => {
+          if (tareaData.body) {
+            this.srvTarea.tareas = tareaData.body;
+            console.log("Valor de tareas =>", this.srvTarea.tareas);
+            this.srvTarea.tareasRealizadas = this.filterTareasFinalizadas();
+  
+          } else {
+            console.log("No hay datos");
+          }
         }
-      }
-    });
+      });
   }
+  
+  filterTareasFinalizadas() {
+    return this.srvTarea.tareas.filter((tarea: any) => tarea.tareaEstado === 'FINALIZADA');
+  }
+  
+  
 
   ngOnDestroy(): void {
     this.destroy$.next({});
