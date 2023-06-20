@@ -153,7 +153,7 @@ export class RegisterPageComponent {
           Swal.fire({
             title:'Opps!',
             icon:'error',
-            text: 'Parece que el correo o contraseña ya fueron registrados!',
+            text: 'Parece que el correo o teléfono ya fueron registrados!',
             confirmButtonText: 'Aceptar',
             allowEscapeKey: false,
             allowOutsideClick: false,

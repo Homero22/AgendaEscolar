@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoguinService } from 'src/app/core/services/loguin.service';
-import { ShowLoguinModel, LoguinModel } from 'src/app/core/models/loguin';
+import { LoguinData, LoguinModel, ShowLoguinModel } from 'src/app/core/models/loguin';
+// import { LoginSecurity } from 'src/app/core/security/loguin';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,12 +15,13 @@ export class LoginPageComponent {
   hide = true;          //para el password
   email!: FormControl;  //para el email
   loginForm!: FormGroup;
-
+  idUser!: number;
   private destroy$ = new Subject<any>();
 
   constructor(
     public fb: FormBuilder,
     public srvLoguin: LoguinService,
+    // public secLoguin: LoginSecurity,
     private router: Router
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
@@ -55,7 +57,24 @@ export class LoginPageComponent {
       (res: ShowLoguinModel) => {
         console.log("rspuesta server -> ",res);
         if(res.status){
-          localStorage.setItem('token', res.token);
+          sessionStorage.setItem('token', res.token);
+
+          sessionStorage.setItem('body', JSON.stringify(res.body)),
+          //imprimimos el body
+          console.log("body -> ",res.body);
+
+          const storedBody = sessionStorage.getItem('body');
+          if (storedBody) {
+            const parsedBody = JSON.parse(storedBody);
+            const idUser = parsedBody.id;
+            console.log("Valor del IdUser =>",idUser);
+            sessionStorage.setItem('id', idUser);
+
+            //usamos el behaviorSubject para enviar el id del usuario
+            this.srvLoguin.setIdUser(idUser);
+          }
+
+
            this.router.navigate(['/me/welcome']);
         }
         else{
@@ -68,7 +87,9 @@ export class LoginPageComponent {
         // Error de acceso denegado (401 Unauthorized)
         if (error.status === 401) {
           // Aquí puedes redirigir al usuario a una página de acceso denegado o mostrar un mensaje apropiado
-          this.router.navigate(['/access-denied']);
+         // this.router.navigate(['/access-denied']);
+          //mensaje de error
+          alert("Acceso denegado");
         } else {
           // Otro tipo de error, manejarlo según corresponda
           console.error("Error en la solicitud:", error);
@@ -76,6 +97,29 @@ export class LoginPageComponent {
       }
     )
   }
+
+  public isAuthenticated(): boolean {
+    const token = sessionStorage.getItem("token");
+    // Check whether the token is expired and return
+    // true or false
+    return this.isNotEmpty(token);
+}
+
+public isNotEmpty(obj: any): boolean {
+    return !this.isEmpty(obj);
+  }
+
+  public isEmpty(obj: any): boolean {
+    return obj == undefined || obj == null || obj == '' || obj == ' ';
+  }
+
+    public isNotEmptyString(obj: any): boolean {
+    return !this.isEmptyString(obj);
+    }
+
+    public isEmptyString(obj: any): boolean {
+    return obj == undefined || obj == null || obj == '';
+    }
 
   ngOnDestroy(): void {
     this.destroy$.next({});

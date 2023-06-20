@@ -1,53 +1,65 @@
+<!-- <div class="scheduler-container">
+  <ejs-schedule></ejs-schedule>
+</div> -->
 
-<div class='demo-app'>
+<div class="calendar">
+  
+  <header>
+      <button class="secondary" style="align-self: flex-start; flex: 0 0 1" (click)="toggleTooltip()">Configurar Horario</button>
+      <app-configurar-horario *ngIf="tooltipInitialized" [content]="'Este es un tooltip'" [left]="left" [top]="top" [display]="display"
+      ></app-configurar-horario>
+      <div class="calendar__title" style="display: flex; justify-content: center; align-items: center">
+        <h1 class="" style="flex: 1;"><span></span><strong>Horario Escolar</strong></h1>
+      </div> 
+      <div style="align-self: flex-start; flex: 0 0 1"></div>
+  </header>
+  
+  <div class="outer">
 
-  <div class='demo-app-sidebar'>
-    <div class='demo-app-sidebar-section'>
-      <h2>Instructions</h2>
-      <ul>
-        <li>Select dates and you will be prompted to create a new event</li>
-        <li>Drag, drop, and resize events</li>
-        <li>Click an event to delete it</li>
-      </ul>
+  
+    <table>
+      <thead>
+        <tr>
+          <th class="headcol"></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th class="today">Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <!-- <th class="secondary">Sábado</th>
+          <th class="secondary">Domingo</th> -->
+        </tr>
+      </thead>
+    </table>
+    
+    <div class="wrap"> 
+      <table class="offset">
+        <tbody>
+          <tr *ngFor="let hora of srvHorario.horas " [ngClass]="{'ocultar-estilo': !mostrarContenido}">
+            <td class="headcol">{{hora}}</td>
+            <ng-container *ngFor="let dia of srvHorario.dias">
+              <td (click)="openModal(hora, dia)"
+                  [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, dia) }"
+                  [ngClass]="{ 'past': dia === 'miércoles' }"
+                  [ngClass]="{'ocultar-estilo': !mostrarContenido}"
+                  >
+                <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: dia }"></ng-container>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class='demo-app-sidebar-section'>
-      <label>
-        <!-- <input
-          type='checkbox'
-          [checked]='calendarVisible'
-          (change)='handleCalendarToggle()'
-        /> -->
-        toggle whole calendar
-      </label>
-    </div>
-    <div class='demo-app-sidebar-section'>
-      <label>
-        <!-- <input
-          type='checkbox'
-          [checked]='calendarOptions.weekends'
-          (change)='handleWeekendsToggle()'
-        /> -->
-        toggle weekends
-      </label>
-    </div>
-    <div class='demo-app-sidebar-section'>
-      <!-- <h2>All Events ({{currentEvents.length}})</h2> -->
-      <ul>
-        <li *ngFor='let event of currentEvents'>
-          <b>{{event.startStr}}</b>
-          <i>{{event.title}}</i>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class='demo-app-main'>
-    <!-- <full-calendar *ngIf='calendarVisible' [options]='calendarOptions'> -->
-      <ng-template #eventContent let-arg>
-        <b>{{ arg.timeText }}</b>
-        <i>{{ arg.event.title }}</i>
+    
+    
+    <ng-template #template let-hora let-dia="dia">
+      <ng-container *ngIf="!calcularPantallaMediana(); else acronimoTemplate">
+        {{ ObtenerMateria(hora, dia) }}
+      </ng-container>
+      <ng-template #acronimoTemplate>
+        {{ ObtenerAcronimoMateria(hora, dia) }}
       </ng-template>
-    <!-- </full-calendar> -->
-  </div>
-
+    </ng-template>
+    
+</div>
 </div>

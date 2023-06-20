@@ -1,21 +1,20 @@
 package com.example.data.entities
 
 
-import com.example.data.entities.Homeworks.references
 import com.example.data.models.Homework
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
-import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
 object Homeworks : LongIdTable("tb_tarea"){
-    val usuarioMateria = integer("int_usuario_materia_id").references(MateriaUsuario.id)
+    val idUser = long("int_usuario_id").references(Users.id)
+    val idMateria = integer("int_materia_id").references(Subjects.id)
     val tareaTitulo = text("str_tarea_titulo")
     val tareaDescripcion= text("str_tarea_descripcion")
-    val fechaCreacion = datetime("dt_fecha_creacion")
-    val fechaFin = datetime("dt_fecha_fin")
+    val fechaCreacion = time("dt_fecha_creacion")
+    val fechaFin = time("dt_fecha_fin")
     val tareaEstado = varchar("str_tarea_estado",15)
     val tareaRecordatorio = time("time_recordatorio")
 }
@@ -24,7 +23,8 @@ object Homeworks : LongIdTable("tb_tarea"){
 
 class HomeworkDAO (id: EntityID<Long>) : LongEntity(id){
     companion object : LongEntityClass<HomeworkDAO>(Homeworks)
-    var usuarioMateria by Homeworks.usuarioMateria
+    var idUser by Homeworks.idUser
+    var idMateria by Homeworks.idMateria
     var tareaTitulo by Homeworks.tareaTitulo
     var tareaDescripcion by Homeworks.tareaDescripcion
     var fechaCreacion by Homeworks.fechaCreacion
@@ -35,7 +35,8 @@ class HomeworkDAO (id: EntityID<Long>) : LongEntity(id){
     fun toHomework(): Homework {
         return Homework(
             id.value.toInt(),
-            usuarioMateria,
+            idUser,
+            idMateria,
             tareaTitulo,
             tareaDescripcion,
             fechaCreacion.toString(),
