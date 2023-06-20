@@ -137,16 +137,17 @@ export class EditarHorarioComponent {
       dia: this.dia
     }
     console.log("addHorario", addHorario);
-    if(this.idHorario === -1){
+    if(this.idHorario === -1 && this.selected.id !== undefined){
       console.log("Deseo agregar el horario");
       this.addHorario(addHorario);
     }
-    if(this.idHorario !== -1 && this.idMateria !== undefined){
+    if(this.idHorario !== -1 && this.idMateria !== undefined  && this.selected.id !== undefined){
       console.log("Deseo actualizar el horario", this.idMateria);
       this.actualizarHorario(addHorario);
     }
     if ( this.selected.id === undefined && this.idHorario !== -1){
       console.log("Deseo boorar el horario");
+      this.deleteHorario();
     }
   }
 
