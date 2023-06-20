@@ -13,6 +13,8 @@ import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AgregarApunteComponent } from './ajustes-apunte/agregar-apunte/agregar-apunte.component';
+import { EditarApunteComponent } from './ajustes-apunte/editar-apunte/editar-apunte.component';
 import { AgregarTareaComponent } from './ajustes-tareas/agregar-tarea/agregar-tarea.component';
 import { EditarTareaComponent } from './ajustes-tareas/editar-tarea/editar-tarea.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -34,6 +36,8 @@ import { DatePipe } from '@angular/common';
     EditarMateriaComponent,
     EditarHorarioComponent,
     ConfigurarHorarioComponent,
+    AgregarApunteComponent,
+    EditarApunteComponent,
     AgregarTareaComponent,
     EditarTareaComponent
 
@@ -62,6 +66,8 @@ import { DatePipe } from '@angular/common';
     AgregarMateriaComponent,
     EditarMateriaComponent,
     EditarHorarioComponent,
+    AgregarApunteComponent,
+    EditarApunteComponent,
     AgregarTareaComponent,
     EditarTareaComponent
   ],
