@@ -23,14 +23,8 @@
       "ES2022",
       "dom"
     ],
-    "types": [
-      "jquery"
-    ],
     
-  },"include": [
-    "src/**/*.ts",
-    "jquery.d.ts"
-  ],
+  },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

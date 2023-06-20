@@ -36,7 +36,7 @@
                       <div class="list-item">
                         <mat-icon mat-list-icon>bookmark icon</mat-icon>
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
-                        <p mat-line>técnicas de simulación</p>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <button mat-icon-button (click)="editarTarea(tarea.id)">
                           <mat-icon>edit</mat-icon>
@@ -70,7 +70,7 @@
                       <div class="list-item">
                         <mat-icon mat-list-icon>grade icon</mat-icon>
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
-                        <p mat-line>técnicas de simulación</p>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <button mat-icon-button (click)="editarTarea(tarea.id)">
                           <mat-icon>edit</mat-icon >
@@ -105,7 +105,7 @@
                       <div class="list-item">
                         <mat-icon mat-list-icon>check circle icon</mat-icon>
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
-                        <p mat-line>técnicas de simulación</p>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <button mat-icon-button (click)="editarTarea(tarea.id)">
                           <mat-icon>edit</mat-icon>

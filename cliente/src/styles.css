@@ -55,8 +55,14 @@ input:focus {
 
 .container-Title{
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  /* flex-direction: column;
+  gap: 10px; */
+  display: flex;
+  /* flex-direction: column; */
+  /* gap: 10px; */
+  justify-content: space-between;
+  border-bottom: 1px solid var(--quaternary-color);
+  padding-bottom: 20px;
 }
 .full-containerRegistro{
   width: 100vw;

@@ -44,9 +44,9 @@ export class LoginPageComponent {
 
   }
 
-  ngAfterViewInit(): void {
-    this.initCarousel(); // Llama a initCarousel() en ngAfterViewInit()
-  }
+  // ngAfterViewInit(): void {
+  //   this.initCarousel(); // Llama a initCarousel() en ngAfterViewInit()
+  // }
 
   getErrorMessage() {
     // if (this.email.hasError('required')) {
@@ -188,7 +188,7 @@ public isNotEmpty(obj: any): boolean {
   }
 
   //para la slide
-
+/*
   initCarousel(): void {
     const carousel = document.getElementById('carousel');
   
@@ -222,7 +222,7 @@ public isNotEmpty(obj: any): boolean {
       }
     }
   }
-  
+  */
   
   
 }
