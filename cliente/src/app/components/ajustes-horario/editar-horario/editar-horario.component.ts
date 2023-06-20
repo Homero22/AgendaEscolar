@@ -4,8 +4,9 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { Subject, takeUntil } from 'rxjs';
 import { HorarioService } from 'src/app/core/services/horario.service';
-import { Horario, HorarioItem } from 'src/app/core/models/horario';
+import { Horario, ModelShowHorario, addDataHorario } from 'src/app/core/models/horario';
 import { LoguinService } from 'src/app/core/services/loguin.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
@@ -79,7 +80,9 @@ export class EditarHorarioComponent {
       this.getMaterias();
     }
     this.idUser = sessionStorage.getItem("id");
-    this.transfor();
+    //idUser de String a number
+    this.idUser = parseInt(this.idUser);
+    // this.transfor();
   }
 
   getMaterias(){
@@ -124,176 +127,142 @@ export class EditarHorarioComponent {
   }
 
   onSubmit(){
-
-    this.cambiarMateriaId(this.hora, this.dia, this.selected.nombre, this.selected.id);
-  }
-
-
-  cambiarMateriaId(hora: string, dia: string, nuevaMateria: string, nuevoId: number) {
-    console.log("parámetros para cambiar", hora, dia, nuevaMateria, nuevoId);
-  
-    if (this.srvHorario.horario.hasOwnProperty(dia)) {
-      const horarioDia = this.srvHorario.horario[dia];
-      if (!horarioDia.hasOwnProperty(hora)) {
-        horarioDia[hora] = {} as HorarioItem;
-      }
-      horarioDia[hora].materia = nuevaMateria;
-      horarioDia[hora].id = nuevoId;
-      horarioDia[hora].color = this.selected.color;
-      horarioDia[hora].acronimo = this.selected.acronimo;
-  
-      console.log('Materia cambiada con éxito.');
-      console.log('Nuevo horario:', this.srvHorario.horario);
-    }
-    
-    console.log("terminó la función cambiarMateriaID");
-    this.actualizarHorario();
-  }
-
-  actualizarHorario(){
-
-    //encontrar hora fin = hora inicio + 1
-
-    const horaFin = this.hora + 1;
+    const horaFin = this.addHoursToTime(this.hora, 1)
     console.log("hora fin", horaFin);
-
+    // const addHorario ={
+    //   id: this.idHorario,
+    //   idMateria: this.selected.id,
+    //   idUser: this.idUser,
+    //   hora_inicio: this.hora,
+    //   hora_fin: horaFin,
+    //   dia: this.dia
+    // }
     const addHorario ={
       id: this.idHorario,
       idMateria: this.selected.id,
       idUser: this.idUser,
-      hora_inicio: this.hora,
-      hora_fin: horaFin,
+      hora_inicio: "08:00:00",
+      hora_fin: "09:00:00",
       dia: this.dia
     }
+    console.log("addHorario", addHorario);
+    if(this.idHorario === -1){
+      console.log("Deseo agregar el horario");
+      this.addHorario(addHorario);
+    }
+    if(this.idHorario !== -1 && this.idMateria !== undefined){
+      console.log("Deseo actualizar el horario", this.idMateria);
+      this.actualizarHorario();
+    }
+    if ( this.selected.id === undefined && this.idHorario !== -1){
+      console.log("Deseo boorar el horario");
+    }
 
-    // this.srvHorario.updateHorario(this.idHorario,addHorario)
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next: (horarioData)=>{
-    //     if(horarioData.status){
-    //       console.log("Horario actualizados correctamente =>",horarioData.body);
-    //     }else{
-    //       console.log("No hay datos");
-    //     }
-    //   },
-    //   error:(err)=>{
-    //     console.log("Error en la peticion =>",err);
-    //   },
-    //   complete:()=>{
-    //     console.log("Peticion finalizada");
-    //   }
-    // });
-    // console.log("addHorario", addHorario);
+    this.actualizarHorario();
+    // this.cambiarMateriaId(this.hora, this.dia, this.selected.nombre, this.selected.id);
   }
 
+  addHorario(data: addDataHorario){
+    Swal.fire({
+      title: 'Cargando...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+    this.srvHorario.postHorario(data)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(horarioData)=>{
+        Swal.close();
+        console.log("Valor de horarioData en addHorario =>", horarioData);
+        if(horarioData.status){
+          this.obtenerHorario();
+          Swal.fire({
+            icon: 'success',
+            title: horarioData.message,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }else{
+          console.log("No hay datos");
+          Swal.fire({
+            icon: 'error',
+            title: horarioData.message,
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      }
+    })
+  }
+
+  actualizarHorario(){
+    
+  }
+
+  addHoursToTime(time: string, hours: number): string {
+    const [hourStr, minuteStr] = time.split(':');
+    const hour = parseInt(hourStr, 10);
+    const minute = parseInt(minuteStr, 10);
   
-  homero=[
-    {
-        "id": 4,
-        "idMateria": 1,
-        "idUser": 1,
-        "hora_inicio": {
-            "hour": 14,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "hora_fin": {
-            "hour": 15,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "dia": "Martes",
-        "nombre": "Ciencias Naturales",
-        "materiaAcro": "CN",
-        "materiaColor": "rojo",
-        "profesorNombre": "Diego"
-    },
-    {
-        "id": 5,
-        "idMateria": 2,
-        "idUser": 1,
-        "hora_inicio": {
-            "hour": 14,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "hora_fin": {
-            "hour": 15,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "dia": "Lunes",
-        "nombre": "Matematicas",
-        "materiaAcro": "MT",
-        "materiaColor": "rojo",
-        "profesorNombre": "Diego"
-    },
-    {
-        "id": 6,
-        "idMateria": 2,
-        "idUser": 1,
-        "hora_inicio": {
-            "hour": 14,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "hora_fin": {
-            "hour": 15,
-            "minute": 0,
-            "second": 0,
-            "nano": 0
-        },
-        "dia": "miercoles",
-        "nombre": "Matematicas",
-        "materiaAcro": "MT",
-        "materiaColor": "rojo",
-        "profesorNombre": "Diego"
-    }
-]
-
-
-horario: any  = {
-  lunes: {
-    '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
-    // Horarios para otros momentos del lunes
-  },
-  martes: {
-    '8:00': { materia: 'Ciencias', horaFin: '9:00', color: 'verde', acronimo: 'CIE', id:6 },
-    // Horarios para otros momentos del martes
-  },
-  // Horarios para otros días de la semana
-};
-
-transfor(){
-  console.log("transformando");
-  this.homero.forEach(obj => {
-    const dia = obj.dia.toLowerCase();
-    const horaInicio = `${obj.hora_inicio.hour}:${obj.hora_inicio.minute}`;
-    const horaFin = `${obj.hora_fin.hour}:${obj.hora_fin.minute}`;
+    let newHour = hour + hours;
+    let newMinute = minute;
   
-    if (!this.horario[dia]) {
-      this.horario[dia] = {}; // Crea el objeto para el día si no existe
+    if (newHour >= 24) {
+      newHour -= 24;
     }
   
-    if (!this.horario[dia][horaInicio]) {
-      this.horario[dia][horaInicio] = {}; // Crea el objeto para la hora si no existe
-    }
+    const newTime = `${newHour.toString().padStart(2, '0')}:${newMinute.toString().padStart(2, '0')}`;
+    return newTime;
+  }
+
+  obtenerHorario(){
+    Swal.fire({
+      title: 'Cargando Horario...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+    this.srvHorario.getHorarioUser(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (homero: ModelShowHorario)=>{
+        console.log("Valor de homero en obtener Horario=>", homero);
+        this.srvHorario.dataHorario = homero.body;
+          console.log("Horario de homero =>", homero);
+          // this.srvHorario.dataorario = this.srvHorario.transfor(homero.body, this.srvHorario.horario)
+          this.transf();
+          console.log("Horario transdormado en horario=>", this.srvHorario.horario);
+          Swal.close();
+      }
+    })
+  }
+
+  transf(){
+    const horario: Horario = this.srvHorario.dataHorario.reduce((acc: Horario, item) => {
+      const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
+      const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
+      const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
+    
+      if (!acc[dia]) {
+        acc[dia] = {};
+      }
+    
+      acc[dia][horaInicioStr] = {
+        materia: nombreMateria,
+        horaFin: horaFinStr,
+        color: color,
+        acronimo: acronimo,
+        id: id,
+        idMateria: idMateria
+      };
+    
+      return acc;
+    }, {});
   
-    this.horario[dia][horaInicio] = {
-      materia: obj.nombre,
-      horaFin: horaFin,
-      color: obj.materiaColor,
-      acronimo: obj.materiaAcro,
-      id: obj.id
-    };
-  });
-  console.log(this.horario);
-}
+    console.log("horario transformado =>", horario);
+    this.srvHorario.horario = horario;
+  }
 
 ngOnDestroy(): void {
   this.destroy$.next({});

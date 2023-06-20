@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-tareas-page',
   templateUrl: './tareas-page.component.html',
-  styles: [
+  styleUrls: [
+    './tareas-page.component.css'
   ]
 })
 export class TareasPageComponent {
+  panelOpenState = false;
+
+  openModal(titulo: string){
+    console.log("Modal");
+  }
 
 }

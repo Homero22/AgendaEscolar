@@ -53,6 +53,12 @@ input:focus {
   overflow: hidden;
 }
 
+.container-Title{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .btn-agg {
   width: 150px;
   display: flex;

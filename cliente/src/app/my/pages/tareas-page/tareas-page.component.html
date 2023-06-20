@@ -1,1 +1,91 @@
-<p>tareas-page works!</p>
+<div class="full-container">
+    <div class="m-3 container-Title">
+
+        <div>
+            <h1>Mis Tareas</h1>
+        </div>
+
+        <div class="">
+            <button class="btn-agg" (click)="openModal('Agregar Tarea')">
+                <i class="material-icons">add</i>
+                <p>Agregar Tarea</p>
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <mat-accordion>
+
+            <!-- <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Todas mis Tareas
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        (Pendientes / Finalizadas)
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>This is the primary content of the panel.</p>
+            </mat-expansion-panel> -->
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Todas mis Tareas
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Tareas Pendientes
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Tareas Finalizadas
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+                <div>
+                    <mat-list>
+                        <mat-list-item>
+                           <div class="list-item">
+                            <mat-icon mat-list-icon>check</mat-icon>
+                            <h4 mat-line>Hacer el Foro técnicas</h4>
+                            <p mat-line> técnicas de simulación </p>
+                           </div>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon mat-list-icon>folder</mat-icon>
+                            <h4 mat-line>Folder</h4>
+                            <p mat-line> </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <mat-icon mat-list-icon>folder</mat-icon>
+                            <h4 mat-line>Folder</h4>
+                            <p mat-line> </p>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+</div>
