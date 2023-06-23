@@ -75,7 +75,7 @@ fun Route.subjectsRouting(){
                 val subject = call.receive<Subject>()
                 //Enviamos a capa logica
                val res = SubjectLogic().save(subject);
-                if(res!=null){
+                if(res ==1){
                      val response = ResponseSingle(true,"Materia guardada correctamente", res)
                      sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{

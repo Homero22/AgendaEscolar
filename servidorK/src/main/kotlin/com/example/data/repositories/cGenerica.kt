@@ -72,6 +72,9 @@ class cGenerica <T> {
             is Countries -> {
                 obj.search(valor)
             }
+            is Subjects -> {
+                obj.search(valor)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -123,6 +126,12 @@ class cGenerica <T> {
             is Homeworks -> {
                 obj.update(id, entity as Homework)
             }
+            is Schedules -> {
+                obj.update(id, entity as Schedule)
+            }
+            is Notes ->{
+                obj.update(id, entity as Note)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -144,16 +153,22 @@ class cGenerica <T> {
            is Homeworks ->{
                obj.delete(id)
            }
+           is Schedules ->{
+               obj.delete(id)
+           }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
        }
 
-    fun gGetByUserId(obj: T, id: Int): Any? {
+    fun gGetByUserId(obj: T, id: Int): List<Any> {
         return when(obj) {
             is Subjects -> {
                 obj.getByIdUser(id.toLong())
             }
             is Homeworks -> {
+                obj.getAllByUser(id.toLong())
+            }
+            is Notes ->{
                 obj.getAllByUser(id.toLong())
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
