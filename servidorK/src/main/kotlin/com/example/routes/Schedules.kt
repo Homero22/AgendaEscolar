@@ -73,12 +73,10 @@ fun Route.horariosRouting() {
             }
         }
         put("/{id}") {
-
-
             try {
                 val id = call.parameters["id"]?.toIntOrNull() ?: 0
 
-                val schedule = call.receive<Any>()
+                val schedule = call.receive<Schedule>()
                 //envio capa logica
                 val res = ScheduleLogic().actualizarHorario(id,schedule)
                 if(res==1) {
