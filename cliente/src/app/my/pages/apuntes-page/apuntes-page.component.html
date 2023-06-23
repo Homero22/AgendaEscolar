@@ -1,1 +1,88 @@
-<p>apuntes-page works!</p>
+<div class="full-container">
+  <div class="m-3 pb-3 container-Title">
+    <div>
+      <h3>Mis Apuntes</h3>
+    </div>
+
+    <div class="">
+      <button class="btn-agg" (click)="openModal('Agregar Apunte')">
+        <i class="material-icons">add</i>
+        <p>Agregar Apunte</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="contenedor">
+    <!-- <div class="columna columna1">
+        <mat-grid-list class="container-MatGrid" cols="1" rowHeight="1:2">
+          <div class="my-2" *ngFor="let materia of srvMateria.datosMateria, let i = index">
+            <div class="flex justify-content-center column-gap-2">
+              <mat-card class="" id="mat-Card">
+                <button mat-stroked-button class="container-Btn"
+                [style.background-color]="materia.materiaColor">
+                  <mat-card-content class="mat-Content">
+                    <span class="span-Text">
+                      {{ materia.nombre }}
+                    </span>
+                  </mat-card-content>
+                </button>
+              </mat-card>
+            </div>
+          </div>
+        </mat-grid-list>
+      </div>
+      <div class="columna columna2">
+      </div> -->
+
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Apunte</th>
+          <th>Materia</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of srvApuntes.datosApuntes">
+          <td>{{ item.id }}</td>
+          <td>{{ item.apunteTitulo }}</td>
+          <td></td>
+          <td>
+
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+
+    <div class="container-Table w-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Apunte</th>
+            <th scope="col">Materia</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of srvApuntes.datosApuntes">
+            <td>{{ item.apunteTitulo }}</td>
+            <td>{{ item.idMateria }}</td>
+            <td>
+              <!-- <button class="btn btn-outline-primary" (click)="openModal('Editar Apunte', item)">
+                <i class="material-icons">edit</i>
+              </button> -->
+              <button class="btn btn-outline-danger" (click)="deleteApunte(item.id)">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+  </div>
+
+
+
+</div>
+

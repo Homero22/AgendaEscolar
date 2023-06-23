@@ -27,12 +27,13 @@ export interface HorarioItem {
         color: string;
         acronimo: string;
         id: number;
+        idMateria: number
       };
     };
   }
   
   
-  export interface HomeroItem {
+  export interface HomeroItem{
     id: number;
     idMateria: number;
     idUser: number;
@@ -49,9 +50,29 @@ export interface HorarioItem {
       nano: number;
     };
     dia: string;
-    nombre: string;
-    materiaAcro: string;
-    materiaColor: string;
+    nombreMateria: string;
+    acronimo: string;
+    color: string;
     profesorNombre: string;
   }
   
+  export interface addDataHorario{
+    id: number,
+      idMateria: number,
+      idUser: number,
+      hora_inicio: string,
+      hora_fin: string,
+      dia: string,
+  }
+
+  export interface ModelAddHorario{
+    status: string,
+    message: string,
+    body: addDataHorario
+  }
+
+  export interface ModelShowHorario{
+    status: string,
+    messege: string,
+    body: HomeroItem[]
+  }
