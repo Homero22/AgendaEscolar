@@ -74,17 +74,19 @@ object Schedules : CrudRepository<Schedule, Int>() {
     }
 
     override fun update(id: Int, entity: Schedule): Schedule = transaction {
-        val schedule = ScheduleDAO.findById(id) ?: throw NoSuchElementException("Schedule not found")
-        schedule.apply {
+        val schedule = ScheduleDAO.findById(id)?.apply {
+            idMateria = entity.idMateria
+            idUser = entity.idUser
             hora_inicio = java.time.LocalTime.parse(entity.hora_inicio)
             hora_fin = java.time.LocalTime.parse(entity.hora_fin)
             dia = entity.dia
         }
-        schedule.toSchedule()
+        return@transaction schedule?.toSchedule() ?: throw Exception("No se encontró el horario con id $id")
     }
     override fun delete(id: Int) = transaction {
-        val schedule = ScheduleDAO.findById(id) ?: return@transaction
-        schedule.delete()
+        val schedule = ScheduleDAO.findById(id)
+        schedule?.delete()
+        return@transaction
     }
 
     fun isEmpty()= transaction {

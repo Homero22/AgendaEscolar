@@ -49,8 +49,14 @@ class SubjectLogic {
         return obj.gGgetById(Subjects,id);
     }
 
-    fun save(subject: Subject): Any {
-        return obj.gSave(Subjects,subject)
+    fun save(subject: Subject): Int {
+        val res = obj.gSearch(Subjects,subject.nombre)
+        if (res ==1) {
+            return 0
+        }
+        obj.gSave(Subjects,subject)
+        return 1
+
     }
 
     fun update(id: Int, subject: Subject): Any {
