@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+// import { AuthInterceptor } from 'src/app/core/security/auth.interceptor';
 
 
 @Component({
@@ -9,15 +10,18 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor( private router: Router) { }
+  constructor( 
+    private router: Router,
+    // private authInterceptor: AuthInterceptor
+    ) { }
 
   cerrarSesion(){
-    console.log("cerrar sesion");
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('rol');
     //ruta de redireccionamiento auth/ingreso
     this.router.navigate(['auth/ingreso']);
-
+    // this.authInterceptor;
   }
-  
 
 }

@@ -88,3 +88,30 @@ input:focus {
   background-color: var(--quinary-color);
   color: var(--tertiary-color);
 }
+
+.mat-mdc-form-field {
+  width: -webkit-fill-available;
+}
+
+form{
+  width: -webkit-fill-available;
+}
+
+/*----------Botón agregar de modal---------------*/
+.modal-Button {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.modal-Button button {
+  width: 100%;
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+}
+
+/*botón desabihilitado*/
+.modal-Button button:disabled {
+  background-color: var(--quinary-color);
+}

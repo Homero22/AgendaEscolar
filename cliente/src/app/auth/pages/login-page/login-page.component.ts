@@ -81,8 +81,10 @@ export class LoginPageComponent {
           if (storedBody) {
             const parsedBody = JSON.parse(storedBody);
             const idUser = parsedBody.id;
+            const userRol = parsedBody.rol;
             console.log("Valor del IdUser =>",idUser);
             sessionStorage.setItem('id', idUser);
+            sessionStorage.setItem('rol', userRol);
 
             //usamos el behaviorSubject para enviar el id del usuario
             this.srvLoguin.setIdUser(idUser);
@@ -135,52 +137,52 @@ public isNotEmpty(obj: any): boolean {
     return obj == undefined || obj == null || obj == '';
     }
 
-    obtenerHorario(){
-      Swal.fire({
-        title: 'Cargando Horario...',
-        didOpen: () => {
-          Swal.showLoading()
-        }
-      });
-      this.srvHorario.getHorarioUser(this.idUser)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (homero: ModelShowHorario)=>{
-          this.srvHorario.dataHorario = homero.body;
-            console.log("Horario de homero =>", homero);
-            // this.srvHorario.dataorario = this.srvHorario.transfor(homero.body, this.srvHorario.horario)
-            this.transf();
-            console.log("Horario transdormado en horario=>", this.srvHorario.horario);
-            Swal.close();
-        }
-      })
-    }
+    // obtenerHorario(){
+    //   Swal.fire({
+    //     title: 'Cargando Horario...',
+    //     didOpen: () => {
+    //       Swal.showLoading()
+    //     }
+    //   });
+    //   this.srvHorario.getHorarioUser(this.idUser)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (homero: ModelShowHorario)=>{
+    //       this.srvHorario.dataHorario = homero.body;
+    //         console.log("Horario de homero =>", homero);
+    //         // this.srvHorario.dataorario = this.srvHorario.transfor(homero.body, this.srvHorario.horario)
+    //         this.transf();
+    //         console.log("Horario transdormado en horario=>", this.srvHorario.horario);
+    //         Swal.close();
+    //     }
+    //   })
+    // }
 
-    transf(){
-      const horario: Horario = this.srvHorario.dataHorario.reduce((acc: Horario, item) => {
-        const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
-        const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
-        const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
+    // transf(){
+    //   const horario: Horario = this.srvHorario.dataHorario.reduce((acc: Horario, item) => {
+    //     const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
+    //     const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
+    //     const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
       
-        if (!acc[dia]) {
-          acc[dia] = {};
-        }
+    //     if (!acc[dia]) {
+    //       acc[dia] = {};
+    //     }
       
-        acc[dia][horaInicioStr] = {
-          materia: nombreMateria,
-          horaFin: horaFinStr,
-          color: color,
-          acronimo: acronimo,
-          id: id,
-          idMateria: idMateria
-        };
+    //     acc[dia][horaInicioStr] = {
+    //       materia: nombreMateria,
+    //       horaFin: horaFinStr,
+    //       color: color,
+    //       acronimo: acronimo,
+    //       id: id,
+    //       idMateria: idMateria
+    //     };
       
-        return acc;
-      }, {});
+    //     return acc;
+    //   }, {});
     
-      console.log("horario transformado =>", horario);
-      this.srvHorario.horario = horario;
-    }
+    //   console.log("horario transformado =>", horario);
+    //   this.srvHorario.horario = horario;
+    // }
 
   ngOnDestroy(): void {
     this.destroy$.next({});

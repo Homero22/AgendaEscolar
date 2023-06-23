@@ -24,7 +24,7 @@
                     Todas mis Tareas
                   </mat-panel-title>
                   <mat-panel-description>
-                    Currently I am {{ panelOpenState ? 'open' : 'closed' }}
+                    <mat-icon mat-list-icon>bookmark icon</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <ng-container *ngIf="srvTarea?.tareas?.length === 0">
@@ -38,12 +38,14 @@
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button (click)="editarTarea(tarea.id)">
-                          <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="deleteTarea(tarea.id)">
-                            <mat-icon>delete</mat-icon>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon>
                           </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                       </div>
                     </mat-list-item>
                   </mat-list>
@@ -58,7 +60,7 @@
                     Tareas Pendientes
                   </mat-panel-title>
                   <mat-panel-description>
-                    Currently I am {{ panelOpenState ? 'open' : 'closed' }}
+                    <mat-icon mat-list-icon>grade icon</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <ng-container *ngIf="srvTarea?.tareasPendientes?.length === 0">
@@ -72,12 +74,14 @@
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button (click)="editarTarea(tarea.id)">
-                          <mat-icon>edit</mat-icon >
-                        </button>
-                        <button mat-icon-button (click)="deleteTarea(tarea.id)">
-                            <mat-icon>delete</mat-icon>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon >
                           </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                       </div>
                     </mat-list-item>
                   </mat-list>
@@ -93,7 +97,7 @@
                     Tareas Finalizadas
                   </mat-panel-title>
                   <mat-panel-description>
-                    Currently I am {{ panelOpenState ? 'open' : 'closed' }}
+                    <mat-icon mat-list-icon>event_available</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <ng-container *ngIf="srvTarea?.tareasRealizadas?.length === 0">
@@ -103,16 +107,18 @@
                   <mat-list>
                     <mat-list-item *ngFor="let tarea of srvTarea.tareasRealizadas">
                       <div class="list-item">
-                        <mat-icon mat-list-icon>check circle icon</mat-icon>
+                        <mat-icon mat-list-icon>event_available</mat-icon>
                         <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
-                        <button mat-icon-button (click)="editarTarea(tarea.id)">
-                          <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="deleteTarea(tarea.id)">
-                            <mat-icon>delete</mat-icon>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon>
                           </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
                       </div>
                     </mat-list-item>
                   </mat-list>

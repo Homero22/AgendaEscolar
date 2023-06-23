@@ -64,21 +64,21 @@
   color: var(--quinary-color);
 }
 
-.login-Button {
+.modal-Button {
   width: 100%;
   display: flex;
   text-align: center;
   justify-content: center;
 }
 
-.login-Button button {
+.modal-Button button {
   width: 100%;
   color: var(--tertiary-color);
   background-color: var(--primary-color);
 }
 
 /*botón desabihilitado*/
-.login-Button button:disabled {
+.modal-Button button:disabled {
   background-color: var(--quinary-color);
 }
 
