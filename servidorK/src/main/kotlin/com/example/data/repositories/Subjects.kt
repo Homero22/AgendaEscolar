@@ -68,8 +68,13 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
 
     //funcion para obtener el nombre de la materia
-    fun search(id: Int): String = transaction {
-        val response = SubjectDAO.findById(id)?.toSubject()
-        return@transaction response!!.nombre
+    fun search(nombre: String): Int = transaction {
+        val res = SubjectDAO.find { Subjects.nombre eq nombre }.toList()
+        if (res.isEmpty()) {
+            return@transaction 0
+        } else {
+            return@transaction 1
+        }
     }
+
 }

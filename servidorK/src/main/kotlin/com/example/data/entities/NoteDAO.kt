@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
 object Notes : LongIdTable("tb_apuntes"){
-    var idUser = long("int_usuario_materia_id").references(Users.id)
+    var idUser = long("int_usuario_id").references(Users.id)
     var idMateria= integer("int_materia_id").references(Subjects.id)
     var apunteTitulo = varchar("str_apunte_titulo", 255)
     var apunteTexto = text("str_apunte_texto")
