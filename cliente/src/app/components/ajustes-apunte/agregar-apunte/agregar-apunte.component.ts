@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ApunteService } from 'src/app/core/services/apunte.service';
@@ -12,14 +12,22 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./agregar-apunte.component.css']
 })
 export class AgregarApunteComponent implements OnInit {
+ @ViewChild('textResume') textResumeRef!: ElementRef;
+
+
+
 
   private destroy$ = new Subject<any>();
+  textControl: FormControl = new FormControl('');
+
 
   myForm!: FormGroup;
   close!: boolean;
   idUser: any;
   currentDate!: string;
   value_string_time: any;
+
+  content: string = "";
 
 
   constructor(
@@ -36,7 +44,10 @@ export class AgregarApunteComponent implements OnInit {
         this.idUser,
       ],
       idMateria:[
-        ''
+        '',
+        [
+          Validators.required,
+        ]
       ],
       apunteTitulo: [
         '',
@@ -49,9 +60,9 @@ export class AgregarApunteComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")
         ]
-      ],
+      ]
+      ,
       apunteRecordatorio:[
         '',
         [
@@ -74,6 +85,14 @@ export class AgregarApunteComponent implements OnInit {
     this.currentDate = new Date().toISOString().slice(0, 10);
     console.log("valor de currentDate =>", this.currentDate);
     this.getMaterias();
+  }
+
+  ngAfterViewInit(){
+    this.textResumeRef.nativeElement.textContent = this.myForm.get('apunteTexto')?.value;
+
+    this.textResumeRef.nativeElement.addEventListener('input', () => {
+      this.myForm.patchValue({ apunteTexto: this.textResumeRef.nativeElement.textContent });
+    });
   }
 
   // Función para agregar el Apunte
@@ -167,6 +186,97 @@ export class AgregarApunteComponent implements OnInit {
         console.log("Peticion finalizada");
       }
     });
+  }
+
+  // Funcion para el textBox
+  // onInput(event: Event){
+  //   const updatedText = (event.target as HTMLElement).innerText;
+  //   this.myForm.patchValue({ apunteTexto: updatedText });
+  // }
+
+  onInput(event: Event) {
+    const div = this.textResumeRef.nativeElement;
+    const selection = window.getSelection();
+
+    // Verificar si hay un rango seleccionado
+    if (selection && selection.rangeCount > 0) {
+      const savedRange = selection.getRangeAt(0).cloneRange();
+
+      const reversedText = div.innerText.split('').reverse().join('');
+      div.innerText = reversedText;
+
+      selection.removeAllRanges();
+      selection.addRange(savedRange);
+
+      this.myForm.patchValue({ apunteTexto: reversedText });
+    }
+  }
+
+  toggleBold() {
+    document.execCommand('bold', false, "");
+  }
+
+  toggleItalic() {
+    document.execCommand('italic', false, "");
+  }
+
+  toggleUnderline() {
+    document.execCommand('underline', false, "");
+  }
+
+  alignLeft() {
+    document.execCommand('justifyLeft', false, "");
+  }
+
+  alignCenter() {
+    document.execCommand('justifyCenter', false, "");
+  }
+
+  alignRight() {
+    document.execCommand('justifyRight', false, "");
+  }
+
+  alignJustify() {
+    document.execCommand('justifyFull', false, "");
+  }
+
+  increaseFontSize() {
+    const textEditor = document.getElementById('text-editor');
+    if (textEditor instanceof HTMLElement) {
+      const currentFontSize = window.getComputedStyle(textEditor).fontSize;
+      const fontSize = parseInt(currentFontSize) + 2;
+      textEditor.style.fontSize = fontSize + 'px';
+      this.updateFontSizeIndicator(fontSize);
+    }
+  }
+
+  decreaseFontSize() {
+    const textEditor = document.getElementById('text-editor');
+    if (textEditor instanceof HTMLElement) {
+      const currentFontSize = window.getComputedStyle(textEditor).fontSize;
+      const fontSize = parseInt(currentFontSize) - 2;
+      textEditor.style.fontSize = fontSize + 'px';
+      this.updateFontSizeIndicator(fontSize);
+    }
+  }
+
+  updateFontSizeIndicator(fontSize: number) {
+    const fontSizeIndicator = document.getElementById('font-size-indicator');
+    if (fontSizeIndicator instanceof HTMLElement) {
+      fontSizeIndicator.textContent = fontSize + 'px';
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const selection = window.getSelection();
+      const range = selection?.getRangeAt(0);
+      const br = document.createElement('br');
+      range?.insertNode(br);
+      range?.collapse(false);
+      this.textResumeRef.nativeElement.innerText = this.textResumeRef.nativeElement.innerText;
+    }
   }
 
   ngOnDestroy(): void {

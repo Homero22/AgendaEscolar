@@ -8,7 +8,7 @@ import { ButtonComponent } from './button/button.component';
 import { CommonModule } from '@angular/common';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatTimepickerModule } from '@angular/material/timepicker';
