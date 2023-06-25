@@ -19,7 +19,9 @@ object Notes : CrudRepository<Note, Int>() {
             idUser = entity.idUser
             idMateria = entity.idMateria
             apunteTitulo = entity.apunteTitulo
-            apunteTexto = entity.apunteTexto
+            apunteNotasClase = entity.apunteNotasClase
+            apunteIdeas = entity.apunteIdeas
+            apunteResumen = entity.apunteResumen
             apunteRecordatorio = java.time.LocalTime.parse(entity.apunteRecordatorio)
             fechaCreacion = java.time.LocalDateTime.now()
         }
@@ -28,7 +30,9 @@ object Notes : CrudRepository<Note, Int>() {
     override fun update(id:Int, entity: Note): Note = transaction{
         val response = NotesDAO.findById(id.toLong())?.apply {
             apunteTitulo = entity.apunteTitulo
-            apunteTexto = entity.apunteTexto
+            apunteNotasClase = entity.apunteNotasClase
+            apunteIdeas = entity.apunteIdeas
+            apunteResumen = entity.apunteResumen
             apunteRecordatorio = java.time.LocalTime.parse(entity.apunteRecordatorio)
         }?.toNotes()
         return@transaction response!!
@@ -49,7 +53,9 @@ object Notes : CrudRepository<Note, Int>() {
                     "id" to it[Notes.id].value,
                     "idUser" to it[Notes.idUser],
                     "apunteTitulo" to it[Notes.apunteTitulo],
-                    "apunteTexto" to it[Notes.apunteTexto],
+                    "apunteNotasClase" to it[Notes.apunteNotasClase],
+                    "apunteIdeas" to it[Notes.apunteIdeas],
+                    "apunteResumen" to it[Notes.apunteResumen],
                     "apunteRecordatorio" to it[Notes.apunteRecordatorio],
                     "fechaCreacion" to it[Notes.fechaCreacion]
                 )

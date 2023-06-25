@@ -2,6 +2,7 @@ package com.example.routes
 
 import com.example.data.models.Note
 import com.example.logica.NotesLogic
+import com.example.services.Wpp.enviarWpp
 import com.example.utils.Response
 import com.example.utils.ResponseSingle
 import com.example.utils.sendJsonResponse
@@ -77,6 +78,7 @@ fun Route.notesRouting(){
                 //enviamos a la capa logica
                 val res = NotesLogic().getByUser(id);
                 if(res.size>0){
+                    enviarWpp()
                     val response = Response(true,"Apuntes obtenidos correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
