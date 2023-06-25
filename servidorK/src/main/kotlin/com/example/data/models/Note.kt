@@ -8,7 +8,9 @@ data class Note(
     var idUser: Long,
     var idMateria: Int,
     var apunteTitulo: String,
-    var apunteTexto: String,
+    var apunteNotasClase: String,
+    var apunteIdeas: String,
+    var apunteResumen: String,
     var apunteRecordatorio: String,
     var fechaCreacion: String,
 )
