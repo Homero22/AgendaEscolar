@@ -1,10 +1,11 @@
 <div class="modal-Body">
-  <div class="modal-Title px-2">
+  <div class="modal-Title">
     <p>{{titleModal}}</p>
-    <button mat-button mat-dialog-close class="btn-Close">
+    <button matstroked-button mat-dialog-close class="btn-Close">
       <i class="material-icons">close</i>
     </button>
   </div>
+  <div class="border-line"></div>
   <div mat-dialog-content class="modal-Content">
     <ng-container [ngSwitch]="titleModal">
 
@@ -37,7 +38,8 @@
 
     </ng-container>
   </div>
-  <div class="modal-Actions px-2">
+  <div class="border-line"></div>
+  <div class="modal-Actions">
     <button mat-button (click)="closeModal()" class="btn-Cancel">Cancelar</button>
   </div>
 </div>

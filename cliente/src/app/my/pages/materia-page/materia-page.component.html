@@ -16,28 +16,26 @@
   <mat-grid-list cols="4" rowHeight="2:1">
     <div class="card-container">
       <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-        <div class="flex">
+        <div class="grid">
           <mat-card
             class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card"
-            id="mat-Card">
-            <button class="btn-mat-card" [style.background-color]="materia.materiaColor">
+            id="mat-Card" [style.background-color]="materia.materiaColor">
               <mat-card-header>
                 <mat-card-title>
-                  <h2>
+                  <h2 class="text-white">
                     {{ materia.nombre }}
                   </h2>
                 </mat-card-title>
               </mat-card-header>
               <mat-card-actions class="gap-3">
                 <button mat-raised-button (click)="openModalEdit('Editar Materia', materia.id)">
-                  <i class="material-icons">create</i>
+                  <i class="material-icons ">create</i>
                 </button>
 
                 <button mat-raised-button (click)="deleteMateria(materia.id)">
                   <i class="material-icons">delete</i>
                 </button>
               </mat-card-actions>
-            </button>
           </mat-card>
         </div>
       </div>

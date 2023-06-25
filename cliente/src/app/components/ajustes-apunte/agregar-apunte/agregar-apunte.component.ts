@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -6,6 +6,8 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { DatePipe } from '@angular/common';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 @Component({
   selector: 'app-agregar-apunte',
   templateUrl: './agregar-apunte.component.html',
@@ -18,6 +20,7 @@ export class AgregarApunteComponent implements OnInit {
   textControl: FormControl = new FormControl('');
 
   htmlContent: any;
+  htmlNotasContent: any;
 
   moduleQuill={
     toolbar: [
@@ -28,6 +31,8 @@ export class AgregarApunteComponent implements OnInit {
   }
 
   apunteTexto!: string;
+  notasTexto!: string;
+
 
   myForm!: FormGroup;
   close!: boolean;
@@ -36,7 +41,6 @@ export class AgregarApunteComponent implements OnInit {
   value_string_time: any;
 
   content: string = "";
-
 
   constructor(
     private fb: FormBuilder,
@@ -95,21 +99,25 @@ export class AgregarApunteComponent implements OnInit {
     this.getMaterias();
   }
 
-
-  // ngAfterViewInit() {
-  //   this.myForm.get('apunteTexto')?.valueChanges.subscribe((value) => {
-  //     this.apunteTexto = value;
-  //   });
-  // }
-
   onChangeEditor(event: any) {
     if(event.html){
       this.htmlContent = event.html;
     }
   }
 
+  onChangeNotasEditor(event: any) {
+    if(event.html){
+      this.htmlNotasContent = event.html;
+    }
+  }
+
   onEditorContentChange(event: any) {
     this.myForm.get('apunteTexto')?.setValue(event.html);
+  }
+
+  onNotasEditorContentChange(event: any) {
+    // this.myForm.get('apunteRecordatorio')?.setValue(event.html);
+    console.log("Valor de event =>", event);
   }
 
   // Función para agregar el Apunte

@@ -9,11 +9,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  margin: 10px;
 }
 
 .modal-Title p{
   font-weight: var(--font-weight-500);
+}
+
+.btn-Close{
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  width: 60px;
+  border-radius: 6px;
+  border: 0.5px solid #ccc;
+}
+
+.border-line{
+  border-bottom: 1px solid #ccc;
+  width: 100%;
 }
 
 .btn-Close:hover{
@@ -23,7 +37,7 @@
 
 .btn-Cancel{
   background-color: var(--quinary-color);
-  color: var(--secondary-color);
+  color: var(--tertiary-color);
   cursor: pointer;
 }
 
@@ -32,14 +46,9 @@
   color: var(--tertiary-color);
 }
 
-.modal-Content{
-  height: 80%;
-}
-
 .modal-Actions{
-  border-top: 1px solid black;
-  height: 10%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin: 10px;
 }

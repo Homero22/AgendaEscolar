@@ -43,7 +43,7 @@ export class ApuntesPageComponent implements OnInit {
   openModal(title: string) {
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
-      width: '500px',
+      width: '800px',
       height: 'auto'
     });
   }
