@@ -14,12 +14,20 @@ import { DatePipe } from '@angular/common';
 export class AgregarApunteComponent implements OnInit {
  @ViewChild('textResume') textResumeRef!: ElementRef;
 
-
-
-
   private destroy$ = new Subject<any>();
   textControl: FormControl = new FormControl('');
 
+  htmlContent: any;
+
+  moduleQuill={
+    toolbar: [
+      ['bold', 'italic', 'underline'],        // toggled buttons
+      [{ 'align': [] }],
+      [{size: ['small', false, 'large']}],  // custom dropdown
+    ]
+  }
+
+  apunteTexto!: string;
 
   myForm!: FormGroup;
   close!: boolean;
@@ -87,12 +95,21 @@ export class AgregarApunteComponent implements OnInit {
     this.getMaterias();
   }
 
-  ngAfterViewInit(){
-    this.textResumeRef.nativeElement.textContent = this.myForm.get('apunteTexto')?.value;
 
-    this.textResumeRef.nativeElement.addEventListener('input', () => {
-      this.myForm.patchValue({ apunteTexto: this.textResumeRef.nativeElement.textContent });
-    });
+  // ngAfterViewInit() {
+  //   this.myForm.get('apunteTexto')?.valueChanges.subscribe((value) => {
+  //     this.apunteTexto = value;
+  //   });
+  // }
+
+  onChangeEditor(event: any) {
+    if(event.html){
+      this.htmlContent = event.html;
+    }
+  }
+
+  onEditorContentChange(event: any) {
+    this.myForm.get('apunteTexto')?.setValue(event.html);
   }
 
   // Función para agregar el Apunte
@@ -186,97 +203,6 @@ export class AgregarApunteComponent implements OnInit {
         console.log("Peticion finalizada");
       }
     });
-  }
-
-  // Funcion para el textBox
-  // onInput(event: Event){
-  //   const updatedText = (event.target as HTMLElement).innerText;
-  //   this.myForm.patchValue({ apunteTexto: updatedText });
-  // }
-
-  onInput(event: Event) {
-    const div = this.textResumeRef.nativeElement;
-    const selection = window.getSelection();
-
-    // Verificar si hay un rango seleccionado
-    if (selection && selection.rangeCount > 0) {
-      const savedRange = selection.getRangeAt(0).cloneRange();
-
-      const reversedText = div.innerText.split('').reverse().join('');
-      div.innerText = reversedText;
-
-      selection.removeAllRanges();
-      selection.addRange(savedRange);
-
-      this.myForm.patchValue({ apunteTexto: reversedText });
-    }
-  }
-
-  toggleBold() {
-    document.execCommand('bold', false, "");
-  }
-
-  toggleItalic() {
-    document.execCommand('italic', false, "");
-  }
-
-  toggleUnderline() {
-    document.execCommand('underline', false, "");
-  }
-
-  alignLeft() {
-    document.execCommand('justifyLeft', false, "");
-  }
-
-  alignCenter() {
-    document.execCommand('justifyCenter', false, "");
-  }
-
-  alignRight() {
-    document.execCommand('justifyRight', false, "");
-  }
-
-  alignJustify() {
-    document.execCommand('justifyFull', false, "");
-  }
-
-  increaseFontSize() {
-    const textEditor = document.getElementById('text-editor');
-    if (textEditor instanceof HTMLElement) {
-      const currentFontSize = window.getComputedStyle(textEditor).fontSize;
-      const fontSize = parseInt(currentFontSize) + 2;
-      textEditor.style.fontSize = fontSize + 'px';
-      this.updateFontSizeIndicator(fontSize);
-    }
-  }
-
-  decreaseFontSize() {
-    const textEditor = document.getElementById('text-editor');
-    if (textEditor instanceof HTMLElement) {
-      const currentFontSize = window.getComputedStyle(textEditor).fontSize;
-      const fontSize = parseInt(currentFontSize) - 2;
-      textEditor.style.fontSize = fontSize + 'px';
-      this.updateFontSizeIndicator(fontSize);
-    }
-  }
-
-  updateFontSizeIndicator(fontSize: number) {
-    const fontSizeIndicator = document.getElementById('font-size-indicator');
-    if (fontSizeIndicator instanceof HTMLElement) {
-      fontSizeIndicator.textContent = fontSize + 'px';
-    }
-  }
-
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      const selection = window.getSelection();
-      const range = selection?.getRangeAt(0);
-      const br = document.createElement('br');
-      range?.insertNode(br);
-      range?.collapse(false);
-      this.textResumeRef.nativeElement.innerText = this.textResumeRef.nativeElement.innerText;
-    }
   }
 
   ngOnDestroy(): void {
