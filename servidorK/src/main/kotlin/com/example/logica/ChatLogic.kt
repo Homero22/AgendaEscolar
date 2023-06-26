@@ -3,7 +3,9 @@ package com.example.logica
 import com.example.data.entities.Homeworks
 import com.example.data.entities.Notes
 import com.example.data.models.promptModel
-import com.example.services.chatgpt
+import com.example.services.GptProject.model.GptInterceptor
+import kotlinx.coroutines.future.await
+
 
 class ChatLogic {
     lateinit var promt :String;
@@ -14,9 +16,8 @@ class ChatLogic {
                     val resumen = data.apunteResumen
                     val notas = data.apunteNotasClase
                     val titulo = data.apunteTitulo
-                promt = "Necesito ayuda con información adicional para mi apunte de $titulo. Mis ideas son: $ideas, mi resumen es: $resumen y mis notas de clase son: $notas"
+                promt = "Necesito ayuda para generar material de estudio con información adicional para mi apunte de $titulo. Mis ideas son: $ideas, mi resumen es: $resumen y mis notas de clase son: $notas"
                return promt
-
 
            }
            is Homeworks ->{
@@ -29,12 +30,10 @@ class ChatLogic {
                return "No se encontró el tipo de dato"
            }
        }
-
     }
-
-  suspend  fun post(prompt: promptModel): Any {
-        val res = chatgpt().dataChat(prompt.mensaje)
-      return res
+     suspend fun postChat(prompt: promptModel):Any{
+        val gpt = GptInterceptor()
+        return  gpt.postGpt(prompt.mensaje).await()
     }
 
 }

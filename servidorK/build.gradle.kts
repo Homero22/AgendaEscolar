@@ -38,6 +38,12 @@ dependencies {
         implementation("io.ktor:ktor-client-json:1.6.3")
         implementation("io.ktor:ktor-client-json-jvm:1.6.3")
         implementation("io.ktor:ktor-client-serialization:1.6.3")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-protobuf:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+
+    implementation("io.ktor:ktor-client-auth:$ktorVersion")
 
 
 

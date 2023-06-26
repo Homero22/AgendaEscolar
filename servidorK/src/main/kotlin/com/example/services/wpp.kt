@@ -17,7 +17,7 @@ object Wpp {
             val message = Message.creator(
                 PhoneNumber("whatsapp:+593998371874"),
                 PhoneNumber("whatsapp:+14155238886"),
-                "tE AMO TE QUIERESC CASAR CONMIGO!"
+                "Diegoooooooooooooooooooo!"
             ).create()
 
             println(message.sid)

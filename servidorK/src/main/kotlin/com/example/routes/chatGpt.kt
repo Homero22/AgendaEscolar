@@ -2,6 +2,9 @@ package com.example.routes
 
 import com.example.data.models.promptModel
 import com.example.logica.ChatLogic
+import com.example.utils.GptResponse
+import com.example.utils.ResponseSimple
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -27,13 +30,20 @@ fun Route.chatGptRoute(){
         post {
             try{
                 val prompt = call.receive<promptModel>()
-                val res = ChatLogic().post(prompt)
-                call.respond(HttpStatusCode.OK, res)
+                println(prompt)
+                val res = ChatLogic().postChat(prompt)
+                if(res != null){
+                   val response = GptResponse(true, "Información generada exitosamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val res = ResponseSimple(false, "No se pudo generar la respuesta")
+                }
             }catch (
                 cause: Throwable
             ) {
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
+
         }
     }
 }
