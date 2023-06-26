@@ -144,38 +144,38 @@ export class EditarApunteComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (apunteData: modApunteModel) =>{
-        // Swal.fire({
-        //   title: 'Cargando',
-        //   didOpen: () => {
-        //     Swal.showLoading()
-        //   },
-        // });
-        // this.myForm = this.fb.group({
-        //   idUser:[
-        //     apunteData.body.idUser
-        //   ],
-        //   idMateria: [
-        //     apunteData.body.idMateria
-        //   ],
-        //   apunteTitulo:[
-        //     apunteData.body.apunteTitulo
-        //   ],
-        //   apunteNotasClase:[
-        //     apunteData.body.apunteNotasClase
-        //   ],
-        //   apunteIdeas:[
-        //     apunteData.body.apunteIdeas
-        //   ],
-        //   apunteResumen:[
-        //     apunteData.body.apunteResumen
-        //   ],
-        //   apunteRecordatorio:[
-        //     apunteData.body.apunteRecordatorio
-        //   ],
-        //   fechaCreacion:[
-        //     apunteData.body.fechaCreacion
-        //   ]
-        // });
+        Swal.fire({
+          title: 'Cargando',
+          didOpen: () => {
+            Swal.showLoading()
+          },
+        });
+        this.myForm = this.fb.group({
+          idUser:[
+            apunteData.body.idUser
+          ],
+          idMateria: [
+            apunteData.body.idMateria
+          ],
+          apunteTitulo:[
+            apunteData.body.apunteTitulo
+          ],
+          apunteNotasClase:[
+            apunteData.body.apunteNotasClase
+          ],
+          apunteIdeas:[
+            apunteData.body.apunteIdeas
+          ],
+          apunteResumen:[
+            apunteData.body.apunteResumen
+          ],
+          apunteRecordatorio:[
+            apunteData.body.apunteRecordatorio
+          ],
+          fechaCreacion:[
+            apunteData.body.fechaCreacion
+          ]
+        });
         console.log("valor que llega al getApunte =>", apunteData)
       },
       error: (err: any)=>{
