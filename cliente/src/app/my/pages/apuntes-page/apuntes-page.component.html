@@ -12,15 +12,34 @@
     </div>
   </div>
 
-  <div class="contenedor">
-    <!-- <div class="columna columna1">
-      </div>
-      <div class="columna columna2">
-      </div> -->
+  <div class="grid mx-2">
 
-    <div class="container-Table w-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
+    <div class="col-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
 
-
+      <mat-card class="flex-row align-content-center">
+        <mat-card-content class="container-Content">
+          <div class="uppercase">
+            {{apunte.apunteTitulo}}
+          </div>
+          <div>
+            {{apunte.idMateria}}
+          </div>
+          <div>
+            {{apunte.fechaCreacion.date.day}}-{{apunte.fechaCreacion.date.month}}-{{apunte.fechaCreacion.date.year}}
+          </div>
+          <div>
+            <button mat-stroked-button>
+              <i class="material-icons">edit</i>
+            </button>
+            <button mat-stroked-button>
+              <i class="material-icons">delete</i>
+            </button>
+            <button mat-stroked-button>
+              <i class="material-icons">edit</i>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
     </div>
   </div>

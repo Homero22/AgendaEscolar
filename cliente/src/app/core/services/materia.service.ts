@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
-import { ShowMateriaModel, addMateriaData, MateriaModel, modMateriaModel, addMAteriaDataByID } from '../models/materia';
+import { ShowMateriaModel, addMateriaData, MateriaModel, modMateriaModel, addMAteriaDataByID, modMateriaData } from '../models/materia';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 const idMateria: number = 0;
@@ -16,6 +16,16 @@ private urlApi_MateriasUsuario: string = config.URL_API_BASE + "subjects/user";
 
 
 datosMateria!: MateriaModel[];
+
+// Materia contenido
+materia: modMateriaData = {
+  id: 0,
+  idUser: 0,
+  nombre: '',
+  materiaAcro: '',
+  materiaColor: '',
+  profesorNombre: ''
+};
 
 constructor(private http: HttpClient) { }
 

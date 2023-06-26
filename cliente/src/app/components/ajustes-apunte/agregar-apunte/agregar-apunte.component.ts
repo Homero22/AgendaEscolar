@@ -2,12 +2,18 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
 import { Subject, takeUntil } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { DatePipe } from '@angular/common';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+
+export interface Idea {
+  name: string;
+}
+
 @Component({
   selector: 'app-agregar-apunte',
   templateUrl: './agregar-apunte.component.html',
@@ -15,6 +21,12 @@ import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 })
 export class AgregarApunteComponent implements OnInit {
  @ViewChild('textResume') textResumeRef!: ElementRef;
+
+  // Variables para el chip de ideas
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  ideas: Idea[] = [];
+  announcer = inject(LiveAnnouncer);
 
   private destroy$ = new Subject<any>();
   textControl: FormControl = new FormControl('');
@@ -30,11 +42,12 @@ export class AgregarApunteComponent implements OnInit {
     ]
   }
 
-  apunteTexto!: string;
-  notasTexto!: string;
+  apunteResumen!: string;
+  apunteNotasClase!: string;
 
 
   myForm!: FormGroup;
+  apunteIdeas = new FormControl('', [Validators.required]);
   close!: boolean;
   idUser: any;
   currentDate!: string;
@@ -65,10 +78,17 @@ export class AgregarApunteComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]*$")
+          Validators.pattern("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\\s#@-]*$")
         ]
       ],
-      apunteTexto:[
+      apunteNotasClase:[
+        '',
+        [
+          Validators.required,
+        ]
+      ],
+      apunteIdeas:this.apunteIdeas,
+      apunteResumen:[
         '',
         [
           Validators.required,
@@ -99,6 +119,51 @@ export class AgregarApunteComponent implements OnInit {
     this.getMaterias();
   }
 
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      // this.ideas.push({name: value});
+      // console.log("Valor de ideas =>", this.ideas);
+      this.ideas.push({ name: value });
+      this.apunteIdeas.setValue(this.ideas.map(idea => idea.name).join(', '));
+      console.log("Valor de ideas =>", this.ideas);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(idea: Idea): void {
+    const index = this.ideas.indexOf(idea);
+    if (index >= 0) {
+      // this.ideas.splice(index, 1);
+      // this.announcer.announce(`Removed ${idea}`);
+      this.ideas.splice(index, 1);
+      this.apunteIdeas.setValue(this.ideas.map(idea => idea.name).join(', '));
+      this.announcer.announce(`Removed ${idea}`);
+    }
+  }
+
+  edit(idea: Idea, event: MatChipEditedEvent) {
+    const value = event.value.trim();
+
+    // Remove idea if it no longer has a name
+    if (!value) {
+      this.remove(idea);
+      return;
+    }
+
+    // Edit existing idea
+    const index = this.ideas.indexOf(idea);
+    if (index >= 0) {
+      this.ideas[index].name = value;
+      this.myForm.get('apunteIdeas')!.setValue(this.ideas.map(idea => idea.name));
+    }
+  }
+
   onChangeEditor(event: any) {
     if(event.html){
       this.htmlContent = event.html;
@@ -111,12 +176,12 @@ export class AgregarApunteComponent implements OnInit {
     }
   }
 
-  onEditorContentChange(event: any) {
-    this.myForm.get('apunteTexto')?.setValue(event.html);
+  onEditorResumeChange(event: any) {
+    this.myForm.get('apunteResumen')?.setValue(event.html);
   }
 
   onNotasEditorContentChange(event: any) {
-    // this.myForm.get('apunteRecordatorio')?.setValue(event.html);
+    this.myForm.get('apunteNotasClase')?.setValue(event.html);
     console.log("Valor de event =>", event);
   }
 
@@ -187,7 +252,7 @@ export class AgregarApunteComponent implements OnInit {
   transformDate(dateFin: Date){
     const datePipe = new DatePipe('en-US');
     const fechaFormateada = datePipe.transform(dateFin, 'yyyy-MM-dd');
-    this.myForm.get('fechaFin')?.setValue(fechaFormateada);
+    this.myForm.get('fechaCreacion')?.setValue(fechaFormateada);
     console.log(fechaFormateada); // Resultado: "2023/06/25"
   }
 

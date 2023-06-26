@@ -98,7 +98,6 @@ export class ApuntesPageComponent implements OnInit {
                 'El apunte se elimino correctamente',
                 'success'
               );
-              this.getMaterias();
             }else{
               Swal.fire(
                 'Error',
@@ -115,13 +114,12 @@ export class ApuntesPageComponent implements OnInit {
             this.getApuntes();
           }
         });
-
       }
     });
   }
 
   // Funcion para obtener las materias del usuario Logeado
-  getMaterias(){
+  getMaterias(idMateria: number){
     this.srvMateria.getMateriasUsuario(this.idUser)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
