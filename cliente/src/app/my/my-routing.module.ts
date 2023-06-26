@@ -15,7 +15,8 @@ const routes: Routes = [
     children: [
       {
         path: 'welcome',
-        component: WelcomePageComponent
+        component: WelcomePageComponent,
+        loadChildren: () => import('./pages/welcome-page/welcome-page.component').then(m => m.WelcomePageComponent),
       },
       {
         path: 'schedule',

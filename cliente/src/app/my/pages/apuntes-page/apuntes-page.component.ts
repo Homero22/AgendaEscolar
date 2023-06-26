@@ -14,8 +14,6 @@ import Swal from 'sweetalert2';
 })
 export class ApuntesPageComponent implements OnInit {
 
-  displayedColumns: string[] = ['#', 'Titulo Apunte', 'Materia', 'Acciones'];
-
   //Variables
   title!: string;
   idUser!: any;
@@ -41,6 +39,16 @@ export class ApuntesPageComponent implements OnInit {
 
   //Funcion para abrir el modal
   openModal(title: string) {
+    this.srvModal.setTitleModal(title);
+    this.dialog.open(ModalComponent,{
+      width: '800px',
+      height: 'auto'
+    });
+  }
+
+  // Función para abir el editar del modal
+  openModalEdit(title: string, id: number) {
+    this.srvApuntes.setIdApunte(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
       width: '800px',

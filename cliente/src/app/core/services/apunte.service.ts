@@ -44,7 +44,7 @@ export class ApunteService {
   }
 
   getApunteIndividual(id: number){
-    return this.http.get<addApunteModel>(`${this.urlApi_Apuntes}/${id}`,
+    return this.http.get<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
     {
       withCredentials: true
     });
