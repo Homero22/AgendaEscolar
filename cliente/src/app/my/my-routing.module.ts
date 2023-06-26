@@ -7,7 +7,9 @@ import { MateriaPageComponent } from './pages/materia-page/materia-page.componen
 import { TareasPageComponent } from './pages/tareas-page/tareas-page.component';
 import { ApuntesPageComponent } from './pages/apuntes-page/apuntes-page.component';
 import { AjustesPageComponent } from './pages/ajustes-page/ajustes-page.component';
+import { ApuntePagesComponent } from './pages/materia-page/page/apunte-pages/apunte-pages.component';
 
+// localhost:4200/me/''
 const routes: Routes = [
   {
     path: '',
@@ -16,7 +18,6 @@ const routes: Routes = [
       {
         path: 'welcome',
         component: WelcomePageComponent,
-        loadChildren: () => import('./pages/welcome-page/welcome-page.component').then(m => m.WelcomePageComponent),
       },
       {
         path: 'schedule',
@@ -25,14 +26,17 @@ const routes: Routes = [
       {
         path: 'signatures',
         component: MateriaPageComponent,
+        // loadChildren: () => import('./pages/materia-page/materia-page.module').then(m => m.MateriaPageModule),
+        children: [
+          {
+            path: 'notes',
+            component: ApuntePagesComponent,
+          }
+        ]
       },
       {
         path: 'homeworks',
         component: TareasPageComponent,
-      },
-      {
-        path: 'notes',
-        component: ApuntesPageComponent
       },
       {
         path: 'settings',
@@ -40,7 +44,8 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'welcome'
+        redirectTo: 'welcome',
+        pathMatch: 'full'
       }
     ]
   }

@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class MateriaPageComponent {
 
+  viewNotes: boolean = false;
 
   // Variables
   titleModal: string = '';
@@ -35,6 +36,7 @@ export class MateriaPageComponent {
     ngOnInit(): void {
       this.idUser = sessionStorage.getItem("id");
       this.getMaterias();
+      this.viewNotes = false;
     }
 
 
@@ -129,6 +131,11 @@ export class MateriaPageComponent {
           });
         }
       });
+    }
+
+    sendIdMateria(){
+      console.log("sendIdMateria");
+      this.viewNotes = true;
     }
 
     // ngOnDestroy
