@@ -15,7 +15,7 @@ export class WelcomePageComponent {
 
 
   // ------------------------ Recordatorios ------------------------
-
+/*
   recordatorios: any = {
     message: "desde el front",
     phone: "593999778684"
@@ -41,4 +41,5 @@ export class WelcomePageComponent {
         err => console.log(err)
       );
   }
+*/
 }

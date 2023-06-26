@@ -11,8 +11,6 @@ export class TareaService {
   private urlApi_Tareas: string = config.URL_API_BASE + "homeworks";
   private urlApi_TareasUsuario: string = config.URL_API_BASE + "homeworks/user";
   private urlApi_TareasEstado: string = config.URL_API_BASE + "homeworks/estado";
-  private urlApi_recordatorio: string =  "http://172.25.220.80:3001/lead";
-
   constructor(private http: HttpClient) { }
 
   // ------------------------ TAREAS BEHAVIORSUBJECTS ------------------------
@@ -78,7 +76,7 @@ export class TareaService {
         withCredentials: true
       });
   }
-
+/*
   // ------------------------ RECORDATORIOS ------------------------
   getRecordatorios(){
     return this.http.get<any>(`${this.urlApi_recordatorio}`,
@@ -94,5 +92,5 @@ export class TareaService {
         withCredentials: true
       });
   }
-
+*/
 }
