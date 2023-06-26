@@ -33,6 +33,13 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("io.ktor:ktor-client-okhttp:1.6.3")
+
+        implementation("io.ktor:ktor-client-json:1.6.3")
+        implementation("io.ktor:ktor-client-json-jvm:1.6.3")
+        implementation("io.ktor:ktor-client-serialization:1.6.3")
+
+
 
     //Base de datos
     implementation("org.postgresql:postgresql:$postgresVersion")
@@ -87,8 +94,25 @@ dependencies {
 
 
     //WPP
-    implementation("io.appium:java-client:7.0.0")
-    implementation("org.seleniumhq.selenium:selenium-java:3.141.59")
+    implementation("com.twilio.sdk:twilio:9.7.0")
+
+
+    //htttp
+    implementation("io.ktor:ktor-client-core-jvm:1.6.7")
+    implementation("io.ktor:ktor-client-serialization:1.6.7")
+
+    implementation ("com.aallam.openai:openai-client:3.3.0")
+
+
+    // define dependencies without versions
+    implementation ("com.aallam.openai:openai-client")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+
 
 }
 kotlin {

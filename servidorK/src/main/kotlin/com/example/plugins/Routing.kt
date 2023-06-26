@@ -18,5 +18,6 @@ fun Application.configureRouting() {
         notesRouting()
         loguinRouting()
         recoverRouting()
+        chatGptRoute()
     }
 }
