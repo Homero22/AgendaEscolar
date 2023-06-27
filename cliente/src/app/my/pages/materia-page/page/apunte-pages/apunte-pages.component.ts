@@ -67,6 +67,15 @@ export class ApuntePagesComponent {
     });
   }
 
+  contenidoModal(title: string, id: number){
+    this.srvApuntes.setIdApunte(id);
+    this.srvModal.setTitleModal(title);
+    this.dialog.open(ModalComponent,{
+      width: '800px',
+      height: 'auto'
+    });
+  }
+
   getApuntes(){
     Swal.fire({
       title: 'Cargando Apuntes...',

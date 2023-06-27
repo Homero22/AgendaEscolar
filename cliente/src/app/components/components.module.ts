@@ -24,6 +24,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
+import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
@@ -42,7 +43,8 @@ import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module'
     AgregarApunteComponent,
     EditarApunteComponent,
     AgregarTareaComponent,
-    EditarTareaComponent
+    EditarTareaComponent,
+    ContenidoApunteComponent
 
   ],
   imports: [
@@ -75,7 +77,8 @@ import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module'
     AgregarApunteComponent,
     EditarApunteComponent,
     AgregarTareaComponent,
-    EditarTareaComponent
+    EditarTareaComponent,
+    ContenidoApunteComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
 })
