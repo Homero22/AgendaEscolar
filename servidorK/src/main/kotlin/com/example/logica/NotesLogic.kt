@@ -15,7 +15,7 @@ class NotesLogic {
     }
 
     fun getById(id: Int): Any {
-        return obj.gGgetById(Notes, id) ?: return 0
+        return obj.gGgetById(Notes, id) as Note
     }
 
     fun update(id: Int, note: Note): Any {
