@@ -19,5 +19,6 @@ fun Application.configureRouting() {
         loguinRouting()
         recoverRouting()
         chatGptRoute()
+        reportesRouting()
     }
 }
