@@ -85,29 +85,16 @@ object Users : CrudRepository<User, Int>() {
     fun usuariosPais():List<Any> = transaction {
 
         val response = (Users innerJoin Countries )
-            .slice(Countries.nombre, Users.id.count())
-            .selectAll().groupBy(Countries.nombre)
+            .slice(Countries.nombre,Countries.acronimo, Users.id.count())
+            .selectAll().groupBy(Countries.nombre,Countries.acronimo)
             .map{
                 mapOf(
                     "pais" to it[Countries.nombre],
+                    "acronimo" to it[Countries.acronimo],
                     "cantidad" to it[Users.id.count()]
                 )
             }
         return@transaction response
-
-
-//        (Users innerJoin Countries )
-//            .slice(Countries.nombre, Users.id.count())
-//            .selectAll().groupBy(Countries.nombre)
-//            .map{
-//                mapOf(
-//                    "pais" to it[Countries.nombre],
-//                    "cantidad" to it[Users.id.count()]
-//                )
-//            }
-//        return@transaction
-
-
     }
 
 }
