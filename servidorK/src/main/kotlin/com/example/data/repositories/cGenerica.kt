@@ -116,6 +116,15 @@ class cGenerica <T> {
         }
     }
 
+    fun gReportes(obj:T):List<Any>{
+        return when(obj){
+            is Users->{
+                obj.usuariosPais()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
 
 
     fun gUpdate(obj: T, id: Int, entity: Any): Any {
