@@ -97,41 +97,6 @@ export class AjustesPageComponent {
     this.paisSeleccionado = null;
   }
 
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    document.getElementById('EC')?.setAttribute('fill', 'red')
-
-  }
-
-  changeColor(id: string){
-    document.getElementById(id)?.setAttribute('fill', 'red')
-  }
-
-  // mostrarTooltip(pais: any, event: MouseEvent): void {
-  //   const container = document.getElementById('mapa-container');
-  //   if (container) {
-  //     const containerRect = container.getBoundingClientRect();
-  //     const tooltipLeft = event.clientX - containerRect.left + window.pageXOffset;
-  //     const tooltipTop = event.clientY - containerRect.top + window.pageYOffset;
-
-  //     this.tooltipText = `Nombre: ${pais.nombre} \nUsuarios: ${pais.usuarios}`;
-  //     container.style.setProperty('--tooltip-left', `${tooltipLeft}px`);
-  //     container.style.setProperty('--tooltip-top', `${tooltipTop}px`);
-  //   }
-  // }
-
-  // ocultarTooltip(): void {
-  //   this.tooltipText = undefined;
-  // }
-  mostrarTooltip(pais: any): void {
-    this.tooltipText = `Nombre: ${pais.nombre} \nUsuarios: ${pais.usuarios}`;
-  }
-
-  ocultarTooltip(): void {
-    this.tooltipText = undefined;
-  }
-
   getUsuariosPais(){
     this.srvReportes.getUsuariosPais()
     .pipe(takeUntil(this.destroy$))
@@ -146,4 +111,23 @@ export class AjustesPageComponent {
       }
     });
   }
+  
+  mostrarTooltip(pais: any, event: MouseEvent): void {
+    const container = document.getElementById('mapa-container');
+    if (container) {
+      const containerRect = container.getBoundingClientRect();
+      const tooltipLeft = event.clientX - containerRect.left + window.pageXOffset;
+      const tooltipTop = event.clientY - containerRect.top + window.pageYOffset;
+
+      this.tooltipText = `Nombre: ${pais.nombre} \nUsuarios: ${pais.usuarios}`;
+      container.style.setProperty('--tooltip-left', `${tooltipLeft}px`);
+      container.style.setProperty('--tooltip-top', `${tooltipTop}px`);
+    }
+  }
+
+  ocultarTooltip(): void {
+    this.tooltipText = undefined;
+  }
+
+
 }

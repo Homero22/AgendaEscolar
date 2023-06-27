@@ -954,7 +954,7 @@
         </circle>
        </svg>
 </div>
-
+<!-- 
 <button mat-raised-button
         matTooltip="Info about the action"
         [matTooltipDisabled]="!paisSeleccionado"
@@ -962,7 +962,7 @@
         aria-label="Button that displays a tooltip when focused or hovered over">
   Action
 </button>
-<!-- 
+
 <ng-container *ngIf="paisSeleccionado">
   <div id="info-pais" matTooltip="tooltipContent" matTooltipClass="custom-tooltip">
     {{ paisSeleccionado.nombre }}
@@ -971,12 +971,12 @@
 
 <ng-template #tooltipContent>
   <div>
-    Nombre: {{ paisSeleccionado.nombre }} <br>
-    Usuarios: {{ paisSeleccionado.usuarios }}
+    Nombre: {{ paisSeleccionado?.nombre }} <br>
+    Usuarios: {{ paisSeleccionado?.usuarios }}
   </div>
-</ng-template> -->
+</ng-template>
 
-<!-- <ng-template #tooltipContent>
+<ng-template #tooltipContent>
     <div>
       Nombre: {{ paisSeleccionado?.nombre }} <br>
       Usuarios: {{ paisSeleccionado?.usuarios }}
@@ -985,7 +985,5 @@
   
   <div id="info-pais" matTooltip="tooltipContent" matTooltipClass="custom-tooltip">
     {{ paisSeleccionado?.nombre }}
-  </div> -->
-  
-
-  
+  </div>
+   -->
