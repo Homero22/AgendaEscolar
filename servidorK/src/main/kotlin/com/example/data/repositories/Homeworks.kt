@@ -2,6 +2,7 @@ package com.example.data.repositories
 
 import com.example.data.entities.HomeworkDAO
 import com.example.data.entities.Homeworks
+import com.example.data.entities.SubjectDAO
 import com.example.data.models.Homework
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
@@ -34,7 +35,11 @@ object Homeworks: CrudRepository<Homework, Int>() {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
+<<<<<<< HEAD
             fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
+=======
+            fechaFin = java.time.LocalDate.parse(entity.fechaFin)
+>>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }
@@ -46,7 +51,12 @@ object Homeworks: CrudRepository<Homework, Int>() {
         val response = HomeworkDAO.findById(id.toLong())?.apply {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
+<<<<<<< HEAD
             fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
+=======
+            fechaCreacion = java.time.LocalDateTime.now()
+            fechaFin = java.time.LocalDate.parse(entity.fechaFin)
+>>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }?.toHomework()
@@ -60,6 +70,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
 
     //funcion para obtener todas las tareas de un usuario
     fun getAllByUser(id: Long):List<Any> = transaction {
+
         val res = Homeworks
             .select({ Homeworks.idUser eq id })
             .map {
@@ -67,6 +78,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
                     "id" to it[Homeworks.id].value,
                     "idUser" to it[Homeworks.idUser],
                     "idMateria" to it[Homeworks.idMateria],
+                    "nombreMateria" to SubjectDAO.get(it[Homeworks.idMateria]).nombre,
                     "tareaTitulo" to it[Homeworks.tareaTitulo],
                     "tareaDescripcion" to it[Homeworks.tareaDescripcion],
                     "fechaCreacion" to it[Homeworks.fechaCreacion],

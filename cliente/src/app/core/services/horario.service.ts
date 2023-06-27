@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Horario,  } from '../models/horario';
+import { Horario, addDataHorario, ModelAddHorario,HorarioItem, HomeroItem,ModelShowHorario } from '../models/horario';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Horario,  } from '../models/horario';
 })
 export class HorarioService {
 
-  private urlApi_Materias: string = config.URL_API_BASE + "schedules";
+  private urlApi_Horario: string = config.URL_API_BASE + "schedules";
   constructor(private http: HttpClient) { }
 
   // ------------------------ HORARIO BEHAVIORSUBJECTS ------------------------
@@ -18,6 +18,7 @@ export class HorarioService {
   //behaviorSubject para obtener la hora y el dia
   private hora$ = new BehaviorSubject<string>('');
   private dia$ = new BehaviorSubject<string>('');
+  private idHorario$ = new BehaviorSubject<number>(0);
 
   get selectHora$(): Observable<string>{
     return this.hora$.asObservable();
@@ -25,6 +26,10 @@ export class HorarioService {
 
   get selectDia$(): Observable<string>{
     return this.dia$.asObservable();
+  }
+
+  get selectIdHorario$(): Observable<number>{
+    return this.idHorario$.asObservable();
   }
 
   setHora(_hora: string){
@@ -35,11 +40,17 @@ export class HorarioService {
     this.dia$.next(_dia);
   }
 
+  setIdHorario(_idHorario: number){
+    this.idHorario$.next(_idHorario);
+  }
+
   // ------------------------ HORARIO ------------------------
 
-  horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00']; // Horas del horario
-  dias: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes']; // Días del horario
-  horario: Horario = {
+  horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00','13:00',"14:00","15:00"]; // Horas del horario
+  dias: string[] = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES']; // Días del horario
+  horario!: Horario 
+  /*= {
+  
     lunes: {
       '8:00': { materia: 'Matemáticas', horaFin: '9:00', color: '#008000', acronimo: 'MAT', id: 1 },
       '9:00': { materia: 'Historia', horaFin: '10:00', color: 'rojo', acronimo: 'HIS',id: 2 },
@@ -75,4 +86,69 @@ export class HorarioService {
       '11:00': { materia: 'Inglés', horaFin: '12:00', color: '#008000', acronimo: 'ING', id:3  },
       '12:00': { materia: 'Ciencias Sociales', horaFin: '13:00', color: 'amarillo', acronimo: 'CS', id:8 }
     }};
+*/
+    dataHorario!: HomeroItem[];
+    // dataorario!: Horario;
+    // ------------------------ CRUD ------------------------
+
+
+    //Obtener horario por id
+    getHorario(id: number){
+      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/${id}`,
+    {
+      withCredentials: true
+    });
+    }
+
+    //Obtener horario por id de usuario
+    getHorarioUser(id: number){
+      console.log("id user en servicio =>", id);
+      return this.http.get<ModelShowHorario>(`${this.urlApi_Horario}/${id}`,
+    {
+      withCredentials: true
+    });
+    }
+
+    //Eliminar horario por id
+    deleteHorario(id: number){
+      return this.http.delete<ModelShowHorario>(`${this.urlApi_Horario}/${id}`,
+    {
+      withCredentials: true
+    });
+    }
+
+    //Agregar horario
+    postHorario(dataHorario: addDataHorario){
+      return this.http.post<ModelAddHorario>(`${this.urlApi_Horario}`, dataHorario,
+    {
+      withCredentials: true
+    });
+    }   
+
+    /*
+    {
+    "id":0,
+    "idMateria":2,
+    "idUser":1,
+    "hora_inicio":"07:00:00",
+    "hora_fin":"08:00:00",
+    "dia":"Lunes"
+    }
+    */
+
+    //Editar horario por id
+    putHorario(id: number, dataHorario: addDataHorario){
+      return this.http.put<ModelAddHorario>(`${this.urlApi_Horario}/${id}`, dataHorario,
+    {
+      withCredentials: true
+    });
+    }
+
+
+
+    //----------------------TRANSFORMACIONES----------------------
+
+    
+
+    
 }

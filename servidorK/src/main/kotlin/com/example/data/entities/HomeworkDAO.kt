@@ -6,6 +6,10 @@ import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
+<<<<<<< HEAD
+=======
+import org.jetbrains.exposed.sql.javatime.date
+>>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.javatime.time
 
@@ -15,7 +19,11 @@ object Homeworks : LongIdTable("tb_tarea"){
     val tareaTitulo = text("str_tarea_titulo")
     val tareaDescripcion= text("str_tarea_descripcion")
     val fechaCreacion = datetime("dt_fecha_creacion")
+<<<<<<< HEAD
     val fechaFin = datetime("dt_fecha_fin")
+=======
+    val fechaFin = date("dt_fecha_fin")
+>>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
     val tareaEstado = varchar("str_tarea_estado",15)
     val tareaRecordatorio = time("time_recordatorio")
 }

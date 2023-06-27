@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MateriaService } from 'src/app/core/services/materia.service';
 
 
 @Component({
@@ -9,7 +10,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor( private router: Router) { }
+  constructor(
+    private router: Router,
+    private srvMaterias: MateriaService
+    ) { }
 
   cerrarSesion(){
     console.log("cerrar sesion");
@@ -18,6 +22,10 @@ export class HeaderComponent {
     this.router.navigate(['auth/ingreso']);
 
   }
-  
+
+  sendBool(){
+    this.srvMaterias.setBool(false);
+  }
+
 
 }

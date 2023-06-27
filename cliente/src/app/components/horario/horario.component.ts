@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { MateriaService } from 'src/app/core/services/materia.service';
+import { Subject, takeUntil } from 'rxjs';
+import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-horario',
@@ -18,6 +21,12 @@ export class HorarioComponent implements OnInit{
   left = 0;
   top = 0;
   tooltipInitialized = false;
+  idUser: any;
+
+  // horario: Horario = {};
+  // homero!: any;
+
+  private destroy$ = new Subject<any>();
 
   constructor(
     private srvModal: ModalService,
@@ -26,11 +35,21 @@ export class HorarioComponent implements OnInit{
     public srvMateria: MateriaService
 
   ) {
+    this.idUser =  sessionStorage.getItem('id');
+    this.idUser = parseInt(this.idUser);
+    console.log("id user =>", this.idUser);
     this.pantallaMediana = this.calcularPantallaMediana();
+    this.obtenerHorario();
 
   }
 
   ngOnInit() {
+
+    
+    
+  }
+
+  ngAfterViewInit(){
     const dia = 'lunes';
     const hora = '8:00';
     const materia = this.ObtenerMateria( hora, dia);
@@ -41,7 +60,6 @@ export class HorarioComponent implements OnInit{
     } else {
       console.log('No se encontró una materia para el día y hora especificados.');
     }
-
     
   }
 
@@ -91,9 +109,18 @@ export class HorarioComponent implements OnInit{
   ObtenerIdMateria(hora: string, dia: string): number {
     const materia = this.ObtenerMateria(hora, dia);
     if (materia) {
+      return this.srvHorario.horario[dia][hora].idMateria;
+    } else {
+      return -1;
+    }
+  }
+
+  ObtenerIdHorario(hora: string, dia: string): number {
+    const materia = this.ObtenerMateria(hora, dia);
+    if (materia) {
       return this.srvHorario.horario[dia][hora].id;
     } else {
-      return 0;
+      return -1;
     }
   }
 
@@ -103,14 +130,16 @@ export class HorarioComponent implements OnInit{
       this.srvModal.setTitleModal("Editar Horario");
       console.log("openModal");
       const idMateria = this.ObtenerIdMateria(hora, dia)
+      const idHorario = this.ObtenerIdHorario(hora, dia)
       this.srvMateria.setIdMateria(idMateria);
       this.srvHorario.setDia(dia);
       this.srvHorario.setHora(hora);
+      this.srvHorario.setIdHorario(idHorario);
 
 
       this.dialog.open(ModalComponent,{
         width: '40%',
-        height: '50%'
+        height: 'auto'
       });
     }
   }
@@ -128,5 +157,57 @@ export class HorarioComponent implements OnInit{
     // this.top = buttonRect.top;
   }
 
+  obtenerHorario(){
+    Swal.fire({
+      title: 'Cargando Horario...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+    this.srvHorario.getHorarioUser(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (homero: ModelShowHorario)=>{
+        this.srvHorario.dataHorario = homero.body;
+          console.log("Horario de homero =>", homero);
+          // this.srvHorario.dataorario = this.srvHorario.transfor(homero.body, this.srvHorario.horario)
+          this.transf();
+          console.log("Horario transdormado en horario=>", this.srvHorario.horario);
+          Swal.close();
+      }
+    })
+  }
   mostrarContenido = false;
+
+  // ------------------------ Transformar datos ------------------------
+
+  transf(){
+    const horario: Horario = this.srvHorario.dataHorario.reduce((acc: Horario, item) => {
+      const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
+      const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
+      const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
+    
+      if (!acc[dia]) {
+        acc[dia] = {};
+      }
+    
+      acc[dia][horaInicioStr] = {
+        materia: nombreMateria,
+        horaFin: horaFinStr,
+        color: color,
+        acronimo: acronimo,
+        id: id,
+        idMateria: idMateria
+      };
+    
+      return acc;
+    }, {});
+  
+    console.log("horario transformado =>", horario);
+    this.srvHorario.horario = horario;
+  }
+  
+  // console.log(JSON.stringify(horario, null, 2));
+
+  
 }

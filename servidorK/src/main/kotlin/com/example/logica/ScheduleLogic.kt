@@ -25,12 +25,17 @@ class ScheduleLogic {
         return obj.gGetAll(Schedules)
     }
 
-    fun actualizarHorario(id: Int, schedule: Any): Any {
+    fun actualizarHorario(id: Int, schedule: Schedule): Int {
+        val respuesta = obj.gGgetById(Schedules,id)
+        if (respuesta == null) {
+            return 0
+        }
+        obj.gUpdate(Schedules,id,schedule)
+        return 1
 
-        return obj.gUpdate(Schedules,id,schedule)
     }
 
-    fun eliminarHorario(id: Int): Any {
+    fun eliminarHorario(id: Int): Int {
         val respuesta = obj.gGgetById(Schedules,id)
         if (respuesta != null) {
             obj.gDelete(Schedules,id)

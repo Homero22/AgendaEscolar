@@ -7,6 +7,10 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ScheduleModule, RecurrenceEditorModule,  } from '@syncfusion/ej2-angular-schedule';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { ModalComponent } from './modal/modal.component';
 import { ModalModule } from './modal/modal.module';
@@ -26,6 +30,11 @@ import { ModalModule } from './modal/modal.module';
     ScheduleModule,
     RecurrenceEditorModule,
     MatSlideToggleModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+
   ],
   bootstrap: [
     AppComponent
