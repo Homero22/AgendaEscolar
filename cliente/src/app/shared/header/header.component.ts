@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 // import { AuthInterceptor } from 'src/app/core/security/auth.interceptor';
+import { MateriaService } from 'src/app/core/services/materia.service';
 
 
 @Component({
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor( 
+  
+  constructor(
     private router: Router,
-    // private authInterceptor: AuthInterceptor
+    private srvMaterias: MateriaService
     ) { }
 
   cerrarSesion(){
@@ -23,5 +25,10 @@ export class HeaderComponent {
     this.router.navigate(['auth/ingreso']);
     // this.authInterceptor;
   }
+
+  sendBool(){
+    this.srvMaterias.setBool(false);
+  }
+
 
 }

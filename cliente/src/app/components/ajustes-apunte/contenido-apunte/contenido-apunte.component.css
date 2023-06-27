@@ -1,0 +1,22 @@
+.container-Prompt{
+  border: solid 0.5px #ccc;
+  background-color: #353740;
+  color: #fff;
+}
+
+.container-Contenido{
+  border: solid 0.5px #ccc;
+  background-color: #6e6e80;
+  color: #fff;
+}
+
+.btn-GPT{
+  background-color: rgb(25, 195, 125);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-GPT:hover{
+  background-color: rgb(13, 102, 65);
+  color: #fff;
+}

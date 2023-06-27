@@ -1,4 +1,6 @@
 @import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
 /* Variables Globales de Angular Material */
 *{
   margin:0;
@@ -41,10 +43,9 @@ input:focus {
 
   /*Otros*/
   --border-radius: 6px;
-
-
-
 }
+
+
 
 /* Variables Globales Designadas */
 .full-Container{
@@ -57,12 +58,11 @@ input:focus {
   display: flex;
   /* flex-direction: column;
   gap: 10px; */
-  display: flex;
-  /* flex-direction: column; */
-  /* gap: 10px; */
   justify-content: space-between;
   border-bottom: 1px solid var(--quaternary-color);
   padding-bottom: 20px;
+  flex-direction: row;
+  gap: 10px;
 }
 .full-containerRegistro{
   width: 100vw;

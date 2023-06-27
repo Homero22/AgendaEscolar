@@ -8,15 +8,16 @@ import { ModalComponent } from 'src/app/modal/modal.component';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-apuntes-page',
-  templateUrl: './apuntes-page.component.html',
-  styleUrls: ['./apuntes-page.component.css']
+  selector: 'app-apunte-pages',
+  templateUrl: './apunte-pages.component.html',
+  styleUrls: ['./apunte-pages.component.css']
 })
-export class ApuntesPageComponent implements OnInit {
+export class ApuntePagesComponent {
 
   //Variables
   title!: string;
   idUser!: any;
+  idMateria!: number;
 
   //Destroy
   private destroy$ = new Subject<any>();
@@ -34,11 +35,21 @@ export class ApuntesPageComponent implements OnInit {
   //ngOnInit
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
+    this.srvMateria.selectIdMateria$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(_idMateria)=>{
+        this.idMateria = _idMateria;
+        console.log("Valor de idMateria =>",this.idMateria);
+      }
+    });
     this.getApuntes();
+    this.getMateria();
   }
 
   //Funcion para abrir el modal
-  openModal(title: string) {
+  openModal(title: string, id:number) {
+    this.srvMateria.setIdMateria(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
       width: '800px',
@@ -48,6 +59,15 @@ export class ApuntesPageComponent implements OnInit {
 
   // Función para abir el editar del modal
   openModalEdit(title: string, id: number) {
+    this.srvApuntes.setIdApunte(id);
+    this.srvModal.setTitleModal(title);
+    this.dialog.open(ModalComponent,{
+      width: '800px',
+      height: 'auto'
+    });
+  }
+
+  contenidoModal(title: string, id: number){
     this.srvApuntes.setIdApunte(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
@@ -127,14 +147,13 @@ export class ApuntesPageComponent implements OnInit {
   }
 
   // Funcion para obtener las materias del usuario Logeado
-  getMaterias(idMateria: number){
-    this.srvMateria.getMateriasUsuario(this.idUser)
+  getMateria(){
+    this.srvMateria.getMateria(this.idMateria)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(materiaData)=>{
-        Swal.close();
         if(materiaData.body){
-          this.srvMateria.datosMateria = materiaData.body;
+          this.srvMateria.materia = materiaData.body;
           console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
         }else{
           console.log("No hay datos");
@@ -151,6 +170,7 @@ export class ApuntesPageComponent implements OnInit {
 
   //ngOnDestroy
   ngOnDestroy(): void {
-
+    this.destroy$.next({});
+    this.destroy$.complete();
   }
 }

@@ -53,6 +53,8 @@ object Notes : CrudRepository<Note, Int>() {
                 mapOf(
                     "id" to it[Notes.id].value,
                     "idUser" to it[Notes.idUser],
+                    "idMateria" to it[Notes.idMateria],
+                        //Colocamos el nombre de la materia
                     "apunteTitulo" to it[Notes.apunteTitulo],
                     "apunteNotasClase" to it[Notes.apunteNotasClase],
                     "apunteIdeas" to it[Notes.apunteIdeas],

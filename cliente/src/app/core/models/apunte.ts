@@ -9,7 +9,9 @@ export interface ShowApunteData{
   idUser: number;
   idMateria: number;
   apunteTitulo: string;
-  apunteTexto: string;
+  apunteNotasClase: string;
+  apunteIdeas: string;
+  apunteResumen: string;
   apunteRecordatorio: string;
   fechaCreacion: string;
 }
@@ -27,7 +29,9 @@ export interface addApunteData{
   idUser: number;
   idMateria: number;
   apunteTitulo: string;
-  apunteTexto: string;
+  apunteNotasClase: string;
+  apunteIdeas: string;
+  apunteResumen: string;
   apunteRecordatorio: string;
   fechaCreacion: string;
 }
@@ -44,7 +48,9 @@ export interface modApunteData {
   idUser: number;
   idMateria: number;
   apunteTitulo: string;
-  apunteTexto: string;
+  apunteNotasClase: string;
+  apunteIdeas: string;
+  apunteResumen: string;
   apunteRecordatorio: string;
   fechaCreacion: string;
 }
@@ -54,7 +60,9 @@ export interface addApunteByID{
   idUser: number;
   idMateria: number;
   apunteTitulo: string;
-  apunteTexto: string;
+  apunteNotasClase: string;
+  apunteIdeas: string;
+  apunteResumen: string;
   apunteRecordatorio: string;
   fechaCreacion: string;
 }

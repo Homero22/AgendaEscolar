@@ -25,7 +25,7 @@
         </mat-menu>
       </div>
   </mat-toolbar>
-  <mat-drawer #drawer class="sideBar-Container" mode="over" >
+  <mat-drawer #drawer class="sideBar-Container" mode="side" >
 
     <div class="menu-Container my-2">
       <button type="button" mat-icon-button (click)="drawer.toggle()">
@@ -47,13 +47,9 @@
           <i class="material-icons">collections_bookmark</i>
           <p>Materias</p>
         </button>
-        <button mat-button class="btn-Option" routerLink="/me/homeworks">
+        <button mat-button class="btn-Option" (click)="sendBool()" routerLink="/me/homeworks">
           <i class="material-icons">description</i>
           <p>Tareas</p>
-        </button>
-        <button mat-button class="btn-Option" routerLink="/me/notes">
-          <i class="material-icons">sticky_note_2</i>
-          <p>Apuntes</p>
         </button>
       </div>
 
