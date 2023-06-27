@@ -6,6 +6,8 @@ import com.example.data.models.Homework
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import kotlin.time.Duration.Companion.parse
+
 /*
 import org.jetbrains.exposed.sql.`java-time`.datetime
 import org.jetbrains.exposed.sql.`java-time`.timestamp
@@ -31,8 +33,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
             idMateria = entity.idMateria
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
-            fechaCreacion = java.time.LocalTime.now()
-            fechaFin = java.time.LocalTime.parse(entity.fechaFin)
+            fechaCreacion = java.time.LocalDateTime.now()
+            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }
@@ -44,8 +46,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
         val response = HomeworkDAO.findById(id.toLong())?.apply {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
-            fechaCreacion = java.time.LocalTime.now()
-            fechaFin = java.time.LocalTime.parse(entity.fechaFin)
+            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }?.toHomework()
