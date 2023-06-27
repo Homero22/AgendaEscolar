@@ -3,18 +3,12 @@
     <div>
       <mat-form-field class="w-12">
         <mat-label>Título</mat-label>
-        <input matInput placeholder="Título del Apunte" formControlName="apunteTitulo" required>
+        <input matInput placeholder="Título del Apunte" formControlName="apunteTitulo">
       </mat-form-field>
       <div class="grid">
         <mat-form-field class="col">
           <mat-label>Materia</mat-label>
-          <mat-select formControlName="idMateria">
-            <mat-option >-- Seleccione --</mat-option>
-            <mat-option
-              *ngFor="let materia of srvMateria.datosMateria, let i = index"
-              [value]="materia.id">{{materia.nombre}}
-            </mat-option>
-          </mat-select>
+          <input matInput [value]="this.srvMateria.materia.nombre" [disabled]="true">
         </mat-form-field>
 
         <mat-form-field class="col">

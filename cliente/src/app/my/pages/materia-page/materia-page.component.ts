@@ -36,7 +36,14 @@ export class MateriaPageComponent {
     ngOnInit(): void {
       this.idUser = sessionStorage.getItem("id");
       this.getMaterias();
-      this.viewNotes = false;
+      this.srvMateria.selectBool$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next:(bool)=>{
+          this.viewNotes = bool;
+          console.log("Valor de bool =>",bool);
+        }
+      });
     }
 
 
@@ -133,9 +140,12 @@ export class MateriaPageComponent {
       });
     }
 
-    sendIdMateria(){
+    sendIdMateria(id:number){
       console.log("sendIdMateria");
       this.viewNotes = true;
+      console.log("Valor de viewNotes =>",this.viewNotes);
+      this.srvMateria.setIdMateria(id);
+      console.log("Valor de id =>",id);
     }
 
     // ngOnDestroy

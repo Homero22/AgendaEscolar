@@ -39,7 +39,7 @@
                 <button mat-raised-button (click)="deleteMateria(materia.id)">
                   <i class="material-icons">delete</i>
                 </button>
-                <button mat-raised-button (click)="sendIdMateria()" routerLink="/me/signatures/notes">
+                <button mat-raised-button (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
                   <i class="material-icons">sticky_note_2</i>
                 </button>
               </mat-card-actions>

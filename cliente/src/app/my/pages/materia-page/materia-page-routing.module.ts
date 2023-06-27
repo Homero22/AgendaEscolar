@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MateriaPageComponent } from './materia-page.component';
 import { ApuntesPageComponent } from '../apuntes-page/apuntes-page.component';
-import { ApuntePageLayoutComponent } from './page/apunte-page-layout/apunte-page-layout.component';
 import { ApuntePagesComponent } from './page/apunte-pages/apunte-pages.component';
 
 // localhost:4200/me/signatures/''

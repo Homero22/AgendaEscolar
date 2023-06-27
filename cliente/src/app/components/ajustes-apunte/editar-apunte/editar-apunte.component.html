@@ -8,18 +8,12 @@
       <div class="grid">
         <mat-form-field class="col">
           <mat-label>Materia</mat-label>
-          <mat-select formControlName="idMateria">
-            <mat-option >-- Seleccione --</mat-option>
-            <mat-option
-              *ngFor="let materia of srvMateria.datosMateria, let i = index"
-              [value]="materia.id">{{materia.nombre}}
-            </mat-option>
-          </mat-select>
+          <input matInput [value]="this.srvMateria.materia.nombre" [disabled]="true">
         </mat-form-field>
 
         <mat-form-field class="col">
           <mat-label>Fecha</mat-label>
-          <input matInput [matDatepicker]="picker" [value]="currentDate" [disabled]="true">
+          <input matInput [matDatepicker]="picker" [value]="this.currentDate" [disabled]="true">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -59,7 +53,7 @@
 
         <div class="col w-12">
           <mat-label>Notas de Clase</mat-label>
-          <quill-editor class="w-12 mb-3" [(ngModel)]="apunteNotasClase" (onContentChanged)="onNotasEditorContentChange($event)" id="textContent" [modules]="moduleQuill" (onEditorChanged)="onChangeEditor($event)"></quill-editor>
+          <quill-editor class="w-12 mb-3" [(ngModel)]="apunteNotasClase"  (onContentChanged)="onNotasEditorContentChange($event)" id="textContent" [modules]="moduleQuill" (onEditorChanged)="onChangeEditor($event)"></quill-editor>
         </div>
 
       </div>
@@ -68,7 +62,7 @@
       <quill-editor class="w-12" [(ngModel)]="apunteResumen" (onContentChanged)="onEditorResumeChange($event)" id="textContent" [modules]="moduleQuill" (onEditorChanged)="onChangeEditor($event)"></quill-editor>
 
       <div class="container-Btn mt-3">
-        <button mat-button class="btn-Save" [disabled]="myForm.invalid">
+        <button mat-button class="btn-Save" (click)="saveApunte()" [disabled]="myForm.invalid">
           Agregar
         </button>
       </div>

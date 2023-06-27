@@ -1,0 +1,18 @@
+.container-Title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid var(--secondary-color);
+}
+
+.container-Content{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.btn-Delete{
+  color: red;
+}

@@ -5,6 +5,7 @@ import { ShowMateriaModel, addMateriaData, MateriaModel, modMateriaModel, addMAt
 import { BehaviorSubject, Observable } from 'rxjs';
 
 const idMateria: number = 0;
+const statusBool: boolean = false;
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +43,17 @@ setIdMateria(_idMateria: number){
   this.idMateria$.next(_idMateria);
 }
 
+
+//behaviorSubject para obtener un valor false
+private getBool$ = new BehaviorSubject<boolean>(statusBool);
+
+get selectBool$(): Observable<boolean>{
+  return this.getBool$.asObservable();
+}
+
+setBool(_bool: boolean){
+  this.getBool$.next(_bool);
+}
 
 // ------------------------ MATERIAS ------------------------
 

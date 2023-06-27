@@ -59,8 +59,8 @@ export class ApunteService {
   }
 
   // Metodo para editar un apunte
-  putapunte(id: number, dataApunte: addApunteByID){
-    return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
+  putApunte(id: number, dataApunte: addApunteByID){
+    return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,dataApunte,
     {
       withCredentials: true
     })

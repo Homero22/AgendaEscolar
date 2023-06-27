@@ -47,7 +47,7 @@ export class AgregarApunteComponent implements OnInit {
 
 
   myForm!: FormGroup;
-  apunteIdeas = new FormControl('', [Validators.required]);
+  apunteIdeas = new FormControl('',);
   close!: boolean;
   idUser: any;
   currentDate!: string;
@@ -70,9 +70,6 @@ export class AgregarApunteComponent implements OnInit {
       ],
       idMateria:[
         '',
-        [
-          Validators.required,
-        ]
       ],
       apunteTitulo: [
         '',
@@ -90,9 +87,6 @@ export class AgregarApunteComponent implements OnInit {
       apunteIdeas:this.apunteIdeas,
       apunteResumen:[
         '',
-        [
-          Validators.required,
-        ]
       ]
       ,
       apunteRecordatorio:[
@@ -111,12 +105,19 @@ export class AgregarApunteComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
-    console.log("idUser =>",this.idUser)
+
     this.myForm.get('idUser')?.setValue(this.idUser);
-    console.log("Valor del idUser de mhyForm", this.myForm.get('idUser')?.value);
+
     this.currentDate = new Date().toISOString().slice(0, 10);
-    console.log("valor de currentDate =>", this.currentDate);
-    this.getMaterias();
+
+    this.srvMateria.selectIdMateria$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((idMateria: any) => {
+      this.myForm.get('idMateria')?.setValue(idMateria);
+      console.log("Valor de idMateria =>", idMateria);
+    });
+
+    this.getMateria();
   }
 
 
@@ -125,8 +126,6 @@ export class AgregarApunteComponent implements OnInit {
 
     // Add our fruit
     if (value) {
-      // this.ideas.push({name: value});
-      // console.log("Valor de ideas =>", this.ideas);
       this.ideas.push({ name: value });
       this.apunteIdeas.setValue(this.ideas.map(idea => idea.name).join(', '));
       console.log("Valor de ideas =>", this.ideas);
@@ -139,8 +138,6 @@ export class AgregarApunteComponent implements OnInit {
   remove(idea: Idea): void {
     const index = this.ideas.indexOf(idea);
     if (index >= 0) {
-      // this.ideas.splice(index, 1);
-      // this.announcer.announce(`Removed ${idea}`);
       this.ideas.splice(index, 1);
       this.apunteIdeas.setValue(this.ideas.map(idea => idea.name).join(', '));
       this.announcer.announce(`Removed ${idea}`);
@@ -187,13 +184,9 @@ export class AgregarApunteComponent implements OnInit {
 
   // Función para agregar el Apunte
   saveApunte(){
-    //imprimimos en consola el valor de myform
     this.myForm.get('fechaCreacion')?.setValue(this.currentDate);
     console.log("Valor de MyForm =>", this.myForm.value);
-
     this.transformDate(this.myForm.get('fechaCreacion')?.value);
-
-
     console.log("Valor de MyForm =>", this.myForm.value);
 
     Swal.fire({
@@ -257,14 +250,15 @@ export class AgregarApunteComponent implements OnInit {
   }
 
   // Funcion para obtener las materias del usuario
-  getMaterias(){
-    this.srvMateria.getMateriasUsuario(this.idUser)
+  getMateria(){
+    this.srvMateria.getMateria(this.myForm.get('idMateria')?.value)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(materiaData)=>{
+        console.log("Valor de materiaData =>",materiaData);
         if(materiaData.body){
-          this.srvMateria.datosMateria = materiaData.body;
-          console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+          this.srvMateria.materia = materiaData.body;
+          console.log("Valor de materiaData.body =>",this.srvMateria.materia);
         }else{
           console.log("No hay datos");
         }

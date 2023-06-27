@@ -23,6 +23,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
+import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
@@ -57,7 +58,8 @@ import { QuillModule } from 'ngx-quill';
     MatFormFieldModule,
     MatNativeDateModule,
     QuillModule.forRoot(),
-    QuillModule
+    QuillModule,
+    MateriaPageModule
     // MatTimepickerModule,
 
     // BrowserModule

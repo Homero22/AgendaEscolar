@@ -19,6 +19,7 @@ export interface Idea {
   styleUrls: ['./editar-apunte.component.css']
 })
 export class EditarApunteComponent implements OnInit {
+  [x: string]: any;
 
   // Variables para el chip de ideas
   addOnBlur = true;
@@ -44,7 +45,7 @@ export class EditarApunteComponent implements OnInit {
   apunteNotasClase!: string;
 
   myForm!: FormGroup;
-  apunteIdeas = new FormControl('', [Validators.required]);
+  apunteIdeas = new FormControl('',);
   close!: boolean;
   idUser: any;
   idMateria: any;
@@ -82,6 +83,9 @@ export class EditarApunteComponent implements OnInit {
       ],
       apunteNotasClase:[
         '',
+        [
+          Validators.required,
+        ]
       ],
       apunteIdeas:this.apunteIdeas,
       apunteResumen:[
@@ -107,9 +111,9 @@ export class EditarApunteComponent implements OnInit {
     console.log("idUser =>",this.idUser)
     this.myForm.get('idUser')?.setValue(this.idUser);
     console.log("Valor del idUser de mhyForm", this.myForm.get('idUser')?.value);
-
-    //Función para completar el Formulario
     this.completeForm();
+    this.currentDate = new Date().toISOString().slice(0, 10);
+    console.log("Valor de currentDate =>", this.currentDate)
   }
 
   completeForm(){
@@ -151,6 +155,9 @@ export class EditarApunteComponent implements OnInit {
           },
         });
         this.myForm = this.fb.group({
+          id:[
+            apunteData.body.id
+          ],
           idUser:[
             apunteData.body.idUser
           ],
@@ -190,6 +197,24 @@ export class EditarApunteComponent implements OnInit {
 
   getMateriaID(){
     this.srvMateria.getMateria(this.idMateria)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(materiaData)=>{
+        console.log("Valor de materiaData =>",materiaData);
+        if(materiaData.body){
+          this.srvMateria.materia = materiaData.body;
+          console.log("Valor de materiaData.body =>",this.srvMateria.materia);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
   }
 
 
@@ -198,8 +223,6 @@ export class EditarApunteComponent implements OnInit {
 
     // Add our fruit
     if (value) {
-      // this.ideas.push({name: value});
-      // console.log("Valor de ideas =>", this.ideas);
       this.ideas.push({ name: value });
       this.apunteIdeas.setValue(this.ideas.map(idea => idea.name).join(', '));
       console.log("Valor de ideas =>", this.ideas);
@@ -258,6 +281,77 @@ export class EditarApunteComponent implements OnInit {
     console.log("Valor de event =>", event);
   }
 
+
+
+
+
+
+
+  transformDate(dateFin: Date){
+    const datePipe = new DatePipe('en-US');
+    const fechaFormateada = datePipe.transform(dateFin, 'yyyy-MM-dd');
+    this.myForm.get('fechaCreacion')?.setValue(fechaFormateada);
+    console.log("Fecha Formateada =>",fechaFormateada); // Resultado: "2023/06/25"
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Función para Enviar la infrmación del apunte
+  saveApunte(){
+    const fecha = new Date(this.myForm.get('fechaCreacion')?.value);
+    const fechaFormateada = `${fecha.getFullYear()}-${('0' + (fecha.getMonth() + 1)).slice(-2)}-${('0' + fecha.getDate()).slice(-2)}`;
+    console.log("fechaFormateada =>", fechaFormateada);
+
+    this.myForm.get('fechaCreacion')?.setValue(fechaFormateada);
+
+    const sendApunteData = this.myForm.value;
+    console.log("Valor de sendApunteData =>", sendApunteData);
+
+
+
+    Swal.fire({
+      title:'Esta seguro de modificar este apunte?',
+      showDenyButton:true,
+      confirmButtonText:'Modificar',
+      denyButtonText:'Cancelar'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.srvApuntes.putApunte(this.idApunte, sendApunteData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (apunteData)=>{
+            console.log("Valor de apunteData =>", apunteData);
+            Swal.fire({
+              title:'Apunte modificado correctamente',
+              icon:'success'
+            })
+            console.log("Valor de apunteData Modificado =>", apunteData);
+          },
+          error: (err)=>{
+            console.log("Error al modificar el apunte =>", err);
+            Swal.fire({
+              title:'Error al modificar el apunte',
+              icon:'error'
+            })
+          },
+          complete: ()=>{
+            console.log("Petición completa!");
+          }
+        });
+      }
+    })
+  }
 
 
   ngOnDesTroy(): void {

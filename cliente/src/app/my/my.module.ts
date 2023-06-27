@@ -12,7 +12,6 @@ import { HorarioPageComponent } from './pages/horario-page/horario-page.componen
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 import { MaterialModule } from '../material/material.module';
-import { ApuntesPageComponent } from './pages/apuntes-page/apuntes-page.component';
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { ApuntesPageComponent } from './pages/apuntes-page/apuntes-page.componen
     AjustesPageComponent,
     WelcomePageComponent,
     HorarioPageComponent,
-    ApuntesPageComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +38,6 @@ import { ApuntesPageComponent } from './pages/apuntes-page/apuntes-page.componen
     AjustesPageComponent,
     WelcomePageComponent,
     HorarioPageComponent,
-    ApuntesPageComponent
   ]
 })
 export class MyModule { }
