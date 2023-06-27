@@ -7,6 +7,7 @@ import io.ktor.server.response.*
 
 
 data class Response(val status: Boolean, val message: String, val body: List<Any>)
+data class GptResponse(val status: Boolean, val message: String, val info :Any)
 
 //respuesta sin body
 

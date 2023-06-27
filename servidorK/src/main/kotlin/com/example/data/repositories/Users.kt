@@ -1,7 +1,10 @@
 package com.example.data.repositories
+import com.example.data.entities.Countries
 import com.example.data.entities.Users
 import com.example.data.entities.UsersDAO
 import com.example.data.models.User
+import org.jetbrains.exposed.sql.count
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -77,6 +80,34 @@ object Users : CrudRepository<User, Int>() {
             return@transaction userEmail ?: userPhone
         }
         return@transaction null
+    }
+
+    fun usuariosPais():List<Any> = transaction {
+
+        val response = (Users innerJoin Countries )
+            .slice(Countries.nombre, Users.id.count())
+            .selectAll().groupBy(Countries.nombre)
+            .map{
+                mapOf(
+                    "pais" to it[Countries.nombre],
+                    "cantidad" to it[Users.id.count()]
+                )
+            }
+        return@transaction response
+
+
+//        (Users innerJoin Countries )
+//            .slice(Countries.nombre, Users.id.count())
+//            .selectAll().groupBy(Countries.nombre)
+//            .map{
+//                mapOf(
+//                    "pais" to it[Countries.nombre],
+//                    "cantidad" to it[Users.id.count()]
+//                )
+//            }
+//        return@transaction
+
+
     }
 
 }

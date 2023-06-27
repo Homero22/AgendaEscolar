@@ -7,7 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configureSerialization() {
-    install(ContentNegotiation) {
+    install(ContentNegotiation ) {
         json()
     }
     routing {
