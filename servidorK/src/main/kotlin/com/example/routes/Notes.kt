@@ -96,7 +96,6 @@ fun Route.notesRouting(){
             val id = call.parameters["id"]?.toIntOrNull() ?:0
             //Obtenemos el apunte a actualizar
             val note = call.receive<Note>()
-            //Actualizamos el apunte
             try{
                 //enviamos a la capa logica
                 val res = NotesLogic().update(id, note)
