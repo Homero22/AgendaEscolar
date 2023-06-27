@@ -12,7 +12,8 @@ import { HorarioPageComponent } from './pages/horario-page/horario-page.componen
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 import { MaterialModule } from '../material/material.module';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { MaterialModule } from '../material/material.module';
     SharedModule,
     ComponentsModule,
     MaterialModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule,
+    MatButtonModule
   ],
   exports: [
     FullLayoutPageComponent,

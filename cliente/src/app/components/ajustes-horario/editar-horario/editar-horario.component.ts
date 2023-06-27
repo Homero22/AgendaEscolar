@@ -171,6 +171,7 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.srvModal.closeModal();
         }else{
           console.log("No se pudo eliminar el horario");
           Swal.fire({
@@ -205,6 +206,7 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.srvModal.closeModal();
         }else{
           console.log("No hay datos");
           Swal.fire({
@@ -234,6 +236,7 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.srvModal.closeModal();
         }else{
           console.log("No se pudo actualizar el horario");
           Swal.fire({
