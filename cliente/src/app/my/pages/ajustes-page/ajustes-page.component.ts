@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ReportesService } from 'src/app/core/services/reportes.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ajustes-page',
@@ -7,8 +11,13 @@ import { Component } from '@angular/core';
   ]
 })
 export class AjustesPageComponent {
+  // @ViewChild('tooltipContent') tooltipContent: TemplateRef<any>;
+  tooltipText: string | undefined;
+  private destroy$ = new Subject<any>();
 
-  constructor() { }
+  constructor(
+    private srvReportes: ReportesService
+  ) { }
   paisSeleccionado: { nombre: string, usuarios: number } | null = null;
 
   datos = [
@@ -39,6 +48,7 @@ export class AjustesPageComponent {
   ]
 
   ngOnInit(): void {
+    this.getUsuariosPais();
     setTimeout(() => {
       const svg = document.getElementById('mapa');
       const paths = svg?.getElementsByTagName('path');
@@ -98,4 +108,42 @@ export class AjustesPageComponent {
     document.getElementById(id)?.setAttribute('fill', 'red')
   }
 
+  // mostrarTooltip(pais: any, event: MouseEvent): void {
+  //   const container = document.getElementById('mapa-container');
+  //   if (container) {
+  //     const containerRect = container.getBoundingClientRect();
+  //     const tooltipLeft = event.clientX - containerRect.left + window.pageXOffset;
+  //     const tooltipTop = event.clientY - containerRect.top + window.pageYOffset;
+
+  //     this.tooltipText = `Nombre: ${pais.nombre} \nUsuarios: ${pais.usuarios}`;
+  //     container.style.setProperty('--tooltip-left', `${tooltipLeft}px`);
+  //     container.style.setProperty('--tooltip-top', `${tooltipTop}px`);
+  //   }
+  // }
+
+  // ocultarTooltip(): void {
+  //   this.tooltipText = undefined;
+  // }
+  mostrarTooltip(pais: any): void {
+    this.tooltipText = `Nombre: ${pais.nombre} \nUsuarios: ${pais.usuarios}`;
+  }
+
+  ocultarTooltip(): void {
+    this.tooltipText = undefined;
+  }
+
+  getUsuariosPais(){
+    this.srvReportes.getUsuariosPais()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(reporteData)=>{
+        if(reporteData.body){
+          this.srvReportes.datos = reporteData.body;
+          console.log("Valor de datos =>",this.srvReportes.datos);
+        }else{
+          console.log("No hay datos");
+        }
+      }
+    });
+  }
 }
