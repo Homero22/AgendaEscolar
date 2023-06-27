@@ -51,7 +51,7 @@ fun Route.notesRouting(){
             }
         }
 
-        get("/id"){
+        get("/{id}"){
             //Obtenemos el id del apunte a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {

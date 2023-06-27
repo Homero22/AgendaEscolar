@@ -1,5 +1,8 @@
 package com.example.data.models.gpt
 
-data class ChoicesItem(val finishReason: String = "",
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ChoicesItem(val finish_reason: String = "",
                        val index: Int = 0,
-                       val message: Message)
+                       val message: MessagesItem)

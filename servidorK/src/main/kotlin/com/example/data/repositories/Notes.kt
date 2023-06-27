@@ -12,7 +12,8 @@ object Notes : CrudRepository<Note, Int>() {
     }
 
     override fun getById(id: Int) = transaction {
-        return@transaction NotesDAO.findById(id.toLong())?.toNotes()
+        val response = NotesDAO.findById(id.toLong())?.toNotes()
+        return@transaction response
     }
     override fun save(entity: Note) = transaction {
         val response = NotesDAO.new{
