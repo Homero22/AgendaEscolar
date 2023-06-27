@@ -1,4 +1,6 @@
 @import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
 /* Variables Globales de Angular Material */
 *{
   margin:0;
@@ -41,10 +43,9 @@ input:focus {
 
   /*Otros*/
   --border-radius: 6px;
-
-
-
 }
+
+
 
 /* Variables Globales Designadas */
 .full-Container{
@@ -55,7 +56,7 @@ input:focus {
 
 .container-Title{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
 }
 .full-containerRegistro{

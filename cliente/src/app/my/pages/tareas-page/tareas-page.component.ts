@@ -64,18 +64,17 @@ export class TareasPageComponent {
             this.srvTarea.tareas = tareaData.body;
             console.log("Valor de tareas =>", this.srvTarea.tareas);
             this.srvTarea.tareasRealizadas = this.filterTareasFinalizadas();
-  
           } else {
             console.log("No hay datos");
           }
         }
       });
   }
-  
+
   filterTareasFinalizadas() {
     return this.srvTarea.tareas.filter((tarea: any) => tarea.tareaEstado === 'FINALIZADA');
   }
-  
+
   editarTarea(idTarea: number){
     console.log("Editar Tarea");
     this.srvTarea.setIdTarea(idTarea);
