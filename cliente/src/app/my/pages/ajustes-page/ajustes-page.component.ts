@@ -22,6 +22,7 @@ export class AjustesPageComponent {
   paisSeleccionado: { nombre: string, usuarios: number } | null = null;
 
   // datos!: IReporte[];
+
   datos = [
     {
       id: 1,
@@ -142,6 +143,7 @@ export class AjustesPageComponent {
   ocultarTooltip(): void {
     this.tooltipText = undefined;
   }
+  
 /*
   ngOnInit(): void {
   this.getUsuariosPais();
@@ -182,11 +184,8 @@ private waitForData(): Promise<void> {
 }
 
 
-private registrarEventos(): void {
-  if (!this.srvReportes.datos) {
-    console.log("No hay datos para registrar eventos");
-    return; // Salir si los datos no están disponibles aún
-  }
+private async registrarEventos(): Promise<void> {
+  await this.waitForData(); // Esperar hasta que los datos estén disponibles
 
   const svg = document.getElementById('mapa');
   const paths = svg?.getElementsByTagName('path');
@@ -204,6 +203,7 @@ private registrarEventos(): void {
     }
   }
 }
+
 
 
 calcularIntensidad(usuarios: number, minUsuarios: number, maxUsuarios: number): number {
@@ -241,5 +241,12 @@ getUsuariosPais(): void {
     });
 }
 
+ngOnDestroy(): void {
+  //Called once, before the instance is destroyed.
+  //Add 'implements OnDestroy' to the class.
+  this.destroy$.next({});
+  this.destroy$.complete();
+}
 */
+
 }
