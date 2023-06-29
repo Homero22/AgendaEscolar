@@ -33,7 +33,7 @@ class ChatLogic {
     }
      suspend fun postChat(prompt: promptModel):Any{
         val gpt = GptInterceptor()
-        return  gpt.postGpt(prompt.mensaje).await()
+        return  gpt.postGpt(prompt.mensaje).await().choices[0].message
     }
 
 }
