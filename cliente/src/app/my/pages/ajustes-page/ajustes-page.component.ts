@@ -4,6 +4,7 @@ import { ReportesService } from 'src/app/core/services/reportes.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { IReporte } from 'src/app/core/models/reportes';
+import { C } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-ajustes-page',
@@ -19,10 +20,10 @@ export class AjustesPageComponent {
   constructor(
     private srvReportes: ReportesService
   ) { }
-  paisSeleccionado: { nombre: string, usuarios: number } | null = null;
+  paisSeleccionado: IReporte | null = null;
 
   // datos!: IReporte[];
-
+/*
   datos = [
     {
       id: 1,
@@ -34,7 +35,7 @@ export class AjustesPageComponent {
       id: 2,
       nombre: 'Colombia',
       usuarios: 1,
-      acronimo: 'CO',
+      acronimo: 'Co',
     },
     {
       id: 3,
@@ -42,18 +43,30 @@ export class AjustesPageComponent {
       usuarios:1,
       acronimo: 'PE',
     },
-    // {
-    //   id: 4,
-    //   nombre: 'Venezuela',
-    //   usuarios: 25,
-    //   acronimo: 'VE',
-    // },
+    {
+      id: 4,
+      nombre: 'Venezuela',
+      usuarios: 25,
+      acronimo: 'VE',
+    },
+    {
+      id: 5,
+      nombre: 'Chile',
+      usuarios: 1,
+      acronimo: 'Cl',
+    },
+    {
+      id: 6,
+      nombre: 'Argentina',
+      usuarios: 1,
+      acronimo: 'AR',
+    },
   ]
 
   ngOnInit(): void {
     this.getUsuariosPais();
     setTimeout(() => {
-      this.ini();
+      this.init();
     }
     , 100);
   
@@ -63,6 +76,7 @@ export class AjustesPageComponent {
       // setTimeout(() => {
         const svg = document.getElementById('mapa');
         const paths = svg?.getElementsByTagName('path');
+        
   
         const maxUsuarios = Math.max(...this.datos.map(dato => dato.usuarios));
         const minUsuarios = Math.min(...this.datos.map(dato => dato.usuarios));
@@ -89,6 +103,38 @@ export class AjustesPageComponent {
         }
       // }, 5000);
   }
+
+  init() {
+    // setTimeout(() => {
+      const svg = document.getElementById('mapa');
+      const paths = svg?.getElementsByTagName('path');
+      const maxUsuarios = Math.max(...this.datos.map(dato => dato.usuarios));
+      const minUsuarios = Math.min(...this.datos.map(dato => dato.usuarios));
+  
+      for (const dato of this.datos) {
+        const pathsArray = Array.prototype.slice.call(paths);
+        const path = pathsArray.find(path => path.getAttribute('class') === dato.nombre);
+          
+        path?.addEventListener('mouseenter', () => {
+          this.mostrarInfoPais(dato);
+        });
+  
+        path?.addEventListener('mouseleave', () => {
+          this.ocultarInfoPais();
+        });
+  
+        // Calcula el color basado en la cantidad de usuarios
+        const intensidad = this.calcularIntensidad(dato.usuarios, minUsuarios, maxUsuarios);
+        const color = this.calcularColor(intensidad);
+  
+        // Aplica el color al elemento <path>
+        if (path) {
+          path.style.fill = color;
+        }
+      }
+    // }, 5000);
+  }
+  
 
   calcularIntensidad(usuarios: number, minUsuarios: number, maxUsuarios: number): number {
     const porcentaje = (usuarios - minUsuarios) / (maxUsuarios - minUsuarios);
@@ -119,7 +165,7 @@ export class AjustesPageComponent {
           // this.datos = this.srvReportes.datos;
           console.log("Valor de srvReportes.datos =>", this.srvReportes.datos);
           console.log("Valor de datos =>", this.datos);
-          this.ini();
+          this.init();
         }else{
           console.log("No hay datos");
         }
@@ -143,8 +189,8 @@ export class AjustesPageComponent {
   ocultarTooltip(): void {
     this.tooltipText = undefined;
   }
-  
-/*
+  */
+
   ngOnInit(): void {
   this.getUsuariosPais();
   // setTimeout(() => {
@@ -159,13 +205,13 @@ private async actualizarColores(): Promise<void> {
     console.log("No hay datos");
   }
 
-  const maxUsuarios = Math.max(...this.srvReportes.datos.map(dato => dato.usuarios));
-  const minUsuarios = Math.min(...this.srvReportes.datos.map(dato => dato.usuarios));
+  const maxUsuarios = Math.max(...this.srvReportes.datos.map(dato => dato.cantidad));
+  const minUsuarios = Math.min(...this.srvReportes.datos.map(dato => dato.cantidad));
 
   for (const dato of this.srvReportes.datos) {
     const path = document.getElementById(dato.acronimo);
     if (path) {
-      const intensidad = this.calcularIntensidad(dato.usuarios, minUsuarios, maxUsuarios);
+      const intensidad = this.calcularIntensidad(dato.cantidad, minUsuarios, maxUsuarios);
       const color = this.calcularColor(intensidad);
       path.style.fill = color;
     }
@@ -212,11 +258,13 @@ calcularIntensidad(usuarios: number, minUsuarios: number, maxUsuarios: number): 
 }
 
 calcularColor(intensidad: number): string {
-  const color = Math.round(255 - intensidad * 2.55);
+  const color = Math.round(250 - intensidad * 2.55);
+  console.log("Color =>", color);
   return `rgb(0, 0, ${color})`;
 }
 
-mostrarInfoPais(pais: { nombre: string, usuarios: number }): void {
+mostrarInfoPais(pais: IReporte): void {
+  // console.log("Pais seleccionado =>", pais);
   this.paisSeleccionado = pais;
 }
 
@@ -229,7 +277,7 @@ getUsuariosPais(): void {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (reporteData) => {
-        if (reporteData.body) {
+        if (reporteData.status) {
           this.srvReportes.datos = reporteData.body;
           console.log("Valor de srvReportes.datos =>", this.srvReportes.datos);
           this.actualizarColores();
@@ -247,6 +295,6 @@ ngOnDestroy(): void {
   this.destroy$.next({});
   this.destroy$.complete();
 }
-*/
+
 
 }
