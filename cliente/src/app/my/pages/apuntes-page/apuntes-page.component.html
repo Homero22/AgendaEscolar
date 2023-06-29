@@ -1,4 +1,4 @@
-<div class="full-container">
+<!-- <div class="full-container">
   <div class="m-3 pb-3 container-Title">
     <div>
       <h3>Mis Apuntes</h3>
@@ -12,35 +12,40 @@
     </div>
   </div>
 
-  <div class="container-Main m-3">
-    <div class="col-3 container-Left">
+  <div class="grid mx-2">
 
-      <mat-grid-list cols="1" rowHeight="1:1">
-        <div class="card-container">
-          <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-            <div class="flex">
-              <mat-card
-                class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card"
-                id="mat-Card">
-                <button class="btn-mat-card" [style.background-color]="materia.materiaColor">
-                  <mat-card-header>
-                    <mat-card-title>
-                      <h2>
-                        {{ materia.nombre }}
-                      </h2>
-                    </mat-card-title>
-                  </mat-card-header>
-                </button>
-              </mat-card>
-            </div>
+    <div class="col-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
+
+      <mat-card class="flex-row align-content-center" *ngIf="apunte.idMateria === 21">
+        <mat-card-content class="container-Content">
+          <div class="uppercase">
+            {{apunte.apunteTitulo}}
           </div>
-        </div>
-      </mat-grid-list>
+          <div>
+            {{apunte.idMateria}}
+          </div>
+          <div>
+            {{apunte.fechaCreacion.date.day}}-{{apunte.fechaCreacion.date.month}}-{{apunte.fechaCreacion.date.year}}
+          </div>
+          <div>
+            <button mat-stroked-button
+              (click)="openModalEdit('Editar Apunte', apunte.id)"
+            >
+              <i class="material-icons">edit</i>
+            </button>
+            <button mat-stroked-button
+              (click)="deleteApunte(apunte.id)"
+            >
+              <i class="material-icons btn-Delete">delete</i>
+            </button>
+            <button mat-stroked-button>
+              <img src="../../../../assets/svg/chatgpt-icon.svg" alt="chatGPT-icon">
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
-    </div>
-
-    <div class="col-8 container-Right">
-      mundo
     </div>
   </div>
 </div>
+ -->

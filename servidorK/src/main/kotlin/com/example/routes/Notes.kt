@@ -1,7 +1,11 @@
 package com.example.routes
 
 import com.example.data.models.Note
-import com.example.data.repositories.Notes
+import com.example.logica.NotesLogic
+import com.example.services.Wpp.enviarWpp
+import com.example.utils.Response
+import com.example.utils.ResponseSingle
+import com.example.utils.sendJsonResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -16,34 +20,29 @@ fun Route.notesRouting(){
             val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
             //Obtenemos el offset de Apunts a mostrar
             val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
-            //Obtenemos los Apuntes
-            call.respond(HttpStatusCode(200, "Ok"), Notes.getAll(limit, offset))
+            //envio a la capa logica
+            val res = NotesLogic().getAll(limit,offset);
+            if(res.size>0){
+                val response = Response(true,"Apuntes obtenidos correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }else{
+                val response = Response(false,"No se encontraron apuntes", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }
         }
 
         post {
             //Obtenemos el apunte a guardar
             val apunte = call.receive<Note>()
             try{
-                //Guardamos el Apunte
-                val response = Notes.save(apunte)
-                call.respond(HttpStatusCode.Created, "Apunte Creado correctamente" )
-            }catch (
-                cause: Throwable
-            ){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
-            }
-        }
-
-        get("/id"){
-            //Obtenemos el id del apunte a buscar
-            val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            try {
-                //Obtenemos el apunte
-                val response = Notes.getById(id)
-                if (response != null){
-                    call.respond(HttpStatusCode(200, "OK"), response)
+                //envimaos a la capa logica
+                val res = NotesLogic().save(apunte)
+                if(res!=null){
+                    val response = ResponseSingle(true,"Apunte creado correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Apunte no Encontrado")
+                    val response = Response(false,"No se pudo crear el apunte", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
                 cause: Throwable
@@ -52,19 +51,60 @@ fun Route.notesRouting(){
             }
         }
 
+        get("/{id}"){
+            //Obtenemos el id del apunte a buscar
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            try {
+                //enviamos a la capa logica
+                val res = NotesLogic().getById(id);
+                if(res==null){
+                    val response = ResponseSingle(false,"No se encontro apunte", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSingle(true,"Apunte obtenido correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
+            }catch (
+                cause: Throwable
+            ){
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }
+        }
+
+        get("/user/{id}"){
+            //Obtenemos el id del usuario para obtener todos los apuntes
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            try {
+                //enviamos a la capa logica
+                val res = NotesLogic().getByUser(id);
+                if(res.size>0){
+                    enviarWpp()
+                    val response = Response(true,"Apuntes obtenidos correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = Response(false,"No se encontraron apuntes", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
+            }catch (
+                cause: Throwable
+            ){
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }
+        }
         put("/{id}"){
             //Obtenemos el id del Apunte a Actualizar
             val id = call.parameters["id"]?.toIntOrNull() ?:0
             //Obtenemos el apunte a actualizar
             val note = call.receive<Note>()
-            //Actualizamos el apunte
             try{
-                val note = Notes.getById(id)
-                if(note != null){
-                    val response = Notes.update(id, note)
-                    call.respond(HttpStatusCode( 200, "OK"), response)
+                //enviamos a la capa logica
+                val res = NotesLogic().update(id, note)
+                if(res!=null){
+                    val response = ResponseSingle(true,"Apunte actualizado correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Apunte no encontrado")
+                    val response = ResponseSingle(false,"No se pudo actualizar el apunte", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
                 cause: Throwable
@@ -78,11 +118,14 @@ fun Route.notesRouting(){
             val id = call.parameters["id"]?.toIntOrNull() ?:0
             //Eliminamos el Apunte
             try {
-                val response = Notes.delete(id)
-                if (response != null){
-                    call.respond(HttpStatusCode.OK, response)
+                //enviamos a la capa logica
+                val res = NotesLogic().delete(id)
+                if(res!=null){
+                    val response = ResponseSingle(true,"Apunte eliminado correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Apunte no encontrado :(")
+                    val response = ResponseSingle(false,"No se pudo eliminar el apunte", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
                 cause: Throwable
@@ -90,6 +133,7 @@ fun Route.notesRouting(){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
+
 
     }
 }

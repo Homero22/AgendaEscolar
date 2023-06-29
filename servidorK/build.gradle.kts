@@ -33,6 +33,19 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("io.ktor:ktor-client-okhttp:1.6.3")
+
+        implementation("io.ktor:ktor-client-json:1.6.3")
+        implementation("io.ktor:ktor-client-json-jvm:1.6.3")
+        implementation("io.ktor:ktor-client-serialization:1.6.3")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-protobuf:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+
+    implementation("io.ktor:ktor-client-auth:$ktorVersion")
+
+
 
     //Base de datos
     implementation("org.postgresql:postgresql:$postgresVersion")
@@ -83,4 +96,31 @@ dependencies {
     implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
     runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
     runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+    implementation(kotlin("stdlib-jdk8"))
+
+
+    //WPP
+    implementation("com.twilio.sdk:twilio:9.7.0")
+
+
+    //htttp
+    implementation("io.ktor:ktor-client-core-jvm:1.6.7")
+    implementation("io.ktor:ktor-client-serialization:1.6.7")
+
+    implementation ("com.aallam.openai:openai-client:3.3.0")
+
+
+    // define dependencies without versions
+    implementation ("com.aallam.openai:openai-client")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+
+
+}
+kotlin {
+    jvmToolchain(11)
 }

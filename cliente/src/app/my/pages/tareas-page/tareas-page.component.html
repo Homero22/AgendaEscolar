@@ -1,1 +1,131 @@
-<p>tareas-page works!</p>
+<div class="full-container">
+    <div class="m-3 container-Title">
+
+        <div>
+            <h1>Mis Tareas</h1>
+        </div>
+
+        <div class="">
+            <button class="btn-agg" (click)="openModal()">
+                <i class="material-icons">add</i>
+                <p>Agregar Tarea</p>
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <mat-accordion>
+
+                        <!--TODAS LAS TAREAS-->
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Todas mis Tareas
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon mat-list-icon>bookmark icon</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="srvTarea?.tareas?.length === 0">
+                  <p>No hay tareas</p>
+                </ng-container>
+                <div>
+                  <mat-list>
+                    <mat-list-item *ngFor="let tarea of srvTarea.tareas">
+                      <div class="list-item">
+                        <mat-icon mat-list-icon>bookmark icon</mat-icon>
+                        <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
+                        <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                      </div>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+              </mat-expansion-panel>
+
+            <!--TAREAS PENDIENTES-->
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Tareas Pendientes
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon mat-list-icon>grade icon</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="srvTarea?.tareasPendientes?.length === 0">
+                  <p>No hay tareas pendientes</p>
+                </ng-container>
+                <div>
+                  <mat-list>
+                    <mat-list-item *ngFor="let tarea of srvTarea.tareasPendientes">
+                      <div class="list-item">
+                        <mat-icon mat-list-icon>grade icon</mat-icon>
+                        <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
+                        <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon >
+                          </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                      </div>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+              </mat-expansion-panel>
+
+
+            <!--TAREAS FINALIZADAS-->
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Tareas Finalizadas
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon mat-list-icon>event_available</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="srvTarea?.tareasRealizadas?.length === 0">
+                  <p>No hay tareas finalizadas</p>
+                </ng-container>
+                <div>
+                  <mat-list>
+                    <mat-list-item *ngFor="let tarea of srvTarea.tareasRealizadas">
+                      <div class="list-item">
+                        <mat-icon mat-list-icon>event_available</mat-icon>
+                        <h4 mat-line>{{ tarea.tareaTitulo }}</h4>
+                        <p mat-line>{{tarea.nombreMateria}}</p>
+                        <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
+                        <div>
+                          <button mat-icon-button (click)="editarTarea(tarea.id)">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                          <button mat-icon-button (click)="deleteTarea(tarea.id)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                      </div>
+                    </mat-list-item>
+                  </mat-list>
+                </div>
+              </mat-expansion-panel>
+              
+
+        </mat-accordion>
+    </div>
+</div>
