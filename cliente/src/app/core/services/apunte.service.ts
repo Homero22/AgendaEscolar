@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import config from 'config/config';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ShowApunteData, ShowApunteModel, addApunteByID, addApunteData, modApunteModel } from '../models/apunte';
+import { ShowApunteData, ShowApunteModel, addApunteByID, addApunteData, addApunteModel, modApunteModel } from '../models/apunte';
 
 const idApunte: number = 0;
 
@@ -15,7 +15,7 @@ export class ApunteService {
 
   private urlApi_ApuntesUsuario: string = config.URL_API_BASE + "notes/user";
 
-  datosApuntes!: ShowApunteData[];
+  datosApuntes: any = [];
 
   constructor(
     private http: HttpClient
@@ -43,6 +43,13 @@ export class ApunteService {
     });
   }
 
+  getApunteIndividual(id: number){
+    return this.http.get<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
+    {
+      withCredentials: true
+    });
+  }
+
   // Método para agregar apunte
   postApunte(dataApunte: addApunteData){
     return this.http.post<ShowApunteModel>(`${this.urlApi_Apuntes}`, dataApunte,
@@ -52,8 +59,8 @@ export class ApunteService {
   }
 
   // Metodo para editar un apunte
-  putapunte(id: number, dataApunte: addApunteByID){
-    return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
+  putApunte(id: number, dataApunte: addApunteByID){
+    return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,dataApunte,
     {
       withCredentials: true
     })

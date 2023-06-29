@@ -14,3 +14,23 @@
   background-color: var(--quinary-color);
   color: var(--tertiary-color);
 }
+
+.container-WordOptions{
+  display: flex;
+  flex-direction: row;
+}
+
+.text-editor{
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 200px;
+}
+
+.div-FontSize{
+  display: flex;
+}
+
+.container-Text{
+  display: flex;
+  flex-direction: column;
+}

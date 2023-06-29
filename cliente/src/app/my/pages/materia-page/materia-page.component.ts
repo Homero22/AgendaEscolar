@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class MateriaPageComponent {
 
+  viewNotes: boolean = false;
 
   // Variables
   titleModal: string = '';
@@ -35,6 +36,14 @@ export class MateriaPageComponent {
     ngOnInit(): void {
       this.idUser = sessionStorage.getItem("id");
       this.getMaterias();
+      this.srvMateria.selectBool$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next:(bool)=>{
+          this.viewNotes = bool;
+          console.log("Valor de bool =>",bool);
+        }
+      });
     }
 
 
@@ -75,8 +84,8 @@ export class MateriaPageComponent {
       this.srvMateria.setIdMateria(id);
       this.srvModal.setTitleModal(title);
       this.dialog.open(ModalComponent,{
-        width: '60%',
-        height: '70%'
+        width: '50%',
+        height: '56%'
       });
     }
 
@@ -85,8 +94,8 @@ export class MateriaPageComponent {
       this.srvModal.setTitleModal(title);
         console.log("openModal");
         this.dialog.open(ModalComponent,{
-          width: '60%',
-          height: '70%'
+          width: '50%',
+          height: '56%'
         });
     }
 
@@ -129,6 +138,14 @@ export class MateriaPageComponent {
           });
         }
       });
+    }
+
+    sendIdMateria(id:number){
+      console.log("sendIdMateria");
+      this.viewNotes = true;
+      console.log("Valor de viewNotes =>",this.viewNotes);
+      this.srvMateria.setIdMateria(id);
+      console.log("Valor de id =>",id);
     }
 
     // ngOnDestroy

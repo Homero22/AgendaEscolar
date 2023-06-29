@@ -1,10 +1,11 @@
 <div class="modal-Body">
-  <div class="modal-Title px-2">
+  <div class="modal-Title">
     <p>{{titleModal}}</p>
-    <button mat-button mat-dialog-close class="btn-Close">
+    <button matstroked-button mat-dialog-close class="btn-Close">
       <i class="material-icons">close</i>
     </button>
   </div>
+  <div class="border-line"></div>
   <div mat-dialog-content class="modal-Content">
     <ng-container [ngSwitch]="titleModal">
 
@@ -27,6 +28,11 @@
       <div *ngSwitchCase="'Editar Apunte'">
         <app-editar-apunte></app-editar-apunte>
       </div>
+
+      <div *ngSwitchCase="'Contenido Apunte'">
+        <app-contenido-apunte></app-contenido-apunte>
+      </div>
+
       <div *ngSwitchCase="'Agregar Tarea'">
         <app-agregar-tarea></app-agregar-tarea>
       </div>
@@ -35,9 +41,12 @@
         <app-editar-tarea></app-editar-tarea>
       </div>
 
+
+
     </ng-container>
   </div>
-  <div class="modal-Actions px-2">
+  <div class="border-line"></div>
+  <div class="modal-Actions">
     <button mat-button (click)="closeModal()" class="btn-Cancel">Cancelar</button>
   </div>
 </div>

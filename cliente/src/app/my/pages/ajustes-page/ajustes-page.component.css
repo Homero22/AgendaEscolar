@@ -1,0 +1,30 @@
+/* .map{
+    height: 100%;
+    width: 100%;
+} */
+
+/* #mapa-container {
+    position: relative;
+  }
+  
+  #mapa-container::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: var(--tooltip-left, 0);
+    top: var(--tooltip-top, 0);
+    background-color: #000;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 999;
+  } */
+  #info-pais {
+    position: fixed;
+  }
+  
+  .mapa-container {
+    overflow: auto;
+    height: 100%; /* Ajusta la altura según sea necesario */
+    width: 100%; /* Ajusta el ancho según sea necesario */
+  }
+  

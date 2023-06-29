@@ -1,0 +1,19 @@
+<div class="grid">
+  <div class="col-12 container-Prompt">
+    <label for="">{{this.mensaje}}</label>
+  </div>
+
+  <div class="col-12 container-Contenido" *ngIf="this.showMaterialContent === true">
+    <label for="">{{this.promptResult}}</label>
+  </div>
+
+  <div class="col-12 flex justify-content-center">
+    <button mat-stroked-button class="btn-GPT" (click)="generateContent()">
+      <label for="" *ngIf="this.showMaterialContent === false">Generar</label>
+      <label for="" *ngIf="this.showMaterialContent === true" class="flex justify-content-center align-items-center">
+        <i class="material-icons">autorenew</i>
+        Regenerar
+      </label>
+    </button>
+  </div>
+</div>

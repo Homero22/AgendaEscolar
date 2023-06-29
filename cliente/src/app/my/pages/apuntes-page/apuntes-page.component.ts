@@ -14,8 +14,6 @@ import Swal from 'sweetalert2';
 })
 export class ApuntesPageComponent implements OnInit {
 
-  displayedColumns: string[] = ['#', 'Titulo Apunte', 'Materia', 'Acciones'];
-
   //Variables
   title!: string;
   idUser!: any;
@@ -43,7 +41,17 @@ export class ApuntesPageComponent implements OnInit {
   openModal(title: string) {
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
-      width: '500px',
+      width: '800px',
+      height: 'auto'
+    });
+  }
+
+  // Función para abir el editar del modal
+  openModalEdit(title: string, id: number) {
+    this.srvApuntes.setIdApunte(id);
+    this.srvModal.setTitleModal(title);
+    this.dialog.open(ModalComponent,{
+      width: '800px',
       height: 'auto'
     });
   }
@@ -98,7 +106,6 @@ export class ApuntesPageComponent implements OnInit {
                 'El apunte se elimino correctamente',
                 'success'
               );
-              this.getMaterias();
             }else{
               Swal.fire(
                 'Error',
@@ -115,13 +122,12 @@ export class ApuntesPageComponent implements OnInit {
             this.getApuntes();
           }
         });
-
       }
     });
   }
 
   // Funcion para obtener las materias del usuario Logeado
-  getMaterias(){
+  getMaterias(idMateria: number){
     this.srvMateria.getMateriasUsuario(this.idUser)
     .pipe(takeUntil(this.destroy$))
     .subscribe({

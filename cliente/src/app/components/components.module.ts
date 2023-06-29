@@ -8,7 +8,7 @@ import { ButtonComponent } from './button/button.component';
 import { CommonModule } from '@angular/common';
 import { AgregarMateriaComponent } from './ajustes-materia/agregar-materia/agregar-materia.component';
 import { EditarMateriaComponent } from './ajustes-materia/editar-materia/editar-materia.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarHorarioComponent } from './ajustes-horario/editar-horario/editar-horario.component';
 import { ConfigurarHorarioComponent } from './ajustes-horario/configurar-horario/configurar-horario.component';
 import { MaterialModule } from '../material/material.module';
@@ -22,6 +22,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
+import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
+import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
+
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatTimepickerModule } from '@angular/material/timepicker';
@@ -39,7 +43,8 @@ import { DatePipe } from '@angular/common';
     AgregarApunteComponent,
     EditarApunteComponent,
     AgregarTareaComponent,
-    EditarTareaComponent
+    EditarTareaComponent,
+    ContenidoApunteComponent
 
   ],
   imports: [
@@ -54,6 +59,9 @@ import { DatePipe } from '@angular/common';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    QuillModule.forRoot(),
+    QuillModule,
+    MateriaPageModule
     // MatTimepickerModule,
 
     // BrowserModule
@@ -69,7 +77,8 @@ import { DatePipe } from '@angular/common';
     AgregarApunteComponent,
     EditarApunteComponent,
     AgregarTareaComponent,
-    EditarTareaComponent
+    EditarTareaComponent,
+    ContenidoApunteComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
 })

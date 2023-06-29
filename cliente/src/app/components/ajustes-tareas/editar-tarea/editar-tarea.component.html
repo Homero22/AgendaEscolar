@@ -50,7 +50,9 @@
 
             </div>
         </div>
-        <button mat-raised-button color="primary" (click)="editTarea()">Guardar</button>
+        <div class="modal-Button">
+            <button  mat-raised-button color="primary" (click)="editTarea()" [disabled]="myForm.invalid">Guardar</button>
+        </div>
     </form>
 
 
