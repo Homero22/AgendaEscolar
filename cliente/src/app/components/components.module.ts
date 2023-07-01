@@ -26,10 +26,7 @@ import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
-
-// import {matTimepickerModule} from 'mat-timepicker';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatTimepickerModule } from '@angular/material/timepicker';
+// import { MatDatetimepickerModule, MatNativeDatetimeModule } from "@mat-datetimepicker/core";
 
 @NgModule({
   declarations: [
@@ -63,7 +60,9 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
     MatNativeDateModule,
     QuillModule.forRoot(),
     QuillModule,
-    MateriaPageModule
+    MateriaPageModule,
+    // MatDatetimepickerModule,
+    // MatNativeDatetimeModule
   ],
   exports: [
     ApuntesComponent,
@@ -80,6 +79,8 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
     ContenidoApunteComponent,
     InicioAdminComponent
   ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
+ 
+  ],
 })
 export class ComponentsModule { }

@@ -19,7 +19,6 @@ class gptInstance {
                 .client(client)
                 .build()
 
-
         }
     }
 

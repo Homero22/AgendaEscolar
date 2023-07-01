@@ -11,14 +11,15 @@ export class InicioAdminService {
   private urlApi_materiasTotal: string = config.URL_API_BASE + "subjects/total"
   private urlApi_anios: string = config.URL_API_BASE + "anios"
   private urlApi_adminT: string = config.URL_API_BASE + ""
-  private urlApi_userxmes: string = config.URL_API_BASE + ""
+  private urlApi_userxmes: string = config.URL_API_BASE + "users/anio"
 
   constructor(private http: HttpClient) { }
 
   usuariosT!: number;
   materiasT!: number;
-  adminsT!: number;
+  adminsT: number = 0;
   anios!: number;
+  datos!: number;
 
   //-----------Para obtener los valores de los cards------------
 

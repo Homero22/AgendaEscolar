@@ -23,6 +23,8 @@ export class EditarTareaComponent {
   selectedMateria: any;
 
   value_string_time: any;
+  time_vencimiento: any;
+
   constructor(
     private fb: FormBuilder,
     private srvTarea: TareaService,
@@ -88,6 +90,12 @@ export class EditarTareaComponent {
         ]
       ],
       tareaRecordatorio: [
+        '',
+        [
+          Validators.required
+        ]
+      ],
+      horaEntrega:[
         '',
         [
           Validators.required
@@ -166,6 +174,12 @@ export class EditarTareaComponent {
             ],
             tareaRecordatorio: [
               tareaData.body.tareaRecordatorio,
+              [
+                Validators.required
+              ]
+            ],
+            horaEntrega:[
+              tareaData.body.horaEntrega,
               [
                 Validators.required
               ]

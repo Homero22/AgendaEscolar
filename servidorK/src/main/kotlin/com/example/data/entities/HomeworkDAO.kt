@@ -17,6 +17,7 @@ object Homeworks : LongIdTable("tb_tarea"){
     val tareaDescripcion= text("str_tarea_descripcion")
     val fechaCreacion = datetime("dt_fecha_creacion")
     val fechaFin = date("dt_fecha_fin")
+    val horaEntrega = time("time_hora_entrega")
     val tareaEstado = varchar("str_tarea_estado",15)
     val tareaRecordatorio = time("time_recordatorio")
 }
@@ -31,6 +32,7 @@ class HomeworkDAO (id: EntityID<Long>) : LongEntity(id){
     var tareaDescripcion by Homeworks.tareaDescripcion
     var fechaCreacion by Homeworks.fechaCreacion
     var fechaFin by Homeworks.fechaFin
+    var horaEntrega by Homeworks.horaEntrega
     var tareaEstado by Homeworks.tareaEstado
     var tareaRecordatorio by Homeworks.tareaRecordatorio
 
@@ -43,6 +45,7 @@ class HomeworkDAO (id: EntityID<Long>) : LongEntity(id){
             tareaDescripcion,
             fechaCreacion.toString(),
             fechaFin.toString(),
+            horaEntrega.toString(),
             tareaEstado,
             tareaRecordatorio.toString()
         )

@@ -19,7 +19,8 @@ export class InicioAdminComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    // this.getNumCard()
+    this.getNumCard();
+    this.getDatosGrafico();
   }
 
   getNumCard(){
@@ -50,4 +51,33 @@ export class InicioAdminComponent {
       },
     })
   }
+
+  getDatosGrafico(){
+    // const anio = '2023'
+    const fechaActual = new Date();
+    const anio = fechaActual.getFullYear(); 
+
+    this.srvInicioAdmin.getAniosDisponible()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (value) =>{
+          console.log("años disponibles ",value)
+          this.srvInicioAdmin.anios = value.body
+      },
+    })
+
+    this.getcontenido(anio)
+}
+
+getcontenido(anio: number){
+  this.srvInicioAdmin.getUserXMes(anio)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (value) =>{
+          console.log("datos del gráfico ",value)
+          this.srvInicioAdmin.datos = value.body
+      },
+    })
+}
+
 }

@@ -16,6 +16,7 @@ group = "com.example"
 version = "0.0.1"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
+    //mainClass.set("com.example.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -24,6 +25,12 @@ application {
 repositories {
     mavenCentral()
 }
+ktor{
+    fatJar{
+        archiveFileName.set("ktor-classbuddy.jar")
+    }
+}
+
 
 dependencies {
 
@@ -88,8 +95,7 @@ dependencies {
     implementation("com.sun.mail:javax.mail:1.6.2")
 
 
-    //Gson
-    implementation ("com.google.code.gson:gson:2.10.1")
+
 
 
     //Token
