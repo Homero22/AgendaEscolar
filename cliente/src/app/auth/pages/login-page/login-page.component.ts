@@ -7,13 +7,19 @@ import { Subject, takeUntil } from 'rxjs';
 import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
 import Swal from 'sweetalert2';
 import { HorarioService } from 'src/app/core/services/horario.service';
+import { HttpClient } from '@angular/common/http';
 
+interface Image {
+  url: string;
+}
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
+
+  images: Image[] = [];
 
   hide = true;          //para el password
   email!: FormControl;  //para el email
@@ -29,7 +35,8 @@ export class LoginPageComponent {
     public srvLoguin: LoguinService,
     // public secLoguin: LoginSecurity,
     private router: Router,
-    public srvHorario: HorarioService
+    public srvHorario: HorarioService,
+    private http: HttpClient
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -137,6 +144,8 @@ public isNotEmpty(obj: any): boolean {
     return obj == undefined || obj == null || obj == '';
     }
 
+
+
     // obtenerHorario(){
     //   Swal.fire({
     //     title: 'Cargando Horario...',
@@ -163,11 +172,11 @@ public isNotEmpty(obj: any): boolean {
     //     const { dia, hora_inicio, hora_fin, nombreMateria, acronimo, color, id, idMateria } = item;
     //     const horaInicioStr = `${hora_inicio.hour}:${hora_inicio.minute.toString().padStart(2, '0')}`;
     //     const horaFinStr = `${hora_fin.hour}:${hora_fin.minute.toString().padStart(2, '0')}`;
-      
+
     //     if (!acc[dia]) {
     //       acc[dia] = {};
     //     }
-      
+
     //     acc[dia][horaInicioStr] = {
     //       materia: nombreMateria,
     //       horaFin: horaFinStr,
@@ -176,13 +185,52 @@ public isNotEmpty(obj: any): boolean {
     //       id: id,
     //       idMateria: idMateria
     //     };
-      
+
     //     return acc;
     //   }, {});
-    
+
     //   console.log("horario transformado =>", horario);
     //   this.srvHorario.horario = horario;
     // }
+
+
+    openFilePicker(): void {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.addEventListener('change', (event: any) => this.handleFileUpload(event));
+      fileInput.click();
+    }
+
+    handleFileUpload(event: any): void {
+      const files = event.target.files;
+      if (files && files.length > 0) {
+        const file = files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        this.http.post<any>('backend_url', formData).subscribe(
+          (response) => {
+            const image: Image = {
+              url: response.imageUrl
+            };
+            this.images.push(image);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    }
+
+    deleteImage(image: Image): void {
+      const index = this.images.indexOf(image);
+      if (index !== -1) {
+        this.images.splice(index, 1);
+      }
+    }
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});
@@ -193,38 +241,38 @@ public isNotEmpty(obj: any): boolean {
 /*
   initCarousel(): void {
     const carousel = document.getElementById('carousel');
-  
+
     if (carousel) {
       const slides = carousel.querySelectorAll('.item');
       const prevButton = carousel.querySelector('.carousel-control.left');
       const nextButton = carousel.querySelector('.carousel-control.right');
-  
+
       const showSlide = (index: number) => {
         slides[this.currentIndex].classList.remove('active');
         slides[index].classList.add('active');
         this.currentIndex = index;
       };
-  
+
       const showNextSlide = () => {
         const nextIndex = (this.currentIndex + 1) % slides.length;
         showSlide(nextIndex);
       };
-  
+
       const showPreviousSlide = () => {
         const prevIndex = (this.currentIndex - 1 + slides.length) % slides.length;
         showSlide(prevIndex);
       };
-  
+
       if (prevButton) {
         prevButton.addEventListener('click', showPreviousSlide);
       }
-  
+
       if (nextButton) {
         nextButton.addEventListener('click', showNextSlide);
       }
     }
   }
   */
-  
-  
+
+
 }
