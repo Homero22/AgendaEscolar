@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
-import { IReporte } from '../models/reportes';
+import { IReporte, ModelReporte } from '../models/reportes';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ReportesService {
 
 
   getUsuariosPais(){
-    return this.http.get<any>(`${this.urlApi_Reportes}`,{
+    return this.http.get<ModelReporte>(`${this.urlApi_Reportes}`,{
       withCredentials: true
     })
   }

@@ -4,7 +4,7 @@ import { TareaService } from 'src/app/core/services/tarea.service';
 @Component({
   selector: 'app-welcome-page',
   templateUrl: './welcome-page.component.html',
-  styles: [
+  styleUrls: [ './welcome-page.component.css'
   ]
 })
 export class WelcomePageComponent {

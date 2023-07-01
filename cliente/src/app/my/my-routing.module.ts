@@ -8,6 +8,8 @@ import { TareasPageComponent } from './pages/tareas-page/tareas-page.component';
 import { ApuntesPageComponent } from './pages/apuntes-page/apuntes-page.component';
 import { AjustesPageComponent } from './pages/ajustes-page/ajustes-page.component';
 import { ApuntePagesComponent } from './pages/materia-page/page/apunte-pages/apunte-pages.component';
+import { ReportesPageComponent } from './pages/reportes-page/reportes-page.component';
+import { R } from '@angular/cdk/keycodes';
 
 // localhost:4200/me/''
 const routes: Routes = [
@@ -41,6 +43,10 @@ const routes: Routes = [
       {
         path: 'settings',
         component: AjustesPageComponent
+      },
+      {
+        path: 'reports',
+        component: ReportesPageComponent
       },
       {
         path: '**',
