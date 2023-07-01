@@ -40,6 +40,7 @@ fun Route.chatGptRoute(){
         }
         post {
             try{
+
                 val prompt = call.receive<promptModel>()
                 println(prompt)
                 val res = ChatLogic().postChat(prompt)
