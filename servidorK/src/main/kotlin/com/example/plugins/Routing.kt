@@ -20,5 +20,6 @@ fun Application.configureRouting() {
         recoverRouting()
         chatGptRoute()
         reportesRouting()
+        aniosRouting()
     }
 }

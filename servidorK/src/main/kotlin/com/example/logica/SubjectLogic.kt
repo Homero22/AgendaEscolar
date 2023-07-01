@@ -66,4 +66,8 @@ class SubjectLogic {
     fun getByUserId(id: Int): Any? {
         return obj.gGetByUserId(Subjects,id)
     }
+
+    fun getTotal(): Any {
+        return obj.gGetTotal(Subjects)
+    }
 }

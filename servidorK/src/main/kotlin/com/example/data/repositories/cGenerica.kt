@@ -1,6 +1,7 @@
 package com.example.data.repositories
 
 import com.example.data.models.*
+import com.example.data.models.reportes.usuariosPorMes
 
 class cGenerica <T> {
 
@@ -188,6 +189,36 @@ class cGenerica <T> {
         return when(homeworks) {
             is Homeworks -> {
                 homeworks.getAllByUserAndState(id.toLong(),estado)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetTotal(users: T): Long {
+        return when(users) {
+            is Users -> {
+                users.getTotal()
+            }
+            is Subjects -> {
+                users.getTotal()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetAllAnios(users: T): List<Any> {
+        return when(users) {
+            is Users -> {
+                users.getAllAnios()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetByAnio(users: T, anio: Int): List<usuariosPorMes>{
+        return when(users) {
+            is Users -> {
+                users.getUsuariosPorMes(anio)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
