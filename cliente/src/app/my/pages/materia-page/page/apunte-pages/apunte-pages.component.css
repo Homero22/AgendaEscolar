@@ -16,3 +16,12 @@
 .btn-Delete{
   color: red;
 }
+
+.btn-Return{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+  width: 30px !important;
+}
