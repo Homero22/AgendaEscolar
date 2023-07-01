@@ -42,8 +42,11 @@ export class MateriaPageComponent {
         next:(bool)=>{
           this.viewNotes = bool;
           console.log("Valor de bool =>",bool);
+          this.getMaterias();
         }
       });
+      //reiniciamos el valor del viewNotes
+      this.srvMateria.setBool(false);
     }
 
 
