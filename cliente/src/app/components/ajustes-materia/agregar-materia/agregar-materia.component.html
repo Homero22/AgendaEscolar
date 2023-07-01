@@ -1,4 +1,4 @@
-<div class="full-container">
+<!-- <div class="full-container">
   <form action="" [formGroup]="myForm">
     <div class="grid">
 
@@ -43,6 +43,56 @@
       </button>
     </div>
 
+  </form>
+
+</div> -->
+
+
+<div class="card container-Main">
+
+  <form action="" class="formgrid grid justify-content-evenly" [formGroup]="myForm">
+    <div class="grid w-12">
+      <div class="col">
+        <mat-form-field class="w-12">
+          <mat-label>Materia</mat-label>
+          <input matInput placeholder="Nombre de la materia" formControlName="nombre" required>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="w-12">
+          <mat-label>Acrónimo</mat-label>
+          <input matInput placeholder="Acrónimo de la materia" formControlName="materiaAcro" required>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="w-12">
+          <mat-label>Color</mat-label>
+          <div class="flex gap-2">
+            <div class="color-selector">
+              <input type="color" id="color-input" (input)="getColor($event)">
+              <div class="color-palette"></div>
+            </div>
+            <input matInput placeholder="Color de la materia" [value]="selectedColor" formControlName="materiaColor" readonly [disabled]="true">
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="w-12">
+          <mat-label>Profesor</mat-label>
+          <input matInput placeholder="Nombre del Profesor" formControlName="profesorNombre" required>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <button mat-button class="btn-Save" (click)="saveMateria()" [disabled]="myForm.invalid">
+          Agregar
+        </button>
+      </div>
+
+    </div>
   </form>
 
 </div>
