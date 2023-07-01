@@ -26,7 +26,6 @@ import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
-// import { MatDatetimepickerModule, MatNativeDatetimeModule } from "@mat-datetimepicker/core";
 
 @NgModule({
   declarations: [

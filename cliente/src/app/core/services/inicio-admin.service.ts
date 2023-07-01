@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
+import { bodyGraph } from '../models/inicio'
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class InicioAdminService {
   private urlApi_userTotal: string = config.URL_API_BASE + "users/total"
   private urlApi_materiasTotal: string = config.URL_API_BASE + "subjects/total"
   private urlApi_anios: string = config.URL_API_BASE + "anios"
-  private urlApi_adminT: string = config.URL_API_BASE + ""
+  private urlApi_adminT: string = config.URL_API_BASE + "users/total/admins"
   private urlApi_userxmes: string = config.URL_API_BASE + "users/anio"
 
   constructor(private http: HttpClient) { }
@@ -19,7 +20,7 @@ export class InicioAdminService {
   materiasT!: number;
   adminsT: number = 0;
   anios!: number;
-  datos!: number;
+  datos!: bodyGraph[];
 
   //-----------Para obtener los valores de los cards------------
 
