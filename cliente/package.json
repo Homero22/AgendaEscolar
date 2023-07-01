@@ -24,6 +24,7 @@
     "@sweetalert2/theme-bootstrap-4": "^5.0.15",
     "@syncfusion/ej2-angular-schedule": "^21.2.10",
     "@syncfusion/ej2-material-theme": "~21.2.10",
+    "chart.js": "^4.3.0",
     "ngx-quill": "^22.0.0",
     "quill": "^1.3.7",
     "rxjs": "~7.8.0",
