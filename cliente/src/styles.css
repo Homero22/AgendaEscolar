@@ -26,6 +26,7 @@ input:focus {
   --color-Black: #000;
   --color-White: #fff;
   --color-Shadow: #efefef;
+  --color-Delete: #990303;
 
   /*Fuentes*/
   --primary-color-text: #FFFFFF;

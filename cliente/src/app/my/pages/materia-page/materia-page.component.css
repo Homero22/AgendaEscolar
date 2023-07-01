@@ -74,3 +74,11 @@ h2{
 .mat-mdc-card-title-group .mat-mdc-card-title {
   padding-top: 4px;
 }
+
+.btn-Delete, .btn-Edit, .btn-Notes{
+  color: var(--secondary-color);
+}
+
+
+
+

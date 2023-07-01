@@ -52,7 +52,7 @@ export class ApuntePagesComponent {
     this.srvMateria.setIdMateria(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
-      width: '800px',
+      width: 'auto',
       height: 'auto'
     });
   }
@@ -62,7 +62,7 @@ export class ApuntePagesComponent {
     this.srvApuntes.setIdApunte(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
-      width: '800px',
+      width: 'auto',
       height: 'auto'
     });
   }
@@ -71,7 +71,7 @@ export class ApuntePagesComponent {
     this.srvApuntes.setIdApunte(id);
     this.srvModal.setTitleModal(title);
     this.dialog.open(ModalComponent,{
-      width: '800px',
+      width: 'auto',
       height: 'auto'
     });
   }
