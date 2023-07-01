@@ -168,6 +168,10 @@ export class ApuntePagesComponent {
     });
   }
 
+  sendBool(){
+
+  }
+
   //ngOnDestroy
   ngOnDestroy(): void {
     this.destroy$.next({});
