@@ -91,11 +91,7 @@ object Users : CrudRepository<User, Int>() {
                 mapOf(
                     "pais" to it[Countries.nombre],
                     "acronimo" to it[Countries.acronimo],
-<<<<<<< HEAD
                     "cantidad" to it[Users.id.count()]
-=======
-                    "cantidadad" to it[Users.id.count()]
->>>>>>> 770c9cdd7fe8e7c7beb5300bef5402910320e862
                 )
             }
         return@transaction response
