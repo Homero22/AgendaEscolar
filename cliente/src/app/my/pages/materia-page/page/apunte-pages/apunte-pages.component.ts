@@ -168,8 +168,10 @@ export class ApuntePagesComponent {
     });
   }
 
-  sendBool(){
-
+  //funcion para regresar al /me/signatures
+  return(){
+    this.srvMateria.setIdMateria(0);
+    this.srvMateria.setBool(false);
   }
 
   //ngOnDestroy
