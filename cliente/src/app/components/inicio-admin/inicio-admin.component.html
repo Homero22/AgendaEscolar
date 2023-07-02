@@ -1,45 +1,44 @@
-<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js" ></script> -->
-<div class="cardBox">
+<div class="container">
+    <div class="cardBox">
 
-    <div class="card">
-        <div>
-            <div class="numbers" >{{this.srvInicioAdmin.usuariosT}}</div>
-            <div class="cardName" > Usuarios</div>
+        <div class="card">
+            <div>
+                <div class="numbers" >{{this.srvInicioAdmin.usuariosT}}</div>
+                <div class="cardName" > Usuarios</div>
+            </div>
+            <div class="iconBx">
+                <mat-icon>supervised_user_circle</mat-icon>
+            </div>
         </div>
-        <div class="iconBx">
-            <mat-icon>supervised_user_circle</mat-icon>
+    
+        <div class="card">
+            <div>
+                <div class="numbers" >{{this.srvInicioAdmin.materiasT}}</div>
+                <div class="cardName" > Materias</div>
+            </div>
+            <div class="iconBx">
+                <mat-icon>play_circle_filled</mat-icon>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div>
+                <div class="numbers" >{{this.srvInicioAdmin.adminsT}}</div>
+                <div class="cardName" > Administradores</div>
+            </div>
+            <div class="iconBx">
+                <mat-icon>how_to_reg</mat-icon>
+                <!-- <i class="matrial-icon">person</i> -->
+            </div>
         </div>
     </div>
-
-    <div class="card">
-        <div>
-            <div class="numbers" >{{this.srvInicioAdmin.materiasT}}</div>
-            <div class="cardName" > Materias</div>
-        </div>
-        <div class="iconBx">
-            <mat-icon>play_circle_filled</mat-icon>
-        </div>
-    </div>
-
-    <div class="card">
-        <div>
-            <div class="numbers" >{{this.srvInicioAdmin.adminsT}}</div>
-            <div class="cardName" > Administradores</div>
-        </div>
-        <div class="iconBx">
-            <mat-icon>how_to_reg</mat-icon>
-            <!-- <i class="matrial-icon">person</i> -->
+    
+    <div class="graphBox">
+        <div class="box" >
+              <canvas id="myChart"></canvas>
         </div>
     </div>
 </div>
 
-<div class="graphBox">
-    <div class="box" >
-          <canvas id="myChart"></canvas>
-    </div>
-    <!-- <div class="box" ></div> -->
-
-
-</div>
 
 <!-- <canvas id="barChart"></canvas> -->
