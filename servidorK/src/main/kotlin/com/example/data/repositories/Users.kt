@@ -3,6 +3,7 @@ import com.example.data.entities.Countries
 import com.example.data.entities.Users
 import com.example.data.entities.UsersDAO
 import com.example.data.models.User
+import com.example.data.models.reportes.usuariosPorMes
 import org.jetbrains.exposed.sql.count
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -95,6 +96,34 @@ object Users : CrudRepository<User, Int>() {
                 )
             }
         return@transaction response
+    }
+
+    fun getTotal(identificador : Int): Long = transaction {
+            if(identificador ==1){
+                //obtener la cantidad de usuarios excepto rol administrador
+                val response = UsersDAO.all().filter { it.rol != "ADMINISTRADOR" }.count()
+                return@transaction response.toLong()
+            }else{
+                //obtener la cantidad de usuarios con rol administrador
+                val response = UsersDAO.all().filter { it.rol == "ADMINISTRADOR" }.count()
+                return@transaction response.toLong()
+            }
+
+    }
+    //funcion para obtener los años que esta en fechaCreacion
+    fun getAllAnios(): List<Int> = transaction {
+        //obtener todos los años de fechaCreacion sin repetir
+        val response = UsersDAO.all().map { it.fechaCreacion.year }.distinct()
+        return@transaction response
+    }
+    //funcion para obtener la cantidad de usuarios por mes y año
+    fun getUsuariosPorMes(anio: Int): List<usuariosPorMes> = transaction {
+        //obtener la cantidad de usuarios por mes y año
+          val response = UsersDAO.all().filter { it.fechaCreacion.year == anio }
+                .groupBy { it.fechaCreacion.monthValue }
+                .map { usuariosPorMes(it.key, it.value.count()) }
+        return@transaction response
+
     }
 
 }
