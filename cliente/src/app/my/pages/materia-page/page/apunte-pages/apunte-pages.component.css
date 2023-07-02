@@ -14,7 +14,15 @@
 }
 
 .btn-Delete{
-  color: red;
+  color: var(--secondary-color);
+}
+
+.btn-Edit{
+  color: var(--secondary-color);
+}
+
+.btn-GPT{
+  color: rgb(25, 195, 125);
 }
 
 .btn-Return{

@@ -87,8 +87,8 @@ export class MateriaPageComponent {
       this.srvMateria.setIdMateria(id);
       this.srvModal.setTitleModal(title);
       this.dialog.open(ModalComponent,{
-        width: '50%',
-        height: '56%'
+        width: '600px',
+        height: 'auto'
       });
     }
 
@@ -97,8 +97,8 @@ export class MateriaPageComponent {
       this.srvModal.setTitleModal(title);
         console.log("openModal");
         this.dialog.open(ModalComponent,{
-          width: '50%',
-          height: '56%'
+          width: '600px',
+          height: 'auto'
         });
     }
 
