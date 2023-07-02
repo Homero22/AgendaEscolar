@@ -148,55 +148,56 @@ getNumCard(){
   })
 }
 
-crearbarchart(){
-  console.log("entro a crearbarchart")
-    console.log("entro")
-    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
-    console.log("canvas ",canvas)
-    if (canvas instanceof HTMLCanvasElement) {
-      const ctx = canvas.getContext('2d');
-      console.log("ctx ",ctx)
-      if (ctx) {
+crearbarchart() {
+  console.log("entro a createBarChart");
+
+  const canvas = document.getElementById('myChart') as HTMLCanvasElement;
+  console.log("canvas ", canvas);
+
+  if (canvas instanceof HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    console.log("ctx ", ctx);
+
+    if (ctx) {
+      // Obtener todos los nombres de los meses
+      const meses = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      ];
+
+      // Generar el conjunto completo de etiquetas y valores
+      const labels = meses;
+      const valores = meses.map(mes => {
+        const dato = this.srvInicioAdmin.datos.find(d => d.mes === mes);
+        return dato ? dato.cantidad : 0;
+      });
+
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: labels,
           datasets: [{
-              label: 'N° Usuarios',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(0, 123, 255, 0.5)',
-                  'rgba(0, 123, 255, 0.5)',
-                  'rgba(0, 123, 255, 0.5)',
-                  'rgba(0, 123, 255, 0.5)',
-                  'rgba(0, 123, 255, 0.5)',
-                  'rgba(0, 123, 255, 0.5)'
-              ],
-              borderColor: [
-                  'rgba(0, 123, 255, 1)',
-                  'rgba(0, 123, 255, 1)',
-                  'rgba(0, 123, 255, 1)',
-                  'rgba(0, 123, 255, 1)',
-                  'rgba(0, 123, 255, 1)',
-                  'rgba(0, 123, 255, 1)'
-              ],
-              borderWidth: 1
+            label: 'N° Usuarios',
+            data: valores,
+            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 1
           }]
-      },
-      options: {
-        scales: {
-
-          y: {
-            beginAtZero: true
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
       });
     }
-    } else {
-      console.error("No se encontró el elemento canvas con el ID 'myChart'");
-    }
+  } else {
+    console.error("No se encontró el elemento canvas con el ID 'myChart'");
+  }
 }
+
 
 
 }
