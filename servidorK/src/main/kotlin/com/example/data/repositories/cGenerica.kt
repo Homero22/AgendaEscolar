@@ -142,6 +142,9 @@ class cGenerica <T> {
             is Notes ->{
                 obj.update(id, entity as Note)
             }
+            is Users ->{
+                obj.update(id, entity as User)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -194,10 +197,10 @@ class cGenerica <T> {
         }
     }
 
-    fun gGetTotal(users: T): Long {
+    fun gGetTotal(users: T, id: Int): Long {
         return when(users) {
             is Users -> {
-                users.getTotal()
+                users.getTotal(id)
             }
             is Subjects -> {
                 users.getTotal()
@@ -223,6 +226,7 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
 
     //buscamos nombre de materia
     /*

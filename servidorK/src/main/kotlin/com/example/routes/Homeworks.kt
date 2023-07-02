@@ -23,13 +23,8 @@ fun Route.homeworksRouting(){
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //envio capa logica
                 val res = HomeworksLogic().getAll(limit, offset);
-                if(res!=null){
-                    val response = Response(true,"Tareas obtenidas correctamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val response = Response(false,"No se encontraron tareas", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }
+                val response = Response(true,"Tareas obtenidas correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
@@ -119,12 +114,14 @@ fun Route.homeworksRouting(){
             try {
                 // envio capa logica
                 val homework = HomeworksLogic().delete(id);
-                if (homework != null){
-                    val response = Homeworks.delete(id)
-                    call.respond(HttpStatusCode(200, "OK"), response)
+                if(homework==1){
+                    val response = ResponseSingle(true,"Tarea eliminada correctamente", homework)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    call.respond(HttpStatusCode.NotFound, "Tarea no encontrada")
+                    val response = ResponseSingle(false,"No se encontro tarea", homework)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
+
             }catch ( cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }

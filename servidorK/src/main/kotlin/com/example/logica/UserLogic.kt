@@ -60,8 +60,8 @@ class UserLogic {
         return obj.gSave(Users,entity) as User
     }
 
-    fun getTotal(): Any {
-        return obj.gGetTotal(Users)
+    fun getTotal(id:Int): Any {
+        return obj.gGetTotal(Users,id)
     }
 
 
@@ -101,6 +101,18 @@ class UserLogic {
             else -> "Mes inválido"
         }
     }
+
+    fun updateUser(id: Int, user: User): Int {
+        val respuesta = obj.gGgetById(Users,id)
+
+        return if(respuesta == null){
+            0
+        }else{
+            obj.gUpdate(Users,id,user)
+            1
+        }
+    }
+
 
 
 }

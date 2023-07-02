@@ -98,8 +98,17 @@ object Users : CrudRepository<User, Int>() {
         return@transaction response
     }
 
-    fun getTotal(): Long = transaction {
-        return@transaction UsersDAO.all().count()
+    fun getTotal(identificador : Int): Long = transaction {
+            if(identificador ==1){
+                //obtener la cantidad de usuarios excepto rol administrador
+                val response = UsersDAO.all().filter { it.rol != "ADMINISTRADOR" }.count()
+                return@transaction response.toLong()
+            }else{
+                //obtener la cantidad de usuarios con rol administrador
+                val response = UsersDAO.all().filter { it.rol == "ADMINISTRADOR" }.count()
+                return@transaction response.toLong()
+            }
+
     }
     //funcion para obtener los años que esta en fechaCreacion
     fun getAllAnios(): List<Int> = transaction {

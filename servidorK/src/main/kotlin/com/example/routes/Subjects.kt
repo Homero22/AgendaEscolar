@@ -72,7 +72,7 @@ fun Route.subjectsRouting(){
         get("/total") {
             try {
                 //Enviamos a capa logica
-                val res = SubjectLogic().getTotal();
+                val res = SubjectLogic().getTotal(1);
                 if(res!=null){
                     val response = ResponseSingle(true,"Total de materias obtenido correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
