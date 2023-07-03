@@ -107,6 +107,8 @@ dependencies {
 
     //WPP
     implementation("com.twilio.sdk:twilio:9.7.0")
+    implementation ("com.github.kittinunf.fuel:fuel:2.3.1")
+
 
 
     //htttp

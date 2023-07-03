@@ -2,6 +2,7 @@ package com.example.data.repositories
 
 import com.example.data.models.*
 import com.example.data.models.reportes.usuariosPorMes
+import java.time.LocalTime
 
 class cGenerica <T> {
 
@@ -235,9 +236,59 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+    fun gGetTareas(homeworks: T, id: Int, estado: String): List<Homework> {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getAllByUserAndState(id.toLong(), estado)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gGetNumero(homeworks: T, idUser: Long): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getPhoneById(idUser.toLong())
+            }
+
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetTituloTarea(homeworks: T, idUser: Long): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getHomeworkByIdUserAndIdHomework(idUser.toLong())
+            }
+
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetNombre(homeworks: T, idUser: Long): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getNameUserTarea(idUser.toLong())
+            }
+
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetHoraEntrega(homeworks: T, idUser: Long): LocalTime? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getHoraEntrega(idUser.toLong())
+            }
+
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+}
 
 
-    //buscamos nombre de materia
+
+//buscamos nombre de materia
     /*
     fun gGetDataSubjects(obj: T): List<Any> {
         return when(obj) {
@@ -252,4 +303,3 @@ class cGenerica <T> {
 
 
 
-}
