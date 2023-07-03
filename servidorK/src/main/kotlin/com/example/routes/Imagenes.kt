@@ -19,10 +19,11 @@ fun Route.imagenesRouting(){
            var fileName: String? = null
            println("Llega al post de imagenes")
            //Obtengo el path del archivo.env
-           val folder = dotenv()["UPLOADS_PATH"]
-           println("Path de imagenes desde ENV: $folder")
+           //val folder = dotenv()["UPLOADS_PATH"]
+           //println("Path de imagenes desde ENV: $folder")
 
-           val folder1 = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
+           val folder = Paths.get("src/main/resources/uploads/images").toAbsolutePath().toString()
+              println("Aboslute path 1: $folder")
 
            multipart.forEachPart { part ->
                when(part){
