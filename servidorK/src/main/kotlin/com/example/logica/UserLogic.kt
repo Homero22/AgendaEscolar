@@ -113,6 +113,9 @@ class UserLogic {
         }
     }
 
+    fun getAdmins(): Any {
+        return obj.gGetAdmins(Users)
+    }
 
 
 }
