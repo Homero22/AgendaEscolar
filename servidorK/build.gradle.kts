@@ -95,8 +95,7 @@ dependencies {
     implementation("com.sun.mail:javax.mail:1.6.2")
 
 
-    //Env
-    implementation("io.github.cdimascio:java-dotenv:5.1.3")
+
 
 
     //Token

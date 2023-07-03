@@ -2,6 +2,7 @@ package com.example.routes
 
 import com.example.utils.ResponseEmpty
 import com.example.utils.sendJsonResponse
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.server.application.*
@@ -17,7 +18,11 @@ fun Route.imagenesRouting(){
            val multipart = call.receiveMultipart()
            var fileName: String? = null
            println("Llega al post de imagenes")
-           val folder = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
+           //Obtengo el path del archivo.env
+           val folder = dotenv()["UPLOADS_PATH"]
+           println("Path de imagenes desde ENV: $folder")
+
+           val folder1 = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
 
            multipart.forEachPart { part ->
                when(part){
