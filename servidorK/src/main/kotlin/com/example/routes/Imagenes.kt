@@ -1,5 +1,8 @@
 package com.example.routes
 
+import com.example.utils.ResponseEmpty
+import com.example.utils.sendJsonResponse
+import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -38,7 +41,8 @@ fun Route.imagenesRouting(){
                }
                part.dispose()
            }
-              call.respondText("Archivo subido correctamente: $fileName")
+           val response = ResponseEmpty(true,"Archivo subido correctamente", emptyList())
+           sendJsonResponse(call, HttpStatusCode.OK, response)
        }
 
     }
