@@ -25,7 +25,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius);
-  background-color: var(--quaternary-color); 
+  background-color: var(--quaternary-color);
   /* width: -webkit-fill-available; */
 
 }
@@ -147,7 +147,7 @@
       .item {
           transition-property: opacity;
       }
-      
+
       .item,
       .active.left,
       .active.right {
@@ -176,10 +176,10 @@
 
 
 
-html, 
-body, 
-.carousel, 
-.carousel-inner, 
+html,
+body,
+.carousel,
+.carousel-inner,
 .carousel-inner .item {
   height: 100%;
 }
@@ -196,3 +196,53 @@ body,
   background: #E46653;
 }
 */
+
+
+/* Apartado para el Slider */
+.container {
+  position: relative;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.upload-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  padding-top: 10px;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  margin-top: 5px;
+}
+
+/* Estilos adicionales para mejorar la apariencia del carrusel */
+.carousel {
+  scrollbar-width: thin;
+  scrollbar-color: grey grey;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background-color: grey;
+}
+
+

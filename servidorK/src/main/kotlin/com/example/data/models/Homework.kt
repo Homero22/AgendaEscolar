@@ -11,6 +11,7 @@ data class Homework (
     val tareaDescripcion: String,
     val fechaCreacion: String,
     val fechaFin: String,
+    val horaEntrega: String,
     val tareaEstado: String,
     val tareaRecordatorio: String,
 )

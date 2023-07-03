@@ -1,5 +1,5 @@
 <div class="full-container">
-  <div class="m-3 pb-3 container-Title">
+  <div class="grid m-3 pb-3 container-Title">
     <div class="flex align-items-center gap-3">
       <button mat-stroked-button class="btn-Return" (click)="return()">
         <i class="material-icons">arrow_back_ios</i>
@@ -15,6 +15,7 @@
     </div>
   </div>
 
+
   <div *ngIf="">
     <div>
       <label for="">No existen apuntes para esta materia :(</label>
@@ -26,29 +27,30 @@
     <div class="col-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
 
       <mat-card class="flex-row align-content-center" *ngIf="apunte.idMateria === this.idMateria">
-        <mat-card-content class="container-Content">
-          <div class="uppercase">
+        <mat-card-content class="container-Content grid">
+          <div class="uppercase col">
             {{apunte.apunteTitulo}}
           </div>
-          <div>
+          <div class="col">
             {{this.srvMateria.materia.nombre}}
           </div>
-          <div>
+          <div class="col">
             {{apunte.fechaCreacion.date.day}}-{{apunte.fechaCreacion.date.month}}-{{apunte.fechaCreacion.date.year}}
           </div>
-          <div>
+          <div class="col">
             <button mat-stroked-button
               (click)="openModalEdit('Editar Apunte', apunte.id)"
             >
-              <i class="material-icons">edit</i>
+              <i class="material-icons btn-Edit">edit</i>
             </button>
             <button mat-stroked-button
+              class="btn-Delete"
               (click)="deleteApunte(apunte.id)"
             >
               <i class="material-icons btn-Delete">delete</i>
             </button>
             <button mat-stroked-button [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
-              <i class="material-icons">tips_and_updates</i>
+              <i class="material-icons btn-GPT">tips_and_updates</i>
             </button>
           </div>
         </mat-card-content>
