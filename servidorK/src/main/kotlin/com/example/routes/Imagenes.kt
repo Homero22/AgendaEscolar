@@ -9,6 +9,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.io.File
+import java.nio.file.Paths
 
 fun Route.imagenesRouting(){
     route("/uploads") {
@@ -16,12 +17,13 @@ fun Route.imagenesRouting(){
            val multipart = call.receiveMultipart()
            var fileName: String? = null
            println("Llega al post de imagenes")
+           val folder = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
 
            multipart.forEachPart { part ->
                when(part){
                    is PartData.FileItem->{
                        val file = part.originalFileName?.let { fileName ->
-                           File("uploads",fileName)
+                           File(folder,fileName)
 
                        }
                        part.streamProvider().use{
