@@ -76,5 +76,8 @@ object Subjects : CrudRepository<Subject, Int> () {
             return@transaction 1
         }
     }
+    fun getTotal():Long = transaction {
+        return@transaction SubjectDAO.count()
+    }
 
 }
