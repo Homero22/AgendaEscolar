@@ -227,6 +227,15 @@ class cGenerica <T> {
         }
     }
 
+    fun gGetAdmins(users: T): List<Any> {
+        return when(users) {
+            is Users -> {
+                users.getAdministradores()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
 
     //buscamos nombre de materia
     /*

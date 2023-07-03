@@ -194,6 +194,24 @@ fun Route.usuariosRouting() {
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
+        get("/administradores"){
+            try {
+                //Lógica
+                val user = UserLogic().getAdmins()
+                if (user != null) {
+                    val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                } else {
+                    val response = Response(false, "Usuario no encontrado", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
+                }
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
+            }
+
+        }
     }
     //ruta para seguridad, loguin, logout, registro
 

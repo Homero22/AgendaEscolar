@@ -125,6 +125,11 @@ object Users : CrudRepository<User, Int>() {
         return@transaction response
 
     }
+    //funcion que devuelve todos los usuarios con rol administrador
+    fun getAdministradores(): List<User> = transaction {
+        val response = UsersDAO.all().filter { it.rol == "ADMINISTRADOR" }
+        return@transaction response.map { it.toUser() }
+    }
 
 }
 
