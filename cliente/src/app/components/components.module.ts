@@ -27,7 +27,8 @@ import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module'
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
-
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -44,7 +45,7 @@ import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mo
     EditarTareaComponent,
     ContenidoApunteComponent,
     InicioAdminComponent,
-    MostrarAdminsComponent
+    MostrarAdminsComponent,
 
   ],
   imports: [
@@ -62,6 +63,8 @@ import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mo
     QuillModule.forRoot(),
     QuillModule,
     MateriaPageModule,
+    MatTableModule,
+    MatPaginatorModule
     // MatDatetimepickerModule,
     // MatNativeDatetimeModule
   ],
