@@ -35,6 +35,8 @@ export class MostrarAdminsComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
+
+  
 }
 
 
