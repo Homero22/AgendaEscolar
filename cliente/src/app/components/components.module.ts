@@ -26,6 +26,7 @@ import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
     AgregarTareaComponent,
     EditarTareaComponent,
     ContenidoApunteComponent,
-    InicioAdminComponent
+    InicioAdminComponent,
+    MostrarAdminsComponent
 
   ],
   imports: [
@@ -76,7 +78,8 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
     AgregarTareaComponent,
     EditarTareaComponent,
     ContenidoApunteComponent,
-    InicioAdminComponent
+    InicioAdminComponent,
+    MostrarAdminsComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
  

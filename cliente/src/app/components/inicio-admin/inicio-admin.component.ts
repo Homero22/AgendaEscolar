@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-// import { Chart } from 'chart.js'; 
 import { takeUntil, Subject } from 'rxjs';
 import { InicioAdminService } from 'src/app/core/services/inicio-admin.service';
 import Chart from 'chart.js/auto';
@@ -21,20 +20,8 @@ export class InicioAdminComponent {
   ngOnInit(): void {
     this.getNumCard();
     this.getDatosGrafico();
-    // this.crearbarchart();
 
-  }
-
-  ngAfterViewInit() {
-    // if (this.srvInicioAdmin.datos) {
-    //   console.log("existe datos")
-    //   setTimeout(() => {
-    //     this.createBarChart();
-    //   }, 100);
-    // }
-    // this.crearbarchart();
-  }
-  
+  } 
 
   getDatosGrafico(){
     const fechaActual = new Date();
@@ -50,9 +37,6 @@ export class InicioAdminComponent {
     })
 
     this.getcontenido(anio)
-    // this.createBarChart();
-    // this.crearbarchart();
-
 
 }
 
