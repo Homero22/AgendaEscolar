@@ -26,6 +26,7 @@ input:focus {
   --color-Black: #000;
   --color-White: #fff;
   --color-Shadow: #efefef;
+  --color-Delete: #990303;
 
   /*Fuentes*/
   --primary-color-text: #FFFFFF;
@@ -56,6 +57,11 @@ input:focus {
 
 .container-Title{
   display: flex;
+  /* flex-direction: column;
+  gap: 10px; */
+  justify-content: space-between;
+  border-bottom: 1px solid var(--quaternary-color);
+  padding-bottom: 20px;
   flex-direction: row;
   gap: 10px;
 }
@@ -82,4 +88,31 @@ input:focus {
 .btn-agg:hover {
   background-color: var(--quinary-color);
   color: var(--tertiary-color);
+}
+
+.mat-mdc-form-field {
+  width: -webkit-fill-available;
+}
+
+form{
+  width: -webkit-fill-available;
+}
+
+/*----------Botón agregar de modal---------------*/
+.modal-Button {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.modal-Button button {
+  width: 100%;
+  color: var(--tertiary-color);
+  background-color: var(--primary-color);
+}
+
+/*botón desabihilitado*/
+.modal-Button button:disabled {
+  background-color: var(--quinary-color);
 }

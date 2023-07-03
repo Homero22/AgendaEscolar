@@ -42,8 +42,11 @@ export class MateriaPageComponent {
         next:(bool)=>{
           this.viewNotes = bool;
           console.log("Valor de bool =>",bool);
+          this.getMaterias();
         }
       });
+      //reiniciamos el valor del viewNotes
+      this.srvMateria.setBool(false);
     }
 
 
@@ -84,8 +87,8 @@ export class MateriaPageComponent {
       this.srvMateria.setIdMateria(id);
       this.srvModal.setTitleModal(title);
       this.dialog.open(ModalComponent,{
-        width: '50%',
-        height: '56%'
+        width: '600px',
+        height: 'auto'
       });
     }
 
@@ -94,8 +97,8 @@ export class MateriaPageComponent {
       this.srvModal.setTitleModal(title);
         console.log("openModal");
         this.dialog.open(ModalComponent,{
-          width: '50%',
-          height: '56%'
+          width: '600px',
+          height: 'auto'
         });
     }
 

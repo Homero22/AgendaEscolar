@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import Swal from 'sweetalert2';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { DatePipe } from '@angular/common';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-editar-tarea',
@@ -26,7 +27,8 @@ export class EditarTareaComponent {
     private fb: FormBuilder,
     private srvTarea: TareaService,
     public srvMateria: MateriaService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    private srvModal: ModalService
   ) {
     this.idUser = sessionStorage.getItem("id");
     this.idUser = parseInt(this.idUser);
@@ -97,8 +99,8 @@ export class EditarTareaComponent {
   ngOnInit(): void {
     if(this.srvMateria.datosMateria===undefined){
       this.getMaterias();
-      this.completeForm();
     }
+    this.completeForm();
   }
 
   getMaterias(){
@@ -169,7 +171,7 @@ export class EditarTareaComponent {
               ]
             ]
           });
-
+          console.log("Completar formulario", this.myForm.value)
           this.selectedEstado = tareaData.body.tareaEstado;
           this.selectedMateria = tareaData.body.idMateria;
 
@@ -198,6 +200,7 @@ export class EditarTareaComponent {
           });
           this.getTareasEstado(1);
           this.getTareas();
+          this.srvModal.setCloseMatDialog(true);
         }else{
           Swal.fire({
             icon: 'error',

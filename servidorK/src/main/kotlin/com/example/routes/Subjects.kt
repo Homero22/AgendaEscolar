@@ -69,6 +69,24 @@ fun Route.subjectsRouting(){
             }
 
         }
+        get("/total") {
+            try {
+                //Enviamos a capa logica
+                val res = SubjectLogic().getTotal(1);
+                if(res!=null){
+                    val response = ResponseSingle(true,"Total de materias obtenido correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSimple(false,"No se pudo obtener total de materias")
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
+
+            }catch (
+                cause: Throwable
+            ) {
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }
+        }
         post {
            try {
                println("Llega a la ruta")

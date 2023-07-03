@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+// import { AuthInterceptor } from 'src/app/core/security/auth.interceptor';
 import { MateriaService } from 'src/app/core/services/materia.service';
 
 
@@ -8,24 +10,35 @@ import { MateriaService } from 'src/app/core/services/materia.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  private destroy$ = new Subject<any>();
 
   constructor(
     private router: Router,
     private srvMaterias: MateriaService
     ) { }
 
+  ngOnInit(): void {
+  }
+
   cerrarSesion(){
-    console.log("cerrar sesion");
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('rol');
     //ruta de redireccionamiento auth/ingreso
     this.router.navigate(['auth/ingreso']);
-
+    // this.authInterceptor;
   }
 
   sendBool(){
     this.srvMaterias.setBool(false);
   }
 
+  ngonDestroy(){
+    this.sendBool();
+    this.destroy$.next({});
+    this.destroy$.complete();
+  }
 
 }

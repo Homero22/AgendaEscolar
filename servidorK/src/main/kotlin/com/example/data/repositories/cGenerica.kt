@@ -1,6 +1,7 @@
 package com.example.data.repositories
 
 import com.example.data.models.*
+import com.example.data.models.reportes.usuariosPorMes
 
 class cGenerica <T> {
 
@@ -142,6 +143,9 @@ class cGenerica <T> {
             is Notes ->{
                 obj.update(id, entity as Note)
             }
+            is Users ->{
+                obj.update(id, entity as User)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -193,6 +197,46 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
+    fun gGetTotal(users: T, id: Int): Long {
+        return when(users) {
+            is Users -> {
+                users.getTotal(id)
+            }
+            is Subjects -> {
+                users.getTotal()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetAllAnios(users: T): List<Any> {
+        return when(users) {
+            is Users -> {
+                users.getAllAnios()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetByAnio(users: T, anio: Int): List<usuariosPorMes>{
+        return when(users) {
+            is Users -> {
+                users.getUsuariosPorMes(anio)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetAdmins(users: T): List<Any> {
+        return when(users) {
+            is Users -> {
+                users.getAdministradores()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
 
     //buscamos nombre de materia
     /*

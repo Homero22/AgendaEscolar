@@ -36,6 +36,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
             fechaFin = java.time.LocalDate.parse(entity.fechaFin)
+            horaEntrega = java.time.LocalTime.parse(entity.horaEntrega)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }
@@ -49,9 +50,11 @@ object Homeworks: CrudRepository<Homework, Int>() {
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
             fechaFin = java.time.LocalDate.parse(entity.fechaFin)
+            horaEntrega = java.time.LocalTime.parse(entity.horaEntrega)
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }?.toHomework()
+        getAllByUserAndStatePendientes(entity.idUser, entity.tareaEstado)
         return@transaction response!!
     }
 
@@ -64,7 +67,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
     fun getAllByUser(id: Long):List<Any> = transaction {
 
         val res = Homeworks
-            .select({ Homeworks.idUser eq id })
+            .select { Homeworks.idUser eq id }
             .map {
                 mapOf(
                     "id" to it[Homeworks.id].value,
@@ -75,6 +78,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
                     "tareaDescripcion" to it[Homeworks.tareaDescripcion],
                     "fechaCreacion" to it[Homeworks.fechaCreacion],
                     "fechaFin" to it[Homeworks.fechaFin],
+                    "horaEntrega" to it[Homeworks.horaEntrega],
                     "tareaEstado" to it[Homeworks.tareaEstado],
                     "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
                 )
@@ -97,11 +101,22 @@ object Homeworks: CrudRepository<Homework, Int>() {
                     "tareaDescripcion" to it[Homeworks.tareaDescripcion],
                     "fechaCreacion" to it[Homeworks.fechaCreacion],
                     "fechaFin" to it[Homeworks.fechaFin],
+                    "horaEntrega" to it[Homeworks.horaEntrega],
                     "tareaEstado" to it[Homeworks.tareaEstado],
                     "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
                 )
             }
         return@transaction res
+    }
+
+    //funcion para obtener todas las tareas pendientes de un usuario y devolver in List <Homework>
+
+
+    fun getAllByUserAndStatePendientes(id: Long, state: String):List<Homework> = transaction {
+        val response = HomeworkDAO.all()
+            .filter { it.idUser == id.toLong() && it.tareaEstado == state }
+
+        return@transaction response.map { it.toHomework() }
     }
 
 }

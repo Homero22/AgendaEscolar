@@ -43,13 +43,17 @@
           <i class="material-icons">calendar_month</i>
           <p>Horario</p>
         </button>
-        <button mat-button class="btn-Option" routerLink="/me/signatures">
+        <button mat-button class="btn-Option" (click)="sendBool()" routerLink="/me/signatures">
           <i class="material-icons">collections_bookmark</i>
           <p>Materias</p>
         </button>
-        <button mat-button class="btn-Option" (click)="sendBool()" routerLink="/me/homeworks">
-          <i class="material-icons">description</i>
+        <button mat-button class="btn-Option" routerLink="/me/homeworks">
+          <i class="material-icons">list_alt</i>
           <p>Tareas</p>
+        </button>
+        <button mat-button class="btn-Option" routerLink="/me/reports">
+          <i class="material-icons">description</i>
+          <p>Reportes</p>
         </button>
       </div>
 

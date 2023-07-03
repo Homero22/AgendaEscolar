@@ -11,7 +11,6 @@ export class TareaService {
   private urlApi_Tareas: string = config.URL_API_BASE + "homeworks";
   private urlApi_TareasUsuario: string = config.URL_API_BASE + "homeworks/user";
   private urlApi_TareasEstado: string = config.URL_API_BASE + "homeworks/estado";
-
   constructor(private http: HttpClient) { }
 
   // ------------------------ TAREAS BEHAVIORSUBJECTS ------------------------
@@ -77,5 +76,21 @@ export class TareaService {
         withCredentials: true
       });
   }
+/*
+  // ------------------------ RECORDATORIOS ------------------------
+  getRecordatorios(){
+    return this.http.get<any>(`${this.urlApi_recordatorio}`,
+      {
+        withCredentials: true
+      });
+  }
 
+  postRecordatorio(dataRecordatorio: any){
+    console.log("dataRecordatorio =>", dataRecordatorio);
+    return this.http.post<any>(`${this.urlApi_recordatorio}`, dataRecordatorio,
+      {
+        withCredentials: true
+      });
+  }
+*/
 }
