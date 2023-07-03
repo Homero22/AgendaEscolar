@@ -1,9 +1,5 @@
 package com.example.services
 
-<<<<<<< HEAD
-class wpp {
-}
-=======
 import com.twilio.Twilio
 import com.twilio.rest.api.v2010.account.Message
 import com.twilio.type.PhoneNumber
@@ -34,4 +30,3 @@ object Wpp {
     }
 
 }
->>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11

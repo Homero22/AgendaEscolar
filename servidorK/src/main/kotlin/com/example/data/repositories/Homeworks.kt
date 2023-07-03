@@ -35,11 +35,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
             fechaCreacion = java.time.LocalDateTime.now()
-<<<<<<< HEAD
-            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
-=======
             fechaFin = java.time.LocalDate.parse(entity.fechaFin)
->>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }
@@ -51,12 +47,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
         val response = HomeworkDAO.findById(id.toLong())?.apply {
             tareaTitulo = entity.tareaTitulo
             tareaDescripcion = entity.tareaDescripcion
-<<<<<<< HEAD
-            fechaFin = java.time.LocalDateTime.parse(entity.fechaFin)
-=======
             fechaCreacion = java.time.LocalDateTime.now()
             fechaFin = java.time.LocalDate.parse(entity.fechaFin)
->>>>>>> 8521cdddb37c502c7320a3531907a690ba6d9d11
             tareaEstado = entity.tareaEstado
             tareaRecordatorio = java.time.LocalTime.parse(entity.tareaRecordatorio)
         }?.toHomework()
