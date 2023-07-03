@@ -1,6 +1,7 @@
 package com.example.plugins
 
 import com.example.routes.*
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
 import io.ktor.server.response.*
@@ -25,8 +26,9 @@ fun Application.configureRouting() {
         reportesRouting()
         aniosRouting()
         // Configuración de la ruta para servir archivos estáticos
-        val folder = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
-        println("Aboslute path: $folder")
+        val folder = dotenv()["UPLOADS_PATH"]
+        //val folder = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
+        println("Aboslute path routing: $folder")
         staticFiles(
             "/uploads",
             File(folder)
