@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import config from 'config/config';
+import { UsuarioModel} from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AdministradorService {
 
   constructor(private http: HttpClient) { }
 
+  administradores!: UsuarioModel[];
   // ------------------------ ADMINISTRADOR ------------------------
 
   // Obtener todos los administradores
