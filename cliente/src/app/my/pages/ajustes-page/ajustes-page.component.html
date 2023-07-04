@@ -1,6 +1,31 @@
-<div class="grid p-3">
-  <div class="col-12 p-3 container-Main">
-    <label for="" class="lbl-Title">Configuración de la Cuenta</label>
-    <label for="" class="lbl-Hint">Administra los datos de tu cuenta</label>
+<div class="grid p-1 m-3 container-Main">
+  <div class="col-12 p-2 ">
+    <div class="grid">
+      <label for="" class="lbl-Title col-12">Configuración de la Cuenta</label>
+      <label for="" class="lbl-Hint col-12">Administra los datos de tu cuenta</label>
+    </div>
   </div>
+
+  <form class="grid col-12 p-2" [formGroup]="myForm">
+    <div class="col flex align-content-center">
+      <mat-form-field appearance="outline" class="">
+        <mat-label>Nombres</mat-label>
+        <input matInput >
+        <button mat-stroked-button matSuffix class="mr-3">
+          <i class="material-icons">edit</i>
+        </button>
+      </mat-form-field>
+
+
+    </div>
+
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>Outline form field</mat-label>
+        <input matInput placeholder="Placeholder">
+      </mat-form-field>
+    </div>
+
+  </form>
+
 </div>
