@@ -26,16 +26,16 @@ fun Application.configureRouting() {
         reportesRouting()
         aniosRouting()
         // Configuración de la ruta para servir archivos estáticos
-        val folder = dotenv()["UPLOADS_PATH"]
+        //val folder = dotenv()["UPLOADS_PATH"]
         //val folder = Paths.get("src/main/resources/uploads", "images").toAbsolutePath().toString()
         val images = File("uploadsImages")
         val absolutePath = images.absolutePath
         println("Aboslute path definitivo xd : $absolutePath")
 
-        println("Aboslute path routing: $folder")
+        //println("Aboslute path routing: $folder")
         staticFiles(
             "/uploads",
-            File(folder)
+            File(absolutePath)
         )
         imagenesRouting()
         //D:\ClassBuddy\servidorK\src\main\resources\uploads\images
