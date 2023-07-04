@@ -11,9 +11,23 @@ export class WelcomePageComponent {
 
   constructor(
     private tareaService: TareaService
-  ) {  }
+  ) { this.permisos }
+  // permiso: boolean = true
+  permiso: boolean = false
 
+  ngOnInit(): void {
+    // this.permisos();
+  }
 
+  permisos(){
+    const rol =  sessionStorage.getItem('rol');
+    console.log("rol => ", rol)
+    if(rol == 'USUARIO'){
+      this.permiso = false;
+      console.log ("tiene permiso ? ",this.permiso)
+    }
+    // this.rol = parseInt(this.idUser);
+  }
   // ------------------------ Recordatorios ------------------------
 /*
   recordatorios: any = {

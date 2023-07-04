@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
     console.log("rol => ", rol)
     if(rol == 'USUARIO'){
       this.permiso = false;
+      // this.permiso = true;
       console.log ("tiene permiso ? ",this.permiso)
     }
     // this.rol = parseInt(this.idUser);
