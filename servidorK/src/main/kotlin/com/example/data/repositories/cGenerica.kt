@@ -120,6 +120,9 @@ class cGenerica <T> {
             is Homeworks ->{
                 obj.getById(id)
             }
+            is ImagesRepo ->{
+                obj.getById(id) as Image
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }

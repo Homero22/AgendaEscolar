@@ -4,6 +4,7 @@ import com.example.data.models.Image
 import com.example.data.repositories.ImagesRepo
 import com.example.logica.ImagesLogic
 import com.example.utils.ResponseEmpty
+import com.example.utils.ResponseImage
 import com.example.utils.sendJsonResponse
 import io.github.cdimascio.dotenv.dotenv
 
@@ -84,6 +85,25 @@ fun Route.imagenesRouting(){
                 sendJsonResponse(call, HttpStatusCode.OK, response)
            }
        }
+
+        get("/{id}"){
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            //Envio a la capa logica
+            val image = ImagesLogic().getImage(id)
+            if(image!=null){
+
+                //envío al cliente la imagen en formato binario
+
+                val imagenBinario = File(image.path).readBytes()
+
+                val response = ResponseImage(true,"Imagen encontrada", imagenBinario)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }else{
+                val response = ResponseEmpty(false,"No se encontro imagen", emptyList())
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }
+
+        }
 
 
     }
