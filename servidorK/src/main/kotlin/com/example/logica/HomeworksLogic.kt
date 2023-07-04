@@ -48,6 +48,7 @@ class HomeworksLogic {
 
     fun delete(id: Int): Any {
         val respuesta = obj.gGgetById(Homeworks,id)
+
         if (respuesta != null) {
             obj.gDelete(Homeworks,id)
             return 1
@@ -62,5 +63,7 @@ class HomeworksLogic {
         }
         return 0
     }
+
+
 
 }

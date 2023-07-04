@@ -1,9 +1,14 @@
 package com.example.plugins
 
 import com.example.routes.*
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
+import io.ktor.server.http.content.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.io.File
+import java.nio.file.FileSystems
+import java.nio.file.Paths
 
 fun Application.configureRouting() {
     routing {
@@ -20,5 +25,18 @@ fun Application.configureRouting() {
         recoverRouting()
         chatGptRoute()
         reportesRouting()
+        aniosRouting()
+
+        imagenesRouting()
+
+        val resourcePath = object {}.javaClass.classLoader.getResource("uploads/images")?.path
+        val folder = resourcePath?.let { File(it).absolutePath }
+
+        println( "folder: $folder")
+
+
+
+
     }
+
 }

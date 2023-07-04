@@ -25,11 +25,15 @@ import { DatePipe } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
-
+import { SliderComponent } from './slider/slider.component';
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatTimepickerModule } from '@angular/material/timepicker';
 
+import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -44,7 +48,10 @@ import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/cont
     EditarApunteComponent,
     AgregarTareaComponent,
     EditarTareaComponent,
-    ContenidoApunteComponent
+    ContenidoApunteComponent,
+    SliderComponent,
+    InicioAdminComponent,
+    MostrarAdminsComponent,
 
   ],
   imports: [
@@ -61,10 +68,14 @@ import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/cont
     MatNativeDateModule,
     QuillModule.forRoot(),
     QuillModule,
-    MateriaPageModule
+    MateriaPageModule,
     // MatTimepickerModule,
 
     // BrowserModule
+    MatTableModule,
+    MatPaginatorModule
+    // MatDatetimepickerModule,
+    // MatNativeDatetimeModule
   ],
   exports: [
     ApuntesComponent,
@@ -78,8 +89,13 @@ import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/cont
     EditarApunteComponent,
     AgregarTareaComponent,
     EditarTareaComponent,
-    ContenidoApunteComponent
+    ContenidoApunteComponent,
+    SliderComponent,
+    InicioAdminComponent,
+    MostrarAdminsComponent
   ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
+
+  ],
 })
 export class ComponentsModule { }

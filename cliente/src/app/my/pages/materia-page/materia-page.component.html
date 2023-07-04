@@ -20,9 +20,9 @@
     <mat-grid-list cols="4" rowHeight="2:1">
       <div class="card-container">
         <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-          <div class="grid">
+          <div class="grid justify-content-center">
             <mat-card
-              class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card"
+              class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card gap-3"
               id="mat-Card" [style.background-color]="materia.materiaColor">
               <mat-card-header>
                 <mat-card-title>
@@ -33,14 +33,14 @@
               </mat-card-header>
               <mat-card-actions class="gap-3">
                 <button mat-raised-button (click)="openModalEdit('Editar Materia', materia.id)">
-                  <i class="material-icons ">create</i>
+                  <i class="material-icons btn-Edit">create</i>
                 </button>
 
                 <button mat-raised-button (click)="deleteMateria(materia.id)">
-                  <i class="material-icons">delete</i>
+                  <i class="material-icons btn-Delete">delete</i>
                 </button>
                 <button mat-raised-button (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
-                  <i class="material-icons">sticky_note_2</i>
+                  <i class="material-icons btn-Notes">sticky_note_2</i>
                 </button>
               </mat-card-actions>
             </mat-card>

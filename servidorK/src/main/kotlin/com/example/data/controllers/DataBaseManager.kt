@@ -3,6 +3,7 @@ package com.example.data.controllers
 import com.example.data.entities.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import io.ktor.network.sockets.*
 import io.ktor.server.config.*
 import mu.KotlinLogging
 import org.jetbrains.exposed.sql.Database
@@ -24,7 +25,6 @@ object DataBaseManager {
 
 
 
-        Database.connect(jdbcUrl,driverClassName,username,password);
 
 
         // Aplicamos Hiraki para la conexión a la base de datos (Pool de conexiones)
@@ -35,7 +35,6 @@ object DataBaseManager {
 
 
         val configHikariConfig = HikariConfig()
-        println(password);
         configHikariConfig.apply {
             this.jdbcUrl = jdbcUrl
             this.driverClassName = driverClassName
@@ -44,7 +43,8 @@ object DataBaseManager {
             this.maximumPoolSize = maximumPoolSize
         }
 
-        Database.connect(HikariDataSource(configHikariConfig));
+        Database.connect( HikariDataSource(configHikariConfig));
+
         transaction {
 
             SchemaUtils.create(Countries);
@@ -52,12 +52,15 @@ object DataBaseManager {
             SchemaUtils.create(Notes);
             SchemaUtils.create(Horarios);
             SchemaUtils.create(Users);
+            SchemaUtils.create(Images);
 
         }
         //Crear las tablas
 
 
         logger.info{ "Conexión a la base de datos establecida" }
+
+
 
     }
 

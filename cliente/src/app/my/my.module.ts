@@ -14,6 +14,8 @@ import { ComponentsModule } from '../components/components.module';
 import { MaterialModule } from '../material/material.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import { ReportesPageComponent } from './pages/reportes-page/reportes-page.component';
+import { InicioAdminComponent } from '../components/inicio-admin/inicio-admin.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import {MatButtonModule} from '@angular/material/button';
     AjustesPageComponent,
     WelcomePageComponent,
     HorarioPageComponent,
+    ReportesPageComponent,
+    // InicioAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,8 @@ import {MatButtonModule} from '@angular/material/button';
     MaterialModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    // InicioAdminComponent,
   ],
   exports: [
     FullLayoutPageComponent,
@@ -41,6 +46,7 @@ import {MatButtonModule} from '@angular/material/button';
     AjustesPageComponent,
     WelcomePageComponent,
     HorarioPageComponent,
+    
   ]
 })
 export class MyModule { }
