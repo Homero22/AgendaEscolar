@@ -30,6 +30,10 @@ import { SliderComponent } from './slider/slider.component';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatTimepickerModule } from '@angular/material/timepicker';
 
+import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
+import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -45,7 +49,9 @@ import { SliderComponent } from './slider/slider.component';
     AgregarTareaComponent,
     EditarTareaComponent,
     ContenidoApunteComponent,
-    SliderComponent
+    SliderComponent,
+    InicioAdminComponent,
+    MostrarAdminsComponent,
 
   ],
   imports: [
@@ -66,6 +72,10 @@ import { SliderComponent } from './slider/slider.component';
     // MatTimepickerModule,
 
     // BrowserModule
+    MatTableModule,
+    MatPaginatorModule
+    // MatDatetimepickerModule,
+    // MatNativeDatetimeModule
   ],
   exports: [
     ApuntesComponent,
@@ -80,8 +90,12 @@ import { SliderComponent } from './slider/slider.component';
     AgregarTareaComponent,
     EditarTareaComponent,
     ContenidoApunteComponent,
-    SliderComponent
+    SliderComponent,
+    InicioAdminComponent,
+    MostrarAdminsComponent
   ],
-  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
+
+  ],
 })
 export class ComponentsModule { }
