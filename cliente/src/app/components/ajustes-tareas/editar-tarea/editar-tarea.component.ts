@@ -23,6 +23,8 @@ export class EditarTareaComponent {
   selectedMateria: any;
 
   value_string_time: any;
+  time_vencimiento: any;
+
   constructor(
     private fb: FormBuilder,
     private srvTarea: TareaService,
@@ -41,20 +43,6 @@ export class EditarTareaComponent {
       }
     });
 
-    /*
-    {
-    "id":0,
-    "idUser":4,
-    "idMateria":22,
-    "tareaTitulo":"Marco 1",
-    "tareaDescripcion": "documentacion de la metodologia",
-    "fechaCreacion":"",
-    "fechaFin": "07:00:00",
-    "tareaEstado": "FINALIZADA",
-    "tareaRecordatorio": "13:00:00"
-}
-    */
-    //inicializamos el formulario
     this.myForm = this.fb.group({
       id: [
         0,
@@ -88,6 +76,12 @@ export class EditarTareaComponent {
         ]
       ],
       tareaRecordatorio: [
+        '',
+        [
+          Validators.required
+        ]
+      ],
+      horaEntrega:[
         '',
         [
           Validators.required
@@ -169,6 +163,12 @@ export class EditarTareaComponent {
               [
                 Validators.required
               ]
+            ],
+            horaEntrega:[
+              tareaData.body.horaEntrega,
+              [
+                Validators.required
+              ]
             ]
           });
           console.log("Completar formulario", this.myForm.value)
@@ -187,6 +187,7 @@ export class EditarTareaComponent {
 
   editTarea(){
     console.log("Valor de myForm =>",this.myForm.value);
+    // Swal.
     this.srvTarea.putTarea(this.idTarea,this.myForm.value)
     .pipe(takeUntil(this.destroy$))
     .subscribe({

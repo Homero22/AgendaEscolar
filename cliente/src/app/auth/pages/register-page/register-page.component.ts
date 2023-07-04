@@ -94,7 +94,7 @@ export class RegisterPageComponent {
 
   //Metodo ngOnInit
   ngOnInit(): void {
-    console.log(this.fechaActual);
+    console.log("fecha actual ",this.fechaActual);
     this.getCountries();
     this.getUsers();
     // this.getCountries();
@@ -134,6 +134,7 @@ export class RegisterPageComponent {
 
         console.log("Informacion de Usuario => ", usuarioData);
         if(usuarioData.status == true){
+          this.registerForm.reset();
           Swal.close();
           Swal.fire({
             title:'Se ha resgistrado con éxito!',
@@ -176,7 +177,7 @@ export class RegisterPageComponent {
         })
       },
       complete: () => {
-        this.registerForm.reset();
+        // this.registerForm.reset();
 
         //hacer que me redireccione al login
 

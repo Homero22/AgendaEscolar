@@ -1,0 +1,118 @@
+.container{
+    width: 95%;
+    height: 100%;
+    /* background-color: #007bff; */
+}
+
+.graphBox{
+    /* position: relative; */
+    width: auto;
+    height: auto;
+    padding: 20px;
+    grid-gap: 30px;
+    min-height: 200px;
+    /* background-color: #007bff; */
+}
+
+.graphBox .box{
+    /* position: relative; */
+    background: #fff;
+    padding: 20px;
+    /* width: 100%; */
+    box-shadow: 0 7px 25px rgba(0, 0,0,08);
+    border-radius: 20px;
+    display: grid;
+    justify-content: center;
+}
+
+.cardBox{
+    /* position: relative; */
+    /* width: 100%; */
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    /* gap: 30px; */
+    grid-gap: 30px;
+    background-color: aquamarine;
+}
+
+.cardBox .card{
+    /* position: relative; */
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 7px 25px rgba(0, 0,0,08);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.cardBox .card .numbers{
+    /* position: relative; */
+    font-weight: 500;
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+
+.cardBox .card .cardName{
+    color: var(--quinary-color);
+    font-size: 1.1em;
+    margin-top: 5px;
+}
+
+.cardBox .card .iconBx mat-icon{
+    font-size: 3.5em;
+    /* color: var(--quinary-color); */
+    color: var(--secondary-color);
+    /* color: rgb(72, 0, 255); */
+    width: auto;
+    height: auto;
+    align-items: center;
+    display: flex;
+}
+
+.iconBx{
+    display: flex;
+    align-items: center;
+}
+
+.cardBox .card:hover{
+    background-color: var(--primary-color);
+}
+
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx mat-icon
+
+{
+    color: var(--tertiary-color);
+}
+
+.chart-container {
+    width: 300px;
+    height: 200px;
+    background-color: #f2f2f2;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .chart-bar {
+    background-color: #007bff;
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transition: height 0.5s ease;
+  }
+  
+  @media (max-width: /*768px*/ 820px) {
+    .cardBox {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cardBox {
+      grid-template-columns: 1fr;
+    }
+  }
