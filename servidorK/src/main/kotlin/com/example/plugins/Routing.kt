@@ -7,6 +7,7 @@ import io.ktor.server.http.content.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.io.File
+import java.nio.file.FileSystems
 import java.nio.file.Paths
 
 fun Application.configureRouting() {
@@ -28,8 +29,13 @@ fun Application.configureRouting() {
 
         imagenesRouting()
 
-        val ruta = Paths.get("uploadsImages").toAbsolutePath().toString()
-        println( "ruta: $ruta")
+        val resourcePath = object {}.javaClass.classLoader.getResource("uploads/images")?.path
+        val folder = resourcePath?.let { File(it).absolutePath }
+
+        println( "folder: $folder")
+
+
+
 
     }
 

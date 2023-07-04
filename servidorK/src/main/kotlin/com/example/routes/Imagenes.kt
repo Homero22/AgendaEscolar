@@ -22,12 +22,10 @@ fun Route.imagenesRouting(){
            var fileName: String? = null
            println("Llega al post de imagenes")
 
-           val folder = Paths.get("uploadsImages").toAbsolutePath().toString()
+           val resourcePath = object {}.javaClass.classLoader.getResource("uploads/images")?.path
+           val folder = resourcePath?.let { File(it).absolutePath }
 
-           val folder1 = Paths.get("uploadsImages").toAbsolutePath().toString()
-           println( "folder1: $folder1")
-
-           println( "folder: $folder")
+           println( "folder en la ruta ad: $folder")
 
 
            multipart.forEachPart { part ->
