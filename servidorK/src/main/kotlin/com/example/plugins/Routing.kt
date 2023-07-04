@@ -28,9 +28,8 @@ fun Application.configureRouting() {
 
         imagenesRouting()
 
-        val ruta = File("uploadsImages").absolutePath
-        println("Path de imagenes en uploadImages: $ruta")
-
+        val ruta = Paths.get("uploadsImages").toAbsolutePath().toString()
+        println( "ruta: $ruta")
 
     }
 
