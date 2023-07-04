@@ -1,6 +1,7 @@
 package com.example.data.models
 
 import kotlinx.serialization.Serializable
+import org.jetbrains.exposed.dao.id.EntityID
 
 @Serializable
 data class User(
@@ -16,4 +17,5 @@ data class User(
     val fechaCreacion: String,
     val estado: String,
 )
+
 

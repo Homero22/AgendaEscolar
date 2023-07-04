@@ -45,6 +45,12 @@ object DataBaseManager {
         }
 
         Database.connect(HikariDataSource(configHikariConfig));
+        /*Database.connect(
+            jdbcUrl,
+            driverClassName,
+            username,
+            password,
+        )*/
         transaction {
 
             SchemaUtils.create(Countries);

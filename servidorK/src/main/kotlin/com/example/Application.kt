@@ -8,6 +8,8 @@ import com.example.plugins.configureSerialization
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
 import io.ktor.server.config.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -15,11 +17,15 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     val config = HoconApplicationConfig(ConfigFactory.load())
     DataBaseManager.init(config)
+
     configureSerialization()
     //configureDatabases()
     configureRouting()
     configureHTTP()
+
+
     val noti = HomeworksLogic()
     noti.notificaciones()
+
     //nuevos cambios me
 }

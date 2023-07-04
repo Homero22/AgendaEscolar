@@ -249,7 +249,6 @@ class cGenerica <T> {
             is Homeworks -> {
                 homeworks.getPhoneById(idUser.toLong())
             }
-
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -259,7 +258,6 @@ class cGenerica <T> {
             is Homeworks -> {
                 homeworks.getHomeworkByIdUserAndIdHomework(idUser.toLong())
             }
-
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -269,7 +267,6 @@ class cGenerica <T> {
             is Homeworks -> {
                 homeworks.getNameUserTarea(idUser.toLong())
             }
-
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -283,7 +280,6 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
-
 }
 
 

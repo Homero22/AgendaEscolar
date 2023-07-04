@@ -4,14 +4,10 @@ import com.example.data.entities.HomeworkDAO
 import com.example.data.entities.Homeworks
 import com.example.data.entities.SubjectDAO
 import com.example.data.models.Homework
-import com.example.data.models.User
-import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import com.example.data.entities.Users
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 /*
 import org.jetbrains.exposed.sql.`java-time`.datetime
@@ -95,6 +91,8 @@ object Homeworks: CrudRepository<Homework, Int>() {
     fun getAllByUserAndState(id: Long, state: String): List<Homework> = transaction {
         val res = HomeworkDAO.all()
             .filter { it.idUser == id && it.tareaEstado == state }
+        println("HACE LA CONSULTA RESPONSE")
+        println(res.map { it.toHomework() })
         return@transaction res.map { it.toHomework() }
     }
 
@@ -103,25 +101,29 @@ object Homeworks: CrudRepository<Homework, Int>() {
 
     fun getAllByUserAndStatePendientes(id: Long, state: String):List<Homework> = transaction {
         val response = HomeworkDAO.all()
-            .filter { it.idUser == id.toLong() && it.tareaEstado == state }
+            .filter { it.idUser == id && it.tareaEstado == state }
 
         return@transaction response.map { it.toHomework() }
     }
 
     //funcion para obtener el numero de telefono de un usuario dado su id haciendo un inner join con la tabla de usuario
     fun getPhoneById(id: Long): String? = transaction {
+        println("IIIIIIIIIIDDDDDDDDDDD")
+        println(id)
         val result = (Users innerJoin Homeworks)
             .select { Homeworks.idUser eq id }
             .singleOrNull()
+        println("OBTENCIOND DEL TELEFONO")
+        println(result?.get(Users.telefono))
 
         return@transaction result?.get(Users.telefono)
     }
+
     //funcion para obtener la tarea de un usuario dado su id y el id de la tarea
     fun getHomeworkByIdUserAndIdHomework(id: Long): String? = transaction {
         val result = (Homeworks innerJoin Users)
             .select { Homeworks.idUser eq id }
             .singleOrNull()
-
         return@transaction result?.get(Homeworks.tareaTitulo)
     }
     //funcion para obtener el nombre de un usuario dado su id haciendo un inner join con la tabla de tareas
@@ -140,10 +142,4 @@ object Homeworks: CrudRepository<Homework, Int>() {
             .singleOrNull()
         return@transaction result?.get(Homeworks.horaEntrega)
     }
-
-    //funcion para obtener todas las tareas pendientes de un usuario y devolver in List <Homework>
-
-
-
-
 }
