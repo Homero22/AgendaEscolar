@@ -32,9 +32,16 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
+                <!-- Tiempo de Vencimiento -->
+                <mat-form-field>
+                    <mat-label>Tiempo de Vencimiento</mat-label>
+                    <input type="time" matInput [(ngModel)]="time_vencimiento" formControlName="horaEntrega">
+                </mat-form-field>
+                
+
                 <!-- Tiempo de Recordatorio -->
                 <mat-form-field>
-                    <mat-label>Tiempo de Recordatorio</mat-label>
+                    <mat-label>Hora de Recordatorio</mat-label>
                     <input type="time" matInput [(ngModel)]="value_string_time" formControlName="tareaRecordatorio">
                 </mat-form-field>
 
