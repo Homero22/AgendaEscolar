@@ -3,7 +3,10 @@ package com.example.data.repositories
 import com.example.data.entities.HomeworkDAO
 import com.example.data.entities.Homeworks
 import com.example.data.entities.SubjectDAO
+import com.example.data.entities.Users
 import com.example.data.models.Homework
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import com.example.data.entities.Users

@@ -1,7 +1,11 @@
 package com.example
 
 import com.example.data.controllers.DataBaseManager
+<<<<<<< HEAD
 import com.example.logica.HomeworksLogic
+=======
+
+>>>>>>> a27cae45b66c171057b7a5910a1acdf1c4e96cca
 import com.example.plugins.configureHTTP
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
@@ -22,10 +26,13 @@ fun Application.module() {
     //configureDatabases()
     configureRouting()
     configureHTTP()
+<<<<<<< HEAD
 
 
     val noti = HomeworksLogic()
     noti.notificaciones()
 
     //nuevos cambios me
+=======
+>>>>>>> a27cae45b66c171057b7a5910a1acdf1c4e96cca
 }

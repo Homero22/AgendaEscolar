@@ -17,9 +17,23 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private srvMaterias: MateriaService
-    ) { }
+    ) { this.permisos }
+  
+  permiso: boolean = true
 
   ngOnInit(): void {
+    this.permisos();
+  }
+
+
+  permisos(){
+    const rol =  sessionStorage.getItem('rol');
+    console.log("rol => ", rol)
+    if(rol == 'USUARIO'){
+      this.permiso = false;
+      console.log ("tiene permiso ? ",this.permiso)
+    }
+    // this.rol = parseInt(this.idUser);
   }
 
   cerrarSesion(){
