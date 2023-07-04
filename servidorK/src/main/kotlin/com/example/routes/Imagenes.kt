@@ -22,7 +22,10 @@ fun Route.imagenesRouting(){
            var fileName: String? = null
            println("Llega al post de imagenes")
 
-           val folder = Paths.get("/app/uploadsImages").toAbsolutePath().toString()
+           val folder = Paths.get("uploadsImages").toAbsolutePath().toString()
+
+           val folder1 = Paths.get("uploadsImages").toAbsolutePath().toString()
+           println( "folder1: $folder1")
 
            println( "folder: $folder")
 
