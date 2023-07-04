@@ -11,6 +11,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import java.io.File
+import java.nio.file.FileSystem
+import java.nio.file.FileSystems
 import java.nio.file.Paths
 
 fun Route.imagenesRouting(){
@@ -19,15 +21,12 @@ fun Route.imagenesRouting(){
            val multipart = call.receiveMultipart()
            var fileName: String? = null
            println("Llega al post de imagenes")
-           //Obtengo el path del archivo.env
-           //val folder = dotenv()["UPLOADS_PATH"]
 
-           //println("Path de imagenes desde ENV: $folder")
-           val folder = File("uploadsImages").absolutePath
-             println("Path de imagenes en uploadImages: $folder")
+           val resourcePath = object {}.javaClass.classLoader.getResource("uploads/images")?.path
+           val folder = resourcePath?.let { File(it).absolutePath }
 
-           val folder1 = Paths.get("src/main/resources/uploads/images").toAbsolutePath().toString()
-              println("Aboslute path 1: $folder1")
+           println( "folder en la ruta ad: $folder")
+
 
            multipart.forEachPart { part ->
                when(part){

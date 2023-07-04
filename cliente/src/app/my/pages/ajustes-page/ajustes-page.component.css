@@ -1,0 +1,10 @@
+.container-Main{
+  border-radius: 4px;
+  background-color: #ccc;
+  overflow: hidden;
+}
+
+.lbl-Title{
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-500);
+}
