@@ -20,7 +20,12 @@ export class ImgService {
 
   //Metodo para obtener imagenes
 
-  getImg(){}
+  getImg(){
+    return this.http.get<any>(this.urlApi_images,
+      {
+        withCredentials: true
+      });
+  }
 
   //Metodo para enviar la iamgen al backend
   postImg(image: any){

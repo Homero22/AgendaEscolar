@@ -26,7 +26,6 @@ import { QuillModule } from 'ngx-quill';
 import { MateriaPageModule } from '../my/pages/materia-page/materia-page.module';
 import { ContenidoApunteComponent } from './ajustes-apunte/contenido-apunte/contenido-apunte.component';
 import { SliderComponent } from './slider/slider.component';
-
 // import {matTimepickerModule} from 'mat-timepicker';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatTimepickerModule } from '@angular/material/timepicker';
@@ -63,7 +62,7 @@ import { SliderComponent } from './slider/slider.component';
     MatNativeDateModule,
     QuillModule.forRoot(),
     QuillModule,
-    MateriaPageModule
+    MateriaPageModule,
     // MatTimepickerModule,
 
     // BrowserModule

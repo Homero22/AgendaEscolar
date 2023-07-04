@@ -1,8 +1,13 @@
 <div class="relative div-Image">
-  <button mat-stroked-button class="relative top-0 left-auto">
+  <button mat-stroked-button class="relative top-0 left-auto" (click)="openFileDialog()">
     <i class="material-icons">settings</i>
   </button>
 
-  <!-- Apartado para Slider de imagenes -->
-
+  <!-- Slider de imágenes -->
+  <div class="slider-container">
+    <div class="slider">
+      <img *ngFor="let image of images" [src]="image.url" alt="Image">
+    </div>
+  </div>
 </div>
+
