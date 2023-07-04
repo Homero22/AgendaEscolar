@@ -23,8 +23,8 @@ fun Route.imagenesRouting(){
            //val folder = dotenv()["UPLOADS_PATH"]
 
            //println("Path de imagenes desde ENV: $folder")
-           val folder = File("uploadsImages")
-           val absolutePath = folder.absolutePath
+           val folder = File("uploadsImages").absolutePath
+             println("Path de imagenes en uploadImages: $folder")
 
            val folder1 = Paths.get("src/main/resources/uploads/images").toAbsolutePath().toString()
               println("Aboslute path 1: $folder1")
