@@ -29,6 +29,8 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/agregar-admins.component';
+import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -46,6 +48,8 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
     ContenidoApunteComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
+    AgregarAdminsComponent,
+    EditarAdminsComponent
 
   ],
   imports: [
