@@ -32,7 +32,10 @@ export class MostrarAdminsComponent implements AfterViewInit {
   }
 
   view(op: number, id: number) {
-    this.idAdmin = id;
+    if (op == 2) {
+      this.idAdmin = id;
+      // this.getAdmin(id);
+    }
     this.TypeView = op;
     console.log("idAdmin en mostrar", this.idAdmin);
   }
@@ -111,6 +114,8 @@ export class MostrarAdminsComponent implements AfterViewInit {
         }
       })
   }
+
+  
 
   CambiarEstado(id: number) {
     this.srvAdmins.deleteAdministrador(id)

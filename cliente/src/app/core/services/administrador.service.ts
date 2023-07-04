@@ -14,6 +14,7 @@ export class AdministradorService {
   constructor(private http: HttpClient) { }
 
   administradores!: UsuarioModel[];
+  admin!: UsuarioModel;
   // ------------------------ ADMINISTRADOR ------------------------
 
   // Obtener todos los administradores
