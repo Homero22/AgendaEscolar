@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { takeUntil, Subject } from 'rxjs';
 import { AdministradorService } from 'src/app/core/services/administrador.service';
 import { UsuarioModel } from 'src/app/core/models/usuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mostrar-admins',
@@ -20,7 +21,7 @@ export class MostrarAdminsComponent implements AfterViewInit {
 
   private destroy$ = new Subject<any>();
 
-  constructor(public srvAdmins: AdministradorService) {}
+  constructor(public srvAdmins: AdministradorService) { }
 
   ngOnInit(): void {
     this.getAdministradores();
@@ -35,10 +36,10 @@ export class MostrarAdminsComponent implements AfterViewInit {
     this.TypeView = op;
   }
 
-  regresar(){
+  regresar() {
     this.getAdministradores();
     this.TypeView = 0;
-  
+
   }
 
   applyFilter(event: Event) {
@@ -67,5 +68,59 @@ export class MostrarAdminsComponent implements AfterViewInit {
   getRowIndex(index: number): number {
     return index + 1;
   }
-}
 
+  eliminarAdmin(id: number) {
+    Swal.fire({
+      title: '¿Está seguro de eliminar este administrador?',
+      icon: 'warning',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Cambiar rol',
+      denyButtonText: `Eliminar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.CambiarRol(id)
+      } else if (result.isDenied) {
+        this.CambiarEstado(id)
+      }
+    })
+  }
+
+  CambiarRol(id: number) {
+
+    this.srvAdmins.getAdministrador(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (value) => {
+          if (value.status){
+            let admin = value.body;
+            admin.rol = 'USUARIO';
+            this.srvAdmins.putAdministrador(id, admin)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe({
+                next: (value) => {
+                  console.log("value ", value);
+                  this.getAdministradores();
+                }
+              })
+          }
+        }
+      })
+  }
+
+  CambiarEstado(id: number) {
+    this.srvAdmins.deleteAdministrador(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (value) => {
+        console.log("value ", value);
+        this.getAdministradores();
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
+  }
+}

@@ -26,7 +26,7 @@ export class AdministradorService {
 
   // Obtener un administrador por su id
   getAdministrador(id: number){
-    return this.http.get<any>(`${this.urlApi_Administrador}/${id}`,
+    return this.http.get<any>(`${this.urlApi_Usuarios}/${id}`,
       {
         withCredentials: true
       });
