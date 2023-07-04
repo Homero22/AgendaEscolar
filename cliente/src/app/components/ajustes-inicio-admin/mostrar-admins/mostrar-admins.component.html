@@ -6,7 +6,7 @@
         </div>
 
         <div class="">
-            <button class="btn-agg" (click)="view(1)">
+            <button class="btn-agg" (click)="view(1, -1)">
                 <i class="material-icons">add</i>
                 <p>Agregar Administrador</p>
             </button>
@@ -37,7 +37,7 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
             <td mat-cell *matCellDef="let admin">
-              <button mat-icon-button color="primary" (click)="view(2)" >
+              <button mat-icon-button color="primary" (click)="view(2, admin.id)" >
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-icon-button color="primary" (click)="eliminarAdmin(admin.id)" >

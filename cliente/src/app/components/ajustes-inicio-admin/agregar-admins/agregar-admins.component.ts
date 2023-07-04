@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { CountryModel, ShowCountriesModel } from 'src/app/core/models/countries';
+import { CountryModel } from 'src/app/core/models/countries';
 import { CountrieService } from 'src/app/core/services/countrie.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import Swal from 'sweetalert2';

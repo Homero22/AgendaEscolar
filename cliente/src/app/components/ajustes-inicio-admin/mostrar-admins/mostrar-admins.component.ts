@@ -31,9 +31,10 @@ export class MostrarAdminsComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  view(op: number) {
-    // Lógica para abrir el modal
+  view(op: number, id: number) {
+    this.idAdmin = id;
     this.TypeView = op;
+    console.log("idAdmin en mostrar", this.idAdmin);
   }
 
   regresar() {
@@ -101,6 +102,9 @@ export class MostrarAdminsComponent implements AfterViewInit {
                 next: (value) => {
                   console.log("value ", value);
                   this.getAdministradores();
+                },
+                complete: () => {
+                  Swal.fire('Rol cambiado', '', 'success')
                 }
               })
           }
@@ -115,6 +119,9 @@ export class MostrarAdminsComponent implements AfterViewInit {
       next: (value) => {
         console.log("value ", value);
         this.getAdministradores();
+      },
+      complete: () => {
+        Swal.fire('Administrador inactivado', '', 'success')
       }
     })
   }
