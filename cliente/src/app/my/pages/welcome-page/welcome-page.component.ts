@@ -11,12 +11,12 @@ export class WelcomePageComponent {
 
   constructor(
     private tareaService: TareaService
-  ) { this.permisos }
-  // permiso: boolean = true
-  permiso: boolean = false
+  ) { /*this.permisos() */}
+  permiso!: boolean 
+  // permiso: boolean = false
 
   ngOnInit(): void {
-    // this.permisos();
+    this.permisos();
   }
 
   permisos(){
@@ -56,4 +56,10 @@ export class WelcomePageComponent {
       );
   }
 */
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    
+  }
 }

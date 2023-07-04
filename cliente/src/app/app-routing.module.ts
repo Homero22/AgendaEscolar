@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'me',
-    canActivate: [loguinSecurityGuard] /*[rolGuard]*/,
+    canActivate: [loguinSecurityGuard, rolGuard],
     loadChildren: () => import('./my/my.module').then(m => m.MyModule),
   },
   {
