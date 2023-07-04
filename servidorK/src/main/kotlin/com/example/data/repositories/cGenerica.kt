@@ -1,7 +1,10 @@
 package com.example.data.repositories
 
+
 import com.example.data.models.*
 import com.example.data.models.reportes.usuariosPorMes
+
+
 
 class cGenerica <T> {
 
@@ -56,9 +59,13 @@ class cGenerica <T> {
             is Homeworks ->{
                 obj.save(entity as Homework)
             }
+            is ImagesRepo ->{
+                obj.save(entity as Image)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
 
     // Buscar un valor en especifico  y devovler un objeto
     fun gSearch(obj: T, valor: String): Any? {
@@ -231,6 +238,15 @@ class cGenerica <T> {
         return when(users) {
             is Users -> {
                 users.getAdministradores()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetByUserName(imagesRepo: T, imagenes: String): Image?{
+        return when(imagesRepo) {
+            is ImagesRepo -> {
+                imagesRepo.getByName(imagenes)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }

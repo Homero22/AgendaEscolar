@@ -8,6 +8,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { RecoverPageComponent } from './pages/recover-page/recover-page.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports:[
     LayoutPagesComponent,
