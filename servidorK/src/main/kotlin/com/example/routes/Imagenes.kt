@@ -1,5 +1,8 @@
 package com.example.routes
 
+import com.example.data.models.Image
+import com.example.data.repositories.ImagesRepo
+import com.example.logica.ImagesLogic
 import com.example.utils.ResponseEmpty
 import com.example.utils.sendJsonResponse
 import io.github.cdimascio.dotenv.dotenv
@@ -22,8 +25,13 @@ fun Route.imagenesRouting(){
            var fileName: String? = null
            println("Llega al post de imagenes")
 
+           var id: String? = null
+           var nombreImage: String? = null
            val resourcePath = object {}.javaClass.classLoader.getResource("uploads/images")?.path
-           val folder = resourcePath?.let { File(it).absolutePath }
+           val folder1 = resourcePath?.let { File(it).absolutePath }
+
+           val folderPath = object {}.javaClass.protectionDomain.codeSource.location.path
+           val folder = File(folderPath).parent+File.separator+"uploads"+File.separator
 
            println( "folder en la ruta ad: $folder")
 
@@ -31,8 +39,12 @@ fun Route.imagenesRouting(){
            multipart.forEachPart { part ->
                when(part){
                    is PartData.FileItem->{
-                       val file = part.originalFileName?.let { fileName ->
-                           File(folder,fileName)
+                       nombreImage = part.originalFileName
+                       val uniqueID = java.util.UUID.randomUUID().toString()
+                       val fileExtension = part.originalFileName?.split(".")?.last()
+                       val fileName = "$uniqueID.$fileExtension"
+                       id= fileName
+                       val file = folder?.let { File(it, fileName)
 
                        }
                        part.streamProvider().use{
@@ -42,19 +54,37 @@ fun Route.imagenesRouting(){
 
 
                        }
-                       fileName = file?.name
 
                    }
                    else -> {
                        println("Multipart no es un archivo")
                    }
 
+
                }
                part.dispose()
            }
-           val response = ResponseEmpty(true,"Archivo subido correctamente", emptyList())
-           sendJsonResponse(call, HttpStatusCode.OK, response)
+
+           //funcion para enviar a la capa logica
+
+           fun guardarBD(fileName: String,nombre:String): Any {
+               println("Llega a guardarBD")
+               println("fileName: $fileName")
+               //barra invertida
+               return ImagesLogic().save(Image(0,fileName,"ACTIVO", "$folder$nombre"))
+               //return ImagesRepo.save(Image(0,fileName,"ACTIVO"))
+           }
+          val valid=  guardarBD(id.toString(),nombreImage.toString())
+
+           if(valid==1) {
+                val response = ResponseEmpty(true, "Archivo subido correctamente", emptyList())
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+           }else{
+                val response = ResponseEmpty(false, "Ya existe una imagen con el mismo nombre", emptyList())
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+           }
        }
+
 
     }
 }
