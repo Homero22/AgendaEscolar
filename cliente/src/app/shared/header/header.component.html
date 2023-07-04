@@ -51,7 +51,7 @@
           <i class="material-icons">list_alt</i>
           <p>Tareas</p>
         </button>
-        <button mat-button class="btn-Option" routerLink="/me/reports">
+        <button *ngIf="this.permiso!" mat-button class="btn-Option" routerLink="/me/reports">
           <i class="material-icons">description</i>
           <p>Reportes</p>
         </button>
