@@ -8,3 +8,9 @@
   font-size: var(--font-size-16);
   font-weight: var(--font-weight-500);
 }
+
+.lbl-Hint{
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  color: var(--quaternary-color);
+}

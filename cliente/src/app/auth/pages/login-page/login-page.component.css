@@ -198,6 +198,10 @@ body,
   background-color: var(--quaternary-color);
 }
 
+.img-Container img {
+  width: 700px;
+  height: 540px;
+}
 
 
 
