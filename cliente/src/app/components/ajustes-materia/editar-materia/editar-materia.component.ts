@@ -147,6 +147,35 @@ export class EditarMateriaComponent {
     this.myForm.get('color')?.setValue(this.selectedColor);
   }
 
+  getMaterias(){
+    Swal.fire({
+      title: 'Cargando Materias...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
+    this.srvMateria.getMateriasUsuario(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(materiaData)=>{
+        Swal.close();
+        if(materiaData.body){
+          this.srvMateria.datosMateria = materiaData.body;
+          console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
+  }
+
 
   saveMateria(){
     console.log("Valor que llega al Form de Materia =>",this.myForm.value);
@@ -174,6 +203,9 @@ export class EditarMateriaComponent {
                 timer: 1500
               })
               console.log("Materia modificada con éxito =>",data);
+              setTimeout(() => {
+                this.getMaterias()
+              }, 1000);
             }else{
               Swal.fire({
                 title:'Error al modificar Materia!',

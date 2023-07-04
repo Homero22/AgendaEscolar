@@ -59,11 +59,19 @@
 </div>
 
 <div *ngIf="TypeView==1" >
-<button (click)="regresar()">regresar</button>
-<app-agregar-admins></app-agregar-admins>
+  <button mat-stroked-button color="primary" (click)="regresar()">
+    <mat-icon>keyboard_return</mat-icon>
+    regresar
+  </button>
+  <app-agregar-admins></app-agregar-admins>
 </div>
 
 <div *ngIf="TypeView==2" >
-  <button (click)="regresar()">regresar</button>
+  <!-- <button (click)="regresar()">regresar</button> -->
+  <button mat-stroked-button color="primary" (click)="regresar()">
+    <mat-icon>keyboard_return</mat-icon>
+    regresar
+  </button>
+
   <app-editar-admins [idAdmin]="idAdmin"></app-editar-admins>
 </div>

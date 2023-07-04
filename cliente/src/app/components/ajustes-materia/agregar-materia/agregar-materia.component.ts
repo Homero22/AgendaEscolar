@@ -103,6 +103,10 @@ export class AgregarMateriaComponent implements OnInit {
                 timer: 1500
               })
               console.log("Materia agregada con éxito =>",data);
+              this.getMaterias()
+              setTimeout(() => {
+                this.getMaterias()
+              }, 1000);
             }else{
               Swal.fire({
                 title:data.message,
@@ -128,7 +132,7 @@ export class AgregarMateriaComponent implements OnInit {
           complete: ()=>{
             console.log("Petición completa!");
             //cerramos el modal mandando el valor de true al behaviorSubject
-            this.srvModal.setCloseMatDialog(true);
+            // this.srvModal.setCloseMatDialog(true);
             this.myForm.reset();
             this.getMaterias();
           }

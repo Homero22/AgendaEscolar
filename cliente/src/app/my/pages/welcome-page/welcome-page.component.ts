@@ -26,6 +26,10 @@ export class WelcomePageComponent {
       this.permiso = false;
       console.log ("tiene permiso ? ",this.permiso)
     }
+    if(rol == 'ADMINISTRADOR'){
+      this.permiso = true;
+      console.log ("tiene permiso ? ",this.permiso)
+    }
     // this.rol = parseInt(this.idUser);
   }
   // ------------------------ Recordatorios ------------------------
