@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Image (
-    val id: Long,
+    val id: Int,
     val imagenes: String,
-    val estado: String
+    val estado: String,
+    val path: String
 )
