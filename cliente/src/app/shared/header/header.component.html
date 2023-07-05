@@ -10,15 +10,21 @@
       </div>
 
       <div>
+
+        <div class="flex gap-2">
+          <i class="material-icons" id="id-menu">account_circle</i>
+          <label for="">Hola, {{this.srvUsuario.usuarioData.nombre}}</label>
+        </div>
+
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <i class="material-icons">arrow_drop_down</i>
         </button>
-        <mat-menu #menu="matMenu" class="mat-Menu">
-          <button class="btn-Menu">
+        <mat-menu #menu="matMenu" class="grid">
+          <button class="col-12 btn-Menu" routerLink="/me/settings">
             <i class="material-icons">settings</i>
-            <span>Ajustes</span>
+            <span>Mi cuenta</span>
           </button>
-          <button class="btn-Menu" (click)="cerrarSesion()" >
+          <button class="col-12 btn-Menu" (click)="cerrarSesion()" >
             <i class="material-icons">exit_to_app</i>
             <span>Cerrar Sesión</span>
           </button>

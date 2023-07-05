@@ -1,12 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import config from 'config/config';
-import { ShowUsuarioModel, addUsuarioData } from '../models/usuario';
+import { addUsuarioData, updateUsuarioData, updateUsuarioModel } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  //Contenido de usuario
+  usuarioData: updateUsuarioData = {
+    id: 0,
+    nombre: "",
+    apellido: "",
+    rol:"",
+    telefono: "",
+    correo: "",
+    contrasena: "",
+    paisId: 0,
+    nivelEstudio: "",
+    fechaCreacion: "",
+    estado: ""
+  }
+
+
 
   //Rutas de los servicios
   private urlApi_Usuarios: string = config.URL_API_BASE + "users";
@@ -24,6 +41,15 @@ export class UsuarioService {
       });
   }
 
+  //Obtener un usuario por ID
+
+  getUserByID(idUser: number){
+    return this.http.get<any>(`${this.urlApi_Usuarios}/${idUser}`,
+      {
+        withCredentials: true
+      });
+  }
+
   //crear - registrar Usuario
   postUser(dataUsuario: addUsuarioData){
     return this.http.post<any>(`${this.urlApi_Usuarios}`, dataUsuario,
@@ -33,6 +59,14 @@ export class UsuarioService {
   }
 
   //modificar - actualizar Usuario
+  putUser(id:number, dataUsuario: updateUsuarioData){
+    return this.http.put<updateUsuarioModel>(`${this.urlApi_Usuarios}/${id}`, dataUsuario,
+      {
+        withCredentials: true
+      });
+  }
+
+
 
   //eliminar Usuario
 }
