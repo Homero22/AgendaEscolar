@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 // import { AuthInterceptor } from 'src/app/core/security/auth.interceptor';
 import { MateriaService } from 'src/app/core/services/materia.service';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 
 
 @Component({
@@ -12,17 +13,24 @@ import { MateriaService } from 'src/app/core/services/materia.service';
 })
 export class HeaderComponent implements OnInit {
 
+  idUser!: any;
+
+
   private destroy$ = new Subject<any>();
 
   constructor(
     private router: Router,
-    private srvMaterias: MateriaService
+    private srvMaterias: MateriaService,
+    public srvUsuario: UsuarioService
     ) { this.permisos }
-  
+
   permiso: boolean = true
 
   ngOnInit(): void {
+
+    this.idUser = sessionStorage.getItem("id");
     this.permisos();
+    this.getUserByID();
   }
 
 
@@ -47,6 +55,24 @@ export class HeaderComponent implements OnInit {
 
   sendBool(){
     this.srvMaterias.setBool(false);
+  }
+
+  //Función para obtener la información del usuario
+  getUserByID(){
+    this.srvUsuario.getUserByID(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (dataUser) => {
+        this.srvUsuario.usuarioData = dataUser;
+        console.log("data => ", dataUser)
+      },
+      error: error => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log("complete");
+      }
+    })
   }
 
   ngonDestroy(){

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import config from 'config/config';
-import { addUsuarioData, updateUsuarioData } from '../models/usuario';
+import { addUsuarioData, updateUsuarioData, updateUsuarioModel } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +59,14 @@ export class UsuarioService {
   }
 
   //modificar - actualizar Usuario
+  putUser(id:number, dataUsuario: updateUsuarioData){
+    return this.http.put<updateUsuarioModel>(`${this.urlApi_Usuarios}/${id}`, dataUsuario,
+      {
+        withCredentials: true
+      });
+  }
+
+
 
   //eliminar Usuario
 }
