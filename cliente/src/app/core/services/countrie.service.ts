@@ -24,4 +24,11 @@ export class CountrieService {
         withCredentials: true
       });
   }
+
+  getCountryById(id: number){
+    return this.http.get<CountryModel>(`${this.urlApi_countries}/${id}`,
+      {
+        withCredentials: true
+      });
+  }
 }

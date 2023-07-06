@@ -1,16 +1,44 @@
 .container-Main{
   border-radius: 4px;
-  background-color: #ccc;
+  border: 1px solid #ccc;
   overflow: hidden;
 }
 
 .lbl-Title{
-  font-size: var(--font-size-16);
+  font-size: 20px;
   font-weight: var(--font-weight-500);
 }
 
 .lbl-Hint{
-  font-size: var(--font-size-12);
+  font-size: 11px;
   font-weight: var(--font-weight-400);
-  color: var(--quaternary-color);
+  color: var(--color-primary);
+}
+
+.lbl-Info{
+  font-weight: var(--font-weight-500);
+}
+
+.btn-Edit{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-Save{
+  background-color: var(--primary-color);
+  color: var(--tertiary-color);
+}
+
+.btn-Save:disabled{
+  background-color: var(--quaternary-color);
+  color: var(--tertiary-color);
+}
+
+.blocked-input {
+  background-color: #f2f2f2; /* Color de fondo */
+  color: #999999; /* Color del texto */
+  cursor: not-allowed; /* Cambia el cursor a "no permitido" */
 }
