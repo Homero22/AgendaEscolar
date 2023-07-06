@@ -12,8 +12,7 @@ object Notes : CrudRepository<Note, Int>() {
     }
 
     override fun getById(id: Int) = transaction {
-        val response = NotesDAO.findById(id.toLong())?.toNotes()
-        return@transaction response
+        return@transaction NotesDAO.findById(id.toLong())?.toNotes()
     }
     override fun save(entity: Note) = transaction {
         val response = NotesDAO.new{
@@ -40,9 +39,8 @@ object Notes : CrudRepository<Note, Int>() {
     }
 
     override fun delete(id: Int): Any = transaction {
-        val note = NotesDAO.findById(id.toLong())?:return@transaction
-        note.delete()
-        return@transaction
+        val note = NotesDAO.findById(id.toLong())?.delete()
+        return@transaction note!!
     }
 
     //funcion para obtener todas las notas de un usuario
@@ -66,25 +64,12 @@ object Notes : CrudRepository<Note, Int>() {
         return@transaction res
     }
 
-    /*
-        fun getAllByUser(id: Long):List<Any> = transaction {
-        val res = Homeworks
-            .select({ Homeworks.idUser eq id })
-            .map {
-                mapOf(
-                    "id" to it[Homeworks.id].value,
-                    "idUser" to it[Homeworks.idUser],
-                    "idMateria" to it[Homeworks.idMateria],
-                    "tareaTitulo" to it[Homeworks.tareaTitulo],
-                    "tareaDescripcion" to it[Homeworks.tareaDescripcion],
-                    "fechaCreacion" to it[Homeworks.fechaCreacion],
-                    "fechaFin" to it[Homeworks.fechaFin],
-                    "tareaEstado" to it[Homeworks.tareaEstado],
-                    "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
-                )
-            }
-        return@transaction res
+    fun searchTitle(title:String):Boolean= transaction {
+        val res = NotesDAO.find{Notes.apunteTitulo eq title}.map { it.apunteTitulo }
+        return@transaction res.isNotEmpty()
+
     }
-     */
+
+
 
 }

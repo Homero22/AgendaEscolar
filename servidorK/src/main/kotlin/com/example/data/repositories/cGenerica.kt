@@ -89,6 +89,9 @@ class cGenerica <T> {
             is LoginRequest ->{
                 Users.searchEmail(valor) as User
             }
+            is Notes ->{
+                obj.searchTitle(valor)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -265,18 +268,6 @@ class cGenerica <T> {
     }
 
 
-    //buscamos nombre de materia
-    /*
-    fun gGetDataSubjects(obj: T): List<Any> {
-        return when(obj) {
-            is Subjects -> {
-                obj.obtenerDatosMaterias();
-            }
-            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
-        }
-    }
-
-     */
 
 
 

@@ -61,7 +61,7 @@ fun Route.horariosRouting() {
                     val response = ResponseSingle(true, "Horario creado correctamente", schedule)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(false, "No se pudo crear el horario", schedule)
+                    val response = ResponseSimple(false, "No se pudo crear el horario")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
@@ -81,7 +81,7 @@ fun Route.horariosRouting() {
                     val response = ResponseSingle(true, "Horario actualizado correctamente", schedule)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(false, "No se pudo actualizar el horario", schedule)
+                    val response = ResponseSimple(false, "No se pudo actualizar el horario")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
