@@ -25,6 +25,10 @@
   color: rgb(25, 195, 125);
 }
 
+.btn-Content:disabled{
+  background-color: var(--quaternary-color);
+}
+
 .btn-Return{
   display: flex;
   align-items: center;
@@ -38,6 +42,15 @@
   /* ------------------ */
 
 #ground{
-  background-color: greenyellow;
   margin: -0.6rem !important;
+}
+
+#containerApuntes{
+  border: 1px solid black;
+  border-radius: var(--border-radius-4);
+}
+
+.lbl-Title{
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-18);
 }

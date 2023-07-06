@@ -65,7 +65,7 @@
     <div class="grid col">
 
       <!-- Header de Apuntes -->
-      <div class="flex flex-wrap col-12 align-items-center justify-content-between">
+      <div class="flex gap-3 flex-wrap col-12 align-items-center justify-content-between">
         <div class="flex gap-3">
           <button mat-stroked-button class="btn-Return" (click)="return()">
             <i class="material-icons">arrow_back_ios</i>
@@ -82,15 +82,50 @@
       </div>
 
       <!-- Body de Apuntes -->
-      <div class="col-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
+      <div class="col-12 flex flex-wrap gap-3">
+        <div class="card flex align-items-center justify-content-between w-12"
+          id="containerApuntes" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index"
+        >
+          <div class="flex flex-wrap card-container p-3 gap-3 justify-content-between w-12" *ngIf="apunte.idMateria === this.idMateria">
 
-        <div class="" *ngIf="apunte.idMateria === this.idMateria">
-            <label for="" class="uppercase">
-              {{apunte.apunteTitulo}}
-            </label>
+            <div class="flex align-items-center uppercase gap-3">
+              <div>
+                <i class="material-icons">article</i>
+              </div>
+              <div>
+                <label for="" class="lbl-Title">
+                  {{apunte.apunteTitulo}}
+                </label>
+              </div>
+
+            </div>
+
+            <div class="flex gap-3">
+
+              <button mat-stroked-button>
+                <i class="material-icons">visibility</i>
+              </button>
+
+              <button mat-stroked-button
+              (click)="openModalEdit('Editar Apunte', apunte.id)"
+            >
+              <i class="material-icons btn-Edit">edit</i>
+            </button>
+            <button mat-stroked-button
+              class="btn-Delete"
+              (click)="deleteApunte(apunte.id)"
+            >
+              <i class="material-icons btn-Delete">delete</i>
+            </button>
+            <button mat-stroked-button class="btn-Content" [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
+              <i class="material-icons btn-GPT">tips_and_updates</i>
+            </button>
+            </div>
+
+          </div>
         </div>
-
       </div>
+
 
     </div>
   </div>
