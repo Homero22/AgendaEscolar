@@ -24,7 +24,7 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
     fun getByIdUser (id:Long):List<Any> = transaction {
         val response = Subjects
-            .select({ Subjects.iduser eq id })
+            .select { Subjects.iduser eq id }
             .map {
                 mapOf(
                     "id" to it[Subjects.id].value,
