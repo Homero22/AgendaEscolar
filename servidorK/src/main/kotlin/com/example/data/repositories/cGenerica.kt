@@ -25,6 +25,9 @@ class cGenerica <T> {
             is Homeworks ->{
                 obj.getAll(limit,offset)
             }
+            is Schedules ->{
+                obj.getAll(limit,offset)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -83,6 +86,9 @@ class cGenerica <T> {
             is Subjects -> {
                 obj.search(valor)
             }
+            is LoginRequest ->{
+                Users.searchEmail(valor) as User
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -115,10 +121,13 @@ class cGenerica <T> {
                 obj.getById(id)
             }
             is Schedules ->{
-                obj. getAllByUser(id.toLong())
+                obj. getById(id)
             }
             is Homeworks ->{
                 obj.getById(id)
+            }
+            is ImagesRepo ->{
+                obj.getById(id) as Image
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -189,6 +198,9 @@ class cGenerica <T> {
                 obj.getAllByUser(id.toLong())
             }
             is Notes ->{
+                obj.getAllByUser(id.toLong())
+            }
+            is Schedules ->{
                 obj.getAllByUser(id.toLong())
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")

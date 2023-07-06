@@ -21,8 +21,8 @@ class ScheduleLogic {
 
     }
 
-    fun getAll():List<Any> {
-        return obj.gGetAll(Schedules)
+    fun getAll(limit: Int, offset:Int):List<Any> {
+        return obj.gGetAll(Schedules,limit,offset)
     }
 
     fun actualizarHorario(id: Int, schedule: Schedule): Int {
@@ -47,6 +47,12 @@ class ScheduleLogic {
     fun getById(id: Int): Any {
         return obj.gGgetById(Schedules,id) ?: return 0
     }
+
+    fun getByUserId(id: Int): List<Any> {
+        return obj.gGetByUserId(Schedules,id)
+    }
+
+
 
 }
 

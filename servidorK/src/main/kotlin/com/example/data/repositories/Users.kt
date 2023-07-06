@@ -13,7 +13,7 @@ object Users : CrudRepository<User, Int>() {
 
     //loguin con email and password
     fun searchEmail(email: String): User? = transaction {
-        return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser()
+        return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser() // Si no encuentra nada devuelve null
     }
 
 
