@@ -36,6 +36,7 @@ input:focus {
   --font-size: 12px;
   --font-size-14: 14px;
   --font-size-16: 16px;
+  --font-size-18: 18px;
 
   /*weight*/
   --font-weight-400: 400;
@@ -44,6 +45,7 @@ input:focus {
 
   /*Otros*/
   --border-radius: 6px;
+  --border-radius-4: 4px;
 }
 
 
