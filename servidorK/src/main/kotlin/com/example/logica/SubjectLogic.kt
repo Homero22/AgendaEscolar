@@ -21,9 +21,8 @@ class SubjectLogic {
     }
 
     //funcion que obtenga todas las materias de un usuario
-    fun getAll(): List<Any> {
-        return obj.gGetAll(Subjects);
-
+    fun getAll(limit:Int,offset:Int): List<Any> {
+        return  obj.gGetAll(Subjects,limit,offset)
     }
 
 
@@ -37,12 +36,15 @@ class SubjectLogic {
     }
 
     fun eliminar(id: Int): Int {
+
         val respuesta = obj.gGgetById(Subjects,id)
         if (respuesta != null) {
             obj.gDelete(Subjects,id)
             return 1
         }
         return 0
+
+
     }
 
     fun getById(id:Int ): Any?  {
@@ -63,7 +65,7 @@ class SubjectLogic {
         return obj.gUpdate(Subjects,id,subject)
     }
 
-    fun getByUserId(id: Int): Any? {
+    fun getByUserId(id: Int): List<Any> {
         return obj.gGetByUserId(Subjects,id)
     }
 

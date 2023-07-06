@@ -12,6 +12,17 @@ data class GptResponse(val status: Boolean, val message: String, val info :Any)
 //respuesta sin body
 
 data class ResponseEmpty(val status: Boolean, val message: String, val emptyList: List<Any>)
+data class ResponseImage(val status: Boolean, val message:String, val image : ByteArray) {
+
+
+    override fun hashCode(): Int {
+        var result = status.hashCode()
+        result = 31 * result + message.hashCode()
+        result = 31 * result + image.contentHashCode()
+        return result
+    }
+}
+
 data class ResponseSimple(val status: Boolean, val message: String)
 data class ResponseToken(val status: Boolean, val message: String, val body: Any, val token: Any)
 

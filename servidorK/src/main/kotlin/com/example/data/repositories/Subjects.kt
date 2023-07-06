@@ -1,8 +1,12 @@
 package com.example.data.repositories
 
-import com.example.data.entities.SubjectDAO
+import com.example.data.entities.*
+import com.example.data.entities.Homeworks
+import com.example.data.entities.Notes
 import com.example.data.entities.Subjects
+import com.example.data.models.Note
 import com.example.data.models.Subject
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -24,7 +28,7 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
     fun getByIdUser (id:Long):List<Any> = transaction {
         val response = Subjects
-            .select({ Subjects.iduser eq id })
+            .select { Subjects.iduser eq id }
             .map {
                 mapOf(
                     "id" to it[Subjects.id].value,
@@ -55,16 +59,23 @@ object Subjects : CrudRepository<Subject, Int> () {
             profesorNombre = entity.profesorNombre
             materiaAcro = entity.materiaAcro
             materiaColor = entity.materiaColor
-
         }?.toSubject()
         return@transaction response!!
     }
 
     override fun delete(id: Int): Any = transaction {
-        val subject = SubjectDAO.findById(id) ?: return@transaction
-        subject.delete()
-        return@transaction
-
+      //Elimino en cascada horarios y apuntes y tareas relacionados con esta materia y luego la materia
+        NotesDAO.find { Notes.idMateria eq id }.forEach {
+            NotesDAO.findById(it.id.value)?.delete()
+        }
+        ScheduleDAO.find { Horarios.idMateria eq id }.forEach {
+            ScheduleDAO.findById(it.id.value)?.delete()
+        }
+        HomeworkDAO.find{ Homeworks.idMateria eq id }.forEach {
+            HomeworkDAO.findById(it.id.value)?.delete()
+        }
+        val response = SubjectDAO.findById(id)?.delete()
+        return@transaction response!!
     }
 
     //funcion para obtener el nombre de la materia
