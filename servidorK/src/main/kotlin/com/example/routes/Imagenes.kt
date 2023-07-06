@@ -93,8 +93,22 @@ fun Route.imagenesRouting(){
             if(image!=null){
 
                 //envío al cliente la imagen en formato binario
+                //obtengo el path de la carpeta uploads
 
-                val imagenBinario = File(image.path).readBytes()
+                val folderPath = object {}.javaClass.protectionDomain.codeSource.location.path
+                val folder = File(folderPath).parent+File.separator+"uploads"+File.separator
+
+                //extraigo el nombre de la imagen
+                val imagePath = image.imagenes
+                val imageName = imagePath.substringAfterLast(File.separator)
+
+                println("Nombre de la imagen SIN LA RUTA: $imageName")
+
+
+
+                //EXTRAIGO LA IMAGEN EN FORMATO BINARIO
+                val imagenBinario = File("$folder$imageName").readBytes()
+
 
                 val response = ResponseImage(true,"Imagen encontrada", imagenBinario)
                 sendJsonResponse(call, HttpStatusCode.OK, response)

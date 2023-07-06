@@ -17,9 +17,10 @@ fun Route.horariosRouting() {
         get {
             //GET /schedules
             try {
-                //Envio a la capa logica
-                val res = ScheduleLogic().getAll();
-                if(res!=null){
+                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+                val res = ScheduleLogic().getAll(limit, offset);
+                if(res.isNotEmpty()){
                     val response = Response(true,"Horarios obtenidos correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
@@ -34,13 +35,12 @@ fun Route.horariosRouting() {
         }
         get("/{id}") {
             //GET /schedules/{id}
-            //Aqui recibimos el id del usuario para obtener todos los horarios
+            //Aquí recibimos el id del usuario para obtener todos los horarios
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Envio a la capa logica
-                val res = ScheduleLogic().getById(id);
-               if(res==null){
-                   val response = ResponseSingle(false,"No se encontro horario", res)
+                val res = ScheduleLogic().getByUserId(id)
+               if(res.isEmpty()){
+                   val response = ResponseSingle(false,"No se encontró horario", res)
                      sendJsonResponse(call, HttpStatusCode.OK, response)
                }else{
                    val response = ResponseSingle(true,"Horario obtenido correctamente", res)
@@ -94,7 +94,7 @@ fun Route.horariosRouting() {
         }
         delete("/{id}") {
 
-            //Obtenemos el id del pais a eliminar
+            //Obtenemos el id del horario a eliminar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
                 //envio capa logica
