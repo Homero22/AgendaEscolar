@@ -20,5 +20,14 @@ class ImagesLogic {
         }
     }
 
+    fun getImage(id: Int): Image? {
+        val res = obj.gGgetById(ImagesRepo,id)
+        if (res != null) {
+            return res as Image
+        }else{
+            return null
+        }
+    }
+
 
 }

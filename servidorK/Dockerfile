@@ -11,4 +11,7 @@ ENTRYPOINT ["java","-jar","/app/ktor-classbuddy.jar"]
 #Crear carpeta uploads
 RUN mkdir /app/uploads
 
+#Crear carpeta uploads
+RUN mkdir /app/uploads
+
 
