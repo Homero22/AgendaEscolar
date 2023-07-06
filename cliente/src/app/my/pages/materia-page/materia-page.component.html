@@ -1,7 +1,5 @@
 <div class="grid m-2">
-  <div class="" *ngIf="this.viewNotes === true">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet *ngIf="this.viewNotes === true"></router-outlet>
 
   <div class="grid col" *ngIf="this.viewNotes === false">
 

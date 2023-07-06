@@ -33,3 +33,11 @@
   color: var(--tertiary-color);
   width: 30px !important;
 }
+
+
+  /* ------------------ */
+
+#ground{
+  background-color: greenyellow;
+  margin: -0.6rem !important;
+}

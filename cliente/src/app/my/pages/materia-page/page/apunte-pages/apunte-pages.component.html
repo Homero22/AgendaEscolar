@@ -1,4 +1,4 @@
-<div class="full-container">
+<!-- <div class="full-container">
   <div class="grid m-3 pb-3 container-Title">
     <div class="flex align-items-center gap-3">
       <button mat-stroked-button class="btn-Return" (click)="return()">
@@ -58,6 +58,44 @@
 
     </div>
   </div>
+</div> -->
+
+<div class="w-screen" id="ground">
+  <div class="grid m-2">
+    <div class="grid col">
+
+      <!-- Header de Apuntes -->
+      <div class="flex flex-wrap col-12 align-items-center justify-content-between">
+        <div class="flex gap-3">
+          <button mat-stroked-button class="btn-Return" (click)="return()">
+            <i class="material-icons">arrow_back_ios</i>
+          </button>
+          <h3 class="flex align-items-center">{{'Apuntes de ' + this.srvMateria.materia.nombre}}</h3>
+        </div>
+
+        <div class="flex">
+          <button class="btn-agg" (click)="openModal('Agregar Apunte', this.idMateria)">
+            <i class="material-icons">add</i>
+            <p>Agregar Apunte</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Body de Apuntes -->
+      <div class="col-12" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index">
+
+        <div class="" *ngIf="apunte.idMateria === this.idMateria">
+            <label for="" class="uppercase">
+              {{apunte.apunteTitulo}}
+            </label>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 </div>
+
+
 
 
