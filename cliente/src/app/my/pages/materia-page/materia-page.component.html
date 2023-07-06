@@ -1,10 +1,11 @@
-<div class="full-container">
-  <div *ngIf="this.viewNotes === true">
+<div class="grid m-2">
+  <div class="" *ngIf="this.viewNotes === true">
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="this.viewNotes === false">
-    <div class="m-3 pb-3 container-Title">
 
+  <div class="grid col" *ngIf="this.viewNotes === false">
+
+    <div class="col-12 flex justify-content-between">
       <div>
         <h3>Mis Materias</h3>
       </div>
@@ -17,21 +18,15 @@
       </div>
     </div>
 
-    <mat-grid-list cols="4" rowHeight="2:1">
-      <div class="card-container">
-        <div class="card" *ngFor="let materia of srvMateria.datosMateria, let i = index">
-          <div class="grid justify-content-center">
-            <mat-card
-              class="flex-1 md:flex-none flex align-items-center justify-content-center font-bold border-round custom-card gap-3"
-              id="mat-Card" [style.background-color]="materia.materiaColor">
-              <mat-card-header>
-                <mat-card-title>
-                  <h2 class="text-white">
-                    {{ materia.nombre }}
-                  </h2>
-                </mat-card-title>
-              </mat-card-header>
-              <mat-card-actions class="gap-3">
+    <div class="col-12 flex flex-wrap gap-3">
+        <div class="card flex align-items-center justify-content-between" id="containerMaterias" [style.background-color]="materia.materiaColor" *ngFor="let materia of srvMateria.datosMateria, let i = index">
+          <div class="card-container p-3 w-12 justify-content-between">
+
+              <div class="flex align-items-center">
+                <label for="" id="lbl-Title">{{materia.nombre}}</label>
+              </div>
+
+              <div class="flex gap-3">
                 <button mat-raised-button (click)="openModalEdit('Editar Materia', materia.id)">
                   <i class="material-icons btn-Edit">create</i>
                 </button>
@@ -42,12 +37,11 @@
                 <button mat-raised-button (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
                   <i class="material-icons btn-Notes">sticky_note_2</i>
                 </button>
-              </mat-card-actions>
-            </mat-card>
+              </div>
+
           </div>
         </div>
-      </div>
-    </mat-grid-list>
+    </div>
 
   </div>
 

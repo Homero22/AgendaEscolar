@@ -14,6 +14,7 @@ import { UsuarioService } from 'src/app/core/services/usuario.service';
 export class HeaderComponent implements OnInit {
 
   idUser!: any;
+  userName!: any;
 
 
   private destroy$ = new Subject<any>();
@@ -29,6 +30,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     this.idUser = sessionStorage.getItem("id");
+    this.userName = sessionStorage.getItem("nombre");
+    console.log("id => ", this.idUser)
+    console.log("nombre => ", this.userName)
     this.permisos();
     this.getUserByID();
   }
