@@ -6,13 +6,14 @@ import com.example.data.repositories.cGenerica
 import java.lang.Boolean.TRUE
 
 class ScheduleLogic {
-    val obj = cGenerica<Schedules>()
+    private val obj = cGenerica<Schedules>()
 
     fun crearHorario(objeto: Schedule): Int {
 
         val respuesta = obj.gSearch(Schedules, objeto.idMateria, objeto.hora_inicio, objeto.hora_fin, objeto.dia)
+        val materia = obj.gGgetById(Schedules, objeto.idMateria)
         //comprobamos si la materia existe
-        if (respuesta == TRUE) {
+        if (respuesta == TRUE && materia !=null) {
             //si no existe la materia la creamos
             Schedules.save(objeto)
             return 1
@@ -26,8 +27,11 @@ class ScheduleLogic {
     }
 
     fun actualizarHorario(id: Int, schedule: Schedule): Int {
+
         val respuesta = obj.gGgetById(Schedules,id)
-        if (respuesta == null) {
+        val materia = obj.gGgetById(Schedules, schedule.idMateria)
+
+        if (respuesta == null || materia == null) {
             return 0
         }
         obj.gUpdate(Schedules,id,schedule)
