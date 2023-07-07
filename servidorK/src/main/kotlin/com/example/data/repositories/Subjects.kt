@@ -4,9 +4,7 @@ import com.example.data.entities.*
 import com.example.data.entities.Homeworks
 import com.example.data.entities.Notes
 import com.example.data.entities.Subjects
-import com.example.data.models.Note
 import com.example.data.models.Subject
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -22,9 +20,8 @@ object Subjects : CrudRepository<Subject, Int> () {
     }
 
     override fun getById(id: Int) = transaction {
-       //debo devolver las materias de dado el id del usuario
-        val response = SubjectDAO.findById(id)?.toSubject()
-        return@transaction response
+        //debo devolver las materias de dado el id del usuario
+        return@transaction SubjectDAO.findById(id)?.toSubject()
     }
     fun getByIdUser (id:Long):List<Any> = transaction {
         val response = Subjects

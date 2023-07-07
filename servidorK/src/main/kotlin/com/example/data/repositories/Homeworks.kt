@@ -3,8 +3,10 @@ package com.example.data.repositories
 import com.example.data.entities.HomeworkDAO
 import com.example.data.entities.Homeworks
 import com.example.data.entities.SubjectDAO
+import com.example.data.entities.Subjects
 import com.example.data.entities.Users
 import com.example.data.models.Homework
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
@@ -89,9 +91,11 @@ object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para obtener todas las tareas de un usuario dado un estado
 
     fun getAllByUserAndState(id: Long, state: String):List<Any> = transaction {
+
         val res = Homeworks
-            .select({ Homeworks.idUser eq id })
+            .select { Homeworks.idUser eq id }
             .andWhere { Homeworks.tareaEstado eq state }
+            .orderBy(Pair(Homeworks.fechaFin, SortOrder.ASC))
             .map {
                 mapOf(
                     "id" to it[Homeworks.id].value,
@@ -106,6 +110,12 @@ object Homeworks: CrudRepository<Homework, Int>() {
                     "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
                 )
             }
+        //ordenar por fecha de entrega
+
+
+
+
+
         return@transaction res
     }
 
@@ -117,6 +127,15 @@ object Homeworks: CrudRepository<Homework, Int>() {
             .filter { it.idUser == id.toLong() && it.tareaEstado == state }
 
         return@transaction response.map { it.toHomework() }
+    }
+
+    fun searchTitle(title: String):Int = transaction {
+            val res = HomeworkDAO.find { Homeworks.tareaTitulo eq title }.toList()
+            if(res.isEmpty()){
+                return@transaction 0
+            }else{
+                return@transaction 1
+            }
     }
 
 
