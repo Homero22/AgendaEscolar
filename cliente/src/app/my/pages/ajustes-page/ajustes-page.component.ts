@@ -17,6 +17,7 @@ export class AjustesPageComponent implements OnInit {
 
   idUser!: any;
   email!: FormControl;
+  userName!: string;
   hide = true;
   idPais!: any;
   myForm!: FormGroup;
