@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Error404Component } from './shared/pages/error404/error404.component';
 import { DenegadoComponent } from './shared/pages/denegado/denegado.component';
 import { loguinSecurityGuard } from './core/guards/loguin-security.guard';
+import { rolGuard } from './core/guards/rol.guard';
 //localhost:4200/....
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'me',
-    canActivate: [loguinSecurityGuard],
+    canActivate: [loguinSecurityGuard, rolGuard],
     loadChildren: () => import('./my/my.module').then(m => m.MyModule),
   },
   {

@@ -77,6 +77,7 @@ export class EditarHorarioComponent {
     .subscribe({
       next: (idHorario: number)=>{
         this.idHorario = idHorario;
+        console.log("idHorario en editar-horario =>", this.idHorario);
       }
     })
 
@@ -136,7 +137,13 @@ export class EditarHorarioComponent {
       hora_fin: horaFin,
       dia: this.dia
     }
-    console.log("addHorario", addHorario);
+
+    console.log("form 'addHorario'", addHorario);
+    console.log("idHorario", this.idHorario);
+    console.log("idMateria", this.idMateria);
+    console.log("idUser", this.idUser);
+    console.log("selected.id", this.selected.id);
+
     if(this.idHorario === -1 && this.selected.id !== undefined){
       console.log("Deseo agregar el horario");
       this.addHorario(addHorario);
@@ -152,35 +159,42 @@ export class EditarHorarioComponent {
   }
 
   deleteHorario(){
-    Swal.fire({
-      title: 'Cargando...',
-      didOpen: () => {
-        Swal.showLoading()
-      }
-    })
+    // Swal.fire({
+    //   title: 'Cargando...',
+    //   didOpen: () => {
+    //     Swal.showLoading()
+    //   }
+    // })
     this.srvHorario.deleteHorario(this.idHorario)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(horarioData)=>{
+        // Swal.close();
         console.log("Valor de horarioData en deleteHorario =>", horarioData);
         if(horarioData.status){
           this.obtenerHorario();
+          this.idHorario = -1;
           Swal.fire({
             icon: 'success',
-            title: horarioData.messege,
-            showConfirmButton: false,
-            timer: 3000
+            title: horarioData.message,
+            showDenyButton: false,
+            confirmButtonText: `Aceptar`,
           })
-          this.srvModal.closeModal();
+          // this.srvModal.closeModal();
         }else{
           console.log("No se pudo eliminar el horario");
           Swal.fire({
-            icon: 'error',
-            title: horarioData.messege,
-            showConfirmButton: false,
-            timer: 3000
-          })
+            title: horarioData.message,
+            icon: 'warning',
+            showDenyButton: false,
+            confirmButtonText: `Aceptar`,
+          });
         }
+      },error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        // Swal.close();
       }
     })
   }
@@ -206,6 +220,7 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.idHorario = horarioData.body.id;
           this.srvModal.closeModal();
         }else{
           console.log("No hay datos");
@@ -236,7 +251,7 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
-          this.srvModal.closeModal();
+          // this.srvModal.closeModal();
         }else{
           console.log("No se pudo actualizar el horario");
           Swal.fire({

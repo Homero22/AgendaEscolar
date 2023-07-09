@@ -29,15 +29,25 @@ export class UsuarioService {
   private urlApi_Usuarios: string = config.URL_API_BASE + "users";
 
   //Constructor
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
 
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
   //Metodos de los Servicios
 
   //listar Usuarios
   getUsuarios(){
     return this.http.get<any>(`${this.urlApi_Usuarios}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -46,7 +56,10 @@ export class UsuarioService {
   getUserByID(idUser: number){
     return this.http.get<any>(`${this.urlApi_Usuarios}/${idUser}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -54,7 +67,10 @@ export class UsuarioService {
   postUser(dataUsuario: addUsuarioData){
     return this.http.post<any>(`${this.urlApi_Usuarios}`, dataUsuario,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -62,7 +78,10 @@ export class UsuarioService {
   putUser(id:number, dataUsuario: updateUsuarioData){
     return this.http.put<updateUsuarioModel>(`${this.urlApi_Usuarios}/${id}`, dataUsuario,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
