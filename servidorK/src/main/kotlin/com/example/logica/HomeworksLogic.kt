@@ -3,6 +3,7 @@ package com.example.logica
 import com.example.data.models.Homework
 import com.example.data.repositories.Homeworks
 import com.example.data.repositories.cGenerica
+import com.google.protobuf.Internal.ListAdapter
 
 class HomeworksLogic {
     val obj = cGenerica<Homeworks>()
@@ -69,12 +70,12 @@ class HomeworksLogic {
         return 0
     }
 
-    fun getByEstado(id: Int, estado: Int): Any {
+    fun getByEstado(id: Int, estado: Int): List<Any> {
         when (estado) {
             0 -> return obj.gGetByEstado(Homeworks, id, "FINALIZADA")
             1 -> return obj.gGetByEstado(Homeworks, id, "PENDIENTE")
         }
-        return 0
+        return emptyList()
     }
 
 

@@ -14,8 +14,13 @@ fun Route.usuariosRouting() {
 
     route("/users") {
         //GET /users
+
+
+
         get {
             try {
+
+
                 //Obtenemos el limite de usuarios a mostrar
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 //Obtenemos el offset de usuarios a mostrar

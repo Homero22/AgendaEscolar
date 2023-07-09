@@ -117,8 +117,7 @@ object Users : CrudRepository<User, Int>() {
     //funcion para obtener los años que esta en fechaCreacion
     fun getAllAnios(): List<Int> = transaction {
         //obtener todos los años de fechaCreacion sin repetir
-        val response = UsersDAO.all().map { it.fechaCreacion.year }.distinct()
-        return@transaction response
+        return@transaction UsersDAO.all().map<UsersDAO, Int> { it.fechaCreacion.year }.distinct<Int>()
     }
     //funcion para obtener la cantidad de usuarios por mes y año
     fun getUsuariosPorMes(anio: Int): List<usuariosPorMes> = transaction {

@@ -126,11 +126,11 @@ fun Route.homeworksRouting(){
             try{
                 //Envio a la capa logica
                 val res = HomeworksLogic().getByEstado(id, estado);
-                if(res==0){
-                    val response = Response(false,"No se encontró la  tarea", emptyList())
+                if(res.isEmpty()){
+                    val response = Response(false,"No se encontraron las  tareas", emptyList())
                     sendJsonResponse(call, HttpStatusCode.NotFound, response)
                 }else{
-                    val response = ResponseSingle(true,"Tarea obtenida correctamente", res)
+                    val response = ResponseSingle(true,"Tareas obtenida correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (cause: Throwable){
