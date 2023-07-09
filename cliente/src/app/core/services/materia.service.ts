@@ -28,8 +28,15 @@ materia: modMateriaData = {
   profesorNombre: ''
 };
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) { 
+  this.token = this.getCookie('token');
 
+}
+getCookie(name: string): string {
+  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+  return cookieValue ? cookieValue.pop() || '' : '';
+}
+token: any;
 // ------------------------ MATERIAS BEHAVIORSUBJECTS ------------------------
 
 //behaviorSubject para obtener el idDeMateria
@@ -62,42 +69,60 @@ getMateriasUsuario(idUser: number){
   console.log("idUser en gerMateriasUsuario =>",idUser);
   return this.http.get<ShowMateriaModel>(`${this.urlApi_MateriasUsuario}/${idUser}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
 getMaterias(){
   return this.http.get<ShowMateriaModel>(`${this.urlApi_Materias}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
 postMateria(dataMateria: addMateriaData){
   return this.http.post<ShowMateriaModel>(`${this.urlApi_Materias}`, dataMateria,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
 getMateria(id: number){
   return this.http.get<modMateriaModel>(`${this.urlApi_Materias}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
 putMateria(id: number, dataMateria: addMAteriaDataByID){
   return this.http.put<modMateriaModel>(`${this.urlApi_Materias}/${id}`, dataMateria,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
 deleteMateria(id: number){
   return this.http.delete<ShowMateriaModel>(`${this.urlApi_Materias}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
 }
 
