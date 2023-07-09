@@ -99,7 +99,7 @@ import { InicioUserComponent } from './inicio-user/inicio-user.component';
     SliderComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
-    InicioUserComponent,
+    InicioUserComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 

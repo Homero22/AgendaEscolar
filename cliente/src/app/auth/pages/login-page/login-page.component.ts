@@ -88,9 +88,13 @@ export class LoginPageComponent {
             const parsedBody = JSON.parse(storedBody);
             const idUser = parsedBody.id;
             const userRol = parsedBody.rol;
+            const userName = parsedBody.nombre;
             console.log("Valor del IdUser =>",idUser);
             sessionStorage.setItem('id', idUser);
             sessionStorage.setItem('rol', userRol);
+            sessionStorage.setItem('nombre', userName);
+
+            console.log("Valor del userName =>",userName);
 
             //usamos el behaviorSubject para enviar el id del usuario
             this.srvLoguin.setIdUser(idUser);

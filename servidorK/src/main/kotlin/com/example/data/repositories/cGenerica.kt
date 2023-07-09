@@ -1,7 +1,10 @@
 package com.example.data.repositories
 
+
 import com.example.data.models.*
 import com.example.data.models.reportes.usuariosPorMes
+
+
 
 class cGenerica <T> {
 
@@ -20,6 +23,9 @@ class cGenerica <T> {
                 obj.getAll(limit,offset)
             }
             is Homeworks ->{
+                obj.getAll(limit,offset)
+            }
+            is Schedules ->{
                 obj.getAll(limit,offset)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -56,9 +62,13 @@ class cGenerica <T> {
             is Homeworks ->{
                 obj.save(entity as Homework)
             }
+            is ImagesRepo ->{
+                obj.save(entity as Image)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
+
 
     // Buscar un valor en especifico  y devovler un objeto
     fun gSearch(obj: T, valor: String): Any? {
@@ -76,6 +86,16 @@ class cGenerica <T> {
             is Subjects -> {
                 obj.search(valor)
             }
+            is LoginRequest ->{
+                Users.searchEmail(valor) as User
+            }
+            is Notes ->{
+                obj.searchTitle(valor)
+            }
+            is Homeworks ->{
+                obj.searchTitle(valor)
+            }
+
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -102,16 +122,19 @@ class cGenerica <T> {
                 obj.getById(id)
             }
             is Subjects -> {
-                obj.getById(id)
+                obj.getById(id) //
             }
             is Notes ->{
                 obj.getById(id)
             }
             is Schedules ->{
-                obj. getAllByUser(id.toLong())
+                obj. getById(id)
             }
             is Homeworks ->{
                 obj.getById(id)
+            }
+            is ImagesRepo ->{
+                obj.getById(id) as Image
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -144,6 +167,14 @@ class cGenerica <T> {
             }
             is Users ->{
                 obj.update(id, entity as User)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gEliminadoLogico (obj: T, id: Int,valor:String): Any{
+        return when (obj){
+            is Users ->{
+                obj.eliminadoLogico(id,valor)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -182,6 +213,9 @@ class cGenerica <T> {
                 obj.getAllByUser(id.toLong())
             }
             is Notes ->{
+                obj.getAllByUser(id.toLong())
+            }
+            is Schedules ->{
                 obj.getAllByUser(id.toLong())
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -227,28 +261,25 @@ class cGenerica <T> {
         }
     }
 
-    fun gGetAdmins(users: T): List<Any> {
+    fun gGetAdmins(users: T, limit: Int, offset: Int): List<Any> {
         return when(users) {
             is Users -> {
-                users.getAdministradores()
+                users.getAdministradores(limit,offset)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetByUserName(imagesRepo: T, imagenes: String): Image?{
+        return when(imagesRepo) {
+            is ImagesRepo -> {
+                imagesRepo.getByName(imagenes)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
 
 
-    //buscamos nombre de materia
-    /*
-    fun gGetDataSubjects(obj: T): List<Any> {
-        return when(obj) {
-            is Subjects -> {
-                obj.obtenerDatosMaterias();
-            }
-            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
-        }
-    }
-
-     */
 
 
 

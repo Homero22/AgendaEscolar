@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import Swal from 'sweetalert2';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { addMateriaData, addMateriaModel } from 'src/app/core/models/materia';
 
 @Component({
   selector: 'app-agregar-materia',
@@ -83,60 +84,103 @@ export class AgregarMateriaComponent implements OnInit {
 
     const sendMateriaData = this.myForm.value;
 
+    // Swal.fire({
+    //   title:'Esta seguro de añadir esta Materia?',
+    //   showDenyButton:true,
+    //   confirmButtonText:'Agregar',
+    //   denyButtonText:'Cancelar'
+    // }).then((result)=>{
+    //   if(result.isConfirmed){
+    //     this.srvMateria.postMateria(sendMateriaData)
+    //     .pipe(takeUntil(this.destroy$))
+    //     .subscribe({
+    //       next: (dataMateria ) =>{
+    //         console.log("Data que llega al agregar Materia =>",dataMateria);
+    //         if(dataMateria.body){
+    //           Swal.fire({
+    //             title: dataMateria.message,
+    //             icon:'success',
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //           })
+    //           console.log("Materia agregada con éxito =>",dataMateria);
+    //         }else{
+    //           Swal.fire({
+    //             title:dataMateria.message,
+    //             icon:'error',
+    //             showConfirmButton: false,
+    //           })
+    //           console.log("Error al agregar materia =>", dataMateria.message);
+    //         }
+    //         setTimeout(() => {
+    //           Swal.close();
+    //         }, 3000);
+    //       },
+    //       error: (error)=>{
+    //         Swal.fire({
+    //           title:'Error al agregar Materia!',
+    //           icon:'error',
+    //           showConfirmButton: false,
+    //         })
+    //         console.log("Error al agregar materia =>", error);
+    //       },
+    //       complete: ()=>{
+    //         console.log("Petición completa!");
+    //         this.srvModal.setCloseMatDialog(true);
+    //         this.myForm.reset();
+    //         this.getMaterias();
+    //       }
+    //     })
+    //   }
+    // })
+
+
     Swal.fire({
-      title:'Esta seguro de añadir esta Materia?',
-      showDenyButton:true,
-      confirmButtonText:'Agregar',
-      denyButtonText:'Cancelar'
-    }).then((result)=>{
-      if(result.isConfirmed){
-        this.srvMateria.postMateria(sendMateriaData)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (data)=>{
-            console.log("Data que llega al agregar Materia =>",data);
-            if(data.status){
-              Swal.fire({
-                title:'Materia agregada con éxito!',
-                icon:'success',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              console.log("Materia agregada con éxito =>",data);
-              this.getMaterias()
-              setTimeout(() => {
-                this.getMaterias()
-              }, 1000);
-            }else{
-              Swal.fire({
-                title:data.message,
-                icon:'error',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              console.log("Error al agregar materia =>", data.message);
-            }
-            setTimeout(() => {
-              Swal.close();
-            }, 3000);
-          },
-          error: (error)=>{
-            Swal.fire({
-              title:'Error al agregar Materia!',
-              icon:'error',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            console.log("Error al agregar materia =>", error);
-          },
-          complete: ()=>{
-            console.log("Petición completa!");
-            //cerramos el modal mandando el valor de true al behaviorSubject
-            // this.srvModal.setCloseMatDialog(true);
-            this.myForm.reset();
-            this.getMaterias();
-          }
+      title: 'Agregando Materia',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
+    this.srvMateria.postMateria(sendMateriaData)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (dataMateria ) =>{
+        console.log("Data que llega al agregar Materia =>",dataMateria);
+        if(dataMateria.body){
+          Swal.fire({
+            title: dataMateria.message,
+            icon:'success',
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log("Materia agregada con éxito =>",dataMateria);
+        }else{
+          Swal.fire({
+            title:dataMateria.message,
+            icon:'error',
+            showConfirmButton: false,
+            timer: 2500
+          })
+          console.log("Error al agregar materia =>", dataMateria.message);
+        }
+        setTimeout(() => {
+          Swal.close();
+        }, 3000);
+      },
+      error: (error)=>{
+        Swal.fire({
+          title:'Error al agregar Materia!',
+          icon:'error',
+          showConfirmButton: false,
         })
+        console.log("Error al agregar materia =>", error);
+      },
+      complete: ()=>{
+        console.log("Petición completa!");
+        this.srvModal.setCloseMatDialog(true);
+        this.myForm.reset();
+        this.getMaterias();
       }
     })
   }
