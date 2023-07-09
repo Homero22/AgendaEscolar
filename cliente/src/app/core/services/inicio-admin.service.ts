@@ -29,7 +29,7 @@ export class InicioAdminService {
   adminsT: number = 0;
   anios!: number;
   datos!: bodyGraph[];
-  token: any = localStorage.getItem('token');
+  token: any;
   //-----------Para obtener los valores de los cards------------
 
 

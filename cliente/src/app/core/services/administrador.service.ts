@@ -11,7 +11,15 @@ export class AdministradorService {
   private urlApi_Administrador: string = config.URL_API_BASE + "users/administradores";
   private urlApi_Usuarios: string = config.URL_API_BASE + "users";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
+
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
 
   administradores!: UsuarioModel[];
   admin!: UsuarioModel;
@@ -21,7 +29,10 @@ export class AdministradorService {
   getAdministradores(){
     return this.http.get<any>(`${this.urlApi_Administrador}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -29,7 +40,10 @@ export class AdministradorService {
   getAdministrador(id: number){
     return this.http.get<any>(`${this.urlApi_Usuarios}/${id}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -37,7 +51,10 @@ export class AdministradorService {
   postAdministrador(dataAdministrador: any){
     return this.http.post<any>(`${this.urlApi_Usuarios}`, dataAdministrador,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -45,7 +62,10 @@ export class AdministradorService {
   putAdministrador(id: number, dataAdministrador: any){
     return this.http.put<any>(`${this.urlApi_Usuarios}/${id}`, dataAdministrador,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -53,7 +73,10 @@ export class AdministradorService {
   deleteAdministrador(id: number){
     return this.http.delete<any>(`${this.urlApi_Usuarios}/${id}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 }
