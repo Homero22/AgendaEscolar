@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { CountryModel, ShowCountriesModel } from 'src/app/core/models/countries';
+import { CountryModel } from 'src/app/core/models/countries';
 import { CountrieService } from 'src/app/core/services/countrie.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import Swal from 'sweetalert2';
 import { AdministradorService } from 'src/app/core/services/administrador.service';
-import { UsuarioModel } from 'src/app/core/models/usuario';
-import { MatTableDataSource } from '@angular/material/table';
+// import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-agregar-admins',
@@ -16,7 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class AgregarAdminsComponent {
 
-  dataSource = new MatTableDataSource<UsuarioModel>;
+  // dataSource = new MatTableDataSource<UsuarioModel>;
 
   //Validacion de email
   email!: FormControl;
@@ -144,7 +143,7 @@ export class AgregarAdminsComponent {
               showConfirmButton: true
             }).then((result) => {
               if (result.isConfirmed) {
-                this.getAdministradores();
+                // this.getAdministradores();
               }
             })
 
@@ -202,21 +201,21 @@ export class AgregarAdminsComponent {
       });
   }
 
-  getAdministradores() {
-    this.srvAdmins.getAdministradores()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (value) => {
-          this.srvAdmins.administradores = value.body
-          console.log("administradores ", this.srvAdmins.administradores)
-        },
-        complete: () => {
-          this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
-          console.log("administradores this.dataSource ", this.dataSource)
-        }
+  // getAdministradores() {
+  //   this.srvAdmins.getAdministradores()
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (value) => {
+  //         this.srvAdmins.administradores = value.body
+  //         console.log("administradores ", this.srvAdmins.administradores)
+  //       },
+  //       complete: () => {
+  //         this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+  //         console.log("administradores this.dataSource ", this.dataSource)
+  //       }
 
-      })
-  }
+  //     })
+  // }
   //Metodo destroy
   ngOnDestroy(): void {
     this.destroy$.next({});

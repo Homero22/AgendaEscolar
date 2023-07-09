@@ -73,6 +73,6 @@ export interface HorarioItem {
 
   export interface ModelShowHorario{
     status: string,
-    messege: string,
+    message: string,
     body: HomeroItem[]
   }

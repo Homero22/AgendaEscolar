@@ -1,8 +1,6 @@
-<div class="grid m-2">
+<div class="grid m-2" *ngIf="this.permiso" >
   <div class="col-8 p-2">
-    <!-- <mat-card class=""> -->
       <app-inicio-admin></app-inicio-admin>
-    <!-- </mat-card> -->
   </div>
 
   <div class="col-4 p-2">
@@ -12,15 +10,6 @@
   </div>
 </div>
 
-
-<!-- <div class="grid m-2">
-  <app-inicio-admin></app-inicio-admin>
-
-</div> -->
-
-
- <!-- <div class="container">
-    <h1>Usuarios Registrados</h1>
-    <canvas id="canvas"></canvas>
-  
- </div> -->
+<div *ngIf="this.permiso==false">
+<app-inicio-user></app-inicio-user>
+</div>

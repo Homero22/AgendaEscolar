@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { DatePipe } from '@angular/common';
 import { ModalService } from 'src/app/core/services/modal.service';
-
+// import { MatDialogRef } from '@angular/material/dialog';
+// import { ModalComponent } from 'src/app/modal/modal.component';
 @Component({
   selector: 'app-editar-tarea',
   templateUrl: './editar-tarea.component.html',
@@ -30,7 +31,8 @@ export class EditarTareaComponent {
     private srvTarea: TareaService,
     public srvMateria: MateriaService,
     public datePipe: DatePipe,
-    private srvModal: ModalService
+    private srvModal: ModalService,
+
   ) {
     this.idUser = sessionStorage.getItem("id");
     this.idUser = parseInt(this.idUser);
@@ -201,7 +203,9 @@ export class EditarTareaComponent {
           });
           this.getTareasEstado(1);
           this.getTareas();
-          this.srvModal.setCloseMatDialog(true);
+          // this.srvModal.setCloseMatDialog(true);
+          // this.dialogRef.close();
+
         }else{
           Swal.fire({
             icon: 'error',

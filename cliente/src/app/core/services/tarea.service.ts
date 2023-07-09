@@ -11,8 +11,15 @@ export class TareaService {
   private urlApi_Tareas: string = config.URL_API_BASE + "homeworks";
   private urlApi_TareasUsuario: string = config.URL_API_BASE + "homeworks/user";
   private urlApi_TareasEstado: string = config.URL_API_BASE + "homeworks/estado";
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
 
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
   // ------------------------ TAREAS BEHAVIORSUBJECTS ------------------------
   //behaviorSubject para obtener el idDeTarea
   private idTarea$ = new BehaviorSubject<number>(0);
@@ -35,28 +42,40 @@ export class TareaService {
     console.log("idUser en gerTareasUsuario =>",idUser);
     return this.http.get<any>(`${this.urlApi_TareasUsuario}/${idUser}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
   postTarea(dataTarea: any){
     return this.http.post<any>(`${this.urlApi_Tareas}`, dataTarea,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
   putTarea(idTarea: number, dataTarea: any){
     return this.http.put<any>(`${this.urlApi_Tareas}/${idTarea}`, dataTarea,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
   deleteTarea(idTarea: number){
     return this.http.delete<any>(`${this.urlApi_Tareas}/${idTarea}`,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -66,31 +85,21 @@ export class TareaService {
     //http://26.241.69.100:8002/homeworks/estado/4?estado=0
     return this.http.get<any>(`${this.urlApi_TareasEstado}/${idUser}`+'?'+params,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
   getTareaId(idTarea: number){
     return this.http.get<any>(`${this.urlApi_Tareas}/${idTarea}`,
       {
-        withCredentials: true
-      });
-  }
-/*
-  // ------------------------ RECORDATORIOS ------------------------
-  getRecordatorios(){
-    return this.http.get<any>(`${this.urlApi_recordatorio}`,
-      {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
-  postRecordatorio(dataRecordatorio: any){
-    console.log("dataRecordatorio =>", dataRecordatorio);
-    return this.http.post<any>(`${this.urlApi_recordatorio}`, dataRecordatorio,
-      {
-        withCredentials: true
-      });
-  }
-*/
 }

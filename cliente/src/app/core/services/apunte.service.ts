@@ -30,9 +30,15 @@ export class ApunteService {
 
   datosApuntes: any = [];
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
+
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
 
 
   // ------------------------ APUNTES BEHAVIORSUBJECTS ------------------------
@@ -62,14 +68,20 @@ export class ApunteService {
   getApuntesUsuario(idUser: number){
     return this.http.get<ShowApunteModel>(`${this.urlApi_ApuntesUsuario}/${idUser}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
   }
 
   getApunteIndividual(id: number){
     return this.http.get<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
   }
 
@@ -77,7 +89,10 @@ export class ApunteService {
   postApunte(dataApunte: addApunteData){
     return this.http.post<ShowApunteModel>(`${this.urlApi_Apuntes}`, dataApunte,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 
@@ -85,7 +100,10 @@ export class ApunteService {
   putApunte(id: number, dataApunte: addApunteByID){
     return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,dataApunte,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 
@@ -93,7 +111,10 @@ export class ApunteService {
   deleteApunte(id: number){
     return this.http.delete<ShowApunteModel>(`${this.urlApi_Apuntes}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 }

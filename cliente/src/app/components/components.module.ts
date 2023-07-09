@@ -34,6 +34,9 @@ import { InicioAdminComponent } from './inicio-admin/inicio-admin.component';
 import { MostrarAdminsComponent } from './ajustes-inicio-admin/mostrar-admins/mostrar-admins.component';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/agregar-admins.component';
+import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
+import { InicioUserComponent } from './inicio-user/inicio-user.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -52,6 +55,9 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
     SliderComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
+    AgregarAdminsComponent,
+    EditarAdminsComponent,
+    InicioUserComponent
 
   ],
   imports: [
@@ -93,6 +99,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
     SliderComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
+    InicioUserComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 

@@ -7,9 +7,15 @@ import config from 'config/config';
 })
 export class ImgService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
+
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
 
   //Rutas para consumir imagenes del Backend
 
@@ -23,7 +29,10 @@ export class ImgService {
   getImg(){
     return this.http.get<any>(this.urlApi_images,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
@@ -31,7 +40,10 @@ export class ImgService {
   postImg(image: any){
     return this.http.post<any>(this.urlApi_images, image,
       {
-        withCredentials: true
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
       });
   }
 
