@@ -92,7 +92,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
     ContenidoApunteComponent,
     SliderComponent,
     InicioAdminComponent,
-    MostrarAdminsComponent
+    MostrarAdminsComponent,
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 

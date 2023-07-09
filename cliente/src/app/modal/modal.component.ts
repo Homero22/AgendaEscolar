@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ModalService } from '../core/services/modal.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -9,14 +9,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
 
   private closeSubscription!: Subscription;
 
   titleModal: string = '';
-  modalView!: number;
 
   close!: boolean;
+  windows!: any;
 
   private destroy$ = new Subject<any>();
 
@@ -37,8 +37,10 @@ export class ModalComponent {
       if (closeMatDialog) {
         this.closeModal();
       }
-    }
-    );
+    });
+
+    this.srvModal.setCloseMatDialog(false);
+
   }
 
   // Función para obtener el titulo del modal.
@@ -57,14 +59,15 @@ export class ModalComponent {
   //generamos el metodo para cerrar el modal
   closeModal(): void {
     // Cierra el mat-dialog
+    this.srvModal.setCloseModal(false);
     this.dialogRef.close();
+    window.location.reload();
   }
 
   // mwtodo ngOnDestroy para destruir el modal
   ngOnDestry(): void {
     this.destroy$.next({});
     this.destroy$.complete();
-
     this.closeSubscription.unsubscribe();
   }
 }

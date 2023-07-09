@@ -1,0 +1,59 @@
+<div class="w-screen" id="ground">
+  <div class="grid m-2">
+
+    <div class="grid col">
+      <div class="col-12 flex gap-3 flex-wrap col-12 align-items-center justify-content-between">
+        <div class="flex gap-3">
+          <button mat-stroked-button class="btn-Return" (click)="returnListApunte()">
+            <i class="material-icons">arrow_back_ios</i>
+            <label for="">Regresar</label>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-3 col-12 flex flex-wrap justify-content-between">
+      <div class="col-11 sm:col-8 div-Body">
+        <mat-form-field class="w-12">
+          <mat-label>Título</mat-label>
+          <input matInput [value]="this.srvApunte.apunteData.apunteTitulo" disabled>
+        </mat-form-field>
+
+        <div class="grid">
+          <mat-form-field class="col">
+            <mat-label>Fecha Creacion</mat-label>
+            <input matInput [value]="this.srvApunte.apunteData.fechaCreacion" disabled>
+          </mat-form-field>
+
+          <mat-form-field class="col">
+            <mat-label>Tiempo Recordatorio</mat-label>
+            <input matInput [value]="this.srvApunte.apunteData.apunteRecordatorio" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="grid">
+          <mat-form-field class="col">
+            <mat-label>Ideas</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteIdeas" disabled></textarea>
+          </mat-form-field>
+          <mat-form-field class="col">
+            <mat-label>Resumen</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteNotasClase" disabled></textarea>
+          </mat-form-field>
+        </div>
+
+          <mat-form-field class="w-12">
+            <mat-label>Contenido</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteResumen" disabled></textarea>
+          </mat-form-field>
+
+      </div>
+
+      <div class="col-11 sm:col-3 div-Body">
+        <label for="">relacionados</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
