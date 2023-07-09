@@ -204,7 +204,7 @@ export class AgregarApunteComponent implements OnInit {
             if(apunteData.status){
               Swal.fire({
                 icon:'success',
-                title:'Apunte agregado correctamente',
+                title:apunteData.message,
                 showConfirmButton:false,
                 timer:1500
               });
@@ -235,12 +235,44 @@ export class AgregarApunteComponent implements OnInit {
             console.log("Peticion finalizada");
             this.srvModal.setCloseMatDialog(true);
             this.myForm.reset();
+            this.getApuntes();
           }
         });
       }
     });
 
   }
+
+  getApuntes(){
+    Swal.fire({
+      title: 'Cargando Apuntes...',
+      allowOutsideClick: false,
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    });
+
+    this.srvApuntes.getApuntesUsuario(this.idUser)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(apunteData )=>{
+        Swal.close();
+        if(apunteData.body){
+          this.srvApuntes.datosApuntes = apunteData.body;
+          console.log("Valor de apunteData.body =>",this.srvApuntes.datosApuntes);
+        }else{
+          console.log("No hay datos");
+        }
+      },
+      error:(err)=>{
+        console.log("Error en la peticion =>",err);
+      },
+      complete:()=>{
+        console.log("Peticion finalizada");
+      }
+    });
+  }
+
 
   transformDate(dateFin: Date){
     const datePipe = new DatePipe('en-US');

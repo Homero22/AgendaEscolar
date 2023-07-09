@@ -1,5 +1,12 @@
 <div class="w-screen" id="ground">
-  <div class="grid m-2">
+
+  <div class="grid m-2" *ngIf="this.viewApunte === true">
+    <app-mostrar-apunte></app-mostrar-apunte>
+  </div>
+
+
+
+  <div class="grid m-2" *ngIf="this.viewApunte === false">
     <div class="grid col">
 
       <!-- Header de Apuntes -->
@@ -40,7 +47,7 @@
 
             <div class="flex gap-3">
 
-              <button mat-stroked-button>
+              <button mat-stroked-button (click)="openApunte(apunte.id)">
                 <i class="material-icons">visibility</i>
               </button>
 
@@ -49,14 +56,14 @@
             >
               <i class="material-icons btn-Edit">edit</i>
             </button>
+            <button mat-stroked-button class="btn-Content" [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
+              <i class="material-icons btn-GPT">tips_and_updates</i>
+            </button>
             <button mat-stroked-button
               class="btn-Delete"
               (click)="deleteApunte(apunte.id)"
             >
               <i class="material-icons btn-Delete">delete</i>
-            </button>
-            <button mat-stroked-button class="btn-Content" [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
-              <i class="material-icons btn-GPT">tips_and_updates</i>
             </button>
             </div>
 

@@ -1,4 +1,5 @@
 <div class="grid m-2">
+
   <router-outlet *ngIf="this.viewNotes === true"></router-outlet>
 
   <div class="grid col" *ngIf="this.viewNotes === false">
@@ -29,11 +30,12 @@
                   <i class="material-icons btn-Edit">create</i>
                 </button>
 
-                <button mat-raised-button (click)="deleteMateria(materia.id)">
-                  <i class="material-icons btn-Delete">delete</i>
-                </button>
                 <button mat-raised-button (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
                   <i class="material-icons btn-Notes">sticky_note_2</i>
+                </button>
+
+                <button mat-raised-button (click)="deleteMateria(materia.id)">
+                  <i class="material-icons btn-Delete">delete</i>
                 </button>
               </div>
 
