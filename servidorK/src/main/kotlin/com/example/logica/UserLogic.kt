@@ -9,59 +9,45 @@ import com.example.data.repositories.cGenerica
 class UserLogic {
 
     //Declaramos un objeto de tipo generico
-    val obj = cGenerica<Users>()
+    private val obj = cGenerica<Users>()
 
     //Metodo para verificar si el correo ya existe en la base de datos
-    fun verificarCorreo(correo: String): Boolean {
+    private fun verificarCorreo(correo: String): Boolean {
         val user = Users.searchEmail(correo)
-        if (user == null) {
-            return false
-        }
-        return true
+        return user != null
     }
 
     //Metodo para verificar si el telefono ya existe en la base de dato
-    fun verificarTelefono(telefono: String): Boolean {
+    private fun verificarTelefono(telefono: String): Boolean {
         val user = Users.searchPhone(telefono)
-        if (user == null) {
-            return false
-        }
-        return true
+        return user != null
     }
-
-
-    //Metodo para devolver el usuario que tiene el correo ingresado o telefono ingresado
-    /*fun searchUser(correo: String, telefono: String): User {
-        val user = Users.getUser(correo, telefono)
-        return user!!
-    }*/
-
     // Funcion para Ingresar un nuevo usuario validando que el correo y el telefono no existan en la base de datos
     fun insertarUsuario(user: User): Boolean {
         val verificarCorreo = verificarCorreo(user.correo)
         val verificarTelefono = verificarTelefono(user.telefono)
         if (!verificarCorreo && !verificarTelefono) {
-            Users.save(user)
+            obj.gSave(Users,user)
             return true
         }
         return false
     }
 
-    fun getAll(limit:Int, offset:Int): List<User> {
-        return obj.gGetAll(Users,limit,offset) as List<User>
+    fun getAll(limit:Int, offset:Int): List<Any> {
+        return obj.gGetAll(Users,limit,offset)
 
     }
 
-    fun getById(id: Int): User? {
-        return obj.gGgetById(Users,id) as User?
+    fun getById(id: Int): Any? {
+        return obj.gGgetById(Users,id)
     }
     //funcion para guaradar un usuario
     fun save(entity: User): User {
         return obj.gSave(Users,entity) as User
     }
 
-    fun getTotal(id:Int): Any {
-        return obj.gGetTotal(Users,id)
+    fun getTotal(cantidad:Int): Long {
+        return obj.gGetTotal(Users,cantidad)
     }
 
 
@@ -72,6 +58,9 @@ class UserLogic {
 
     fun getByAnio(anio: Int):List<usuariosPorNombreMes> {
         var res = obj.gGetByAnio(Users,anio)
+        if(res.isEmpty()){
+            return emptyList()
+        }
         //recorremos res para convertir el numero del mes a nombre del mes y agregar a un nuevo array de tipo usuariosPorNombreMes
         var res2 = mutableListOf<usuariosPorNombreMes>()
         for (i in res){
@@ -81,10 +70,8 @@ class UserLogic {
         }
         return res2
 
-
-
     }
-    fun convertirMes(numeroMes: Int): String {
+    private fun convertirMes(numeroMes: Int): String {
         return when (numeroMes) {
             1 -> "Enero"
             2 -> "Febrero"
@@ -113,8 +100,25 @@ class UserLogic {
         }
     }
 
-    fun getAdmins(): Any {
-        return obj.gGetAdmins(Users)
+    fun getAdmins(limit: Int, offset: Int): List<Any> {
+        return obj.gGetAdmins(Users,limit,offset)
+
+    }
+
+    fun delete(id: Int): Any {
+        val respuesta = obj.gGgetById(Users,id) as? User
+        return if (respuesta != null) {
+            if(respuesta.estado=="ACTIVO"){
+                obj.gEliminadoLogico(Users,id,"INACTIVO")
+                1
+            }else{
+                obj.gEliminadoLogico(Users,id,"ACTIVO")
+                2
+            }
+        }else{
+            0
+        }
+
     }
 
 
