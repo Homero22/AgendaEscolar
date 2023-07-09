@@ -11,21 +11,16 @@ import io.ktor.server.routing.*
 
 fun Route.aniosRouting(){
     route("/anios") {
-        get ("/{anio}}") {
-
-        }
         get{
             try{
-                //Enviamos a capa logica
                 val res = UserLogic().getAllAnios();
-                if(res!=null){
+                if(res.isNotEmpty()){
                     val response = ResponseSingle(true,"Años obtenidos correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
                     val response = ResponseSimple(false,"No se encontraron años")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }catch (
                 cause: Throwable
             ) {

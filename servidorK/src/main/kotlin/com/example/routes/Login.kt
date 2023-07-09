@@ -27,7 +27,14 @@ fun Route.loguinRouting(){
 
                 val user = Users.searchEmail(loginRequest.email)
 
-                if (user != null && user.contrasena == loginRequest.password) {
+                if (user != null) {
+                    if(user.estado == "INACTIVO"){
+                        val response = ResponseSingle(false,"Usuario Inactivo", 0)
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                }
+
+                if (user != null && user.contrasena == loginRequest.password ) {
 
                     val expirationTime = Calendar.getInstance()
                     expirationTime.add(Calendar.WEEK_OF_YEAR, 1) // Agregar 1 semana al tiempo actual

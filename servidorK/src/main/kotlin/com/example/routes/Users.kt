@@ -14,15 +14,20 @@ fun Route.usuariosRouting() {
 
     route("/users") {
         //GET /users
+
+
+
         get {
             try {
+
+
                 //Obtenemos el limite de usuarios a mostrar
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
                 //Obtenemos el offset de usuarios a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //Lógica
                 val u = UserLogic().getAll(limit, offset);
-                if(u!=null){
+                if(u.isNotEmpty()){
                     val response = Response(true, "Usuarios obtenidos correctamente", u)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
@@ -31,21 +36,14 @@ fun Route.usuariosRouting() {
                 }
             }catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
-                // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
 
         }
 
         post {
-
-
             try{
-                //Obtenemos el usuario a guardar
                 val user = call.receive<User>()
-                //imprimir lo que llega
-                println(user)
-                //Logica
                 val valido = UserLogic().insertarUsuario(user)
                 if (valido) {
                     val response = ResponseSingle(true, "Usuario creado correctamente", user)
@@ -71,7 +69,7 @@ fun Route.usuariosRouting() {
             try {
                 //Lógica
                 val user = UserLogic().getById(id)
-                if (user != null) {
+                if(user != null) {
                     val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 } else {
@@ -87,15 +85,9 @@ fun Route.usuariosRouting() {
         }
         get("/total"){
             try {
-                //Lógica
                 val total = UserLogic().getTotal(1)
-                if (total != null) {
-                    val response = ResponseSingle(true, "Total de usuarios obtenido correctamente", total)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                } else {
-                    val response = Response(false, "Total de usuarios no encontrado", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
-                }
+                val response = ResponseSingle(true, "Total de usuarios", total)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
                 // Envia la respuesta JSON de error en el catch
@@ -106,18 +98,16 @@ fun Route.usuariosRouting() {
             //Obtenemos el anio del usuario a buscar
             val anio = call.parameters["anio"]?.toIntOrNull() ?: 0
             try {
-                //Lógica
-                val user = UserLogic().getByAnio(anio)
-                if (user != null) {
-                    val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
+                val userA = UserLogic().getByAnio(anio)
+                if (userA.isNotEmpty()) {
+                    val response = ResponseSingle(true, "Cantidad de usuarios obtenido correctamente", userA)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 } else {
-                    val response = Response(false, "Usuario no encontrado", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
+                    val response = Response(false, "Cantidad de usuarios no encontrados", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
                 }
             }catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
-                // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
 
@@ -126,30 +116,20 @@ fun Route.usuariosRouting() {
             try {
                 //Lógica
                 val total = UserLogic().getTotal(2)
-                if (total != null) {
-                    val response = ResponseSingle(true, "Total de usuarios obtenido correctamente", total)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                } else {
-                    val response = Response(false, "Total de usuarios no encontrado", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
-                }
+                val response = ResponseSingle(true, "Total de usuarios obtenido correctamente", total)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
                 // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
-
-
-
-
         put("/{id}") {
             //Obtenemos el id del usuario a actualizar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             //Obtenemos el usuario a actualizar
             val user = call.receive<User>()
             //Actualizamos el usuario
-
             try {
                //Enviamos capa logica
                 val updUser = UserLogic().updateUser(id, user)
@@ -174,36 +154,38 @@ fun Route.usuariosRouting() {
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             //Eliminamos el usuario
             try {
-
-
-                val dltUser = Users.delete(id)
-                if (dltUser != null) {
-
-                    val response = ResponseSingle(true, "Usuario eliminado correctamente", dltUser)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-
-                } else {
-                    val response = Response(false, "Usuario no encontrado", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
+                when (UserLogic().delete(id)) {
+                    1 -> {
+                        val response = ResponseSimple(true, "El estado del Usuario se ha cambiado a Inactivo")
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                    2 -> {
+                        val response = ResponseSimple(true, "El estado del Usuario se ha cambiado a Activo")
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                    else -> {
+                        val response = ResponseSimple(false, "No se ha encontrado al Usuario")
+                        sendJsonResponse(call, HttpStatusCode.NotFound, response)
+                    }
                 }
             }catch (
                 e: Throwable
             ){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
-                // Envia la respuesta JSON de error en el catch
                 sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
             }
         }
         get("/administradores"){
             try {
-                //Lógica
-                val user = UserLogic().getAdmins()
-                if (user != null) {
-                    val response = ResponseSingle(true, "Usuario obtenido correctamente", user)
+                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+                val userAdmin = UserLogic().getAdmins(limit, offset)
+                if (userAdmin.isNotEmpty()) {
+                    val response = ResponseSingle(true, "Administradores obtenidos correctamente", userAdmin)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 } else {
-                    val response = Response(false, "Usuario no encontrado", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
+                    val response = Response(false, "Administradores no encontrados", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
                 }
             }catch (e: Throwable){
                 val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
@@ -213,7 +195,6 @@ fun Route.usuariosRouting() {
 
         }
     }
-    //ruta para seguridad, loguin, logout, registro
 
 
 }
