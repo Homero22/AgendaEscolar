@@ -123,7 +123,7 @@ export class ContenidoApunteComponent implements OnInit {
     console.log("tipo de message => ", typeof this.mensaje);
 
     Swal.fire({
-      title: 'Generando Material...',
+      title: 'Cargando...',
       didOpen: () => {
         Swal.showLoading()
       },
