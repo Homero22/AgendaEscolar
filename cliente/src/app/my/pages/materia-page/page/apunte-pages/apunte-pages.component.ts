@@ -18,6 +18,7 @@ export class ApuntePagesComponent {
   title!: string;
   idUser!: any;
   idMateria!: number;
+  viewApunte!: boolean;
 
   //Destroy
   private destroy$ = new Subject<any>();
@@ -45,6 +46,17 @@ export class ApuntePagesComponent {
     });
     this.getApuntes();
     this.getMateria();
+
+    this.viewApunte = false;
+
+    this.srvApuntes.selectApunteView$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(_viewApunte)=>{
+        this.viewApunte = _viewApunte;
+        console.log("Valor de viewApunte =>",this.viewApunte);
+      }
+    });
   }
 
   //Funcion para abrir el modal
@@ -166,6 +178,13 @@ export class ApuntePagesComponent {
         console.log("Peticion finalizada");
       }
     });
+  }
+
+  // Funcion para abrir el apunte seleccionado
+  openApunte(idApunte: number){
+    console.log("Valor de idApunte =>",idApunte);
+    this.srvApuntes.setIdApunte(idApunte);
+    this.viewApunte = true;
   }
 
   //funcion para regresar al /me/signatures

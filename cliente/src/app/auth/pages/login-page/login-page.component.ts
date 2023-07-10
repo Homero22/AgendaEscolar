@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { HttpClient } from '@angular/common/http';
 import { ImgService } from 'src/app/core/services/img.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class LoginPageComponent {
     private router: Router,
     public srvHorario: HorarioService,
     private http: HttpClient,
+    private cookieService: CookieService
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -78,7 +80,7 @@ export class LoginPageComponent {
         console.log("rspuesta server -> ",res);
         if(res.status){
           sessionStorage.setItem('token', res.token);
-
+          this.cookieService.set('token', res.token);
           sessionStorage.setItem('body', JSON.stringify(res.body)),
           //imprimimos el body
           console.log("body -> ",res.body);

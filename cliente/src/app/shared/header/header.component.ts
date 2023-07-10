@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit {
     console.log("rol => ", rol)
     if(rol == 'USUARIO'){
       this.permiso = false;
+      // this.permiso = true;
       console.log ("tiene permiso ? ",this.permiso)
     }
     // this.rol = parseInt(this.idUser);
@@ -52,6 +53,8 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('rol');
+    sessionStorage.clear();
+
     //ruta de redireccionamiento auth/ingreso
     this.router.navigate(['auth/ingreso']);
     // this.authInterceptor;

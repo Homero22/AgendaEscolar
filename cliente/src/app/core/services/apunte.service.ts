@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import config from 'config/config';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ShowApunteData, ShowApunteModel, addApunteByID, addApunteData, addApunteModel, modApunteModel } from '../models/apunte';
+import { ShowApunteData, ShowApunteModel, addApunteByID, addApunteData, addApunteModel, modApunteData, modApunteModel } from '../models/apunte';
 
 const idApunte: number = 0;
 
@@ -11,15 +11,34 @@ const idApunte: number = 0;
 })
 export class ApunteService {
 
+  apunteData: modApunteData = {
+    id: 0,
+    idUser: 0,
+    idMateria: 0,
+    apunteTitulo: '',
+    apunteNotasClase: '',
+    apunteIdeas: '',
+    apunteResumen: '',
+    apunteRecordatorio: '',
+    fechaCreacion: ''
+  }
+
+
   private urlApi_Apuntes: string = config.URL_API_BASE + "notes";
 
   private urlApi_ApuntesUsuario: string = config.URL_API_BASE + "notes/user";
 
   datosApuntes: any = [];
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
+
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
 
 
   // ------------------------ APUNTES BEHAVIORSUBJECTS ------------------------
@@ -33,20 +52,36 @@ export class ApunteService {
     this.idApunte$.next(_idApunte);
   }
 
-  // ------------------------ APUNTES BEHAVIORSUBJECTS ------------------------
+  private apunteView$ = new BehaviorSubject<boolean>(false);
+
+  get selectApunteView$(): Observable<boolean>{
+    return this.apunteView$.asObservable();
+  }
+
+  setApunteView(_apunteView: boolean){
+    this.apunteView$.next(_apunteView);
+  }
+
+  // ------------------------ APUNTES METODOS ------------------------
 
   // Metodo para obtener los apuntes del usuario logueado
   getApuntesUsuario(idUser: number){
     return this.http.get<ShowApunteModel>(`${this.urlApi_ApuntesUsuario}/${idUser}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
   }
 
   getApunteIndividual(id: number){
     return this.http.get<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     });
   }
 
@@ -54,7 +89,10 @@ export class ApunteService {
   postApunte(dataApunte: addApunteData){
     return this.http.post<ShowApunteModel>(`${this.urlApi_Apuntes}`, dataApunte,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 
@@ -62,7 +100,10 @@ export class ApunteService {
   putApunte(id: number, dataApunte: addApunteByID){
     return this.http.put<modApunteModel>(`${this.urlApi_Apuntes}/${id}`,dataApunte,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 
@@ -70,7 +111,10 @@ export class ApunteService {
   deleteApunte(id: number){
     return this.http.delete<ShowApunteModel>(`${this.urlApi_Apuntes}/${id}`,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 }

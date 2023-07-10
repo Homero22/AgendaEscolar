@@ -22,6 +22,8 @@ export class MateriaPageComponent {
   idMateria!: number;
   idUser!: any;
   destroy$ = new Subject<any>();
+  existInfo: boolean = false;
+  materiaMessage: string = '';
 
   // Constructor
     constructor(
@@ -48,38 +50,6 @@ export class MateriaPageComponent {
       //reiniciamos el valor del viewNotes
       this.srvMateria.setBool(false);
     }
-
-
-    //Función para obtener las materias del usuario Logeado
-    getMaterias(){
-      Swal.fire({
-        title: 'Cargando Materias...',
-        didOpen: () => {
-          Swal.showLoading()
-        }
-      });
-
-      this.srvMateria.getMateriasUsuario(this.idUser)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next:(materiaData)=>{
-          Swal.close();
-          if(materiaData.body){
-            this.srvMateria.datosMateria = materiaData.body;
-            console.log("Valor de materiaData.body =>",this.srvMateria.datosMateria);
-          }else{
-            console.log("No hay datos");
-          }
-        },
-        error:(err)=>{
-          console.log("Error en la peticion =>",err);
-        },
-        complete:()=>{
-          console.log("Peticion finalizada");
-        }
-      });
-    }
-
 
     // Función para abrir el editar del modal
     openModalEdit(title:string, id: number){
@@ -117,31 +87,75 @@ export class MateriaPageComponent {
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next:(materiaData)=>{
-              if(materiaData.body){
-                Swal.fire(
-                  'Eliminado',
-                  'La materia se elimino correctamente',
-                  'success'
-                );
-                this.getMaterias();
+              if(materiaData.status === true){
+
+                Swal.fire({
+                  title: 'Materia eliminada',
+                  text: materiaData.message,
+                  icon: 'success',
+                  showConfirmButton:false,
+                  timer:2500
+                })
+                console.log("Valor de materiaData =>",materiaData);
               }else{
-                Swal.fire(
-                  'Error',
-                  'La materia no se pudo eliminar',
-                  'error'
-                );
+                Swal.fire({
+                  title: 'Error al eliminar la materia',
+                  text: materiaData.message,
+                  icon: 'error',
+                  showConfirmButton:false,
+                  timer:2500
+                })
+                console.log("Valor de materiaData =>",materiaData);
               }
+              setTimeout(() => {
+                this.getMaterias();
+              }
+              , 2500);
             },
             error:(err)=>{
               console.log("Error en la peticion =>",err);
             },
             complete:()=>{
               console.log("Peticion finalizada");
+              window.location.reload();
             }
           });
         }
       });
     }
+
+  //Función para obtener las materias del usuario Logeado
+  getMaterias() {
+    Swal.fire({
+      title: 'Cargando Materias...',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
+    this.srvMateria.getMateriasUsuario(this.idUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (materiaData) => {
+          Swal.close();
+          if (materiaData.body) {
+            this.srvMateria.datosMateria = materiaData.body;
+            console.log("Valor de materiaData.body =>", this.srvMateria.datosMateria);
+            this.existInfo = materiaData.status;
+          } else {
+            console.log("MateriaData =>", materiaData);
+            this.existInfo = materiaData.status;
+            this.materiaMessage = materiaData.message;
+          }
+        },
+        error: (err) => {
+          console.log("Error en la peticion =>", err);
+        },
+        complete: () => {
+          console.log("Peticion finalizada");
+        }
+      });
+  }
 
     sendIdMateria(id:number){
       console.log("sendIdMateria");
