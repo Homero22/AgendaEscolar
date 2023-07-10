@@ -11,6 +11,9 @@ import io.ktor.server.routing.*
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys
+import io.ktor.server.http.*
+import io.ktor.util.date.*
+import io.netty.handler.codec.http.cookie.CookieHeaderNames
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -64,7 +67,20 @@ fun Route.loguinRouting(){
 
 
                     //enviar en una cookie el token
-                    call.response.cookies.append("token", token)
+                    call.response.cookies.append(
+                        name = "token",
+                        value = token,
+                        maxAge = 604800L,
+                        expires = expirationTime.toDate(3600),
+                        path = "/",
+                        httpOnly = false,
+                        secure = false,
+                        domain = "localhost",
+                        encoding = CookieEncoding.URI_ENCODING,
+                        extensions = mapOf("SameSite" to "None")
+                    )
+
+
                     val response = ResponseToken(true, "Credenciales Validadas", user, token)
                     sendJsonResponse(call, HttpStatusCode.OK    , response)
                 } else {

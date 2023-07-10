@@ -1,7 +1,6 @@
 package com.example.routes
 
 import com.example.data.models.Subject
-import com.example.data.repositories.Subjects
 import com.example.logica.SubjectLogic
 import com.example.utils.*
 import io.ktor.http.*
