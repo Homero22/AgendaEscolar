@@ -3,16 +3,48 @@
     <label for="">{{this.mensaje}}</label>
   </div>
 
+  <div class="col-12 flex flex-wrap" id="div-Border">
+    <mat-form-field class="col-12">
+      <mat-label>Categoria</mat-label>
+      <mat-select>
+        <mat-option >-- Seleccione --</mat-option>
+        <mat-option value="CIENCIAS NATURALES">CIENCIAS NATURALES</mat-option>
+        <mat-option value="INFORMATICA">INFORMATICA</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-6">
+      <mat-label>Estado</mat-label>
+      <mat-select>
+        <mat-option >-- Seleccione --</mat-option>
+        <mat-option value="PUBLICO">PUBLICO</mat-option>
+        <mat-option value="PRIVADO">PRIVADO</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-6">
+      <mat-label>Calidad</mat-label>
+      <mat-select>
+        <mat-option >-- Seleccione --</mat-option>
+        <mat-option value="1">Pesimo</mat-option>
+        <mat-option value="2">Malo</mat-option>
+        <mat-option value="3">Regular</mat-option>
+        <mat-option value="4">Bueno</mat-option>
+        <mat-option value="5">Excelente</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="col-12 container-Contenido" *ngIf="this.showMaterialContent === true">
     <label for="">{{this.promptResult}}</label>
   </div>
 
   <div class="col-12 flex justify-content-center">
-    <button mat-stroked-button class="btn-GPT" (click)="generateContent()">
-      <label for="" *ngIf="this.showMaterialContent === false">Generar</label>
-      <label for="" *ngIf="this.showMaterialContent === true" class="flex justify-content-center align-items-center">
-        <i class="material-icons">autorenew</i>
-        Regenerar
+    <button mat-stroked-button class="btn-GPT" (click)="generateContent()" *ngIf="this.showMaterialContent === false">
+      <label for="">Generar</label>
+    </button>
+
+    <button class="col-12 flex justify-content-center" (click)="postContenido()" *ngIf="this.showMaterialContent === true">
+      <label for=""  class="flex justify-content-center align-items-center">
+        Guardar
       </label>
     </button>
   </div>
