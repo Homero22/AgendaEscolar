@@ -11,13 +11,12 @@ class ChatLogic {
 
     fun getById(id: Int, data:Any): String {
        return when (data){
-           is Note ->{
-                    val ideas = data.apunteIdeas
-                    val resumen = data.apunteResumen
-                    val notas = data.apunteNotasClase
-                    val titulo = data.apunteTitulo
-                 val promt = "Necesito ayuda para generar material de estudio con información adicional para mi apunte de $titulo. Mis ideas son: $ideas, mi resumen es: $resumen y mis notas de clase son: $notas"
-               return promt
+           is Note -> {
+               val ideas = data.apunteIdeas
+               val resumen = data.apunteResumen
+               val notas = data.apunteNotasClase
+               val titulo = data.apunteTitulo
+               return "Necesito ayuda para generar material de estudio con información adicional para mi apunte de $titulo. Mis ideas son: $ideas, mi resumen es: $resumen y mis notas de clase son: $notas"
 
            }
            is Homework ->{
@@ -27,11 +26,11 @@ class ChatLogic {
                return promt
            }
            else ->{
-               return "No se encontró el tipo de dato"
+               return "Sin respuesta"
            }
        }
     }
-     suspend fun postChat(prompt: promptModel):Any{
+     suspend fun postChat(prompt: promptModel):String{
         val gpt = GptInterceptor()
         return  gpt.postGpt(prompt.mensaje).await().choices[0].message.content
     }

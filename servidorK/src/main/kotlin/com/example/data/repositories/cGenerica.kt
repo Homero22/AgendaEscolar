@@ -65,6 +65,9 @@ class cGenerica <T> {
             is ImagesRepo ->{
                 obj.save(entity as Image)
             }
+            is Contents ->{
+                obj.save(entity as ContentModel)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -136,6 +139,25 @@ class cGenerica <T> {
             is ImagesRepo ->{
                 obj.getById(id) as Image
             }
+            is Contents ->{
+                obj.getById(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gGetContent(obj: T, id: Int): Any {
+        return when(obj) {
+            is Contents -> {
+                obj.getByIdC(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gGetByIdApunte(obj: T, id: Long):Any{
+        return when(obj) {
+            is Contents -> {
+                obj.getByIdApunte(id)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -168,6 +190,9 @@ class cGenerica <T> {
             is Users ->{
                 obj.update(id, entity as User)
             }
+            is Contents ->{
+                obj.update(id, entity as ContentModel)
+            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
@@ -199,6 +224,9 @@ class cGenerica <T> {
            }
            is Schedules ->{
                obj.delete(id)
+           }
+           is Contents ->{
+               obj.eliminarContenido(id)
            }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -279,8 +307,14 @@ class cGenerica <T> {
         }
     }
 
-
-
+    fun gGetSimilar(contents: T, categoria:String): List<Any> {
+        return when(contents) {
+            is Contents -> {
+                contents.getSimilar(categoria,5,0)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
 
 
 }

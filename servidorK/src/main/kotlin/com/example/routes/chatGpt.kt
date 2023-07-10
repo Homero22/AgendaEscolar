@@ -19,11 +19,11 @@ fun Route.chatGptRoute(){
            try {
                val id = call.parameters["id"]?.toIntOrNull() ?: 0
 
-               //puede recibir Notes o Homeworks
+               //puede recibir Notes
                val data = call.receive<Note>()
                //Enviamos a capa logica
                val res = ChatLogic().getById(id,data);
-               if(res == null){
+               if(res == "Sin respuesta"){
                    val response = ResponseSimple(false, "No se pudo generar la respuesta")
                      sendJsonResponse(call, HttpStatusCode.OK, response)
                }else{
@@ -44,12 +44,8 @@ fun Route.chatGptRoute(){
                 val prompt = call.receive<promptModel>()
                 println(prompt)
                 val res = ChatLogic().postChat(prompt)
-                if(res != null){
-                   val response = GptResponse(true, "Información generada exitosamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val res = ResponseSimple(false, "No se pudo generar la respuesta")
-                }
+                val response = GptResponse(true, "Información generada exitosamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (
                 cause: Throwable
             ) {
