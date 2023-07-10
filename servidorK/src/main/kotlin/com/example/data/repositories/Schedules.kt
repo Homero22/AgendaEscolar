@@ -30,18 +30,18 @@ object Schedules : CrudRepository<Schedule, Int>() {
 
         //quiero tambien hacer un join con la tabla de materias para obtener el nombre de la materia
         val res = Horarios
-            .select({ Horarios.idUser eq id })
+            .select { Horarios.idUser eq id }
             .map {
                 mapOf(
                     "id" to it[Horarios.id].value,
                     "idMateria" to it[Horarios.idMateria],
                     "idUser" to it[Horarios.idUser],
-                    "nombreMateria" to SubjectDAO.get(it[Horarios.idMateria]).nombre,
+                    "nombreMateria" to SubjectDAO[it[Horarios.idMateria]].nombre,
                     "hora_inicio" to it[Horarios.hora_inicio],
                     "hora_fin" to it[Horarios.hora_fin],
                     "dia" to it[Horarios.dia],
-                    "acronimo" to SubjectDAO.get(it[Horarios.idMateria]).materiaAcro,
-                    "color" to SubjectDAO.get(it[Horarios.idMateria]).materiaColor
+                    "acronimo" to SubjectDAO[it[Horarios.idMateria]].materiaAcro,
+                    "color" to SubjectDAO[it[Horarios.idMateria]].materiaColor
                 )
             }
         return@transaction res
