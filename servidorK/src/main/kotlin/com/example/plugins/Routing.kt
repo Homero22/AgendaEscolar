@@ -19,25 +19,24 @@ fun Application.configureRouting() {
                 proceed() // Continuar con el procesamiento de la petición sin verificar el token
                 return@intercept
             }
-            //comprobar si tiene un token en la cookie
-            if(call.request.cookies["token"] == null){
-                //si no tiene tolen enviar una respuesta que debe iniciar sesion
-                call.respondText("Debe iniciar sesion")
-            }
 
-            //Obtener el token de la cookie
-            val token = call.request.cookies["token"]
-            //envio a la capa logica- security
-            val res = Token().VerificarToken(token.toString())
-            if(res){
-                //Si el token es valido se continua con la peticion
-                proceed()
+            // interceptar los parametros para extraer el token
+            val token = call.parameters["token"]
+
+            if(token == null){
+                call.respondText("Debe iniciar sesion")
+                return@intercept
             }else{
-                //Si el token no es valido se envia un mensaje de error
-                call.respondText("Token inválido, Intente iniciar sesión nuevamente")
+                val res = Token().VerificarToken(token.toString())
+                if(res){
+                    //Si el token es valido se continua con la peticion
+                    proceed()
+                }else{
+                    //Si el token no es valido se envia un mensaje de error
+                    call.respondText("Token inválido, Intente iniciar sesión nuevamente")
+                }
             }
         }*/
-
 
 
         get("/") {
@@ -57,6 +56,7 @@ fun Application.configureRouting() {
         aniosRouting()
 
         imagenesRouting()
+        contentsRouting()
 
 
 
