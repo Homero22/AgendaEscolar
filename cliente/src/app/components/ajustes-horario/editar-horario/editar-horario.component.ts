@@ -53,6 +53,12 @@ export class EditarHorarioComponent {
     .subscribe({
       next:(idMateria: number)=>{
         this.idMateria = idMateria;
+        this.materia = new FormControl(this.idMateria, [Validators.required]);
+        this.materiaForm = this.fb.group({
+          materia: this.materia,
+          // acronimo: ['', Validators.required, Validators.pattern(/^[A-Z]{3}$/)],
+          // color: ['', Validators.required, Validators.pattern(/^#[0-9A-F]{6}$/i)]
+        });
       }
     });
 
@@ -200,17 +206,17 @@ export class EditarHorarioComponent {
   }
 
   addHorario(data: addDataHorario){
-    Swal.fire({
-      title: 'Cargando...',
-      didOpen: () => {
-        Swal.showLoading()
-      }
-    });
+    // Swal.fire({
+    //   title: 'Cargando...',
+    //   didOpen: () => {
+    //     Swal.showLoading()
+    //   }
+    // });
     this.srvHorario.postHorario(data)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(horarioData)=>{
-        Swal.close();
+        // Swal.close();
         console.log("Valor de horarioData en addHorario =>", horarioData);
         if(horarioData.status){
           this.obtenerHorario();
@@ -232,7 +238,7 @@ export class EditarHorarioComponent {
           })
         }
       },complete:()=>{
-        Swal.close();
+        // Swal.close();
       }
     })
   }

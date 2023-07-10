@@ -124,9 +124,10 @@ export class MostrarAdminsComponent implements AfterViewInit {
       next: (value) => {
         console.log("value ", value);
         this.getAdministradores();
+        Swal.fire(value.message,'', 'success')
+
       },
       complete: () => {
-        Swal.fire('Administrador inactivado', '', 'success')
       }
     })
   }

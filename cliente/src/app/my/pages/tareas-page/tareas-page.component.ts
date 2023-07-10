@@ -45,12 +45,16 @@ export class TareasPageComponent {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(tareaData)=>{
+        console.log("tareaData =>",tareaData);
         if(tareaData.body){
           this.srvTarea.tareasPendientes = tareaData.body;
           console.log("Valor de tareasPendientes =>",this.srvTarea.tareasPendientes);
         }else{
           console.log("No hay datos");
         }
+      },
+      error:(err)=>{
+        console.log("Error =>",err);
       }
     });
   }
@@ -60,6 +64,7 @@ export class TareasPageComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (tareaData) => {
+          console.log("tareaData =>", tareaData);
           if (tareaData.body) {
             this.srvTarea.tareas = tareaData.body;
             console.log("Valor de tareas =>", this.srvTarea.tareas);
@@ -67,6 +72,8 @@ export class TareasPageComponent {
           } else {
             console.log("No hay datos");
           }
+        },error:(err)=>{
+          console.log("Error =>",err);
         }
       });
   }
