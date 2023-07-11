@@ -14,12 +14,8 @@ fun Route.usuariosRouting() {
 
     route("/users") {
         //GET /users
-
-
-
         get {
             try {
-
 
                 //Obtenemos el limite de usuarios a mostrar
                 val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
@@ -194,6 +190,29 @@ fun Route.usuariosRouting() {
             }
 
         }
+        //ruta para buscar usuarios por nombre, apellido o correo
+        get("/find/{search}"){
+            //Obtenemos el id del usuario a buscar
+            val search = call.parameters["search"] ?: ""
+            try {
+                //Lógica
+                val user = UserLogic().getBySearch(search)
+                if(user.isNotEmpty()) {
+                    val response = ResponseSingle(true, "Busqueda obtenida correctamente", user)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                } else {
+                    val response = Response(false, "No se encontraron resultados", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.BadRequest, response)
+                }
+            }catch (e: Throwable){
+                val errorResponse = ErrorResponse(false, e.message ?: "Error desconocido")
+                // Envia la respuesta JSON de error en el catch
+                sendJsonResponse(call, HttpStatusCode.BadRequest, errorResponse)
+            }
+
+        }
+
+
     }
 
 

@@ -12,9 +12,9 @@ fun Application.configureRouting() {
     routing {
 
         //Verificar token valido que viene de una cokie
-
-     /* intercept(ApplicationCallPipeline.Call){
-
+/*
+        intercept(ApplicationCallPipeline.Call){
+            // Verificar si la ruta es la de inicio de sesión
             if (call.request.uri == "/login") {
                 proceed() // Continuar con el procesamiento de la petición sin verificar el token
                 return@intercept

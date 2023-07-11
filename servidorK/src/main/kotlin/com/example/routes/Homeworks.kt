@@ -79,7 +79,7 @@ fun Route.homeworksRouting(){
                 val res = HomeworksLogic().getByUserId(id)
                 if(res.isEmpty()){
                     val response = Response(false,"No se encontraron las tareas", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
                     val response = ResponseSingle(true,"Tareas obtenidas correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -128,7 +128,7 @@ fun Route.homeworksRouting(){
                 val res = HomeworksLogic().getByEstado(id, estado);
                 if(res.isEmpty()){
                     val response = Response(false,"No se encontraron las  tareas", emptyList())
-                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
                     val response = ResponseSingle(true,"Tareas obtenida correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
@@ -136,7 +136,6 @@ fun Route.homeworksRouting(){
             }catch (cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
-
         }
     }
 }
