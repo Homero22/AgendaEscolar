@@ -6,28 +6,41 @@ import { AdministradorService } from 'src/app/core/services/administrador.servic
 import { UsuarioModel } from 'src/app/core/models/usuario';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-mostrar-admins',
   templateUrl: './mostrar-admins.component.html',
   styleUrls: ['./mostrar-admins.component.css'],
 })
 export class MostrarAdminsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['index', 'nombre', 'telefono', 'actions'];
+  displayedColumns: string[] = ['index', 'nombre', 'estado', 'telefono', 'actions'];
   dataSource = new MatTableDataSource<UsuarioModel>();
   // tableIndex = 1;
   TypeView: number = 0;
   idAdmin!: number;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private destroy$ = new Subject<any>();
 
-  constructor(public srvAdmins: AdministradorService) { }
+  constructor(public srvAdmins: AdministradorService) {
+    // this.dataSource = new MatTableDataSource<UsuarioModel>();
+   }
 
   ngOnInit(): void {
-    this.getAdministradores();
+    // this.getAdministradores();
+    // setTimeout(() => {
+    //   this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+    //   console.log("administradores this.dataSource ", this.dataSource);
+    // }, 1000);
+    // // this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+    // // console.log("administradores this.dataSource ", this.dataSource);
+
   }
 
   ngAfterViewInit() {
+    this.getAdministradores();
+
     this.dataSource.paginator = this.paginator;
   }
 
@@ -58,13 +71,11 @@ export class MostrarAdminsComponent implements AfterViewInit {
       .subscribe({
         next: (value) => {
           this.srvAdmins.administradores = value.body;
+          this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
           console.log("administradores ", this.srvAdmins.administradores);
         },
         complete: () => {
-          this.dataSource = new MatTableDataSource<UsuarioModel>(
-            this.srvAdmins.administradores
-          );
-          console.log("administradores this.dataSource ", this.dataSource);
+          
         },
       });
   }
@@ -80,7 +91,7 @@ export class MostrarAdminsComponent implements AfterViewInit {
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Cambiar rol',
-      denyButtonText: `Eliminar`,
+      denyButtonText: `Cambiar estado`,
     }).then((result) => {
       if (result.isConfirmed) {
         this.CambiarRol(id)
@@ -124,9 +135,10 @@ export class MostrarAdminsComponent implements AfterViewInit {
       next: (value) => {
         console.log("value ", value);
         this.getAdministradores();
+        Swal.fire(value.message,'', 'success')
+
       },
       complete: () => {
-        Swal.fire('Administrador inactivado', '', 'success')
       }
     })
   }

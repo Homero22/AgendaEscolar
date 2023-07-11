@@ -2,18 +2,67 @@
   <div class="col-12 container-Prompt">
     <label for="">{{this.mensaje}}</label>
   </div>
+  <form action="" [formGroup]="myform">
+    <div class="col-12 flex flex-wrap" id="div-Border">
+      <mat-form-field class="col-12">
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option>-- Seleccione --</mat-option>
+          <mat-option value="CIENCIAS NATURALES">CIENCIAS NATURALES</mat-option>
+          <mat-option value="INFORMATICA">INFORMATICA</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-6">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          <mat-option>-- Seleccione --</mat-option>
+          <mat-option value="PÚBLICO">PÚBLICO</mat-option>
+          <mat-option value="PRIVADO">PRIVADO</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div class="col-12 container-Contenido" *ngIf="this.showMaterialContent === true">
-    <label for="">{{this.promptResult}}</label>
-  </div>
+    <div class="col-12 container-Contenido" *ngIf="this.showMaterialContent === true">
+      <label for="">{{this.promptResult}}</label>
+      <label for="" *ngIf="this.showLabel === true">{{this.contentLabel}}</label>
+      <input type="text" formControlName="contenido" [value]="this.promptResult" id="input-Invisible">
+    </div>
 
+    <mat-form-field class="col-6" *ngIf="this.showMaterialContent === true">
+      <mat-label>Calidad</mat-label>
+      <mat-select formControlName="puntuacion" >
+        <mat-option>-- Seleccione --</mat-option>
+        <mat-option value=1>PESIMO</mat-option>
+        <mat-option value=2>MALO</mat-option>
+        <mat-option value=3>REGULAR</mat-option>
+        <mat-option value=4>BUENO</mat-option>
+        <mat-option value=5>EXCELENTE</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  </form>
   <div class="col-12 flex justify-content-center">
-    <button mat-stroked-button class="btn-GPT" (click)="generateContent()">
-      <label for="" *ngIf="this.showMaterialContent === false">Generar</label>
-      <label for="" *ngIf="this.showMaterialContent === true" class="flex justify-content-center align-items-center">
-        <i class="material-icons">autorenew</i>
-        Regenerar
+    <button mat-stroked-button class="btn-GPT" (click)="generateContent()" *ngIf="(this.showMaterialContent === false)">
+      <label for="">Generar</label>
+    </button>
+
+    <button mat-stroked-button class="btn-GPT" (click)="postContenido()" [disabled]="myform.invalid" *ngIf="(this.showMaterialContent === true && this.showLabel === false)" [disabled]="myform.invalid">
+      <label for="">
+        Guardar
       </label>
     </button>
+
+    <div class="col-12 flex flex-wrap justify-content-center gap-3" *ngIf="this.showLabel === true">
+        <button mat-stroked-button class="btn-GPT" (click)="updateContent()">
+          Modificar
+        </button>
+
+        <button mat-stroked-button class="btn-Eliminar" (click)="deleteContent()">
+          Eliminar
+        </button>
+
+    </div>
+
   </div>
 </div>

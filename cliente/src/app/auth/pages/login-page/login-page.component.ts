@@ -107,6 +107,11 @@ export class LoginPageComponent {
         }
         else{
           //resetear el formulario
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: res.message,
+          })
           this.loginForm.reset();
           //mostrar error de contraseña o correo incorrecto
           this.getErrorMessage()

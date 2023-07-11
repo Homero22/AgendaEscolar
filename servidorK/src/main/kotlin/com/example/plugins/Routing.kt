@@ -36,9 +36,7 @@ fun Application.configureRouting() {
                     call.respondText("Token inválido, Intente iniciar sesión nuevamente")
                 }
             }
-        }
-
-        */
+        }*/
 
 
         get("/") {
@@ -47,7 +45,7 @@ fun Application.configureRouting() {
         loguinRouting()
         usuariosRouting()
         countriesRouting()
-        subjectsRouting()
+        //subjectsRouting()
         horariosRouting()
         homeworksRouting()
         notesRouting()

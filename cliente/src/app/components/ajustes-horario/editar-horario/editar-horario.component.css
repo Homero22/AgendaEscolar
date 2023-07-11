@@ -1,3 +1,9 @@
 form{
     display: grid;
 }
+
+p{
+    display: grid;
+    justify-content: center;
+    padding-bottom: 20px;
+}

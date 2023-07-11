@@ -59,7 +59,7 @@
       </div>
 
       <mat-label>Resumen</mat-label>
-      <quill-editor class="w-12" [(ngModel)]="apunteResumen" (onContentChanged)="onEditorResumeChange($event)" id="textContent" [modules]="moduleQuill" (onEditorChanged)="onChangeEditor($event)"></quill-editor>
+      <quill-editor class="w-12" [(ngModel)]="apunteResumen" (onContentChanged)="onEditorResumeChange($event)" id="textContent" [modules]="moduleQuill" (onEditorChanged)="onChangeEditor($event)" #quillResume></quill-editor>
 
       <div class="container-Btn mt-3">
         <button mat-button class="btn-Save" (click)="saveApunte()" [disabled]="myForm.invalid">
