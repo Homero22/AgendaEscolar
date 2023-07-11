@@ -25,20 +25,25 @@ class ContentLogic {
 
     fun getSimilar(id: Int): List<Any> {
 
-        val contents = obj.gGetContent(Contents,id)
-        return if(contents==-1){
+        val contents = obj.gGetContent(Contents,id) as ContentModel?
+
+        println("ayaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
+
+        return if(contents == null){
             emptyList()
         }else{
-            val content = obj.gGgetById(Contents,id) as ContentModel
-            val res = obj.gGetSimilar(Contents, content.categoria)
+            println(contents.id)
+            println(contents.categoria)
+            val res = obj.gGetSimilar(Contents, contents.categoria)
             res
         }
 
     }
 
     fun update(id: Int, content: ContentModel): Any {
-        val res = obj.gGgetById(Contents,id)
-        return if (res ==-1){
+        val res = obj.gGgetById2(Contents,id)
+        return if (res == null){
             0
         }else{
             obj.gUpdate(Contents,id,content)
@@ -47,8 +52,8 @@ class ContentLogic {
     }
 
     fun delete(id: Int): Any {
-        val res = obj.gGgetById(Contents,id)
-        return if (res == null){
+        val res2 = obj.gGgetById2(Contents,id)
+        return if (res2 == null){
             0
         }else{
             obj.gDelete(Contents,id)

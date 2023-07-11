@@ -112,11 +112,21 @@ object Homeworks: CrudRepository<Homework, Int>() {
             }
         //ordenar por fecha de entrega
 
-
-
-
-
         return@transaction res
+    }
+
+    fun updateEstado(id:Int, estado :Int): Homework = transaction{
+        if(estado == 1){
+            val response = HomeworkDAO.findById(id.toLong())?.apply {
+                tareaEstado = "PENDIENTE"
+            }?.toHomework()
+            return@transaction response!!
+        }else{
+            val response = HomeworkDAO.findById(id.toLong())?.apply {
+                tareaEstado = "FINALIZADA"
+            }?.toHomework()
+            return@transaction response!!
+        }
     }
 
     //funcion para obtener todas las tareas pendientes de un usuario y devolver in List <Homework>
@@ -124,7 +134,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
 
     fun getAllByUserAndStatePendientes(id: Long, state: String):List<Homework> = transaction {
         val response = HomeworkDAO.all()
-            .filter { it.idUser == id.toLong() && it.tareaEstado == state }
+            .filter { it.idUser == id && it.tareaEstado == state }
 
         return@transaction response.map { it.toHomework() }
     }

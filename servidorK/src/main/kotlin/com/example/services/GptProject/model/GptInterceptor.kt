@@ -23,7 +23,7 @@ class GptInterceptor {
         try {
             val message = MessagesItem(content = prompt, role = "user")
             val data = GptPost(0.7, listOf(message), "gpt-3.5-turbo")
-            val response = service.getGpt(data, "Bearer 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")
+            val response = service.getGpt(data, "Bearer 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")
             completableFuture.complete(response)
         } catch (e: Exception) {
             completableFuture.completeExceptionally(e)

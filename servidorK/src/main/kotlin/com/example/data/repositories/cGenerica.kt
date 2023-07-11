@@ -145,7 +145,7 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
-    fun gGetContent(obj: T, id: Int): Any {
+    fun gGetContent(obj: T, id: Int): Any? {
         return when(obj) {
             is Contents -> {
                 obj.getByIdC(id)
@@ -320,6 +320,25 @@ class cGenerica <T> {
         return when(users) {
             is Users -> {
                 users.getBySearch(search)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGgetById2(contents: T, id: Int): ContentModel? {
+        return when(contents) {
+            is Contents -> {
+                contents.getById(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+
+    }
+
+    fun gUpdateEstado(homeworks: T, id: Int, estado: Int): Any {
+        return when(homeworks) {
+            is Homeworks -> {
+                homeworks.updateEstado(id,estado)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
