@@ -13,16 +13,17 @@ fun Route.subjectsRouting(){
     route("/subjects") {
         get {
             try {
-                //enviamos a capa logica
-                val res = SubjectLogic().getAll();
-                if(res!=null){
-                    val response = Response(true,"Materias obtenidas correctamente", res)
+                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+                val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+                val res = SubjectLogic().getAll(limit, offset);
+
+                if(res.isEmpty()){
+                    val response = Response(false,"No se encontraron materias", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false,"No se encontraron materias", res)
+                    val response = Response(true,"Materias obtenidas correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }catch (
                 cause: Throwable
             ) {
@@ -38,10 +39,9 @@ fun Route.subjectsRouting(){
                     val response = ResponseSingle(true,"Materia obtenida correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSimple(false,"No se encontro materia")
+                    val response = ResponseSimple(false,"No se encontró la materia")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }catch (
                 cause: Throwable
             ) {
@@ -52,16 +52,15 @@ fun Route.subjectsRouting(){
 
             try {
                 val id = call.parameters["id"]?.toIntOrNull() ?: 0
-                //Enviamos a capa logica
                 val res = SubjectLogic().getByUserId(id);
-                if(res!=null){
+
+                if(res.isNotEmpty()){
                     val response = ResponseSingle(true,"Materias obtenidas correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
                     val response = ResponseSimple(false,"No se encontraron materias")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }catch (
                 cause: Throwable
             ) {
@@ -71,16 +70,9 @@ fun Route.subjectsRouting(){
         }
         get("/total") {
             try {
-                //Enviamos a capa logica
                 val res = SubjectLogic().getTotal(1);
-                if(res!=null){
-                    val response = ResponseSingle(true,"Total de materias obtenido correctamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val response = ResponseSimple(false,"No se pudo obtener total de materias")
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }
-
+                val response = ResponseSingle(true,"Total de materias obtenido correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (
                 cause: Throwable
             ) {
@@ -89,19 +81,15 @@ fun Route.subjectsRouting(){
         }
         post {
            try {
-               println("Llega a la ruta")
                 val subject = call.receive<Subject>()
-                //Enviamos a capa logica
                val res = SubjectLogic().save(subject);
-                if(res ==1){
+                if(res == 1){
                      val response = ResponseSingle(true,"Materia guardada correctamente", res)
                      sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSimple(false,"No se pudo guardar materia")
+                    val response = ResponseSimple(false,"La materia ya está registrada")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
-
            }catch (
                 cause: Throwable
            ) {
@@ -113,15 +101,9 @@ fun Route.subjectsRouting(){
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             val subject = call.receive<Subject>()
             try {
-                //Enviamos a capa logica
-                val res = SubjectLogic().update(id, subject);
-                if(res!=null){
-                    val response = ResponseSingle(true,"Materia actualizada correctamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val response = ResponseSimple(false,"No se pudo actualizar materia")
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }
+                val res = SubjectLogic().update(id, subject)
+                val response = ResponseSingle(true,"Materia actualizada correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (
                 cause: Throwable
             ) {
@@ -131,15 +113,9 @@ fun Route.subjectsRouting(){
         delete("/{id}") {
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {
-                //Enviamos a capa logica
-                val res = SubjectLogic().eliminar(id);
-                if(res!=null){
-                    val response = ResponseSingle(true,"Materia eliminada correctamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val response = ResponseSimple(false,"No se pudo eliminar materia")
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }
+                val res = SubjectLogic().eliminar(id)
+                val response = ResponseSingle(true,"Materia eliminada correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
             }catch (
                 cause: Throwable
             ) {

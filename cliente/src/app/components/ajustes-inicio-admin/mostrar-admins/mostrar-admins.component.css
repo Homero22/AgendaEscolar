@@ -1,0 +1,15 @@
+.container-Title{
+    display: grid;
+    justify-content: center;
+  }
+
+  .btn-dos-op{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    gap: 20px;
+  }
+
+  .container-Title h1{
+    text-align: center;
+  }

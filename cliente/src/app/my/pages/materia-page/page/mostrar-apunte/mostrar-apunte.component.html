@@ -1,0 +1,81 @@
+<div class="w-screen" id="ground">
+  <div class="grid m-2">
+
+    <div class="grid col">
+      <div class="col-12 flex gap-3 flex-wrap col-12 align-items-center justify-content-between">
+        <div class="flex gap-3">
+          <button mat-stroked-button class="btn-Return" (click)="returnListApunte()">
+            <i class="material-icons">arrow_back_ios</i>
+            <label for="">Regresar</label>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-3 col-12 flex flex-wrap justify-content-between">
+      <div class="col-11 sm:col-8 div-Body">
+        <mat-form-field class="w-12">
+          <mat-label>Título</mat-label>
+          <input matInput [value]="this.srvApunte.apunteData.apunteTitulo" disabled>
+        </mat-form-field>
+
+        <div class="grid">
+          <mat-form-field class="col">
+            <mat-label>Fecha Creacion</mat-label>
+            <input matInput [value]="this.srvApunte.apunteData.fechaCreacion" disabled>
+          </mat-form-field>
+
+          <mat-form-field class="col">
+            <mat-label>Tiempo Recordatorio</mat-label>
+            <input matInput [value]="this.srvApunte.apunteData.apunteRecordatorio" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="grid">
+          <mat-form-field class="col">
+            <mat-label>Ideas</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteIdeas" disabled></textarea>
+          </mat-form-field>
+          <mat-form-field class="col">
+            <mat-label>Resumen</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteNotasClase" disabled></textarea>
+          </mat-form-field>
+        </div>
+
+          <mat-form-field class="w-12">
+            <mat-label>Contenido</mat-label>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteResumen" disabled></textarea>
+          </mat-form-field>
+
+      </div>
+
+      <div class="col-11 sm:col-3 div-Body">
+        <div class="col-12 flex justify-content-center">
+          <label for="" id="lbl-Title">Contenido relacionado</label>
+        </div>
+        <div class="col-12 flex flex-wrap justify-content-center" >
+          <div class="col-12 card flex align-items-center justify-content-between" *ngFor="let content of this.srvContenido.contentSimilarData, let i = index">
+            <div class="card-container p-3 mr-3 w-12 justify-content-between" id="card-Border">
+
+              <div class="flex align-items-center">
+                <label for="" id="lbl-Title">Titulo: {{content.titulo}}</label>
+              </div>
+
+              <div class="flex align-items-center">
+                <label for="" id="lbl-Title">Categoria: {{content.categoria}}</label>
+              </div>
+
+              <div class="flex align-items-center">
+                <button mat-stroked-button>
+                  <i class="material-icons">visibility</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

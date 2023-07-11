@@ -1,0 +1,102 @@
+<div class="container" *ngIf="TypeView ===0" >
+    <div class="m-3 container-Title">
+
+        <div>
+            <h1>Administradores</h1>
+        </div>
+
+        <div class="btn-dos-op">
+            <button class="btn-agg" (click)="view(1, -1)">
+                <i class="material-icons">add</i>
+                <p>Administrador nuevo</p>
+            </button>
+            <button class="btn-agg" (click)="view(3, -1)">
+              <i class="material-icons">add</i>
+              <p>Administrador preexistente</p>
+          </button>
+        </div>
+    </div>
+    <div>
+        <mat-form-field class="example-full-width">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+          </mat-form-field>
+    </div>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let admin; let i = index">{{ getRowIndex(i) }}</td>
+          </ng-container>
+      
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let admin">{{ admin.nombre }} {{ admin.apellido }}</td>
+          </ng-container>
+      
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+            <td mat-cell *matCellDef="let admin">{{ admin.telefono }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let admin">{{ admin.estado }}</td>
+          </ng-container>
+      
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let admin">
+              <button mat-icon-button color="primary" (click)="view(2, admin.id)" >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="eliminarAdmin(admin.id)" >
+                <mat-icon *ngIf="admin.estado==='ACTIVO'" >delete</mat-icon>
+                <mat-icon *ngIf="admin.estado==='INACTIVO'" >autorenew</mat-icon>
+
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                       showFirstLastButtons
+                       aria-label="SSeleccione una página">
+        </mat-paginator>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons
+               [length]="dataSource?.data?.length"
+               [pageSize]="5">
+</mat-paginator> -->
+
+      </div>
+      
+</div>
+
+<div *ngIf="TypeView==1" >
+  <button mat-stroked-button color="primary" (click)="regresar()">
+    <mat-icon>keyboard_return</mat-icon>
+    regresar
+  </button>
+  <app-agregar-admins></app-agregar-admins>
+</div>
+
+<div *ngIf="TypeView==2" >
+  <!-- <button (click)="regresar()">regresar</button> -->
+  <button mat-stroked-button color="primary" (click)="regresar()">
+    <mat-icon>keyboard_return</mat-icon>
+    regresar
+  </button>
+
+  <app-editar-admins [idAdmin]="idAdmin"></app-editar-admins>
+</div>
+
+<div *ngIf="TypeView==3" >
+  <button mat-stroked-button color="primary" (click)="regresar()">
+    <mat-icon>keyboard_return</mat-icon>
+    regresar
+  </button>
+  <app-buscar-admins></app-buscar-admins>
+</div>

@@ -8,10 +8,10 @@ import { Horario, ModelShowHorario } from 'src/app/core/models/horario';
 import Swal from 'sweetalert2';
 import { HorarioService } from 'src/app/core/services/horario.service';
 import { HttpClient } from '@angular/common/http';
+import { ImgService } from 'src/app/core/services/img.service';
+import { CookieService } from 'ngx-cookie-service';
 
-interface Image {
-  url: string;
-}
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -19,7 +19,7 @@ interface Image {
 })
 export class LoginPageComponent {
 
-  images: Image[] = [];
+
 
   hide = true;          //para el password
   email!: FormControl;  //para el email
@@ -36,7 +36,8 @@ export class LoginPageComponent {
     // public secLoguin: LoginSecurity,
     private router: Router,
     public srvHorario: HorarioService,
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {
     this.email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -79,7 +80,7 @@ export class LoginPageComponent {
         console.log("rspuesta server -> ",res);
         if(res.status){
           sessionStorage.setItem('token', res.token);
-
+          this.cookieService.set('token', res.token);
           sessionStorage.setItem('body', JSON.stringify(res.body)),
           //imprimimos el body
           console.log("body -> ",res.body);
@@ -89,9 +90,13 @@ export class LoginPageComponent {
             const parsedBody = JSON.parse(storedBody);
             const idUser = parsedBody.id;
             const userRol = parsedBody.rol;
+            const userName = parsedBody.nombre;
             console.log("Valor del IdUser =>",idUser);
             sessionStorage.setItem('id', idUser);
             sessionStorage.setItem('rol', userRol);
+            sessionStorage.setItem('nombre', userName);
+
+            console.log("Valor del userName =>",userName);
 
             //usamos el behaviorSubject para enviar el id del usuario
             this.srvLoguin.setIdUser(idUser);
@@ -102,6 +107,11 @@ export class LoginPageComponent {
         }
         else{
           //resetear el formulario
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: res.message,
+          })
           this.loginForm.reset();
           //mostrar error de contraseña o correo incorrecto
           this.getErrorMessage()
@@ -194,43 +204,7 @@ public isNotEmpty(obj: any): boolean {
     // }
 
 
-    openFilePicker(): void {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-      fileInput.addEventListener('change', (event: any) => this.handleFileUpload(event));
-      fileInput.click();
-    }
-
-    handleFileUpload(event: any): void {
-      const files = event.target.files;
-      if (files && files.length > 0) {
-        const file = files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-
-        this.http.post<any>('backend_url', formData).subscribe(
-          (response) => {
-            const image: Image = {
-              url: response.imageUrl
-            };
-            this.images.push(image);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    }
-
-    deleteImage(image: Image): void {
-      const index = this.images.indexOf(image);
-      if (index !== -1) {
-        this.images.splice(index, 1);
-      }
-    }
-
-
+    //----------------------------------------- METODOS PARA LA CARGA DE IMAGENES -----------------------------------------//
 
   ngOnDestroy(): void {
     this.destroy$.next({});

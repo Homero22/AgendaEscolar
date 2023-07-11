@@ -1,4 +1,5 @@
 <form [formGroup]="materiaForm" >
+  <p>Día {{this.dia}} de {{ this.hora}} a {{this.addHoursToTime(this.hora, 1)}}</p>
     <label>Seleccione una Meteria</label>
     <mat-form-field>
       <mat-label>Seleccione una Opción</mat-label>

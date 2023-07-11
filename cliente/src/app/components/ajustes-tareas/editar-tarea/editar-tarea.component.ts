@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { DatePipe } from '@angular/common';
 import { ModalService } from 'src/app/core/services/modal.service';
-
+// import { MatDialogRef } from '@angular/material/dialog';
+// import { ModalComponent } from 'src/app/modal/modal.component';
 @Component({
   selector: 'app-editar-tarea',
   templateUrl: './editar-tarea.component.html',
@@ -23,12 +24,15 @@ export class EditarTareaComponent {
   selectedMateria: any;
 
   value_string_time: any;
+  time_vencimiento: any;
+
   constructor(
     private fb: FormBuilder,
     private srvTarea: TareaService,
     public srvMateria: MateriaService,
     public datePipe: DatePipe,
-    private srvModal: ModalService
+    private srvModal: ModalService,
+
   ) {
     this.idUser = sessionStorage.getItem("id");
     this.idUser = parseInt(this.idUser);
@@ -41,20 +45,6 @@ export class EditarTareaComponent {
       }
     });
 
-    /*
-    {
-    "id":0,
-    "idUser":4,
-    "idMateria":22,
-    "tareaTitulo":"Marco 1",
-    "tareaDescripcion": "documentacion de la metodologia",
-    "fechaCreacion":"",
-    "fechaFin": "07:00:00",
-    "tareaEstado": "FINALIZADA",
-    "tareaRecordatorio": "13:00:00"
-}
-    */
-    //inicializamos el formulario
     this.myForm = this.fb.group({
       id: [
         0,
@@ -88,6 +78,12 @@ export class EditarTareaComponent {
         ]
       ],
       tareaRecordatorio: [
+        '',
+        [
+          Validators.required
+        ]
+      ],
+      horaEntrega:[
         '',
         [
           Validators.required
@@ -169,6 +165,12 @@ export class EditarTareaComponent {
               [
                 Validators.required
               ]
+            ],
+            horaEntrega:[
+              tareaData.body.horaEntrega,
+              [
+                Validators.required
+              ]
             ]
           });
           console.log("Completar formulario", this.myForm.value)
@@ -187,6 +189,7 @@ export class EditarTareaComponent {
 
   editTarea(){
     console.log("Valor de myForm =>",this.myForm.value);
+    // Swal.
     this.srvTarea.putTarea(this.idTarea,this.myForm.value)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
@@ -200,7 +203,9 @@ export class EditarTareaComponent {
           });
           this.getTareasEstado(1);
           this.getTareas();
-          this.srvModal.setCloseMatDialog(true);
+          // this.srvModal.setCloseMatDialog(true);
+          // this.dialogRef.close();
+
         }else{
           Swal.fire({
             icon: 'error',

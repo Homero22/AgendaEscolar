@@ -22,6 +22,7 @@ export class AgregarTareaComponent {
   selectedMateria: any;
 
   value_string_time: any;
+  time_vencimiento: any;
   constructor(
     private fb: FormBuilder,
     private srvTarea: TareaService,
@@ -78,6 +79,12 @@ export class AgregarTareaComponent {
         ]
       ],
       tareaRecordatorio: [
+        '',
+        [
+          Validators.required
+        ]
+      ],
+      horaEntrega:[
         '',
         [
           Validators.required

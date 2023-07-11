@@ -1,12 +1,16 @@
 package com.example
 
 import com.example.data.controllers.DataBaseManager
+import com.example.data.models.Image
+import com.example.data.repositories.ImagesRepo
+
 import com.example.plugins.configureHTTP
 import com.example.plugins.configureRouting
 import com.example.plugins.configureSerialization
 import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.*
 import io.ktor.server.config.*
+import java.io.File
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -18,5 +22,4 @@ fun Application.module() {
     //configureDatabases()
     configureRouting()
     configureHTTP()
-    //nuevos cambios me
 }
