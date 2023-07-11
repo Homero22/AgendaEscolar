@@ -30,7 +30,7 @@ export class ApunteService {
 
   datosApuntes: any = [];
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.token = this.getCookie('token');
 
   }

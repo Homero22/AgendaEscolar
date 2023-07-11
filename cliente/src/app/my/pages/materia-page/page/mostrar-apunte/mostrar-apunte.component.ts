@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
+import { ContenidoService } from 'src/app/core/services/contenido.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,8 +17,11 @@ export class MostrarApunteComponent implements OnInit {
   titleApunte!: string;
   private destroy$ = new Subject<any>();
 
+  contRelac: boolean = false;
+
   constructor(
     public srvApunte: ApunteService,
+    public srvContenido: ContenidoService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +34,7 @@ export class MostrarApunteComponent implements OnInit {
       }
     });
     this.getApunte();
+    this.getContentSimilar();
   }
 
   //Funcion para mostrar el apunte
@@ -57,6 +62,23 @@ export class MostrarApunteComponent implements OnInit {
   returnListApunte(){
     this.viewApunte = false;
     this.srvApunte.setApunteView(this.viewApunte);
+  }
+
+  getContentSimilar(){
+    this.srvContenido.getContenidosSimilares(this.idApunte)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (resContent)=>{
+        console.log("Valor de resContent =>",resContent);
+        if(resContent.status){
+          this.contRelac = true;
+          console.log("Valor de resContent =>",resContent);
+          this.srvContenido.contentSimilarData = resContent.body;
+        }else{
+          console.log("Error al obtener contenido similar");
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {

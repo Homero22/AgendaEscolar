@@ -1,11 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
+import { contenidoShowData } from '../models/contenido';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContenidoService {
+
+  // contentSimilarData: contenidoShowData = {
+  //   id: 0,
+  //   idApunte: 0,
+  //   idUser: 0,
+  //   contenido: '',
+  //   estado: '',
+  //   puntuacion: 0,
+  //   categoria: ''
+  // }
+
+  contentSimilarData: any[] = [];
 
   constructor(
     public http: HttpClient,
@@ -21,6 +34,7 @@ export class ContenidoService {
 
     // Ruta para contenido
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
+    private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
 
     // Funciones para Contenido
 
@@ -58,6 +72,17 @@ export class ContenidoService {
 
     putContent(idContent: number, contenido: any){
       return this.http.put<any>(`${this.urlApi_Contenido}/${idContent}`, contenido,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+
+    getContenidosSimilares(idContent: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoSimilar}/${idContent}`,
       {
         withCredentials: true,
         params:{
