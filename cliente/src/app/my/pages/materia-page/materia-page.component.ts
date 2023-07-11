@@ -138,7 +138,7 @@ export class MateriaPageComponent {
       .subscribe({
         next: (materiaData) => {
           Swal.close();
-          if (materiaData.body) {
+          if (materiaData.status) {
             this.srvMateria.datosMateria = materiaData.body;
             console.log("Valor de materiaData.body =>", this.srvMateria.datosMateria);
             this.existInfo = materiaData.status;
@@ -146,10 +146,17 @@ export class MateriaPageComponent {
             console.log("MateriaData =>", materiaData);
             this.existInfo = materiaData.status;
             this.materiaMessage = materiaData.message;
+            Swal.fire({
+              title: 'Error al obtener las materias',
+              text: materiaData.message,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2500
+            })
           }
         },
         error: (err) => {
-          console.log("Error en la peticion =>", err);
+          console.log("Error en la peticion Materias =>", err);
         },
         complete: () => {
           console.log("Peticion finalizada");
