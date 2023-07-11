@@ -45,7 +45,7 @@ fun Application.configureRouting() {
         loguinRouting()
         usuariosRouting()
         countriesRouting()
-        //subjectsRouting()
+        subjectsRouting()
         horariosRouting()
         homeworksRouting()
         notesRouting()
