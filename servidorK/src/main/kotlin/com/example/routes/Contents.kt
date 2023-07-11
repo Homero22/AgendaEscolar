@@ -31,6 +31,8 @@ fun Route.contentsRouting() {
             //POST /contents
             //Obtenemos el contenido a guardar
             val content = call.receive<ContentModel>()
+            println("PABLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+            println(content.contenido)
             //Enviamos a capa logica
             val res = ContentLogic().save(content);
             if(res == 1){

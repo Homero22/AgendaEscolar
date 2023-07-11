@@ -121,5 +121,9 @@ class UserLogic {
 
     }
 
+    fun getBySearch(search: String): List<Any> {
+        return obj.gGetBySearch(Users,search)
+    }
+
 
 }

@@ -14,6 +14,10 @@ object Contents: CrudRepository<ContentModel, Int>() {
     override fun getById(id: Int) = transaction {
         return@transaction ContentDAO.findById(id)?.toContent()
     }
+    fun getContentByIdApunte(id:Long) = transaction {
+        //retornar el contenido dado el id del apunte
+        return@transaction ContentDAO.find { Contents.idApunte eq id }.firstOrNull()?.toContent()
+    }
     fun getByIdC(int: Int): Int = transaction {
         val response = ContentDAO.find { Contents.id eq int }.firstOrNull()?:return@transaction -1
         return@transaction response.id.value

@@ -6,6 +6,7 @@ import com.example.data.models.User
 import com.example.data.models.reportes.usuariosPorMes
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.count
+import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -16,7 +17,11 @@ object Users : CrudRepository<User, Int>() {
     fun searchEmail(email: String): User? = transaction {
         return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser() // Si no encuentra nada devuelve null
     }
-
+    fun getBySearch(search: String): List<User> = transaction {
+        //buscar por nombre o apellido o correo
+        val response = UsersDAO.find { (Users.nombre like "%$search%") or (Users.apellido like "%$search%") or (Users.correo like "%$search%") }
+        return@transaction response.map { it.toUser() }
+    }
 
     //verificar que el numero de telefono no este registrado
     fun searchPhone(telefono: String): User? = transaction {
