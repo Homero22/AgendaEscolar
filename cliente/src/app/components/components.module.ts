@@ -37,6 +37,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/agregar-admins.component';
 import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
 import { InicioUserComponent } from './inicio-user/inicio-user.component';
+import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/buscar-admins.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -57,7 +58,8 @@ import { InicioUserComponent } from './inicio-user/inicio-user.component';
     MostrarAdminsComponent,
     AgregarAdminsComponent,
     EditarAdminsComponent,
-    InicioUserComponent
+    InicioUserComponent,
+    BuscarAdminsComponent
 
   ],
   imports: [
