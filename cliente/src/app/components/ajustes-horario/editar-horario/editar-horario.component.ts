@@ -53,6 +53,12 @@ export class EditarHorarioComponent {
     .subscribe({
       next:(idMateria: number)=>{
         this.idMateria = idMateria;
+        this.materia = new FormControl(this.idMateria, [Validators.required]);
+        this.materiaForm = this.fb.group({
+          materia: this.materia,
+          // acronimo: ['', Validators.required, Validators.pattern(/^[A-Z]{3}$/)],
+          // color: ['', Validators.required, Validators.pattern(/^#[0-9A-F]{6}$/i)]
+        });
       }
     });
 
@@ -181,6 +187,8 @@ export class EditarHorarioComponent {
             confirmButtonText: `Aceptar`,
           })
           // this.srvModal.closeModal();
+          this.srvModal.setCloseMatDialog(true);
+
         }else{
           console.log("No se pudo eliminar el horario");
           Swal.fire({
@@ -200,17 +208,17 @@ export class EditarHorarioComponent {
   }
 
   addHorario(data: addDataHorario){
-    Swal.fire({
-      title: 'Cargando...',
-      didOpen: () => {
-        Swal.showLoading()
-      }
-    });
+    // Swal.fire({
+    //   title: 'Cargando...',
+    //   didOpen: () => {
+    //     Swal.showLoading()
+    //   }
+    // });
     this.srvHorario.postHorario(data)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(horarioData)=>{
-        Swal.close();
+        // Swal.close();
         console.log("Valor de horarioData en addHorario =>", horarioData);
         if(horarioData.status){
           this.obtenerHorario();
@@ -221,7 +229,9 @@ export class EditarHorarioComponent {
             timer: 3000
           })
           this.idHorario = horarioData.body.id;
-          this.srvModal.closeModal();
+          // this.srvModal.closeModal();
+          this.srvModal.setCloseMatDialog(true);
+
         }else{
           console.log("No hay datos");
           Swal.fire({
@@ -232,7 +242,7 @@ export class EditarHorarioComponent {
           })
         }
       },complete:()=>{
-        Swal.close();
+        // Swal.close();
       }
     })
   }
@@ -251,6 +261,8 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.srvModal.setCloseMatDialog(true);
+
           // this.srvModal.closeModal();
         }else{
           console.log("No se pudo actualizar el horario");
