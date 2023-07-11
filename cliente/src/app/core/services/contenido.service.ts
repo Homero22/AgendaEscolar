@@ -44,4 +44,25 @@ export class ContenidoService {
         }
       });
     }
+
+    deleteContent(idContent: number){
+      return this.http.delete<any>(`${this.urlApi_Contenido}/${idContent}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+
+    putContent(idContent: number, contenido: any){
+      return this.http.put<any>(`${this.urlApi_Contenido}/${idContent}`, contenido,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
 }

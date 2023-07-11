@@ -192,6 +192,7 @@ export class ContenidoApunteComponent implements OnInit {
                 text: res.message,
                 icon: 'success',
                 showConfirmButton:false,
+                timer: 2000
               })
             }else{
               console.log("Respuesta del servidor =>",res);
@@ -200,7 +201,7 @@ export class ContenidoApunteComponent implements OnInit {
                 text: res.message,
                 icon: 'error',
                 showConfirmButton:false,
-
+                timer: 2000
               })
             }
             setTimeout(() => {
@@ -218,8 +219,7 @@ export class ContenidoApunteComponent implements OnInit {
           },
           complete: () => {
             console.log("Petición completa");
-            // this.srvModal.setCloseMatDialog(true);
-            // this.myform.reset();
+            this.srvModal.setCloseMatDialog(true);
           }
         });
       }
@@ -260,9 +260,132 @@ export class ContenidoApunteComponent implements OnInit {
           this.contentLabel = this.myform.value.contenido;
           this.showLabel = true;
 
+          console.log("Informacion del MyForm de GetContent = > ", this.myform.value);
+
         }else{
-          this.showMaterialContent = false;
+          console.log("Respuesta del servidor =>",res);
         }
+      }
+    });
+  }
+
+  updateContent(){
+
+    const idContent = this.myform.value.id;
+
+    console.log("Valor del formulario =>",this.myform.value);
+    const contenidoData = this.myform.value;
+
+    Swal.fire({
+      title: 'Modificar Contenido',
+      text: 'Esta seguro de modificar el contenido',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Modificar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.srvContenido.putContent(idContent, contenidoData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (res: any) => {
+            if(res.status){
+              console.log("Respuesta del servidor =>",res);
+              Swal.fire({
+                title: 'Contenido modificado',
+                text: res.message,
+                icon: 'success',
+                showConfirmButton:false,
+                timer: 2000
+              })
+            }else{
+              console.log("Respuesta del servidor =>",res);
+              Swal.fire({
+                title: 'Error al modificar el contenido',
+                text: res.message,
+                icon: 'error',
+                showConfirmButton:false,
+                timer: 2000
+              })
+            }
+            setTimeout(() => {
+              Swal.close();
+            }
+            , 3000);
+          },
+          error: (err: any) => {
+            console.log("Error del servidor =>",err);
+            Swal.fire({
+              title: 'Error al modificar el contenido',
+              text: err.message,
+              icon: 'error',
+              showConfirmButton:false,
+            })
+          },
+          complete: () => {
+            console.log("Petición completa");
+            this.srvModal.setCloseMatDialog(true);
+          }
+        })
+      }
+    });
+
+
+  }
+
+  deleteContent(){
+
+    const idContent = this.myform.value.id;
+
+
+    Swal.fire({
+      title: 'Eliminar Contenido',
+      text: 'Esta seguro de eliminar el contenido',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.srvContenido.deleteContent(idContent)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (res: any) => {
+            if(res.status){
+              Swal.fire({
+                title: 'Contenido eliminado',
+                text: res.message,
+                icon: 'success',
+                showConfirmButton:false,
+                timer: 2000
+              })
+            }else{
+              Swal.fire({
+                title: 'Error al eliminar el contenido',
+                text: res.message,
+                icon: 'error',
+                showConfirmButton:false,
+                timer: 2000
+              })
+            }
+            setTimeout(() => {
+              Swal.close();
+              }, 3000);
+          },
+          error: (err: any) => {
+            console.log("Error del servidor =>",err);
+            Swal.fire({
+              title: 'Error al eliminar el contenido',
+              text: err.message,
+              icon: 'error',
+              showConfirmButton:false,
+              timer: 2000
+            })
+          },complete: () => {
+            console.log("Petición completa");
+            this.srvModal.setCloseMatDialog(true);
+          }
+        });
       }
     });
   }

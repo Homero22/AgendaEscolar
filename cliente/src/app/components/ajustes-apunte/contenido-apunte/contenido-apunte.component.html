@@ -53,8 +53,15 @@
       </label>
     </button>
 
-    <div class="col-12" *ngIf="this.showLabel === true">
-      <label for="">hola xd</label>
+    <div class="col-12 flex flex-wrap justify-content-center gap-3" *ngIf="this.showLabel === true">
+        <button mat-stroked-button class="btn-GPT" (click)="updateContent()">
+          Modificar
+        </button>
+
+        <button mat-stroked-button class="btn-Eliminar" (click)="deleteContent()">
+          Eliminar
+        </button>
+
     </div>
 
   </div>
