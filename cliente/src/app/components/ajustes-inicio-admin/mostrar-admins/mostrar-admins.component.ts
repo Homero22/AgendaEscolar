@@ -4,14 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { takeUntil, Subject } from 'rxjs';
 import { AdministradorService } from 'src/app/core/services/administrador.service';
 import { UsuarioModel } from 'src/app/core/models/usuario';
+import Swal from 'sweetalert2';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 @Component({
   selector: 'app-mostrar-admins',
@@ -19,31 +13,49 @@ export interface PeriodicElement {
   styleUrls: ['./mostrar-admins.component.css'],
 })
 export class MostrarAdminsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  // displayedColumns: string[] = ['id', 'nombre', 'apellido', 'acciones'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  // dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
-
+  displayedColumns: string[] = ['index', 'nombre', 'estado', 'telefono', 'actions'];
+  dataSource = new MatTableDataSource<UsuarioModel>();
+  // tableIndex = 1;
+  TypeView: number = 0;
+  idAdmin!: number;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private destroy$ = new Subject<any>();
 
-
-  constructor(
-    public srvAdmins: AdministradorService
-  ) { }
+  constructor(public srvAdmins: AdministradorService) {
+    // this.dataSource = new MatTableDataSource<UsuarioModel>();
+   }
 
   ngOnInit(): void {
-    this.getAdministradores();
+    // this.getAdministradores();
+    // setTimeout(() => {
+    //   this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+    //   console.log("administradores this.dataSource ", this.dataSource);
+    // }, 1000);
+    // // this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+    // // console.log("administradores this.dataSource ", this.dataSource);
+
   }
 
   ngAfterViewInit() {
+    this.getAdministradores();
+
     this.dataSource.paginator = this.paginator;
   }
 
+  view(op: number, id: number) {
+    if (op == 2) {
+      this.idAdmin = id;
+      // this.getAdmin(id);
+    }
+    this.TypeView = op;
+    console.log("idAdmin en mostrar", this.idAdmin);
+  }
 
-  openModal() {
+  regresar() {
+    this.getAdministradores();
+    this.TypeView = 0;
 
   }
 
@@ -53,49 +65,86 @@ export class MostrarAdminsComponent implements AfterViewInit {
   }
 
   getAdministradores() {
-    this.srvAdmins.getAdministradores()
+    this.srvAdmins
+      .getAdministradores()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (value) => {
-          this.srvAdmins.administradores = value.body
-          console.log("administradores ", this.srvAdmins.administradores)
+          this.srvAdmins.administradores = value.body;
+          this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
+          console.log("administradores ", this.srvAdmins.administradores);
+        },
+        complete: () => {
+          
+        },
+      });
+  }
 
+  getRowIndex(index: number): number {
+    return index + 1;
+  }
+
+  eliminarAdmin(id: number) {
+    Swal.fire({
+      title: '¿Está seguro de eliminar este administrador?',
+      icon: 'warning',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Cambiar rol',
+      denyButtonText: `Cambiar estado`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.CambiarRol(id)
+      } else if (result.isDenied) {
+        this.CambiarEstado(id)
+      }
+    })
+  }
+
+  CambiarRol(id: number) {
+
+    this.srvAdmins.getAdministrador(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (value) => {
+          if (value.status){
+            let admin = value.body;
+            admin.rol = 'USUARIO';
+            this.srvAdmins.putAdministrador(id, admin)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe({
+                next: (value) => {
+                  console.log("value ", value);
+                  this.getAdministradores();
+                },
+                complete: () => {
+                  Swal.fire('Rol cambiado', '', 'success')
+                }
+              })
+          }
         }
       })
   }
 
+  
 
+  CambiarEstado(id: number) {
+    this.srvAdmins.deleteAdministrador(id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (value) => {
+        console.log("value ", value);
+        this.getAdministradores();
+        Swal.fire(value.message,'', 'success')
+
+      },
+      complete: () => {
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
+  }
 }
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];
-
-

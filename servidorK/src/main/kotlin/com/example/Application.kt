@@ -22,9 +22,4 @@ fun Application.module() {
     //configureDatabases()
     configureRouting()
     configureHTTP()
-    val folderPath = object {}.javaClass.protectionDomain.codeSource.location.path
-    val folder = File(folderPath).parent+File.separator+"uploads"+File.separator
-    println( "folder en la ruta ad: $folder")
-
-
 }

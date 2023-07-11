@@ -3,10 +3,7 @@ package com.example.routes
 import com.example.data.models.Homework
 import com.example.data.repositories.Homeworks
 import com.example.logica.HomeworksLogic
-import com.example.utils.Response
-import com.example.utils.ResponseEmpty
-import com.example.utils.ResponseSingle
-import com.example.utils.sendJsonResponse
+import com.example.utils.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -23,84 +20,101 @@ fun Route.homeworksRouting(){
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //envio capa logica
                 val res = HomeworksLogic().getAll(limit, offset);
-                val response = Response(true,"Tareas obtenidas correctamente", res)
-                sendJsonResponse(call, HttpStatusCode.OK, response)
+                if(res.isNotEmpty()){
+                    val response = Response(true,"Tareas obtenidas correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = Response(false,"No se encontraron tareas", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
             }catch (cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
 
         }
-
         post {
             //Obtener los datos de la tarea a guardar
             val homework = call.receive<Homework>()
             try{
                 //Envio a la capa logica
-                val res = HomeworksLogic().save(homework);
-                if(res!=null){
-                    val response = ResponseSingle(true,"Tarea guardada correctamente", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
-                }else{
-                    val response = ResponseSingle(false,"No se guardo tarea", res)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                when (val res = HomeworksLogic().save(homework)) {
+                    1 -> {
+                        val response = ResponseSingle(true,"Tarea guardada correctamente", res)
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                    0 -> {
+                        val response = ResponseSingle(false,"Existe una tarea con el mismo nombre ", res)
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                    else -> {
+                        val response = ResponseSingle(false,"No se pudo guardar la tarea", res)
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
                 }
             }catch (cause: Throwable){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                val response = ResponseSimple(false, "Verifique que los datos sean correctos")
+                sendJsonResponse(call, HttpStatusCode.BadRequest, response)
             }
         }
-
         get ( "/{id}" ){
             //Obtener el id de la tarea a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try{
-                //envio capa logica
                 val response = HomeworksLogic().getById(id);
-
-                if (response != null){
-                    val response = ResponseSingle(true,"Tarea obtenida correctamente", response)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                if (response == 0){
+                    val res = ResponseSimple(false,"No se encontró la tarea")
+                    sendJsonResponse(call, HttpStatusCode.NotFound, res)
                 }else{
-                    val response = ResponseSingle(false,"No se encontro tarea", response)
-                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                    val res = ResponseSingle(true,"Tarea obtenida correctamente", response)
+                    sendJsonResponse(call, HttpStatusCode.OK, res)
                 }
             }catch (cause: Throwable){
-                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+                call.respond(HttpStatusCode.BadRequest,  "Error desconocido. Verifique los datos")
             }
         }
-
         get ("/user/{id}") {
             //Obtener el id del usuario a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try{
-                //Envio a la capa logica
-                val res = HomeworksLogic().getByUserId(id);
-                if(res==null){
-                    val response = Response(false,"No se encontro tarea", emptyList())
+                val res = HomeworksLogic().getByUserId(id)
+                if(res.isEmpty()){
+                    val response = Response(false,"No se encontraron las tareas", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(true,"Tarea obtenida correctamente", res)
+                    val response = ResponseSingle(true,"Tareas obtenidas correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
-
         put("/{id}") {
-            //Obtener el id de la tarea a actualizar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            //Obtener los datos de la tarea a actualizar
             val homework = call.receive<Homework>()
-            //Actualizar la tarea
             try {
-                //envio capa logica
-                val homework = HomeworksLogic().update(id, homework);
-                if (homework != null){
-                   val response = ResponseSingle(true,"Tarea actualizada correctamente", homework)
+                val res = HomeworksLogic().update(id, homework);
+                if (res == 1){
+                   val response = ResponseSingle(true,"Tarea actualizada correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseEmpty(false,"No se encontro tarea", emptyList())
+                    val response = ResponseEmpty(false,"No se encontró la tarea", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
+                }
+            }catch ( cause: Throwable){
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }
+        }
+        put("/estado/{id}/{estado}") {
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            val estado = call.parameters["estado"]?.toIntOrNull() ?: 0
+            try {
+                val res = HomeworksLogic().updateEstado(id, estado);
+                if (res == 1){
+                    val response = ResponseSingle(true,"Tarea actualizada correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false,"No se encontró la tarea", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
                 }
             }catch ( cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
@@ -108,45 +122,37 @@ fun Route.homeworksRouting(){
         }
 
         delete("/{id}") {
-            //Obtener el id de la tarea a eliminar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            //Eliminar la tarea
             try {
-                // envio capa logica
                 val homework = HomeworksLogic().delete(id);
-                if(homework==1){
+                if(homework == 1){
                     val response = ResponseSingle(true,"Tarea eliminada correctamente", homework)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(false,"No se encontro tarea", homework)
+                    val response = ResponseSingle(false,"No se encontró la  tarea", homework)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
-
             }catch ( cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
-
         //obtener tareas pendientes o finalizadas
         get ("/estado/{id}"){
-            //Obtener el id del usuario a buscar
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            //Obtener el estado de la tarea a buscar
             val estado = call.parameters["estado"]?.toIntOrNull() ?: 0
             try{
                 //Envio a la capa logica
                 val res = HomeworksLogic().getByEstado(id, estado);
-                if(res==0){
-                    val response = Response(false,"No se encontro tarea", emptyList())
+                if(res.isEmpty()){
+                    val response = Response(false,"No se encontraron las  tareas", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(true,"Tarea obtenida correctamente", res)
+                    val response = ResponseSingle(true,"Tareas obtenida correctamente", res)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (cause: Throwable){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
-
         }
     }
 }

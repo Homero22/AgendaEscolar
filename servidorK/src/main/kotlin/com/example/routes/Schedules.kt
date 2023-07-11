@@ -57,11 +57,11 @@ fun Route.horariosRouting() {
             try {
                //envio capa logica
                 val res = ScheduleLogic().crearHorario(schedule)
-                if(res==1) {
+                if(res == 1) {
                     val response = ResponseSingle(true, "Horario creado correctamente", schedule)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(false, "No se pudo crear el horario", schedule)
+                    val response = ResponseSimple(false, "No se pudo crear el horario")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (
@@ -73,15 +73,14 @@ fun Route.horariosRouting() {
         put("/{id}") {
             try {
                 val id = call.parameters["id"]?.toIntOrNull() ?: 0
-
                 val schedule = call.receive<Schedule>()
                 //envio capa logica
                 val res = ScheduleLogic().actualizarHorario(id,schedule)
-                if(res==1) {
+                if(res == 1) {
                     val response = ResponseSingle(true, "Horario actualizado correctamente", schedule)
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }else{
-                    val response = ResponseSingle(false, "No se pudo actualizar el horario", schedule)
+                    val response = ResponseSimple(false, "No se pudo actualizar el horario")
                     sendJsonResponse(call, HttpStatusCode.OK, response)
                 }
             }catch (

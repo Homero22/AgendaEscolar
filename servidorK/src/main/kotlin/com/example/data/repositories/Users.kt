@@ -4,7 +4,9 @@ import com.example.data.entities.Users
 import com.example.data.entities.UsersDAO
 import com.example.data.models.User
 import com.example.data.models.reportes.usuariosPorMes
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.count
+import org.jetbrains.exposed.sql.or
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -15,7 +17,11 @@ object Users : CrudRepository<User, Int>() {
     fun searchEmail(email: String): User? = transaction {
         return@transaction UsersDAO.find { Users.correo eq  email }.singleOrNull()?.toUser() // Si no encuentra nada devuelve null
     }
-
+    fun getBySearch(search: String): List<User> = transaction {
+        //buscar por nombre o apellido o correo
+        val response = UsersDAO.find { (Users.nombre like "%$search%") or (Users.apellido like "%$search%") or (Users.correo like "%$search%") }
+        return@transaction response.map { it.toUser() }
+    }
 
     //verificar que el numero de telefono no este registrado
     fun searchPhone(telefono: String): User? = transaction {
@@ -25,6 +31,7 @@ object Users : CrudRepository<User, Int>() {
     //funcion para obtener todos los usuarios
    override fun getAll(limit:Int, offset:Int): List<User> = transaction{
         val response = UsersDAO.all().limit(limit, offset.toLong())
+            .orderBy(Pair(Users.nombre, SortOrder.ASC))
         return@transaction response.map { it.toUser() }
     }
    override fun getById(id: Int) = transaction {
@@ -61,11 +68,14 @@ object Users : CrudRepository<User, Int>() {
         return@transaction response!!
     }
    override fun delete(id:Int): Any = transaction {
-        val user = UsersDAO.findById(id.toLong())?:return@transaction
-        user.apply {
-            estado = "INACTIVO"
-        }
-        return@transaction
+        val user = UsersDAO.findById(id.toLong())?.delete()
+        return@transaction user!!
+   }
+    fun eliminadoLogico(id : Int, valor:String): User = transaction {
+        val response = UsersDAO.findById(id.toLong())?.apply {
+            estado = valor
+        }?.toUser()
+        return@transaction response!!
     }
     //Funcion para devolver contraseña de usuario dado un correo
     fun getContrasena(correo: String): String? = transaction {
@@ -99,35 +109,34 @@ object Users : CrudRepository<User, Int>() {
     }
 
     fun getTotal(identificador : Int): Long = transaction {
-            if(identificador ==1){
-                //obtener la cantidad de usuarios excepto rol administrador
-                val response = UsersDAO.all().filter { it.rol != "ADMINISTRADOR" }.count()
-                return@transaction response.toLong()
-            }else{
-                //obtener la cantidad de usuarios con rol administrador
-                val response = UsersDAO.all().filter { it.rol == "ADMINISTRADOR" }.count()
-                return@transaction response.toLong()
+            if(identificador == 1) {
+                //cantidad usuarios sin rol administrador
+                return@transaction UsersDAO.all().count { it.rol != "ADMINISTRADOR" }
+                    .toLong()
+            }else {
+                //cantidad usuarios con rol administrador
+                return@transaction UsersDAO.all().count { it.rol == "ADMINISTRADOR" }
+                    .toLong()
             }
-
     }
     //funcion para obtener los años que esta en fechaCreacion
     fun getAllAnios(): List<Int> = transaction {
         //obtener todos los años de fechaCreacion sin repetir
-        val response = UsersDAO.all().map { it.fechaCreacion.year }.distinct()
-        return@transaction response
+        return@transaction UsersDAO.all().map<UsersDAO, Int> { it.fechaCreacion.year }.distinct<Int>()
     }
     //funcion para obtener la cantidad de usuarios por mes y año
     fun getUsuariosPorMes(anio: Int): List<usuariosPorMes> = transaction {
         //obtener la cantidad de usuarios por mes y año
-          val response = UsersDAO.all().filter { it.fechaCreacion.year == anio }
-                .groupBy { it.fechaCreacion.monthValue }
-                .map { usuariosPorMes(it.key, it.value.count()) }
-        return@transaction response
+        return@transaction UsersDAO.all().filter<UsersDAO> { it.fechaCreacion.year == anio }
+            .groupBy<UsersDAO, Int> { it.fechaCreacion.monthValue }
+            .map<Int, List<UsersDAO>, usuariosPorMes> { usuariosPorMes(it.key, it.value.count<UsersDAO>()) }
 
     }
     //funcion que devuelve todos los usuarios con rol administrador
-    fun getAdministradores(): List<User> = transaction {
-        val response = UsersDAO.all().filter { it.rol == "ADMINISTRADOR" }
+    fun getAdministradores(limit: Int, offset: Int) :List<Any> = transaction {
+        val response = UsersDAO.find { Users.rol eq "ADMINISTRADOR" }.limit(limit, offset.toLong())
+            .orderBy(Pair(Users.estado, SortOrder.ASC))
+
         return@transaction response.map { it.toUser() }
     }
 

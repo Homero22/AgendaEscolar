@@ -1,0 +1,50 @@
+<div class="container" >
+    <h2> Bienvenido! </h2>
+<div class="cont-flex" >
+    <div class="outer">
+
+  
+        <table>
+          <thead>
+            <tr>
+              <th>{{getDiaHoy()}}</th>
+            </tr>
+          </thead>
+        </table>
+        
+        <div class="wrap"> 
+          <table class="offset">
+            <tbody>
+              <tr *ngFor="let hora of srvHorario.horas " [ngClass]="{'ocultar-estilo': !mostrarContenido}">
+                <td class="headcol">{{hora}}</td>
+                <ng-container >
+                  <td
+                      [ngStyle]="{ 'background-color': ObtenerColorMateria(hora, getDiaHoy()) }"
+                      [ngClass]="{ 'past': getDiaHoy() === 'MIERCOLES' }"
+                      [ngClass]="{'ocultar-estilo': !mostrarContenido}"
+                      >
+                    <ng-container *ngTemplateOutlet="template; context: { $implicit: hora, dia: getDiaHoy() }"></ng-container>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        
+        <ng-template #template let-hora let-dia="dia">
+          <ng-container *ngIf="!calcularPantallaMediana(); else acronimoTemplate">
+            {{ ObtenerMateria(hora, dia) }}
+          </ng-container>
+          <ng-template #acronimoTemplate>
+            {{ ObtenerAcronimoMateria(hora, dia) }}
+          </ng-template>
+        </ng-template>
+        
+    </div>
+   <div class="cont-img" >
+    <img class="img" src="../../../assets/img/incio.png" alt="">
+   </div>
+    
+</div>
+</div>

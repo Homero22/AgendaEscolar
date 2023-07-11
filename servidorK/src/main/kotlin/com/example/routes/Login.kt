@@ -11,6 +11,9 @@ import io.ktor.server.routing.*
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys
+import io.ktor.server.http.*
+import io.ktor.util.date.*
+import io.netty.handler.codec.http.cookie.CookieHeaderNames
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +30,14 @@ fun Route.loguinRouting(){
 
                 val user = Users.searchEmail(loginRequest.email)
 
-                if (user != null && user.contrasena == loginRequest.password) {
+                if (user != null) {
+                    if(user.estado == "INACTIVO"){
+                        val response = ResponseSingle(false,"Usuario Inactivo", 0)
+                        sendJsonResponse(call, HttpStatusCode.OK, response)
+                    }
+                }
+
+                if (user != null && user.contrasena == loginRequest.password ) {
 
                     val expirationTime = Calendar.getInstance()
                     expirationTime.add(Calendar.WEEK_OF_YEAR, 1) // Agregar 1 semana al tiempo actual
@@ -57,11 +67,24 @@ fun Route.loguinRouting(){
 
 
                     //enviar en una cookie el token
-                    call.response.cookies.append("token", token)
+                    call.response.cookies.append(
+                        name = "token",
+                        value = token,
+                        maxAge = 604800L,
+                        expires = expirationTime.toDate(3600),
+                        path = "/",
+                        httpOnly = false,
+                        secure = false,
+                        domain = "localhost",
+                        encoding = CookieEncoding.URI_ENCODING,
+                        extensions = mapOf("SameSite" to "None")
+                    )
+
+
                     val response = ResponseToken(true, "Credenciales Validadas", user, token)
                     sendJsonResponse(call, HttpStatusCode.OK    , response)
                 } else {
-                    val response = Response(false, "Credenciales Invalidadas", emptyList())
+                    val response = Response(false, "Credenciales Inválidas", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK , response)
                 }
             }catch (e: Throwable){
@@ -73,7 +96,3 @@ fun Route.loguinRouting(){
 
     }
 }
-/*
-@Serializable
-data class LoginRequest(val email: String, val password: String)
-*/

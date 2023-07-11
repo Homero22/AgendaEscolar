@@ -14,23 +14,35 @@ export class GptService {
 
 
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { 
+    this.token = this.getCookie('token');
+
+  }
+  getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
+  }
+  token: any;
 
   // Método para enviar info de la nota y obtener el prompt
 
   postPrompt(id: any, dataApunte: addApunteData){
     return this.http.post<any>(`${this.urlApi_GPT}/${id}`, dataApunte,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 
   postMessage(mensaje: promptModel){
     return this.http.post<any>(`${this.urlApi_GPT}`, mensaje,
     {
-      withCredentials: true
+      withCredentials: true,
+      params: {
+        token: this.token
+      }
     })
   }
 

@@ -3,8 +3,10 @@ package com.example.data.repositories
 import com.example.data.entities.HomeworkDAO
 import com.example.data.entities.Homeworks
 import com.example.data.entities.SubjectDAO
+import com.example.data.entities.Subjects
 import com.example.data.entities.Users
 import com.example.data.models.Homework
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
@@ -89,9 +91,11 @@ object Homeworks: CrudRepository<Homework, Int>() {
     //funcion para obtener todas las tareas de un usuario dado un estado
 
     fun getAllByUserAndState(id: Long, state: String):List<Any> = transaction {
+
         val res = Homeworks
-            .select({ Homeworks.idUser eq id })
+            .select { Homeworks.idUser eq id }
             .andWhere { Homeworks.tareaEstado eq state }
+            .orderBy(Pair(Homeworks.fechaFin, SortOrder.ASC))
             .map {
                 mapOf(
                     "id" to it[Homeworks.id].value,
@@ -106,7 +110,23 @@ object Homeworks: CrudRepository<Homework, Int>() {
                     "tareaRecordatorio" to it[Homeworks.tareaRecordatorio]
                 )
             }
+        //ordenar por fecha de entrega
+
         return@transaction res
+    }
+
+    fun updateEstado(id:Int, estado :Int): Homework = transaction{
+        if(estado == 1){
+            val response = HomeworkDAO.findById(id.toLong())?.apply {
+                tareaEstado = "PENDIENTE"
+            }?.toHomework()
+            return@transaction response!!
+        }else{
+            val response = HomeworkDAO.findById(id.toLong())?.apply {
+                tareaEstado = "FINALIZADA"
+            }?.toHomework()
+            return@transaction response!!
+        }
     }
 
     //funcion para obtener todas las tareas pendientes de un usuario y devolver in List <Homework>
@@ -114,9 +134,18 @@ object Homeworks: CrudRepository<Homework, Int>() {
 
     fun getAllByUserAndStatePendientes(id: Long, state: String):List<Homework> = transaction {
         val response = HomeworkDAO.all()
-            .filter { it.idUser == id.toLong() && it.tareaEstado == state }
+            .filter { it.idUser == id && it.tareaEstado == state }
 
         return@transaction response.map { it.toHomework() }
+    }
+
+    fun searchTitle(title: String):Int = transaction {
+            val res = HomeworkDAO.find { Homeworks.tareaTitulo eq title }.toList()
+            if(res.isEmpty()){
+                return@transaction 0
+            }else{
+                return@transaction 1
+            }
     }
 
 
