@@ -22,7 +22,4 @@ fun Application.module() {
     //configureDatabases()
     configureRouting()
     configureHTTP()
-
-
-
 }

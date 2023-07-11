@@ -9,7 +9,9 @@ class ContentLogic {
     val obj = cGenerica<Contents>()
     fun getById(id: Int): Any {
         return obj.gGgetById(Contents, id) ?: 0
+
     }
+
 
     fun save(content: ContentModel): Int {
         val res = obj.gGetByIdApunte(Contents,content.idApunte)
