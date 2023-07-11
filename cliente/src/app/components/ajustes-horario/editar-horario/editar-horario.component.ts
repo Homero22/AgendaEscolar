@@ -187,6 +187,8 @@ export class EditarHorarioComponent {
             confirmButtonText: `Aceptar`,
           })
           // this.srvModal.closeModal();
+          this.srvModal.setCloseMatDialog(true);
+
         }else{
           console.log("No se pudo eliminar el horario");
           Swal.fire({
@@ -227,7 +229,9 @@ export class EditarHorarioComponent {
             timer: 3000
           })
           this.idHorario = horarioData.body.id;
-          this.srvModal.closeModal();
+          // this.srvModal.closeModal();
+          this.srvModal.setCloseMatDialog(true);
+
         }else{
           console.log("No hay datos");
           Swal.fire({
@@ -257,6 +261,8 @@ export class EditarHorarioComponent {
             showConfirmButton: false,
             timer: 3000
           })
+          this.srvModal.setCloseMatDialog(true);
+
           // this.srvModal.closeModal();
         }else{
           console.log("No se pudo actualizar el horario");

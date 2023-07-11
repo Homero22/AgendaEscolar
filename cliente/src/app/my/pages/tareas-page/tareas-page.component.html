@@ -39,6 +39,10 @@
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <div>
+                          <button mat-icon-button (click)="cambiarEsado(tarea.id,tarea.tareaEstado)">
+                            <mat-icon *ngIf="tarea.tareaEstado ==='PENDIENTE' ">check_circle_outline</mat-icon>
+                            <mat-icon *ngIf="tarea.tareaEstado ==='FINALIZADA' ">check_circle</mat-icon>
+                          </button>
                           <button mat-icon-button (click)="editarTarea(tarea.id)">
                             <mat-icon>edit</mat-icon>
                           </button>
@@ -75,6 +79,10 @@
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <div>
+                          <button mat-icon-button (click)="cambiarEsado(tarea.id,tarea.tareaEstado)">
+                            <mat-icon *ngIf="tarea.tareaEstado ==='PENDIENTE' ">check_circle_outline</mat-icon>
+                            <mat-icon *ngIf="tarea.tareaEstado ==='FINALIZADA' ">check_circle</mat-icon>
+                          </button>
                           <button mat-icon-button (click)="editarTarea(tarea.id)">
                             <mat-icon>edit</mat-icon >
                           </button>
@@ -112,6 +120,10 @@
                         <p mat-line>{{tarea.nombreMateria}}</p>
                         <p mat-line>{{ tarea.fechaFin.year }}-{{ tarea.fechaFin.month }}-{{ tarea.fechaFin.day }}</p>
                         <div>
+                          <button mat-icon-button (click)="cambiarEsado(tarea.id,tarea.tareaEstado)">
+                            <mat-icon *ngIf="tarea.tareaEstado ==='PENDIENTE' ">check_circle_outline</mat-icon>
+                            <mat-icon *ngIf="tarea.tareaEstado ==='FINALIZADA' ">check_circle</mat-icon>
+                          </button>
                           <button mat-icon-button (click)="editarTarea(tarea.id)">
                             <mat-icon>edit</mat-icon>
                           </button>

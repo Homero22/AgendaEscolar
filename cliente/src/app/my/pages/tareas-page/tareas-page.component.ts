@@ -92,6 +92,39 @@ export class TareasPageComponent {
     });
   }
 
+  cambiarEsado(idTarea: number, tarea: any){
+    console.log("Cambiar Estado", idTarea);
+    console.log("Tarea como me llega a la función =>",tarea);
+    let op: number;
+    if(tarea == "PENDIENTE"){
+      tarea = "FINALIZADA";
+      op = 0;
+    }else{
+      tarea= "PENDIENTE";
+      op = 1;
+    }
+    // tarea.fechaCreacion = tarea.fechaCreacion.date.year + "-" + tarea.fechaCreacion.date.month + "-" + tarea.fechaCreacion.date.day;
+    // tarea.fechaFin = tarea.fechaFin.year + "-" + tarea.fechaFin.month + "-" + tarea.fechaFin.day;
+    // tarea.horaEntrega = tarea.horaEntrega.hour + ":" + tarea.horaEntrega.minute + ":" + tarea.horaEntrega.second;
+    // tarea.tareaRecordatorio = tarea.tareaRecordatorio.hour + ":" + tarea.tareaRecordatorio.minute + ":" + tarea.tareaRecordatorio.second;
+    console.log("Tarea antes de enviar a homero=>",tarea, op);
+    this.srvTarea.putTareaEstado(idTarea,op, tarea)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(tareaData)=>{
+        Swal.fire({
+          title: tareaData.message ,
+          icon:'success',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        console.log("tareaData =>",tareaData);
+        this.getTareasEstado(1);
+        this.getTareas();
+      }
+    });
+  
+  }
 
   deleteTarea(idTarea: number){
     console.log("Eliminar Tarea", idTarea);

@@ -102,4 +102,14 @@ export class TareaService {
       });
   }
 
+  putTareaEstado(idTarea: number, op: number, tareaEstado: string){
+    return this.http.put<any>(`${this.urlApi_TareasEstado}/${idTarea}/${op}`, tareaEstado,
+      {
+        withCredentials: true,
+        params: {
+          token: this.token
+        }
+      });
+  }
+
 }
