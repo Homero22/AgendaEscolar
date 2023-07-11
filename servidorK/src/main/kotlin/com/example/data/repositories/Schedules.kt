@@ -24,7 +24,10 @@ object Schedules : CrudRepository<Schedule, Int>() {
 
     override fun getById(id: Int) = transaction {
         ScheduleDAO.findById(id)?.toSchedule()
+        return@transaction ScheduleDAO.findById(id)?.toSchedule() ?: throw Exception("No se encontró el horario con id $id")
     }
+
+
     //funcion para obtener todos los horarios de un usuario
     fun getAllByUser(id: Long):List<Any> = transaction {
 
@@ -96,30 +99,13 @@ object Schedules : CrudRepository<Schedule, Int>() {
     //funcion para comprobar que no se repita el horario
     fun checkSchedule(idMateria: Int, hora_inicio: String, hora_fin: String, dia: String): Boolean = transaction {
         val response = ScheduleDAO.find { (Horarios.idMateria eq idMateria) and (Horarios.hora_inicio eq java.time.LocalTime.parse(hora_inicio)) and (Horarios.hora_fin eq java.time.LocalTime.parse(hora_fin)) and (Horarios.dia eq dia) }
-        logger.info{"HOLAAAAAAA "+response}
-        return@transaction response.empty()
+        logger.info{ "HOLAAAAAAA $response" }
+        if(response.empty()){
+            return@transaction true
+        }else{
+            return@transaction false
+        }
     }
-
-    //devolver horarios haciendo join con materias
-    /*
-    *     fun obtenerDatosMaterias(): List<Any> = transaction {
-        val resultado = (Subjects innerJoin MateriaUsuario)
-            .selectAll()
-            .map {
-                mapOf(
-                    "id" to it[Subjects.id].value,
-                    "nombreMateria" to it[Subjects.nombre],
-                    "idUsuario" to it[MateriaUsuario.idUsuario],
-                    "idMateria" to it[MateriaUsuario.idMateria],
-                    "materiaAcro" to it[MateriaUsuario.materiaAcro],
-                    "materiaColor" to it[MateriaUsuario.materiaColor],
-                    "profesorNombre" to it[MateriaUsuario.profesorNombre]
-                )
-            }
-        return@transaction resultado
-    }
-
-    * */
     fun obtenerHorarios(): List<Any> = transaction {
         val resultado = (Horarios innerJoin Subjects )
             .selectAll()

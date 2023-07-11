@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { MateriaService } from 'src/app/core/services/materia.service';
 import { modMateriaModel } from 'src/app/core/models/materia';
+import { ModalService } from 'src/app/core/services/modal.service';
 @Component({
   selector: 'app-editar-materia',
   templateUrl: './editar-materia.component.html',
@@ -21,7 +22,8 @@ export class EditarMateriaComponent {
 
   constructor(
     private fb: FormBuilder,
-    private srvMateria: MateriaService
+    private srvMateria: MateriaService,
+    private srvModal: ModalService
   ) {
     this.myForm = this.fb.group({
       idUser: [
@@ -144,7 +146,9 @@ export class EditarMateriaComponent {
   getColor(event: any) {
     this.selectedColor = event.target.value;
     console.log(this.selectedColor);
-    this.myForm.get('color')?.setValue(this.selectedColor);
+    const color = this.selectedColor;
+    this.myForm.get('materiaColor')?.setValue(color);
+    console.log(this.myForm.value);
   }
 
   getMaterias(){
@@ -185,9 +189,9 @@ export class EditarMateriaComponent {
     const sendMateriaData = this.myForm.value;
 
     Swal.fire({
-      title:'Esta seguro de añadir esta Materia?',
+      title:'Esta seguro de modificar esta Materia?',
       showDenyButton:true,
-      confirmButtonText:'Agregar',
+      confirmButtonText:'Aceptar',
       denyButtonText:'Cancelar'
     }).then((result)=>{
       if(result.isConfirmed){
@@ -231,6 +235,8 @@ export class EditarMateriaComponent {
           complete: ()=>{
             console.log("Petición completa!");
             this.myForm.reset();
+            this.srvModal.setCloseMatDialog(true);
+            this.getMaterias();
           }
         })
       }

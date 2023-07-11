@@ -140,7 +140,7 @@ class cGenerica <T> {
                 obj.getById(id) as Image
             }
             is Contents ->{
-                obj.getById(id)
+                obj.getContentByIdApunte(id.toLong())
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -311,6 +311,15 @@ class cGenerica <T> {
         return when(contents) {
             is Contents -> {
                 contents.getSimilar(categoria,5,0)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetBySearch(users: T, search: String): List<Any> {
+        return when(users) {
+            is Users -> {
+                users.getBySearch(search)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }

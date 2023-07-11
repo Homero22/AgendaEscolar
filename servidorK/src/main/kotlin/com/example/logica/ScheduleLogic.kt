@@ -3,23 +3,16 @@ package com.example.logica
 import com.example.data.models.Schedule
 import com.example.data.repositories.Schedules
 import com.example.data.repositories.cGenerica
+import org.jetbrains.exposed.sql.Op
+import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
 class ScheduleLogic {
     private val obj = cGenerica<Schedules>()
 
     fun crearHorario(objeto: Schedule): Int {
-
-        val respuesta = obj.gSearch(Schedules, objeto.idMateria, objeto.hora_inicio, objeto.hora_fin, objeto.dia)
-        val materia = obj.gGgetById(Schedules, objeto.idMateria)
-        //comprobamos si la materia existe
-        if (respuesta == TRUE && materia !=null) {
-            //si no existe la materia la creamos
-            Schedules.save(objeto)
-            return 1
-        }
-        return 0
-
+        Schedules.save(objeto)
+        return 1
     }
 
     fun getAll(limit: Int, offset:Int):List<Any> {
@@ -27,16 +20,9 @@ class ScheduleLogic {
     }
 
     fun actualizarHorario(id: Int, schedule: Schedule): Int {
-
-        val respuesta = obj.gGgetById(Schedules,id)
-        val materia = obj.gGgetById(Schedules, schedule.idMateria)
-
-        if (respuesta == null || materia == null) {
-            return 0
-        }
+        val respuesta = obj.gGgetById(Schedules, id) ?: return 0
         obj.gUpdate(Schedules,id,schedule)
         return 1
-
     }
 
     fun eliminarHorario(id: Int): Int {

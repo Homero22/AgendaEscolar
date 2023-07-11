@@ -84,7 +84,7 @@ fun Route.loguinRouting(){
                     val response = ResponseToken(true, "Credenciales Validadas", user, token)
                     sendJsonResponse(call, HttpStatusCode.OK    , response)
                 } else {
-                    val response = Response(false, "Credenciales Invalidadas", emptyList())
+                    val response = Response(false, "Credenciales Inválidas", emptyList())
                     sendJsonResponse(call, HttpStatusCode.OK , response)
                 }
             }catch (e: Throwable){
@@ -96,7 +96,3 @@ fun Route.loguinRouting(){
 
     }
 }
-/*
-@Serializable
-data class LoginRequest(val email: String, val password: String)
-*/
