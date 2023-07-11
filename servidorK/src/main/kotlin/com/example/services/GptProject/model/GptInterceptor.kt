@@ -5,6 +5,10 @@ import com.example.data.models.gpt.GptResponse
 import com.example.data.models.gpt.MessagesItem
 import com.example.services.GptProject.ServicioGpt
 import com.example.services.GptProject.gptInstance
+import com.typesafe.config.ConfigFactory
+import io.ktor.server.application.*
+import io.ktor.server.config.*
+import io.ktor.server.engine.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +25,9 @@ class GptInterceptor {
 
     scope.launch {
         try {
+            //USO la apikey de los enviroment variables
+            //val config = HoconApplicationConfig(ConfigFactory.load())
+            //val apiKey =
             val message = MessagesItem(content = prompt, role = "user")
             val data = GptPost(0.7, listOf(message), "gpt-3.5-turbo")
             val response = service.getGpt(data, "Bearer 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")
