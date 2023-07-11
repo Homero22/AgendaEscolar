@@ -20,3 +20,22 @@
   background-color: rgb(13, 102, 65);
   color: #fff;
 }
+
+#div-Border{
+  border: solid 0.5px #ccc;
+}
+
+#input-Invisible{
+  display: none;
+}
+
+.btn-Eliminar{
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-Eliminar:hover{
+  background-color: rgb(153, 0, 0);
+  color: #fff;
+}

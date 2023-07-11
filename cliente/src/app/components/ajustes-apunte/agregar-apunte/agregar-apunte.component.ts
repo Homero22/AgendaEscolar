@@ -180,6 +180,7 @@ export class AgregarApunteComponent implements OnInit {
   onNotasEditorContentChange(event: any) {
     this.myForm.get('apunteNotasClase')?.setValue(event.html);
     console.log("Valor de event =>", event);
+    console.log("Valor de apunteNotasClase =>", this.myForm.get('apunteNotasClase')?.value);
   }
 
   // Función para agregar el Apunte

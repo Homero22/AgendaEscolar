@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { modApunteModel } from 'src/app/core/models/apunte';
+import Quill from 'quill';
 export interface Idea {
   name: string;
 }
@@ -19,6 +20,7 @@ export interface Idea {
   styleUrls: ['./editar-apunte.component.css']
 })
 export class EditarApunteComponent implements OnInit {
+  @ViewChild('quillResume') quillResumeRef!: ElementRef;
   [x: string]: any;
 
   // Variables para el chip de ideas
@@ -54,6 +56,8 @@ export class EditarApunteComponent implements OnInit {
   value_string_time: any;
 
   content: string = "";
+
+  editor!: any;
 
   constructor(
     private fb: FormBuilder,
@@ -259,6 +263,12 @@ export class EditarApunteComponent implements OnInit {
       this.myForm.get('apunteIdeas')!.setValue(this.ideas.map(idea => idea.name));
     }
   }
+
+
+
+
+
+
 
   onChangeEditor(event: any) {
     if(event.html){

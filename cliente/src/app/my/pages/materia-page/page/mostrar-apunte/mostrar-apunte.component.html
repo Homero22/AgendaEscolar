@@ -50,7 +50,29 @@
       </div>
 
       <div class="col-11 sm:col-3 div-Body">
-        <label for="">relacionados</label>
+        <div class="col-12 flex justify-content-center">
+          <label for="" id="lbl-Title">Contenido relacionado</label>
+        </div>
+        <div class="col-12 flex flex-wrap justify-content-center" >
+          <div class="col-12 card flex align-items-center justify-content-between" *ngFor="let content of this.srvContenido.contentSimilarData, let i = index">
+            <div class="card-container p-3 mr-3 w-12 justify-content-between" id="card-Border">
+
+              <div class="flex align-items-center">
+                <label for="" id="lbl-Title">Titulo: {{content.titulo}}</label>
+              </div>
+
+              <div class="flex align-items-center">
+                <label for="" id="lbl-Title">Categoria: {{content.categoria}}</label>
+              </div>
+
+              <div class="flex align-items-center">
+                <button mat-stroked-button>
+                  <i class="material-icons">visibility</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
