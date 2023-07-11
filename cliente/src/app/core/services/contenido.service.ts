@@ -25,8 +25,8 @@ export class ContenidoService {
     // Funciones para Contenido
 
     // Obtener todos los contenidos
-    getContent(idContenido: number){
-      return this.http.get<any>(`${this.urlApi_Contenido}/${idContenido}`,
+    getContent(idApunte: number){
+      return this.http.get<any>(`${this.urlApi_Contenido}/${idApunte}`,
       {
         withCredentials: true,
         params:{

@@ -24,3 +24,7 @@
 #div-Border{
   border: solid 0.5px #ccc;
 }
+
+#input-Invisible{
+  display: none;
+}
