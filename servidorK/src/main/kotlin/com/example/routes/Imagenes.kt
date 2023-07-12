@@ -6,7 +6,7 @@ import com.example.logica.ImagesLogic
 import com.example.utils.ResponseEmpty
 import com.example.utils.ResponseImage
 import com.example.utils.sendJsonResponse
-import io.github.cdimascio.dotenv.dotenv
+
 
 import io.ktor.http.*
 import io.ktor.http.content.*
