@@ -31,7 +31,7 @@
         <div class="card flex align-items-center justify-content-between w-12"
           id="containerApuntes" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index"
         >
-          <div class="flex flex-wrap card-container p-3 gap-3 justify-content-between w-12" *ngIf="apunte.idMateria === this.idMateria">
+          <div class="flex flex-wrap card-container p-3 gap-3 justify-content-between w-12" *ngIf="apunte.idMateria === this.idMateria" (click)="openApunte(apunte.id)" id="container-Apunte">
 
             <div class="flex align-items-center uppercase gap-3">
               <div>
@@ -47,9 +47,9 @@
 
             <div class="flex gap-3">
 
-              <button mat-stroked-button (click)="openApunte(apunte.id)">
+              <!-- <button mat-stroked-button (click)="openApunte(apunte.id)">
                 <i class="material-icons">visibility</i>
-              </button>
+              </button> -->
 
               <button mat-stroked-button
               (click)="openModalEdit('Editar Apunte', apunte.id)"
