@@ -157,6 +157,13 @@ export class MateriaPageComponent {
         },
         error: (err) => {
           console.log("Error en la peticion Materias =>", err);
+          Swal.fire({
+            title: 'Error al obtener las materias',
+            text: err,
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2500
+          })
         },
         complete: () => {
           console.log("Peticion finalizada");
