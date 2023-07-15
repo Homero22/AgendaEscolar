@@ -12,7 +12,7 @@ fun Application.configureRouting() {
     routing {
 
         //Verificar token valido que viene de una cokie
-/*
+
         intercept(ApplicationCallPipeline.Call){
             // Verificar si la ruta es la de inicio de sesión
             if (call.request.uri == "/login") {
@@ -36,7 +36,7 @@ fun Application.configureRouting() {
                     call.respondText("Token inválido, Intente iniciar sesión nuevamente")
                 }
             }
-        }*/
+        }
 
 
         get("/") {
@@ -45,7 +45,7 @@ fun Application.configureRouting() {
         loguinRouting()
         usuariosRouting()
         countriesRouting()
-        //subjectsRouting()
+        subjectsRouting()
         horariosRouting()
         homeworksRouting()
         notesRouting()
