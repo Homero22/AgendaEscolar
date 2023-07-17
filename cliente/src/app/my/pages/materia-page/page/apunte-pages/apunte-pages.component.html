@@ -29,11 +29,11 @@
       <!-- Body de Apuntes -->
       <div class="col-12 flex flex-wrap gap-3">
         <div class="card flex align-items-center justify-content-between w-12"
-          id="containerApuntes" *ngFor="let apunte of srvApuntes.datosApuntes, let i = index"
+           *ngFor="let apunte of srvApuntes.datosApuntes, let i = index"
         >
-          <div class="flex flex-wrap card-container p-3 gap-3 justify-content-between w-12" *ngIf="apunte.idMateria === this.idMateria" (click)="openApunte(apunte.id)" id="container-Apunte">
+          <div class="flex flex-wrap card-container p-3 gap-3 justify-content-between w-12" *ngIf="apunte.idMateria === this.idMateria"  id="container-Apunte">
 
-            <div class="flex align-items-center uppercase gap-3">
+            <div class="flex align-items-center uppercase gap-3" (click)="openApunte(apunte.id)">
               <div>
                 <i class="material-icons">article</i>
               </div>
