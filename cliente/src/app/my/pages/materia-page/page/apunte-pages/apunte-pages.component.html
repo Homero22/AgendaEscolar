@@ -47,15 +47,16 @@
 
             <div class="flex gap-3">
 
-              <!-- <button mat-stroked-button (click)="openApunte(apunte.id)">
-                <i class="material-icons">visibility</i>
-              </button> -->
-
-              <button mat-stroked-button
+            <button mat-stroked-button
               (click)="openModalEdit('Editar Apunte', apunte.id)"
             >
               <i class="material-icons btn-Edit">edit</i>
             </button>
+
+            <button mat-stroked-button >
+              <i class="material-icons">bookmark</i>
+            </button>
+
             <button mat-stroked-button class="btn-Content" [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
               <i class="material-icons btn-GPT">tips_and_updates</i>
             </button>
