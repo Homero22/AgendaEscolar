@@ -131,6 +131,8 @@ export class BuscarAdminsComponent{
         }else{
           console.log("No hay datos");
         }
+      },complete:()=>{
+        // this.dataSource.paginator = this.paginator;
       }
     });
   }
