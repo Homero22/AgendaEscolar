@@ -19,7 +19,7 @@ fun Route.countriesRouting() {
             //GET /countries
             try {
                 //Obtenemos el limite de paises a mostrar
-                val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+                val limit = call.parameters["limit"]?.toIntOrNull() ?: 214
                 //Obtenemos el offset de paises a mostrar
                 val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
                 //Obtenemos los paises

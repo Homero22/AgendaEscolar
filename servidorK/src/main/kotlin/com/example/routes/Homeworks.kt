@@ -104,6 +104,23 @@ fun Route.homeworksRouting(){
                 call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
             }
         }
+        put("/estado/{id}/{estado}") {
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            val estado = call.parameters["estado"]?.toIntOrNull() ?: 0
+            try {
+                val res = HomeworksLogic().updateEstado(id, estado);
+                if (res == 1){
+                    val response = ResponseSingle(true,"Tarea actualizada correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseEmpty(false,"No se encontró la tarea", emptyList())
+                    sendJsonResponse(call, HttpStatusCode.NotFound, response)
+                }
+            }catch ( cause: Throwable){
+                call.respond(HttpStatusCode.BadRequest, cause.message ?: "Error desconocido")
+            }
+        }
+
         delete("/{id}") {
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             try {

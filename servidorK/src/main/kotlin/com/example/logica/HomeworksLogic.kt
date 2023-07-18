@@ -78,6 +78,15 @@ class HomeworksLogic {
         return emptyList()
     }
 
+    fun updateEstado(id: Int, estado: Int): Any {
+        val res = obj.gGgetById(Homeworks,id)
+        return if(res == null){
+            0
+        }else{
+            obj.gUpdateEstado(Homeworks,id,estado)
+            1
+        }
+    }
 
 
 }

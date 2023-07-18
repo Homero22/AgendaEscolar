@@ -20,7 +20,7 @@ object DataBaseManager {
         val driverClassName = config.property("storage.driverClassName").getString()
         val username = config.property("storage.username").getString()
         val password = config.property("storage.password").getString()
-        val maximumPoolSize = config.propertyOrNull("storage.maximumPoolSize")?.getString()?.toIntOrNull() ?: 10
+        val maximumPoolSize = config.propertyOrNull("storage.maximumPoolSize")?.getString()?.toIntOrNull() ?: 5
 
 
 
@@ -54,6 +54,7 @@ object DataBaseManager {
             SchemaUtils.create(Users);
             SchemaUtils.create(Images);
             SchemaUtils.create(Contents);
+            SchemaUtils.create(UserContent);
 
         }
         //Crear las tablas
