@@ -11,6 +11,18 @@ ENTRYPOINT ["java","-jar","/app/ktor-classbuddy.jar"]
 #Crear carpeta uploads
 RUN mkdir /app/uploads
 
+docker run \
+ -d \
+ --name newrelic-infra \
+ --network=host \
+ --cap-add=SYS_PTRACE \
+ --privileged \
+ --pid=host \
+ -v "/:/host:ro" \
+ -v "/var/run/docker.sock:/var/run/docker.sock" \
+ -e  NRIA_LICENSE_KEY=651dce47967d638ff993fc2c69e219c2d822NRAL \
+ newrelic/infrastructure:latest
+
 
 
 

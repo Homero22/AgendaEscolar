@@ -94,5 +94,10 @@ class ContentLogic {
         return obj2.gGetByUserId(UserContents, id, limit, offset)
     }
 
+    fun deleteSaved(id: Int): Any {
+        return UserContents.eliminarGuardado(id) ?: 0
+
+    }
+
 
 }
