@@ -3,8 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import Swal from 'sweetalert2';
+import { S } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-contenido-detalle',
@@ -18,6 +20,10 @@ export class ContenidoDetalleComponent implements OnInit {
   contenidoTitle!: string;
   idUser!: number;
   idApunte!: number;
+  ourId!: any;
+
+  myForm!: FormGroup;
+
 
   private destroy$ = new Subject<any>();
   nombreUser: any;
@@ -25,10 +31,19 @@ export class ContenidoDetalleComponent implements OnInit {
   constructor(
     public srvApuntes: ApunteService,
     public srvContenido: ContenidoService,
-    public srvUsuarios: UsuarioService
-  ) { }
+    public srvUsuarios: UsuarioService,
+    public form: FormBuilder,
+  ) {
+    this.myForm = this.form.group({
+      id: [''],
+      idUser: [''],
+      idContent: [''],
+    });
+   }
 
   ngOnInit(): void {
+
+    this.ourId = sessionStorage.getItem("id");
 
     this.srvContenido.selectIdContenido$
     .pipe(takeUntil(this.destroy$))
@@ -49,6 +64,10 @@ export class ContenidoDetalleComponent implements OnInit {
     })
 
     this.getContent();
+
+    this.myForm.get('id')?.setValue(0);
+    this.myForm.get('idUser')?.setValue(this.ourId);
+    this.myForm.get('idContent')?.setValue(this.idContenido);
 
   }
 
@@ -113,15 +132,52 @@ export class ContenidoDetalleComponent implements OnInit {
     });
   }
 
-  getApunteInfo(){
-    this.srvApuntes.getApunteIndividual(this.idApunte)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next: (resApunte)=>{
-        console.log("Valor de resApunte =>",resApunte);
-        this.srvApuntes.apunteData = resApunte.body;
+  // Method to post the content to the database
+  postContent(){
+
+    const formValue = this.myForm.value;
+    console.log("Valor de formValue =>",formValue);
+
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: "Se guardara el contenido",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.srvContenido.postContenidoGuardado(formValue)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (resPost)=>{
+            if(resPost.status){
+              Swal.fire({
+                icon: 'success',
+                title: 'Guardado',
+                text: 'Se guardo el contenido correctamente'
+              });
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se pudo guardar el contenido'
+              });
+            }
+          },
+          error: (err)=>{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'No se pudo guardar el contenido'
+            });
+          },
+          complete: ()=>{
+            console.log("Valor de resPost =>");
+          }
+        })
       }
-    });
+    })
   }
 
 

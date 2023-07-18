@@ -51,6 +51,7 @@ export class ContenidoService {
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
     private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/guardados";
+    private urlApi_ContenidoSave: string = config.URL_API_BASE + "contents/save";
     private urlApi_ContenidoDetalle: string = config.URL_API_BASE + "contents/content";
 
 
@@ -167,8 +168,8 @@ export class ContenidoService {
 // Funciones para Contenido Guardado
 
     // Metodo para obtener los contenidos guardados
-    getContenidosGuardados(idUser: number){
-      return this.http.get<any>(`${this.urlApi_ContenidoGuardado}/${idUser}`,
+    getContenidosGuardados(idApunte: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoGuardado}/${idApunte}`,
       {
         withCredentials: true,
         params:{
@@ -189,8 +190,8 @@ export class ContenidoService {
     }
 
     // Metodo para guardar un contenido
-    postContenidoGuardado(idContent: number){
-      return this.http.post<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`, {
+    postContenidoGuardado( contenido: any){
+      return this.http.post<any>(`${this.urlApi_ContenidoSave}`, contenido, {
         withCredentials: true,
         params:{
           token: this.token

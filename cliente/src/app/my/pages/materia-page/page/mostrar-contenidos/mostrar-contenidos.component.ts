@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mostrar-contenidos',
@@ -15,6 +16,7 @@ export class MostrarContenidosComponent implements OnInit{
   viewApunte!: number;
   idUser!: any;
   isData!: boolean;
+  idApunte!: number;
 
   constructor(
     public srvApunte: ApunteService,
@@ -23,6 +25,17 @@ export class MostrarContenidosComponent implements OnInit{
 
   ngOnInit(): void {
     this.idUser = sessionStorage.getItem("id");
+
+    this.srvApunte.selectIdApunte$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(_idApunte)=>{
+        this.idApunte = _idApunte;
+        console.log("Valor de idApunte =>",this.idApunte);
+      }
+    })
+
+
     console.log("Valor de idUser =>",this.idUser);
     this.isData = false;
     this.getContenidos();
@@ -38,12 +51,43 @@ export class MostrarContenidosComponent implements OnInit{
   getContenidos(){
     const idUser = this.idUser;
 
-    this.srvContenido.getContenidosGuardados(idUser)
+    Swal.fire({
+      title: 'Cargando Contenidos',
+      text: 'Espere un momento por favor...',
+      icon: 'info',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: ()=>{
+        Swal.showLoading();
+      }
+    })
+
+    this.srvContenido.getContenidosGuardados(this.idApunte)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (resContenidos)=>{
-        console.log("Contenidos =>",resContenidos);
+        if(resContenidos.status){
+          Swal.close();
+          console.log("Valor de resContenidos =>",resContenidos);
+          this.srvContenido.contentSimilarData = resContenidos.body;
+          this.isData = true;
+        }else{
+          Swal.close();
+        }
       },
+      error: (err)=>{
+        Swal.fire({
+          title: 'Error al cargar los contenidos',
+          text: 'Por favor intente de nuevo',
+          icon: 'error',
+          allowOutsideClick: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Aceptar'
+        });
+      },
+      complete: ()=>{
+        console.log("Peticion completa");
+      }
     });
   }
 

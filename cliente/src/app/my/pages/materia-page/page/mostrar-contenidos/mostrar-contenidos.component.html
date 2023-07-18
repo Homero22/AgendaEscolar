@@ -14,10 +14,15 @@
     </div>
 
     <div class="gap-3 col-12 flex flex-wrap justify-content-between">
-      <div class="col-12" *ngIf="this.isData == false">
-        <label for="">No hay contenido guardado</label>
+      <div class="grid col-12 flex flex-wrap justify-content-center align-items-center w-12" *ngIf="this.isData === false">
+        <div class="col-12">
+          <label for="">No hay contenido guardado</label>
+        </div>
+        <div class="col-12">
+          <i class="material-icons">report</i>
+        </div>
       </div>
-      <div class="col-12" *ngIf="this.isData == true">
+      <div class="col-12" *ngIf="this.isData === true">
         <label for="">Si hay contenido guardado</label>
       </div>
     </div>
