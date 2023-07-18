@@ -72,6 +72,10 @@ export class MostrarApunteComponent implements OnInit {
         console.log("Valor de resContent =>",resContent);
         if(resContent.status){
           this.contRelac = true;
+          //Seleccionamos solo aquellos contenidos que tengan el idUser diferente al idUser del apunte
+          resContent.body = resContent.body.filter((content:any)=>{
+            return content.idUser != this.srvApunte.apunteData.idUser;
+          });
           console.log("Valor de resContent =>",resContent);
           this.srvContenido.contentSimilarData = resContent.body;
         }else{

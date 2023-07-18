@@ -35,6 +35,7 @@ export class ContenidoService {
     // Ruta para contenido
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
+    private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/save";
 
     // Funciones para Contenido
 
@@ -80,9 +81,53 @@ export class ContenidoService {
       });
     }
 
+    // Metodo para obtener los contenidos similares
 
     getContenidosSimilares(idContent: number){
       return this.http.get<any>(`${this.urlApi_ContenidoSimilar}/${idContent}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+    // Metodo para obtener los contenidos guardados
+    getContenidosGuardados(idUser: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoGuardado}/${idUser}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+    // Metodo para obtener un contenido guardado
+    getContenidoGuardadoByID(idContent: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+    // Metodo para guardar un contenido
+    postContenidoGuardado(idContent: number){
+      return this.http.post<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`, {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      },)
+    }
+
+    // Metodo para eliminar un contenido guardado
+    deleteContenidoGuardado(idContent: number){
+      return this.http.delete<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`,
       {
         withCredentials: true,
         params:{
