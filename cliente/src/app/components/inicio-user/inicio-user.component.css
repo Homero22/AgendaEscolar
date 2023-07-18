@@ -24,7 +24,8 @@
 .outer {
     position:relative;
     height: -webkit-fill-available;
-    width: 30%;
+    /* width: 30%; */
+    width: -webkit-fill-available;
   }
   
   .calendar {
@@ -152,6 +153,51 @@
     color: rgba(0, 0, 0, 0.4);
   }
 
+  /*   TAREAS PENDIENTES   */
+  .tareas-pendientes{
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 20px 0 20px;
+    gap: 20px;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .cont-tarea{
+    align-items: center;
+    display: grid;
+    width: 255px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 30px 50px rgba(0, 0, 0, 0.2) ,0px 3px 7px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    text-align: center;
+  }
+
+  .cont-tittle{
+    border-bottom: #ccc solid 1px;
+    padding-bottom: 10px;
+  }
+
+  .cont-tittle h3{
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .cont-tittle p{
+    font-size: 13px;
+    color: #ccc;
+    padding-top: 5px;
+  }
+
+  .cont-datetime{
+    text-align: end;
+    color: #ccc;
+    font-size: 12px;
+  }
+  
   @media screen and (max-width: 786px) {
     /* Estilos para dispositivos móviles con ancho máximo de 600px */
     .cont-img {
@@ -166,4 +212,33 @@
         width: unset;
       
       }
+
+      .tareas-pendientes {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .cont-flex{
+        display: grid;
+    }
+    table{
+      height: 0;
+    }
   }
+
+  /* Agregamos media queries para ajustar los estilos en diferentes tamaños de pantalla */
+@media screen and (min-width: 768px) {
+  .tareas-pendientes {
+    flex-wrap: wrap; /* Permite que los divs se envuelvan en varias líneas */
+  }
+
+  .cont-tarea {
+    width: calc(33.33%); /* Dividimos en dos columnas, con un espacio entre ellas */
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .cont-tarea {
+    width: calc(25% - 20px); /* Dividimos en tres columnas, con un espacio entre ellas */
+  }
+}

@@ -42,9 +42,30 @@
         </ng-template>
         
     </div>
-   <div class="cont-img" >
+   <!-- <div class="cont-img" >
     <img class="img" src="../../../assets/img/incio.png" alt="">
-   </div>
-    
+   </div> -->
+    <div class="tareas-pendientes" >
+      <div class="cont-tarea" *ngFor="let tarea of srvTarea.tareasPendientes">
+        <div class="cont-tittle" >
+          <h3>{{ tarea.tareaTitulo }}</h3>
+          <p>{{tarea.nombreMateria}}</p>
+        </div>
+        <div class="cont-datetime" >
+         Vence el {{ tarea.fechaFin.day }} - {{ tarea.fechaFin.month }} - {{ tarea.fechaFin.year }} a las {{tarea.horaEntrega.hour}}:{{tarea.horaEntrega.minute}}
+        </div>
+        <div class="cont-desc" >
+         {{tarea.tareaDescripcion}}
+          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quaerat laudantium quidem, aliquid sunt ipsa necessitatibus ut hic facilis totam eius enim voluptas, repudiandae, deleniti veritatis asperiores eveniet blanditiis voluptatem! -->
+        </div>
+        <button mat-icon-button (click)="cambiarEsado(tarea.id,tarea.tareaEstado)">
+          <mat-icon *ngIf="tarea.tareaEstado ==='PENDIENTE' ">check_circle_outline</mat-icon>
+          <mat-icon *ngIf="tarea.tareaEstado ==='FINALIZADA' ">check_circle</mat-icon>
+        </button>
+      </div>
+      <!-- <div class="cont-tarea"></div>
+      <div class="cont-tarea"></div>
+      <div class="cont-tarea"></div> -->
+    </div>
 </div>
 </div>

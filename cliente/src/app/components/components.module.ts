@@ -38,6 +38,8 @@ import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/ag
 import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
 import { InicioUserComponent } from './inicio-user/inicio-user.component';
 import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/buscar-admins.component';
+import { MapaComponent } from './mapa/mapa.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -59,7 +61,9 @@ import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/busc
     AgregarAdminsComponent,
     EditarAdminsComponent,
     InicioUserComponent,
-    BuscarAdminsComponent
+    BuscarAdminsComponent,
+    MapaComponent,
+    UsuariosComponent,
 
   ],
   imports: [
