@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +24,9 @@ export class MostrarApunteComponent implements OnInit {
 
   constructor(
     public srvApunte: ApunteService,
-    public srvContenido: ContenidoService
+    public srvContenido: ContenidoService,
+    public srvModal: ModalService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -85,6 +90,14 @@ export class MostrarApunteComponent implements OnInit {
     });
   }
 
+  openModelContent(nombreModal: string, idContenido: number){
+    this.srvModal.setTitleModal(nombreModal);
+    this.srvApunte.setIdContenido(idContenido);
+    this.dialog.open(ModalComponent, {
+      width: 'auto',
+      height: 'auto'
+    })
+  }
 
 
   ngOnDestroy(): void {

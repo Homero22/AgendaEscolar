@@ -19,6 +19,7 @@ export class ContenidoService {
   // }
 
   contentSimilarData: any[] = [];
+  contentData: any[] = [];
 
   constructor(
     public http: HttpClient,
