@@ -18,7 +18,7 @@ export class ApuntePagesComponent {
   title!: string;
   idUser!: any;
   idMateria!: number;
-  viewApunte!: boolean;
+  viewApunte!: number;
 
   //Destroy
   private destroy$ = new Subject<any>();
@@ -47,7 +47,7 @@ export class ApuntePagesComponent {
     this.getApuntes();
     this.getMateria();
 
-    this.viewApunte = false;
+    this.viewApunte = 1;
 
     this.srvApuntes.selectApunteView$
     .pipe(takeUntil(this.destroy$))
@@ -193,7 +193,13 @@ export class ApuntePagesComponent {
   openApunte(idApunte: number){
     console.log("Valor de idApunte =>",idApunte);
     this.srvApuntes.setIdApunte(idApunte);
-    this.viewApunte = true;
+    this.viewApunte = 2;
+  }
+
+  //Funcion para abrir los contenidos guardados
+  openContenidos(){
+    this.viewApunte = 3;
+    console.log("Valor de viewApunte en openContenidos =>",this.viewApunte);
   }
 
   //funcion para regresar al /me/signatures

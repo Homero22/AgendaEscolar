@@ -52,13 +52,13 @@ export class ApunteService {
     this.idApunte$.next(_idApunte);
   }
 
-  private apunteView$ = new BehaviorSubject<boolean>(false);
+  private apunteView$ = new BehaviorSubject<number>(1);
 
-  get selectApunteView$(): Observable<boolean>{
+  get selectApunteView$(): Observable<number>{
     return this.apunteView$.asObservable();
   }
 
-  setApunteView(_apunteView: boolean){
+  setApunteView(_apunteView: number){
     this.apunteView$.next(_apunteView);
   }
 

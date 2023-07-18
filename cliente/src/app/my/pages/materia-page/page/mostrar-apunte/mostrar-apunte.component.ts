@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class MostrarApunteComponent implements OnInit {
 
   idApunte!: number;
-  viewApunte!: boolean;
+  viewApunte!: number;
 
   titleApunte!: string;
   private destroy$ = new Subject<any>();
@@ -52,7 +52,7 @@ export class MostrarApunteComponent implements OnInit {
       next: (resApunte)=>{
         this.srvApunte.apunteData = resApunte.body;
         console.log("Valor de apunteData =>",this.srvApunte.apunteData);
-        this.viewApunte = true;
+        this.viewApunte = 2;
         Swal.close();
       }
     });
@@ -60,7 +60,7 @@ export class MostrarApunteComponent implements OnInit {
 
   //Funcion para regresar a la lista de apuntes
   returnListApunte(){
-    this.viewApunte = false;
+    this.viewApunte = 1;
     this.srvApunte.setApunteView(this.viewApunte);
   }
 
@@ -84,6 +84,8 @@ export class MostrarApunteComponent implements OnInit {
       }
     });
   }
+
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});

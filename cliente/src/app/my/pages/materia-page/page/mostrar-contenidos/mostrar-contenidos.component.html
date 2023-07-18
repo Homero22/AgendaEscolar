@@ -1,0 +1,27 @@
+<div class="w-screen" id="ground">
+
+  <div class="grid m-2">
+
+    <div class="grid col">
+      <div class="col-12 flex gap flex-wrap align-items-center justify-content-between">
+        <div class="flex gap-3">
+          <button mat-raised-button class="btn-Return" (click)="returnListApunte()">
+            <i class="material-icons">arrow_back_ios</i>
+            <label for="">Regresar</label>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-3 col-12 flex flex-wrap justify-content-between">
+      <div class="col-12" *ngIf="this.isData == false">
+        <label for="">No hay contenido guardado</label>
+      </div>
+      <div class="col-12" *ngIf="this.isData == true">
+        <label for="">Si hay contenido guardado</label>
+      </div>
+    </div>
+
+  </div>
+
+</div>

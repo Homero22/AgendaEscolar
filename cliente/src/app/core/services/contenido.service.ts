@@ -35,7 +35,7 @@ export class ContenidoService {
     // Ruta para contenido
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
-    private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/save";
+    private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/guardados";
 
     // Funciones para Contenido
 

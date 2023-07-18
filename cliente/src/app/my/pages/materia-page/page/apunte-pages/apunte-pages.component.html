@@ -1,12 +1,16 @@
 <div class="w-screen" id="ground">
 
-  <div class="grid m-2" *ngIf="this.viewApunte === true">
+  <div class="grid m-2" *ngIf="this.viewApunte === 2">
     <app-mostrar-apunte></app-mostrar-apunte>
+  </div>
+
+  <div class="grid m-2" *ngIf="this.viewApunte === 3">
+    <app-mostrar-contenidos></app-mostrar-contenidos>
   </div>
 
 
 
-  <div class="grid m-2" *ngIf="this.viewApunte === false">
+  <div class="grid m-2" *ngIf="this.viewApunte === 1">
     <div class="grid col">
 
       <!-- Header de Apuntes -->
@@ -53,8 +57,8 @@
               <i class="material-icons btn-Edit">edit</i>
             </button>
 
-            <button mat-stroked-button >
-              <i class="material-icons">bookmark</i>
+            <button mat-stroked-button (click)="openContenidos()" >
+              <i class="material-icons">format_list_bulleted</i>
             </button>
 
             <button mat-stroked-button class="btn-Content" [disabled]="apunte.apunteIdeas === '' || apunte.apunteResumen === ''" (click)="contenidoModal('Contenido Apunte', apunte.id)">
