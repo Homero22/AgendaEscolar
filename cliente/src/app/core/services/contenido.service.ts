@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
 import { contenidoShowData } from '../models/contenido';
+import { BehaviorSubject, Observable } from 'rxjs';
 
+const idContenido: number = 0;
+const contenidoTitle: string = '';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +22,18 @@ export class ContenidoService {
   // }
 
   contentSimilarData: any[] = [];
-  contentData: any[] = [];
+    // contentData:  contenidoShowData = {
+    //   id: 0,
+    //   idApunte: 0,
+    //   idUser: 0,
+    //   contenido: '',
+    //   estado: '',
+    //   puntuacion: 0,
+    //   categoria: '',
+    // }
+
+    contentData: any = {};
+
 
   constructor(
     public http: HttpClient,
@@ -37,6 +51,31 @@ export class ContenidoService {
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
     private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/guardados";
+    private urlApi_ContenidoDetalle: string = config.URL_API_BASE + "contents/content";
+
+
+  //BehaviorSubject para el id del contenido
+  private idContenido$ = new BehaviorSubject<number>(idContenido);
+
+  get selectIdContenido$(): Observable<number>{
+    return this.idContenido$.asObservable();
+  }
+
+  setIdContenido(_idContenido: number){
+    this.idContenido$.next(_idContenido);
+  }
+
+
+  private getTitle$ = new BehaviorSubject<string>(contenidoTitle);
+
+  get selectTitle$(): Observable<string>{
+    return this.getTitle$.asObservable();
+  }
+
+  setTitle(_title: string){
+    this.getTitle$.next(_title);
+  }
+
 
     // Funciones para Contenido
 
@@ -169,4 +208,16 @@ export class ContenidoService {
         }
       });
     }
+
+
+    getContenidoDetalle(idContent: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoDetalle}/${idContent}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
@@ -11,8 +12,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./contenido-detalle.component.css']
 })
 export class ContenidoDetalleComponent implements OnInit {
+  @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
   idContenido!: number;
+  contenidoTitle!: string;
   idUser!: number;
   idApunte!: number;
 
@@ -27,7 +30,7 @@ export class ContenidoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.srvApuntes.selectIdApunte$
+    this.srvContenido.selectIdContenido$
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(_idContenido)=>{
@@ -35,6 +38,15 @@ export class ContenidoDetalleComponent implements OnInit {
         console.log("Valor de idContenido En ContenidoDetalle =>",this.idContenido);
       }
     });
+
+    this.srvContenido.selectTitle$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(_title)=>{
+        this.contenidoTitle = _title;
+        console.log("Valor de contenidoTitle En ContenidoDetalle =>",this.contenidoTitle);
+      }
+    })
 
     this.getContent();
 
@@ -52,7 +64,7 @@ export class ContenidoDetalleComponent implements OnInit {
       }
     })
 
-    this.srvContenido.getContent(this.idContenido)
+    this.srvContenido.getContenidoDetalle(this.idContenido)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (resContent)=>{
@@ -63,7 +75,7 @@ export class ContenidoDetalleComponent implements OnInit {
           this.idUser = resContent.body.idUser;
           this.idApunte = resContent.body.idApunte;
           this.getUserInfo();
-          this.getApunteInfo();
+          // this.getApunteInfo();
         }else{
           Swal.fire({
             icon: 'error',

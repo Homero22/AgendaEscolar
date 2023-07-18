@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ShowApunteData, ShowApunteModel, addApunteByID, addApunteData, addApunteModel, modApunteData, modApunteModel } from '../models/apunte';
 
 const idApunte: number = 0;
-const idContenido: number = 0;
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class ApunteService {
     apunteIdeas: '',
     apunteResumen: '',
     apunteRecordatorio: '',
-    fechaCreacion: ''
+    fechaCreacion: '',
   }
 
 
@@ -63,15 +63,7 @@ export class ApunteService {
     this.apunteView$.next(_apunteView);
   }
 
-  private idContenido$ = new BehaviorSubject<number>(idContenido);
 
-  get selectIdContenido$(): Observable<number>{
-    return this.idContenido$.asObservable();
-  }
-
-  setIdContenido(_idContenido: number){
-    this.idContenido$.next(_idContenido);
-  }
 
   // ------------------------ APUNTES METODOS ------------------------
 
