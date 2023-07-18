@@ -38,6 +38,11 @@ import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/ag
 import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
 import { InicioUserComponent } from './inicio-user/inicio-user.component';
 import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/buscar-admins.component';
+import { MapaComponent } from './mapa/mapa.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MateriasComponent } from './materias/materias.component';
+import {MatTabsModule} from '@angular/material/tabs';
+
 import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/contenido-detalle.component';
 @NgModule({
   declarations: [
@@ -61,6 +66,9 @@ import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/co
     EditarAdminsComponent,
     InicioUserComponent,
     BuscarAdminsComponent,
+    MapaComponent,
+    UsuariosComponent,
+    MateriasComponent,
     ContenidoDetalleComponent
 
   ],
@@ -80,7 +88,6 @@ import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/co
     QuillModule,
     MateriaPageModule,
     // MatTimepickerModule,
-
     // BrowserModule
     MatTableModule,
     MatPaginatorModule
@@ -104,6 +111,9 @@ import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/co
     InicioAdminComponent,
     MostrarAdminsComponent,
     InicioUserComponent,
+    MapaComponent,
+    UsuariosComponent,
+    MateriasComponent,
     ContenidoDetalleComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,

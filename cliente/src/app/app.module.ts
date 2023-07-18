@@ -11,6 +11,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { ModalComponent } from './modal/modal.component';
 import { ModalModule } from './modal/modal.module';
@@ -34,6 +35,7 @@ import { ModalModule } from './modal/modal.module';
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    MatTabsModule,
 
   ],
   bootstrap: [
