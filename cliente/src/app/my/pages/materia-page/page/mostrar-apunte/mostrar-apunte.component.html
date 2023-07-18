@@ -16,35 +16,35 @@
       <div class="col-11 sm:col-8 div-Body">
         <mat-form-field class="w-12">
           <mat-label>Título</mat-label>
-          <input matInput [value]="this.srvApunte.apunteData.apunteTitulo" disabled>
+          <input matInput [value]="this.srvApunte.apunteData.apunteTitulo" readonly>
         </mat-form-field>
 
         <div class="grid">
           <mat-form-field class="col">
             <mat-label>Fecha Creacion</mat-label>
-            <input matInput [value]="this.srvApunte.apunteData.fechaCreacion" disabled>
+            <input matInput [value]="this.srvApunte.apunteData.fechaCreacion" readonly>
           </mat-form-field>
 
           <mat-form-field class="col">
             <mat-label>Tiempo Recordatorio</mat-label>
-            <input matInput [value]="this.srvApunte.apunteData.apunteRecordatorio" disabled>
+            <input matInput [value]="this.srvApunte.apunteData.apunteRecordatorio" readonly>
           </mat-form-field>
         </div>
 
         <div class="grid">
           <mat-form-field class="col">
             <mat-label>Ideas</mat-label>
-            <textarea matInput [value]="this.srvApunte.apunteData.apunteIdeas" disabled></textarea>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteIdeas" readonly></textarea>
           </mat-form-field>
           <mat-form-field class="col">
             <mat-label>Resumen</mat-label>
-            <textarea matInput [value]="this.srvApunte.apunteData.apunteNotasClase" disabled></textarea>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteNotasClase" readonly></textarea>
           </mat-form-field>
         </div>
 
           <mat-form-field class="w-12">
             <mat-label>Contenido</mat-label>
-            <textarea matInput [value]="this.srvApunte.apunteData.apunteResumen" disabled></textarea>
+            <textarea matInput [value]="this.srvApunte.apunteData.apunteResumen" readonly></textarea>
           </mat-form-field>
 
       </div>

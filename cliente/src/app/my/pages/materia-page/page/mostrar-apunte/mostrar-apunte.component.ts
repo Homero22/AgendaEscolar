@@ -92,7 +92,7 @@ export class MostrarApunteComponent implements OnInit {
 
   openModelContent(nombreModal: string, idContenido: number){
     this.srvModal.setTitleModal(nombreModal);
-    this.srvApunte.setIdContenido(idContenido);
+    this.srvApunte.setIdApunte(idContenido);
     this.dialog.open(ModalComponent, {
       width: 'auto',
       height: 'auto'

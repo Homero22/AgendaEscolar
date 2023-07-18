@@ -1,1 +1,29 @@
-<p>contenido-detalle works!</p>
+<div class="grid m-2">
+
+  <div class="col-12">
+    <mat-form-field class="w-12">
+      <mat-label>Titulo</mat-label>
+      <input matInput [value]="this.srvApuntes.apunteData.apunteTitulo" readonly>
+    </mat-form-field>
+  </div>
+
+
+  <div class="col-12">
+
+    <div class="col">
+      <mat-form-field class="w-12">
+        <mat-label>Propietario</mat-label>
+        <input matInput [value]="this.nombreUser" readonly>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="w-12">
+        <mat-label>Fecha Creacion</mat-label>
+        <input matInput [value]="this.srvApuntes.apunteData.fechaCreacion" readonly>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+</div>

@@ -3,6 +3,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contenido-detalle',
@@ -13,8 +14,10 @@ export class ContenidoDetalleComponent implements OnInit {
 
   idContenido!: number;
   idUser!: number;
+  idApunte!: number;
 
   private destroy$ = new Subject<any>();
+  nombreUser: any;
 
   constructor(
     public srvApuntes: ApunteService,
@@ -24,7 +27,7 @@ export class ContenidoDetalleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.srvApuntes.selectIdContenido$
+    this.srvApuntes.selectIdApunte$
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(_idContenido)=>{
@@ -40,16 +43,45 @@ export class ContenidoDetalleComponent implements OnInit {
   //Metodo para obtener la informacion del contenido
 
   getContent(){
-    const idApunte = this.idContenido;
-    this.srvContenido.getContent(idApunte)
+
+    Swal.fire({
+      title: 'Cargando...',
+      text: 'Espere un momento',
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    })
+
+    this.srvContenido.getContent(this.idContenido)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (resContent)=>{
-        console.log("Valor de resContent =>",resContent);
-        this.srvContenido.contentData = resContent.body;
-        this.idUser = resContent.body.idUser;
-        console.log("Valor de idUser =>",this.idUser);
-        this.getUserInfo();
+        if(resContent.status){
+          Swal.close();
+          console.log("Valor de resContent =>",resContent);
+          this.srvContenido.contentData = resContent.body;
+          this.idUser = resContent.body.idUser;
+          this.idApunte = resContent.body.idApunte;
+          this.getUserInfo();
+          this.getApunteInfo();
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se pudo obtener la informacion del contenido'
+          });
+        }
+        setTimeout(() => {}, 1000);
+      },
+      error: (err)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No se pudo obtener la informacion del contenido'
+        });
+      },
+      complete: ()=>{
+        console.log("Valor de contentData =>",this.srvContenido.contentData);
       }
     });
   }
@@ -63,6 +95,19 @@ export class ContenidoDetalleComponent implements OnInit {
       next: (resUser)=>{
         console.log("Valor de resUser =>",resUser);
         this.srvUsuarios.userData = resUser.body;
+        console.log("Valor de userData =>",this.srvUsuarios.userData);
+        this.nombreUser = resUser.body.nombre + " " + resUser.body.apellido;
+      }
+    });
+  }
+
+  getApunteInfo(){
+    this.srvApuntes.getApunteIndividual(this.idApunte)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (resApunte)=>{
+        console.log("Valor de resApunte =>",resApunte);
+        this.srvApuntes.apunteData = resApunte.body;
       }
     });
   }

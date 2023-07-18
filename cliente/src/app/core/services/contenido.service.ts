@@ -51,6 +51,16 @@ export class ContenidoService {
       });
     }
 
+    getContentByID(idContent: number){
+      return this.http.get<any>(`${this.urlApi_Contenido}/${idContent}`,
+      {
+        withCredentials: true,
+        params:{
+         token: this.token
+        }
+      });
+    }
+
     postContenido(contenido: any){
       return this.http.post<any>(`${this.urlApi_Contenido}`, contenido,
       {
@@ -82,6 +92,12 @@ export class ContenidoService {
       });
     }
 
+
+
+
+
+
+
     // Metodo para obtener los contenidos similares
 
     getContenidosSimilares(idContent: number){
@@ -93,6 +109,23 @@ export class ContenidoService {
         }
       });
     }
+
+    getContenidoSimilarByID(idContenido: number){
+      return this.http.get<any>(`${this.urlApi_ContenidoSimilar}/${idContenido}`,
+      {
+        withCredentials: true,
+        params:{
+          token: this.token
+        }
+      });
+    }
+
+
+
+
+
+
+// Funciones para Contenido Guardado
 
     // Metodo para obtener los contenidos guardados
     getContenidosGuardados(idUser: number){
