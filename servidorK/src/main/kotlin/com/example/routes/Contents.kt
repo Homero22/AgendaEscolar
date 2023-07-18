@@ -28,6 +28,17 @@ fun Route.contentsRouting() {
                 sendJsonResponse(call, HttpStatusCode.OK, response)
             }
         }
+        get("/content/{id}"){
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            val res = ContentLogic().getByIdContent(id);
+            if(res ==0){
+                val response = ResponseSingle(false,"No se encontraron contenidos", res)
+                sendJsonResponse(call, HttpStatusCode.NotFound, response)
+            }else{
+                val response = ResponseSingle(true,"Contenidos obtenidos correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }
+        }
         get{
             //GET /contents
             //Enviamos a capa logica
