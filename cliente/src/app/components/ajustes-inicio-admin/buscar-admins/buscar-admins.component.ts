@@ -27,10 +27,10 @@ export class BuscarAdminsComponent{
 
   // }
 
-  displayedColumns: string[] = ['position', 'name', 'symbol'];
+  displayedColumns: string[] = ['index', 'nombre', 'correo', 'telefono'];
   // dataSource = new MatTableDataSource<PeriodicElement>();
-  // dataSource = new MatTableDataSource<updateUsuarioData>();
-  dataSource! :updateUsuarioData[];
+  dataSource = new MatTableDataSource<updateUsuarioData>();
+  // dataSource! :updateUsuarioData[];
   currentPage: number = 0;
   pageSize: number = 5;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -70,10 +70,12 @@ export class BuscarAdminsComponent{
         console.log("usuarioData =>",usuarioData);
         if(usuarioData.body){
           this.srvUsuario.usuarios = usuarioData.body;
-          this.getUsuariosPage(1,5);
-          // this.dataSource = new MatTableDataSource<updateUsuarioData>(this.srvUsuario.usuarios);
+          // this.getUsuariosPage(1,5);
+          this.dataSource = new MatTableDataSource<updateUsuarioData>(this.srvUsuario.usuarios);
           // this.dataSource = new MatTableDataSource<PeriodicElement>(this.srvUsuario.ELEMENT_DATA);
           // this.dataSource = this.srvUsuario.usuarios;
+              this.dataSource.paginator = this.paginator;
+
           console.log("Valor de usuarios =>",this.srvUsuario.usuarios);
 
         }else{
@@ -82,64 +84,20 @@ export class BuscarAdminsComponent{
       }
     });
   }
+
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
-    this.dataSource = this.srvUsuario.usuarios.filter((usuario) => {
-      return usuario.nombre.toLocaleLowerCase().includes(filterValue.toLocaleLowerCase());
-    });
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  //para el paginador
-  changePage(event: any) {
-    console.log("event =>",event);
-    // console.log("event.pageIndex =>",event.pageIndex);
-    // console.log("event.pageSize =>",event.pageSize);
-    // this.srvUsuario.getUsuarios()
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next:(usuarioData)=>{
-    //     console.log("usuarioData =>",usuarioData);
-    //     this.getUsuariosPage(event,5);
-    //     if(usuarioData.body){ 
-    //       this.srvUsuario.usuarios = usuarioData.body;
-    //       // this.dataSource = new MatTableDataSource<updateUsuarioData>(this.srvUsuario.usuarios);
-    //       this.getUsuariosPage(1,5);
-    //     }else{
-    //       console.log("No hay datos");
-    //     }
-    //   }
-    // });
-    this.getUsuariosPage(event,5);
-  }
-
-  //dividir los usuarios en paginas
-  getUsuariosPage(page: number, size: number) {
-    this.srvUsuario.getUsuariosp(page,size)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe({
-      next:(usuarioData)=>{
-        console.log("usuarioData =>",usuarioData);
-        if(usuarioData.body){
-          // this.srvUsuario.usuarios = usuarioData.body;
-          // this.dataSource = new MatTableDataSource<updateUsuarioData>(this.srvUsuario.usuarios);
-          // this.dataSource = new MatTableDataSource<PeriodicElement>(this.srvUsuario.ELEMENT_DATA);
-          this.dataSource = usuarioData.body;
-          console.log("Valor de usuarios =>",this.srvUsuario.usuarios);
-
-        }else{
-          console.log("No hay datos");
-        }
-      }
-    });
-  }
 
   //combertir al usuario en administrador
   convertirAdmin(id: number, user: updateUsuarioData){
     Swal.fire({
       title: '¿Estas seguro?',
-      text: "Despuès de esto el usuario serà un administrador",
+      text: "Después de esto el usuario será un administrador",
       icon: 'warning',
       showCancelButton: true,
     })

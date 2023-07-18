@@ -6,12 +6,14 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { RouterModule } from '@angular/router';
 import { ApuntePagesComponent } from './page/apunte-pages/apunte-pages.component';
 import { MostrarApunteComponent } from './page/mostrar-apunte/mostrar-apunte.component';
+import { MostrarContenidosComponent } from './page/mostrar-contenidos/mostrar-contenidos.component';
 
 
 @NgModule({
   declarations: [
     ApuntePagesComponent,
-    MostrarApunteComponent
+    MostrarApunteComponent,
+    MostrarContenidosComponent
   ],
   imports: [
     CommonModule,
