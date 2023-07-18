@@ -155,10 +155,10 @@ class cGenerica <T> {
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
-    fun gGetContentData(obj: T, id: Int): Any {
+    fun gGetContentData(obj: T, id: Int): Any? {
         return when(obj) {
             is Contents -> {
-                obj.getData(id)
+                obj.getById(id)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
