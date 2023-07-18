@@ -40,6 +40,9 @@ import { InicioUserComponent } from './inicio-user/inicio-user.component';
 import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/buscar-admins.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MateriasComponent } from './materias/materias.component';
+import {MatTabsModule} from '@angular/material/tabs';
+
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -64,6 +67,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     BuscarAdminsComponent,
     MapaComponent,
     UsuariosComponent,
+    MateriasComponent,
 
   ],
   imports: [
@@ -82,7 +86,6 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     QuillModule,
     MateriaPageModule,
     // MatTimepickerModule,
-
     // BrowserModule
     MatTableModule,
     MatPaginatorModule
@@ -105,7 +108,10 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     SliderComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
-    InicioUserComponent
+    InicioUserComponent,
+    MapaComponent,
+    UsuariosComponent,
+    MateriasComponent,
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 
