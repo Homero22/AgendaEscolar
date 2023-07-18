@@ -197,9 +197,9 @@ export class ApuntePagesComponent {
   }
 
   //Funcion para abrir los contenidos guardados
-  openContenidos(idApunte: number){
+  openContenidos(idUser: number){
     this.viewApunte = 3;
-    this.srvApuntes.setIdApunte(idApunte);
+    this.srvApuntes.setIdApunte(idUser);
     console.log("Valor de viewApunte en openContenidos =>",this.viewApunte);
   }
 

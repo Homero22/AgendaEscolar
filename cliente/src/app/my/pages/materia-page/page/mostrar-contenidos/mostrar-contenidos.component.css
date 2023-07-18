@@ -29,3 +29,23 @@
   font-weight: var(--font-weight-500);
   font-size: var(--font-size-18);
 }
+
+#ground{
+  margin: -0.6rem !important;
+}
+
+#containerApuntes{
+  border: 1px solid black;
+  border-radius: var(--border-radius-4);
+}
+
+.lbl-Title{
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-18);
+}
+
+#container-Apunte{
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: var(--border-radius-4);
+}

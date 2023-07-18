@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +21,8 @@ export class MostrarContenidosComponent implements OnInit{
 
   constructor(
     public srvApunte: ApunteService,
-    public srvContenido: ContenidoService
+    public srvContenido: ContenidoService,
+    public srvUsuario: UsuarioService
   ) { }
 
   ngOnInit(): void {
@@ -90,6 +92,65 @@ export class MostrarContenidosComponent implements OnInit{
       }
     });
   }
+
+  deleteContenido(idContent: number){
+
+    Swal.fire({
+      title: '¿Está seguro de eliminar el contenido?',
+      text: 'Esta acción no se puede revertir',
+      icon: 'warning',
+      allowOutsideClick: false,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.srvContenido.deleteContenidoGuardado(idContent)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (resDelete)=>{
+            if(resDelete.status){
+              Swal.fire({
+                title: 'Contenido eliminado',
+                text: 'El contenido se ha eliminado correctamente',
+                icon: 'success',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 2500
+              })
+            }else{
+              Swal.fire({
+                title: 'Error al eliminar el contenido',
+                text: 'Por favor intente de nuevo',
+                icon: 'error',
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                confirmButtonText: 'Aceptar'
+              });
+            }
+          },
+          error: (err)=>{
+            Swal.fire({
+              title: 'Error al eliminar el contenido :(',
+              text: 'Por favor intente de nuevo',
+              icon: 'error',
+              allowOutsideClick: false,
+              showConfirmButton: true,
+              confirmButtonText: 'Aceptar'
+            });
+          },
+          complete: ()=>{
+            console.log("Peticion completa");
+          }
+        })
+      }
+    })
+
+
+
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});

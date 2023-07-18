@@ -201,7 +201,7 @@ export class ContenidoService {
 
     // Metodo para eliminar un contenido guardado
     deleteContenidoGuardado(idContent: number){
-      return this.http.delete<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`,
+      return this.http.delete<any>(`${this.urlApi_ContenidoSave}/${idContent}`,
       {
         withCredentials: true,
         params:{
