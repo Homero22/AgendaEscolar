@@ -38,6 +38,7 @@ import { AgregarAdminsComponent } from './ajustes-inicio-admin/agregar-admins/ag
 import { EditarAdminsComponent } from './ajustes-inicio-admin/editar-admins/editar-admins.component';
 import { InicioUserComponent } from './inicio-user/inicio-user.component';
 import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/buscar-admins.component';
+import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/contenido-detalle.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -59,7 +60,8 @@ import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/busc
     AgregarAdminsComponent,
     EditarAdminsComponent,
     InicioUserComponent,
-    BuscarAdminsComponent
+    BuscarAdminsComponent,
+    ContenidoDetalleComponent
 
   ],
   imports: [
@@ -101,7 +103,8 @@ import { BuscarAdminsComponent } from './ajustes-inicio-admin/buscar-admins/busc
     SliderComponent,
     InicioAdminComponent,
     MostrarAdminsComponent,
-    InicioUserComponent
+    InicioUserComponent,
+    ContenidoDetalleComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 

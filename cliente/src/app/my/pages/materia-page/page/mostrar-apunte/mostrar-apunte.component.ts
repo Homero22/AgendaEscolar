@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,7 +15,7 @@ import Swal from 'sweetalert2';
 export class MostrarApunteComponent implements OnInit {
 
   idApunte!: number;
-  viewApunte!: boolean;
+  viewApunte!: number;
 
   titleApunte!: string;
   private destroy$ = new Subject<any>();
@@ -21,7 +24,9 @@ export class MostrarApunteComponent implements OnInit {
 
   constructor(
     public srvApunte: ApunteService,
-    public srvContenido: ContenidoService
+    public srvContenido: ContenidoService,
+    public srvModal: ModalService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +57,7 @@ export class MostrarApunteComponent implements OnInit {
       next: (resApunte)=>{
         this.srvApunte.apunteData = resApunte.body;
         console.log("Valor de apunteData =>",this.srvApunte.apunteData);
-        this.viewApunte = true;
+        this.viewApunte = 2;
         Swal.close();
       }
     });
@@ -60,7 +65,7 @@ export class MostrarApunteComponent implements OnInit {
 
   //Funcion para regresar a la lista de apuntes
   returnListApunte(){
-    this.viewApunte = false;
+    this.viewApunte = 1;
     this.srvApunte.setApunteView(this.viewApunte);
   }
 
@@ -72,6 +77,10 @@ export class MostrarApunteComponent implements OnInit {
         console.log("Valor de resContent =>",resContent);
         if(resContent.status){
           this.contRelac = true;
+          //Seleccionamos solo aquellos contenidos que tengan el idUser diferente al idUser del apunte
+          resContent.body = resContent.body.filter((content:any)=>{
+            return content.idUser != this.srvApunte.apunteData.idUser;
+          });
           console.log("Valor de resContent =>",resContent);
           this.srvContenido.contentSimilarData = resContent.body;
         }else{
@@ -80,6 +89,17 @@ export class MostrarApunteComponent implements OnInit {
       }
     });
   }
+
+  openModelContent(nombreModal: string, idContenido: number, contentTitle: string){
+    this.srvModal.setTitleModal(nombreModal);
+    this.srvContenido.setIdContenido(idContenido);
+    this.srvContenido.setTitle(contentTitle);
+    this.dialog.open(ModalComponent, {
+      width: 'auto',
+      height: 'auto'
+    })
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next({});
