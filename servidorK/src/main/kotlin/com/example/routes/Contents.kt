@@ -1,6 +1,7 @@
 package com.example.routes
 
 import com.example.data.models.ContentModel
+import com.example.data.models.UserContentModel
 import com.example.logica.ContentLogic
 import com.example.utils.Response
 import com.example.utils.ResponseSingle
@@ -27,12 +28,22 @@ fun Route.contentsRouting() {
                 sendJsonResponse(call, HttpStatusCode.OK, response)
             }
         }
+        get{
+            //GET /contents
+            //Enviamos a capa logica
+            val res = ContentLogic().getAll();
+            if(res.isEmpty()){
+                val response = Response(false,"No se encontraron contenidos", res)
+                sendJsonResponse(call, HttpStatusCode.NotFound, response)
+            }else{
+                val response = Response(true,"Contenidos obtenidos correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }
+        }
         post {
             //POST /contents
             //Obtenemos el contenido a guardar
             val content = call.receive<ContentModel>()
-            println("PABLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-            println(content.contenido)
             //Enviamos a capa logica
             val res = ContentLogic().save(content);
             if(res == 1){
@@ -43,6 +54,19 @@ fun Route.contentsRouting() {
                 sendJsonResponse(call, HttpStatusCode.OK, response)
             }
 
+
+        }
+        post ("/save"){
+
+                val userContent = call.receive<UserContentModel>()
+                val res = ContentLogic().saveUserContent(userContent);
+                if(res == 1){
+                    val response = ResponseSingle(true,"Guardado correctamente", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }else{
+                    val response = ResponseSingle(false,"Ya existe un contenido para este apunte", res)
+                    sendJsonResponse(call, HttpStatusCode.OK, response)
+                }
 
         }
         get("/similares/{id}"){
@@ -58,6 +82,22 @@ fun Route.contentsRouting() {
                 val response = Response(true,"Contenidos similares obtenidos correctamente", res)
                 sendJsonResponse(call, HttpStatusCode.OK, response)
             }
+        }
+        get("/guardados/{id}"){
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            val limit = call.parameters["limit"]?.toIntOrNull() ?: 10
+            val offset = call.parameters["offset"]?.toIntOrNull() ?: 0
+            //enviamos a capa logica
+            val res = ContentLogic().getSaved(id,limit,offset);
+            if(res.isEmpty()){
+                val response = ResponseSingle(false,"No se encontraron contenidos guardados", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }else{
+                val response = Response(true,"Contenidos guardados obtenidos correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }
+
+
         }
         put("/{id}") {
 

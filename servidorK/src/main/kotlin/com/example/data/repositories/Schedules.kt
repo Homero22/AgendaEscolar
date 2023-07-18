@@ -65,7 +65,7 @@ object Schedules : CrudRepository<Schedule, Int>() {
         return@transaction horarios  */
     }
 
-    override fun save(entity: Schedule)= transaction {
+    override fun save(entity: Schedule) = transaction {
         entity.id = ScheduleDAO.new {
             idMateria = entity.idMateria
             idUser = entity.idUser
