@@ -2,10 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { takeUntil, Subject } from 'rxjs';
-import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { updateUsuarioData } from 'src/app/core/models/usuario';
-import { V } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-usuarios',
