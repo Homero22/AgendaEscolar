@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -19,6 +19,7 @@ export class EditarMateriaComponent {
 
   idMateria!: number;
   idUser!: any;
+  inputColor!: any;
 
   constructor(
     private fb: FormBuilder,
@@ -129,6 +130,12 @@ export class EditarMateriaComponent {
             ]
           ],
         });
+
+
+        //Colocamos el valor del color en el colorInput
+        this.inputColor = materiaData.body.materiaColor;
+        console.log("Valor de inputColor =>",this.inputColor);
+
       },
       error: (err: any)=>{
         console.log("Error al obtener la materia =>", err);

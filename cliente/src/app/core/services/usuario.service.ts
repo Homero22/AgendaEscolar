@@ -24,7 +24,9 @@ export class UsuarioService {
   }
 
   usuarios!: updateUsuarioData[];
-  
+
+  userData: any[] = [];
+
   ELEMENT_DATA: PeriodicElement[] = [
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
     {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -52,7 +54,7 @@ export class UsuarioService {
   private urlApi_Usuarios: string = config.URL_API_BASE + "users";
 
   //Constructor
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.token = this.getCookie('token');
 
   }

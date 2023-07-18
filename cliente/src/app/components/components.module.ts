@@ -43,6 +43,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MateriasComponent } from './materias/materias.component';
 import {MatTabsModule} from '@angular/material/tabs';
 
+import { ContenidoDetalleComponent } from './ajustes-apunte/contenido-detalle/contenido-detalle.component';
 @NgModule({
   declarations: [
     ApuntesComponent,
@@ -68,6 +69,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MapaComponent,
     UsuariosComponent,
     MateriasComponent,
+    ContenidoDetalleComponent
 
   ],
   imports: [
@@ -112,6 +114,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MapaComponent,
     UsuariosComponent,
     MateriasComponent,
+    ContenidoDetalleComponent
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DatePipe,
 

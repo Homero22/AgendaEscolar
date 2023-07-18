@@ -10,7 +10,6 @@ import { DatePipe } from '@angular/common';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { modApunteModel } from 'src/app/core/models/apunte';
-import Quill from 'quill';
 export interface Idea {
   name: string;
 }
@@ -31,17 +30,6 @@ export class EditarApunteComponent implements OnInit {
 
   textControl: FormControl = new FormControl('');
   private destroy$ = new Subject<any>();
-
-  htmlContent: any;
-  htmlNotasContent: any;
-
-  moduleQuill={
-    toolbar: [
-      ['bold', 'italic', 'underline'],        // toggled buttons
-      [{ 'align': [] }],
-      [{size: ['small', false, 'large']}],  // custom dropdown
-    ]
-  }
 
   apunteResumen!: string;
   apunteNotasClase!: string;
@@ -270,26 +258,6 @@ export class EditarApunteComponent implements OnInit {
 
 
 
-  onChangeEditor(event: any) {
-    if(event.html){
-      this.htmlContent = event.html;
-    }
-  }
-
-  onChangeNotasEditor(event: any) {
-    if(event.html){
-      this.htmlNotasContent = event.html;
-    }
-  }
-
-  onEditorResumeChange(event: any) {
-    this.myForm.get('apunteResumen')?.setValue(event.html);
-  }
-
-  onNotasEditorContentChange(event: any) {
-    this.myForm.get('apunteNotasClase')?.setValue(event.html);
-    console.log("Valor de event =>", event);
-  }
 
 
 

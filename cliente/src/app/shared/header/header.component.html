@@ -1,5 +1,5 @@
-<div class="header-Container">
 
+<div class="header-Container">
     <mat-toolbar class="mat-toolbar cont-Header">
 
       <div>
@@ -31,46 +31,47 @@
         </mat-menu>
       </div>
   </mat-toolbar>
-  <mat-drawer #drawer class="sideBar-Container" mode="side" >
 
-    <div class="menu-Container my-2">
-      <button type="button" mat-icon-button (click)="drawer.toggle()">
-        <i class="material-icons">menu</i>
-      </button>
-    </div>
+    <mat-drawer #drawer class="sideBar-Container" mode="over" >
 
-    <div class="menu-Options">
-      <div class="container-Options">
-        <button mat-button class="btn-Option" routerLink="/me/welcome">
-          <i class="material-icons">home</i>
-          <p>Inicio</p>
-        </button>
-        <button mat-button class="btn-Option" routerLink="/me/schedule">
-          <i class="material-icons">calendar_month</i>
-          <p>Horario</p>
-        </button>
-        <button mat-button class="btn-Option" (click)="sendBool()" routerLink="/me/signatures">
-          <i class="material-icons">collections_bookmark</i>
-          <p>Materias</p>
-        </button>
-        <button mat-button class="btn-Option" routerLink="/me/homeworks">
-          <i class="material-icons">list_alt</i>
-          <p>Tareas</p>
-        </button>
-        <button *ngIf="this.permiso!" mat-button class="btn-Option" routerLink="/me/reports">
-          <i class="material-icons">description</i>
-          <p>Reportes</p>
+      <div class="menu-Container my-2">
+        <button type="button" mat-icon-button (click)="drawer.toggle()">
+          <i class="material-icons">menu</i>
         </button>
       </div>
 
-      <div class="container-Settings">
-        <button mat-button class="btn-Option" routerLink="/me/settings">
-          <i class="material-icons">person</i>
-          <p>Mi cuenta</p>
-        </button>
+      <div class="menu-Options">
+        <div class="container-Options">
+          <button mat-button class="btn-Option" routerLink="/me/welcome">
+            <i class="material-icons">home</i>
+            <p>Inicio</p>
+          </button>
+          <button mat-button class="btn-Option" routerLink="/me/schedule">
+            <i class="material-icons">calendar_month</i>
+            <p>Horario</p>
+          </button>
+          <button mat-button class="btn-Option" (click)="sendBool()" routerLink="/me/signatures">
+            <i class="material-icons">collections_bookmark</i>
+            <p>Materias</p>
+          </button>
+          <button mat-button class="btn-Option" routerLink="/me/homeworks">
+            <i class="material-icons">list_alt</i>
+            <p>Tareas</p>
+          </button>
+          <button *ngIf="this.permiso!" mat-button class="btn-Option" routerLink="/me/reports">
+            <i class="material-icons">description</i>
+            <p>Reportes</p>
+          </button>
+        </div>
+
+        <div class="container-Settings">
+          <button mat-button class="btn-Option" routerLink="/me/settings">
+            <i class="material-icons">person</i>
+            <p>Mi cuenta</p>
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-drawer>
+    </mat-drawer>
 
 </div>
 
