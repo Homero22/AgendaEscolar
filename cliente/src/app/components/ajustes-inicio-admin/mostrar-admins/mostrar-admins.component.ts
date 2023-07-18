@@ -18,6 +18,7 @@ export class MostrarAdminsComponent implements AfterViewInit {
   // tableIndex = 1;
   TypeView: number = 0;
   idAdmin!: number;
+  idUser!: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -35,13 +36,13 @@ export class MostrarAdminsComponent implements AfterViewInit {
     // }, 1000);
     // // this.dataSource = new MatTableDataSource<UsuarioModel>(this.srvAdmins.administradores);
     // // console.log("administradores this.dataSource ", this.dataSource);
-
+    this.idUser = sessionStorage.getItem('id');
   }
 
   ngAfterViewInit() {
     this.getAdministradores();
 
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
   }
 
   view(op: number, id: number) {
@@ -56,6 +57,7 @@ export class MostrarAdminsComponent implements AfterViewInit {
   regresar() {
     this.getAdministradores();
     this.TypeView = 0;
+
 
   }
 
@@ -75,7 +77,8 @@ export class MostrarAdminsComponent implements AfterViewInit {
           console.log("administradores ", this.srvAdmins.administradores);
         },
         complete: () => {
-          
+          this.dataSource.paginator = this.paginator;
+
         },
       });
   }
@@ -85,6 +88,9 @@ export class MostrarAdminsComponent implements AfterViewInit {
   }
 
   eliminarAdmin(id: number) {
+    if( id == this.idUser ){
+      Swal.fire('No puede eliminar su propio usuario', '', 'error')
+    }else{
     Swal.fire({
       title: '¿Está seguro de eliminar este administrador?',
       icon: 'warning',
@@ -93,12 +99,15 @@ export class MostrarAdminsComponent implements AfterViewInit {
       confirmButtonText: 'Cambiar rol',
       denyButtonText: `Cambiar estado`,
     }).then((result) => {
-      if (result.isConfirmed) {
+      
+      if (result.isConfirmed ) {
         this.CambiarRol(id)
-      } else if (result.isDenied) {
+      } else if (result.isDenied ) {
         this.CambiarEstado(id)
       }
+    
     })
+  }
   }
 
   CambiarRol(id: number) {

@@ -55,4 +55,8 @@
   font-size: var(--font-size-18);
 }
 
-
+#container-Apunte{
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: var(--border-radius-4);
+}

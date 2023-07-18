@@ -1,6 +1,5 @@
-li {
+/* li {
     list-style: none;
-    /* display: flex */
 }
 
 select::after, select::before, select, select option, select:active{
@@ -45,7 +44,6 @@ select::after, select::before, select, select option, select:active{
   }
 
   
-  /* tamaño de la paginacion  */
   @media (max-width: 600px) {
     .pagination li a {
       font-size: 13px;
@@ -60,4 +58,8 @@ select::after, select::before, select, select option, select:active{
 
 span{
   font-size: 13px;
+} */
+
+td{
+  cursor: pointer;
 }

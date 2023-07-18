@@ -34,17 +34,6 @@ export class AgregarApunteComponent implements OnInit {
   htmlContent: any;
   htmlNotasContent: any;
 
-  moduleQuill={
-    toolbar: [
-      ['bold', 'italic', 'underline'],        // toggled buttons
-      [{ 'align': [] }],
-      [{size: ['small', false, 'large']}],  // custom dropdown
-    ]
-  }
-
-  apunteResumen!: string;
-  apunteNotasClase!: string;
-
 
   myForm!: FormGroup;
   apunteIdeas = new FormControl('',);
@@ -161,28 +150,6 @@ export class AgregarApunteComponent implements OnInit {
     }
   }
 
-  onChangeEditor(event: any) {
-    if(event.html){
-      this.htmlContent = event.html;
-    }
-  }
-
-  onChangeNotasEditor(event: any) {
-    if(event.html){
-      this.htmlNotasContent = event.html;
-    }
-  }
-
-  onEditorResumeChange(event: any) {
-    this.myForm.get('apunteResumen')?.setValue(event.html);
-  }
-
-  onNotasEditorContentChange(event: any) {
-    this.myForm.get('apunteNotasClase')?.setValue(event.html);
-    console.log("Valor de event =>", event);
-    console.log("Valor de apunteNotasClase =>", this.myForm.get('apunteNotasClase')?.value);
-  }
-
   // Función para agregar el Apunte
   saveApunte(){
     this.myForm.get('fechaCreacion')?.setValue(this.currentDate);
@@ -215,7 +182,7 @@ export class AgregarApunteComponent implements OnInit {
                 icon:'error',
                 title:apunteData.message,
                 showConfirmButton:false,
-                timer:1500
+                timer:3000
               });
               console.log("Error al agregar el apunte =>",apunteData);
             }
@@ -228,7 +195,7 @@ export class AgregarApunteComponent implements OnInit {
               title:'Error al agregar Apunte!',
               icon:'error',
               showConfirmButton: false,
-              timer: 1500
+              timer: 3000
             })
             console.log("Error al agregar materia =>", err);
           },

@@ -103,10 +103,6 @@ export class TareasPageComponent {
       tarea= "PENDIENTE";
       op = 1;
     }
-    // tarea.fechaCreacion = tarea.fechaCreacion.date.year + "-" + tarea.fechaCreacion.date.month + "-" + tarea.fechaCreacion.date.day;
-    // tarea.fechaFin = tarea.fechaFin.year + "-" + tarea.fechaFin.month + "-" + tarea.fechaFin.day;
-    // tarea.horaEntrega = tarea.horaEntrega.hour + ":" + tarea.horaEntrega.minute + ":" + tarea.horaEntrega.second;
-    // tarea.tareaRecordatorio = tarea.tareaRecordatorio.hour + ":" + tarea.tareaRecordatorio.minute + ":" + tarea.tareaRecordatorio.second;
     console.log("Tarea antes de enviar a homero=>",tarea, op);
     this.srvTarea.putTareaEstado(idTarea,op, tarea)
     .pipe(takeUntil(this.destroy$))
@@ -123,7 +119,6 @@ export class TareasPageComponent {
         this.getTareas();
       }
     });
-  
   }
 
   deleteTarea(idTarea: number){
