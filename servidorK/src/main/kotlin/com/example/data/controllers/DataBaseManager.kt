@@ -54,6 +54,7 @@ object DataBaseManager {
             SchemaUtils.create(Users);
             SchemaUtils.create(Images);
             SchemaUtils.create(Contents);
+            SchemaUtils.create(UserContent);
 
         }
         //Crear las tablas
