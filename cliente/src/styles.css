@@ -118,3 +118,7 @@ form{
 .modal-Button button:disabled {
   background-color: var(--quinary-color);
 }
+
+.mat-mdc-table tbody{
+  font-size: 13px;
+}

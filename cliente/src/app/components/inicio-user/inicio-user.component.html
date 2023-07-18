@@ -56,16 +56,12 @@
         </div>
         <div class="cont-desc" >
          {{tarea.tareaDescripcion}}
-          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quaerat laudantium quidem, aliquid sunt ipsa necessitatibus ut hic facilis totam eius enim voluptas, repudiandae, deleniti veritatis asperiores eveniet blanditiis voluptatem! -->
         </div>
         <button mat-icon-button (click)="cambiarEsado(tarea.id,tarea.tareaEstado)">
           <mat-icon *ngIf="tarea.tareaEstado ==='PENDIENTE' ">check_circle_outline</mat-icon>
           <mat-icon *ngIf="tarea.tareaEstado ==='FINALIZADA' ">check_circle</mat-icon>
         </button>
       </div>
-      <!-- <div class="cont-tarea"></div>
-      <div class="cont-tarea"></div>
-      <div class="cont-tarea"></div> -->
     </div>
 </div>
 </div>
