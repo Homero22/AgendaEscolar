@@ -135,6 +135,19 @@ fun Route.contentsRouting() {
                 sendJsonResponse(call, HttpStatusCode.NotFound, response)
             }
         }
+        delete("/eliminar/guardado/{id}"){
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            val res = ContentLogic().deleteSaved(id);
+            println("res")
+            println(res)
+            if(res!=0){
+                val response = ResponseSingle(true,"Contenido eliminado correctamente", res)
+                sendJsonResponse(call, HttpStatusCode.OK, response)
+            }else{
+                val response = ResponseSingle(false,"No se encontró el contenido", res)
+                sendJsonResponse(call, HttpStatusCode.NotFound, response)
+            }
+        }
 
     }
 }
