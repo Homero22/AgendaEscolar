@@ -16,7 +16,12 @@ class ContentLogic {
     val obj = cGenerica<Contents>()
     private val obj2 = cGenerica<UserContents>()
     fun getById(id: Int): Any {
-        return obj.gGetContentData(Contents, id) ?: 0
+        return obj.gGgetById(Contents, id) ?: 0
+
+    }
+
+    fun getByIdContent(id: Int): Any {
+        return obj.gGgetById2(Contents, id) ?: 0
 
     }
 
