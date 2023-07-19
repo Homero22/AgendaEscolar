@@ -40,6 +40,12 @@ class cGenerica <T> {
             is Subjects -> {
                 obj.getAll();
             }
+            is UserContents -> {
+                obj.getAll();
+            }
+            is Contents -> {
+                obj.getAll();
+            }
 
 
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -68,6 +74,9 @@ class cGenerica <T> {
             }
             is Contents ->{
                 obj.save(entity as ContentModel)
+            }
+            is UserContents ->{
+                obj.save(entity as UserContentModel)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -142,6 +151,24 @@ class cGenerica <T> {
             }
             is Contents ->{
                 obj.getContentByIdApunte(id.toLong())
+            }
+
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gGetContentData(obj: T, id: Int): Any? {
+        return when(obj) {
+            is Contents -> {
+                obj.getById(id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+    fun gGetByIdUserContent(obj: T, id: Long, id2:Int): Any? {
+        return when(obj) {
+            is UserContents -> {
+                println("id: $id, id2: $id2")
+                obj.getById(id,id2)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
@@ -246,6 +273,31 @@ class cGenerica <T> {
             }
             is Schedules ->{
                 obj.getAllByUser(id.toLong())
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    //paginado
+    fun gGetByUserId(obj:T, id: Int, limit: Int, offset: Int):List<Any>{
+        return when(obj){
+            /*
+            is Subjects -> {
+                obj.getByIdUser(id.toLong(),limit,offset)
+            }
+            is Homeworks -> {
+                obj.getAllByUser(id.toLong(),limit,offset)
+            }
+            is Notes ->{
+                obj.getAllByUser(id.toLong(),limit,offset)
+            }
+            is Schedules ->{
+                obj.getAllByUser(id.toLong(),limit,offset)
+            }
+
+            */
+            is UserContents ->{
+                obj.getAllByIdUser(id.toLong(),limit,offset)
             }
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }

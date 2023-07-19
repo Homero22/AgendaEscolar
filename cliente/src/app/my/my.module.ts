@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReportesPageComponent } from './pages/reportes-page/reportes-page.component';
 import { InicioAdminComponent } from '../components/inicio-admin/inicio-admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatExpansionModule,
     MatTooltipModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTabsModule
     // InicioAdminComponent,
   ],
   exports: [

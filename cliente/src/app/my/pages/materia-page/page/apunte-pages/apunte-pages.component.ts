@@ -18,7 +18,7 @@ export class ApuntePagesComponent {
   title!: string;
   idUser!: any;
   idMateria!: number;
-  viewApunte!: boolean;
+  viewApunte!: number;
 
   //Destroy
   private destroy$ = new Subject<any>();
@@ -47,7 +47,7 @@ export class ApuntePagesComponent {
     this.getApuntes();
     this.getMateria();
 
-    this.viewApunte = false;
+    this.viewApunte = 1;
 
     this.srvApuntes.selectApunteView$
     .pipe(takeUntil(this.destroy$))
@@ -132,22 +132,31 @@ export class ApuntePagesComponent {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(apunteData)=>{
-            if(apunteData.body){
-              Swal.fire(
-                'Eliminado',
-                'El apunte se elimino correctamente',
-                'success'
-              );
+            if(apunteData.status){
+              Swal.fire({
+                icon: 'success',
+                title: 'Apunte Eliminado',
+                showConfirmButton: false,
+                timer: 1500
+              });
             }else{
-              Swal.fire(
-                'Error',
-                'El apunte no se pudo eliminar',
-                'error'
-              );
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se pudo eliminar el apunte!',
+                showConfirmButton: false,
+                timer: 1500
+              });
             }
           },
           error:(err)=>{
             console.log("Error en la peticion =>",err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Revisa no tener contenido generado en este apunte!',
+              showConfirmButton: true,
+            })
           },
           complete:()=>{
             console.log("Peticion finalizada");
@@ -184,7 +193,14 @@ export class ApuntePagesComponent {
   openApunte(idApunte: number){
     console.log("Valor de idApunte =>",idApunte);
     this.srvApuntes.setIdApunte(idApunte);
-    this.viewApunte = true;
+    this.viewApunte = 2;
+  }
+
+  //Funcion para abrir los contenidos guardados
+  openContenidos(idApunte: number){
+    this.viewApunte = 3;
+    this.srvApuntes.setIdApunte(idApunte);
+    console.log("Valor de viewApunte en openContenidos =>",this.viewApunte);
   }
 
   //funcion para regresar al /me/signatures

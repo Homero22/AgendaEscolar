@@ -25,12 +25,9 @@ class GptInterceptor {
 
     scope.launch {
         try {
-            //USO la apikey de los enviroment variables
-            //val config = HoconApplicationConfig(ConfigFactory.load())
-            //val apiKey =
             val message = MessagesItem(content = prompt, role = "user")
             val data = GptPost(0.7, listOf(message), "gpt-3.5-turbo")
-            val response = service.getGpt(data, "Bearer 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")
+            val response = service.getGpt(data, "Bearer "+ System.getenv("APIKEY"))
             completableFuture.complete(response)
         } catch (e: Exception) {
             completableFuture.completeExceptionally(e)

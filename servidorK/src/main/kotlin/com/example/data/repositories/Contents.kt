@@ -16,6 +16,12 @@ object Contents: CrudRepository<ContentModel, Int>() {
          val response = ContentDAO.all().limit(limit, offset.toLong())
             return@transaction response.map { it.toContent() }
     }
+    fun getAll() = transaction {
+        val response = ContentDAO.all()
+        return@transaction response.map { it.toContent() }
+    }
+
+
 
     override fun getById(id: Int) = transaction {
         return@transaction ContentDAO.findById(id)?.toContent()
@@ -84,5 +90,20 @@ object Contents: CrudRepository<ContentModel, Int>() {
                 "titulo" to it[Notes.apunteTitulo],
             )
         }
+    }
+    fun getData(id:Int)= transaction{
+        //dado el id del contenido obtener el titulo del apunte y el nombre del usuario haciendo inner join de Contents y Notes y Users respectivamente
+        val response = (Contents innerJoin Notes ).select { Contents.id eq id }.firstOrNull()
+        return@transaction mapOf(
+            "id" to response?.get(Contents.id)?.value,
+            "contenido" to response?.get(Contents.contenido),
+            "idApunte" to response?.get(Contents.idApunte),
+            "idUser" to response?.get(Contents.idUser),
+            "puntuacion" to response?.get(Contents.puntuacion),
+            "estado" to response?.get(Contents.estado),
+            "categoria" to response?.get(Contents.categoria),
+            "titulo" to response?.get(Notes.apunteTitulo),
+        )
+
     }
 }

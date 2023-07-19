@@ -72,6 +72,7 @@ object Homeworks: CrudRepository<Homework, Int>() {
 
         val res = Homeworks
             .select { Homeworks.idUser eq id }
+            .orderBy(Pair(Homeworks.fechaFin, SortOrder.ASC))
             .map {
                 mapOf(
                     "id" to it[Homeworks.id].value,
