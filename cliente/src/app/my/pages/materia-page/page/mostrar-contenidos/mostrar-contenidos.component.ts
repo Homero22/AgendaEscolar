@@ -95,6 +95,8 @@ export class MostrarContenidosComponent implements OnInit{
 
   deleteContenido(idContent: number){
 
+    console.log("Valor de idContent =>",idContent);
+
     Swal.fire({
       title: '¿Está seguro de eliminar el contenido?',
       text: 'Esta acción no se puede revertir',

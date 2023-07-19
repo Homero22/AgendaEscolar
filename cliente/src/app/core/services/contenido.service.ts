@@ -51,6 +51,7 @@ export class ContenidoService {
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
     private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/guardados";
+    private urlApi_EliminarContenido: string = config.URL_API_BASE + "/contents/eliminar/guardado";
     private urlApi_ContenidoSave: string = config.URL_API_BASE + "contents/save";
     private urlApi_ContenidoDetalle: string = config.URL_API_BASE + "contents/content";
 
@@ -201,7 +202,7 @@ export class ContenidoService {
 
     // Metodo para eliminar un contenido guardado
     deleteContenidoGuardado(idContent: number){
-      return this.http.delete<any>(`${this.urlApi_ContenidoSave}/${idContent}`,
+      return this.http.delete<any>(`${this.urlApi_EliminarContenido}/${idContent}`,
       {
         withCredentials: true,
         params:{
