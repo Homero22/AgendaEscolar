@@ -18,8 +18,12 @@ object UserContents : CrudRepository<UserContentModel, Int>(){
     }
     fun getAll() = UserContentDAO.all().map { it.toUserContent() }
 
-    override fun delete(id: Int): Any {
-        return UserContentDAO.findById(id.toLong())?.delete()?:false
+    override fun delete(id: Int) = transaction {
+        UserContentDAO.findById(id.toLong())?.delete()
+        return@transaction
+    }
+    fun eliminarGuardado(id:Int)= transaction {
+        return@transaction UserContentDAO.findById(id.toLong())?.delete()
     }
 
     override fun update(id: Int, entity: UserContentModel): UserContentModel? {
