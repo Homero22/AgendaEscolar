@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, timeInterval } from 'rxjs';
 import { ApunteService } from 'src/app/core/services/apunte.service';
 import { ContenidoService } from 'src/app/core/services/contenido.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
@@ -121,6 +121,7 @@ export class MostrarContenidosComponent implements OnInit{
                 showConfirmButton: false,
                 timer: 2500
               })
+
             }else{
               Swal.fire({
                 title: 'Error al eliminar el contenido',
@@ -131,6 +132,10 @@ export class MostrarContenidosComponent implements OnInit{
                 confirmButtonText: 'Aceptar'
               });
             }
+            setTimeout(() => {
+              this.getContenidos();
+            }
+            , 2500);
           },
           error: (err)=>{
             Swal.fire({
@@ -144,6 +149,7 @@ export class MostrarContenidosComponent implements OnInit{
           },
           complete: ()=>{
             console.log("Peticion completa");
+            this.getContenidos();
           }
         })
       }
