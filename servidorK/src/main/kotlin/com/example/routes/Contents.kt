@@ -111,7 +111,6 @@ fun Route.contentsRouting() {
 
         }
         put("/{id}") {
-
             val id = call.parameters["id"]?.toIntOrNull() ?: 0
             val content = call.receive<ContentModel>()
             val res = ContentLogic().update(id,content);
