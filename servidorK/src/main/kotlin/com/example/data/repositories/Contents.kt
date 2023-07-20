@@ -6,6 +6,7 @@ import com.example.data.models.ContentModel
 import org.jetbrains.exposed.sql.transactions.transaction
 import  com.example.data.entities.Notes
 import com.example.data.entities.Users
+import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
@@ -26,6 +27,8 @@ object Contents: CrudRepository<ContentModel, Int>() {
     override fun getById(id: Int) = transaction {
         return@transaction ContentDAO.findById(id)?.toContent()
     }
+
+
     fun getContentByIdApunte(id:Long) = transaction {
         //retornar el contenido dado el id del apunte
         return@transaction ContentDAO.find { Contents.idApunte eq id }.firstOrNull()?.toContent()
@@ -91,11 +94,22 @@ object Contents: CrudRepository<ContentModel, Int>() {
             )
         }
     }
-    fun getData(id:Int)= transaction{
+    fun getData(id:Int): DataCont = transaction{
         //dado el id del contenido obtener el titulo del apunte y el nombre del usuario haciendo inner join de Contents y Notes y Users respectivamente
         val response = (Contents innerJoin Notes ).select { Contents.id eq id }.firstOrNull()
+        return@transaction DataCont(
+            idContent = response?.get(Contents.id)?.value ?: -1,
+            contenido = response?.get(Contents.contenido) ?: "",
+            idApunte = response?.get(Contents.idApunte) ?: -1,
+            idUser = response?.get(Contents.idUser) ?: -1,
+            puntuacion = response?.get(Contents.puntuacion) ?: -1,
+            estado = response?.get(Contents.estado) ?: "",
+            categoria = response?.get(Contents.categoria) ?: "",
+            titulo = response?.get(Notes.apunteTitulo) ?: "",
+        )
+        /*
         return@transaction mapOf(
-            "id" to response?.get(Contents.id)?.value,
+            "idContent" to response?.get(Contents.id)?.value,
             "contenido" to response?.get(Contents.contenido),
             "idApunte" to response?.get(Contents.idApunte),
             "idUser" to response?.get(Contents.idUser),
@@ -104,6 +118,19 @@ object Contents: CrudRepository<ContentModel, Int>() {
             "categoria" to response?.get(Contents.categoria),
             "titulo" to response?.get(Notes.apunteTitulo),
         )
+        */
 
     }
+
+    @Serializable
+    data class DataCont(
+        val idContent: Int,
+        val contenido: String,
+        val idApunte: Long,
+        val idUser: Long,
+        val puntuacion: Int,
+        val estado: String,
+        val categoria: String,
+        val titulo: String,
+    )
 }
