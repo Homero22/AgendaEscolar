@@ -47,6 +47,7 @@ class cGenerica <T> {
                 obj.getAll();
             }
 
+
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
         }
     }
