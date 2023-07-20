@@ -3,12 +3,10 @@ package com.example.data.repositories
 
 import com.example.data.entities.UserContent
 import com.example.data.entities.UserContentDAO
-import com.example.data.models.ContentModel
 
 import com.example.data.models.UserContentModel
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
-import com.example.data.repositories.Contents
 import kotlinx.serialization.Serializable
 
 object UserContents : CrudRepository<UserContentModel, Int>(){
@@ -23,7 +21,7 @@ object UserContents : CrudRepository<UserContentModel, Int>(){
         return@transaction
     }
     fun eliminarGuardado(id:Int)= transaction {
-        return@transaction UserContentDAO.findById(id.toLong())?.delete()
+     return@transaction UserContentDAO.findById(id.toLong())?.delete()
     }
 
     override fun update(id: Int, entity: UserContentModel): UserContentModel? {
@@ -60,36 +58,67 @@ object UserContents : CrudRepository<UserContentModel, Int>(){
 
     fun getAllByIdUser(idUser:Long, limit: Int, offset: Int) : List<Any> = transaction {
         val response = UserContentDAO.find { UserContent.idUser eq idUser }.limit(limit, offset.toLong())
+        //de esta lista , extraer la informacion en base al idContent de response
+        val lista = response.map { it.toUserContent() }
+        val lista2 = mutableListOf<Any>()
+        val lista3 = mutableListOf<ContentModel2>()
+        for (i in lista){
+            val res = Contents.getData(i.idContent)
+            //mapear la lista de res a una lista de ContentModel2
+            val res2 = ContentModel2(
+                i.id,
+                i.idContent,
+                res.idApunte,
+                res.contenido,
+                res.estado,
+                res.puntuacion,
+                res.idUser,
+                res.categoria,
+                res.titulo,
+            )
+            lista3.add(res2)
 
-        if(response.empty()){
-            return@transaction emptyList<Any>()
-        }else {
-            //en base a la lista de UserContentModel, obtener la lista de ContentModel
-            val list = response.map { it.toUserContent() }
-            val list2 = mutableListOf<Any>()
-            for (i in list) {
-                list2.add(Contents.getById(i.idContent)!!)
-            }
-            //de la anterior lista quiero obtener haciendo un join con la tabla de apuntes
-            val list3 = mutableListOf<Any>()
-            for (i in list2) {
-                list3.add(Contents.getData((i as ContentModel).id))
-            }
-            return@transaction list3
         }
+        return@transaction lista3
 
     }
 }
 @Serializable
-data class ContentModel2 (
-    val id: Int,
+data class ContentModel2(
+    val idUserContent: Long,
+    val idContent: Int,
     val idApunte: Long,
     val contenido: String,
     val estado: String,
     val puntuacion: Int,
     val idUser: Long,
     val categoria: String,
-    val nombre: String,
-    val apellido: String,
+    val titulo: String,
+)
+
+
+/*
+        return@transaction mapOf(
+            "idContent" to response?.get(Contents.id)?.value,
+            "contenido" to response?.get(Contents.contenido),
+            "idApunte" to response?.get(Contents.idApunte),
+            "idUser" to response?.get(Contents.idUser),
+            "puntuacion" to response?.get(Contents.puntuacion),
+            "estado" to response?.get(Contents.estado),
+            "categoria" to response?.get(Contents.categoria),
+            "titulo" to response?.get(Notes.apunteTitulo),
+        )
+ */
+@Serializable
+data class DataContent(
+    val idContent: Int,
+    val contenido: String,
+    val idApunte: Long,
+    val idUser: Long,
+    val puntuacion: Int,
+    val estado: String,
+    val categoria: String,
+    val titulo: String,
+
 )
 
