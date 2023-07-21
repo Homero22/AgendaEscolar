@@ -161,7 +161,7 @@ export class ContenidoDetalleComponent implements OnInit {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'No se pudo guardar el contenido'
+                text: 'No se pudo guardar el contenido, quiza ya tienes registrado este contenido'
               });
             }
           },

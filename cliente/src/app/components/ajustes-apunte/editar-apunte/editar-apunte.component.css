@@ -34,3 +34,7 @@
   display: flex;
   flex-direction: column;
 }
+
+.txt-Area{
+  height: 160px !important;
+}

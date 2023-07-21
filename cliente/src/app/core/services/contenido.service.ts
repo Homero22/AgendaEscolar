@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 const idContenido: number = 0;
 const contenidoTitle: string = '';
+const viewContenido: number = 0;
+const contenidoView: number = 0;
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +53,7 @@ export class ContenidoService {
     private urlApi_Contenido: string = config.URL_API_BASE + "contents";
     private urlApi_ContenidoSimilar: string = config.URL_API_BASE + "contents/similares";
     private urlApi_ContenidoGuardado: string = config.URL_API_BASE + "contents/guardados";
+    private urlApi_EliminarContenido: string = config.URL_API_BASE + "/contents/eliminar/guardado";
     private urlApi_ContenidoSave: string = config.URL_API_BASE + "contents/save";
     private urlApi_ContenidoDetalle: string = config.URL_API_BASE + "contents/content";
 
@@ -75,6 +78,18 @@ export class ContenidoService {
 
   setTitle(_title: string){
     this.getTitle$.next(_title);
+  }
+
+
+
+  private viewContenido$ = new BehaviorSubject<number>(viewContenido);
+
+  get selectViewContenido$(): Observable<number>{
+    return this.viewContenido$.asObservable();
+  }
+
+  setViewContenido(_viewContenido: number){
+    this.viewContenido$.next(_viewContenido);
   }
 
 
@@ -201,7 +216,7 @@ export class ContenidoService {
 
     // Metodo para eliminar un contenido guardado
     deleteContenidoGuardado(idContent: number){
-      return this.http.delete<any>(`${this.urlApi_ContenidoGuardado}/${idContent}`,
+      return this.http.delete<any>(`${this.urlApi_EliminarContenido}/${idContent}`,
       {
         withCredentials: true,
         params:{

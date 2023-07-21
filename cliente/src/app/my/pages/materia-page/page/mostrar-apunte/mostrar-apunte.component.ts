@@ -20,6 +20,8 @@ export class MostrarApunteComponent implements OnInit {
   titleApunte!: string;
   private destroy$ = new Subject<any>();
 
+  existContentSimilar: boolean = false;
+
   contRelac: boolean = false;
 
   constructor(
@@ -83,8 +85,9 @@ export class MostrarApunteComponent implements OnInit {
           });
           console.log("Valor de resContent =>",resContent);
           this.srvContenido.contentSimilarData = resContent.body;
+          this.existContentSimilar = true;
         }else{
-          console.log("Error al obtener contenido similar");
+          console.log("No existe contenido similar");
         }
       }
     });

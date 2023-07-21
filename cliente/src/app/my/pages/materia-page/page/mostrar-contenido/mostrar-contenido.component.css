@@ -2,7 +2,7 @@
   background-color: red;
 }
 #ground{
-  margin: -0.6rem !important;
+  margin: -0.5rem !important;
 }
 
 #containerApuntes{
@@ -30,32 +30,16 @@
   font-size: var(--font-size-18);
 }
 
-#ground{
-  margin: -0.6rem !important;
-}
-
-#containerApuntes{
-  border: 1px solid black;
-  border-radius: var(--border-radius-4);
-}
-
-.lbl-Title{
-  font-weight: var(--font-weight-500);
-  font-size: var(--font-size-18);
-}
-
-#container-Apunte{
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: var(--border-radius-4);
-}
-
 .alert-Icon{
-  font-size: 80px !important;
+  font-size: 40px !important;
   color: red !important;
 }
 
 #alert-Title{
   font-weight: var(--font-weight-500);
-  font-size: 30px;
+  font-size: 18px;
+}
+
+.txt-Area{
+  height: 160px !important;
 }

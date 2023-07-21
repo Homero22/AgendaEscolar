@@ -29,3 +29,13 @@
   font-weight: var(--font-weight-500);
   font-size: var(--font-size-18);
 }
+
+.alert-Icon{
+  font-size: 40px !important;
+  color: red !important;
+}
+
+#alert-Title{
+  font-weight: var(--font-weight-500);
+  font-size: 18px;
+}

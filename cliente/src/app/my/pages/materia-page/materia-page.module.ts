@@ -7,13 +7,15 @@ import { RouterModule } from '@angular/router';
 import { ApuntePagesComponent } from './page/apunte-pages/apunte-pages.component';
 import { MostrarApunteComponent } from './page/mostrar-apunte/mostrar-apunte.component';
 import { MostrarContenidosComponent } from './page/mostrar-contenidos/mostrar-contenidos.component';
+import { MostrarContenidoComponent } from './page/mostrar-contenido/mostrar-contenido.component';
 
 
 @NgModule({
   declarations: [
     ApuntePagesComponent,
     MostrarApunteComponent,
-    MostrarContenidosComponent
+    MostrarContenidosComponent,
+    MostrarContenidoComponent
   ],
   imports: [
     CommonModule,
