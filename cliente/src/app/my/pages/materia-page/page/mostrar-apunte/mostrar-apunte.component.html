@@ -64,9 +64,9 @@
             </div>
           </div>
 
-          <div class="col-12 card flex" *ngIf="this.existContentSimilar === true">
-            <div class="col-12 card flex align-items-center justify-content-between" *ngFor="let content of this.srvContenido.contentSimilarData, let i = index">
-              <div class="card-container p-3 mr-3 w-12 justify-content-between" id="card-Border">
+          <div class="col-12 card " *ngIf="this.existContentSimilar === true">
+            <div class="col-12 card align-items-center justify-content-between" *ngFor="let content of this.srvContenido.contentSimilarData, let i = index">
+              <div class="card-container p-3 mr-4 justify-content-between" id="card-Border">
 
                 <div class="flex align-items-center">
                   <label for="" id="lbl-Title">Titulo: {{content.titulo}}</label>
