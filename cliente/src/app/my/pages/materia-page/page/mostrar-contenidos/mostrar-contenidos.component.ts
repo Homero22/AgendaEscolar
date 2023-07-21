@@ -15,6 +15,7 @@ export class MostrarContenidosComponent implements OnInit{
   private destroy$ = new Subject<any>();
 
   viewApunte!: number;
+  viewContenido!: number;
   idUser!: any;
   isData!: boolean;
   idApunte!: number;
@@ -34,6 +35,15 @@ export class MostrarContenidosComponent implements OnInit{
       next:(_idApunte)=>{
         this.idApunte = _idApunte;
         console.log("Valor de idApunte =>",this.idApunte);
+      }
+    })
+
+    this.srvContenido.selectViewContenido$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next:(_viewContenido)=>{
+        this.viewContenido = _viewContenido;
+        console.log("Valor de viewContenido =>",this.viewContenido);
       }
     })
 
@@ -91,6 +101,13 @@ export class MostrarContenidosComponent implements OnInit{
         console.log("Peticion completa");
       }
     });
+  }
+
+  //Funcion para mostrar el contenido
+  showContenido(idApunteContenido: number, contenidoTitulo: string){
+    this.viewContenido = 1;
+    this.srvContenido.setTitle(contenidoTitulo);
+    this.srvContenido.setIdContenido(idApunteContenido);
   }
 
   deleteContenido(idContent: number){
@@ -154,9 +171,6 @@ export class MostrarContenidosComponent implements OnInit{
         })
       }
     })
-
-
-
   }
 
 

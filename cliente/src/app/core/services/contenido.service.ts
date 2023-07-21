@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 const idContenido: number = 0;
 const contenidoTitle: string = '';
+const viewContenido: number = 0;
+const contenidoView: number = 0;
 @Injectable({
   providedIn: 'root'
 })
@@ -76,6 +78,18 @@ export class ContenidoService {
 
   setTitle(_title: string){
     this.getTitle$.next(_title);
+  }
+
+
+
+  private viewContenido$ = new BehaviorSubject<number>(viewContenido);
+
+  get selectViewContenido$(): Observable<number>{
+    return this.viewContenido$.asObservable();
+  }
+
+  setViewContenido(_viewContenido: number){
+    this.viewContenido$.next(_viewContenido);
   }
 
 

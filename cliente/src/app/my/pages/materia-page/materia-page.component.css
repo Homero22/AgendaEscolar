@@ -92,4 +92,24 @@ h2{
   font-weight: var(--font-weight-500);
   font-size: var(--font-size-18);
   color: var(--tertiary-color);
+  border-color: black;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.alert-Icon{
+  font-size: 80px !important;
+  color: red !important;
+}
+
+#alert-Title{
+  font-weight: var(--font-weight-500);
+  font-size: 30px;
+}
+
+#btn-Actions{
+  border: #000000 1px solid;
+}
+
+#btn-Actions:hover{
+  background-color: var(--quaternary-color);
 }
