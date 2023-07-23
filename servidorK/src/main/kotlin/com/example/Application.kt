@@ -17,7 +17,7 @@ fun main(args: Array<String>): Unit =
 @OptIn(DelicateCoroutinesApi::class)
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-
+    configureHTTP()
     GlobalScope.launch {
         val config = HoconApplicationConfig(ConfigFactory.load())
         DataBaseManager.init(config)
@@ -25,7 +25,7 @@ fun Application.module() {
         configureSerialization()
         //configureDatabases()
         configureRouting()
-        configureHTTP()
+
     }
 
 }
