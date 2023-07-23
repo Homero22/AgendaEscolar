@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.logica.NotificacionesLogic
 import com.example.logica.Security.Token
 import com.example.routes.*
 import io.ktor.server.application.*
@@ -62,9 +63,8 @@ fun Application.configureRouting() {
         imagenesRouting()
         contentsRouting()
 
-
-
-
     }
+    val noti = NotificacionesLogic()
+    noti.Notificaciones()
 
 }
