@@ -11,7 +11,7 @@ export const environment = {
 //  urlApi: 'http://192.168.137.154:8002/'     //Homero en clase
 //  urlApi: 'http://127.0.0.1:8002/'        //localhost propio
  //urlApi: 'http://26.241.69.100:8002/'       //Readmi Homero
-//  urlApi: 'http://127.0.0.1:8002/'        //localhost propio
+//urlApi: 'http://127.0.0.1:8003/'        //localhost propio
 //  urlApi: 'http://26.241.69.100:8002/'       //Readmi Homero
 //  urlApi: 'http://192.168.137.154:8002/'     //Homero en clase
 urlApi: 'https://classbuddy-production-94d8.up.railway.app/',
