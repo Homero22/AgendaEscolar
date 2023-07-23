@@ -1,6 +1,10 @@
 <div class="w-screen" id="ground">
 
-  <div class="grid m-2">
+  <div class="grid m-2" *ngIf="this.viewContenido === 1">
+    <app-mostrar-contenido></app-mostrar-contenido>
+  </div>
+
+  <div class="grid m-2" *ngIf="this.viewContenido === 0">
 
     <div class="grid col">
       <div class="col-12 flex gap flex-wrap align-items-center justify-content-between">
@@ -14,16 +18,47 @@
     </div>
 
     <div class="gap-3 col-12 flex flex-wrap justify-content-between">
+
+
       <div class="grid col-12 flex flex-wrap justify-content-center align-items-center w-12" *ngIf="this.isData === false">
-        <div class="col-12">
-          <label for="">No hay contenido guardado</label>
+        <div class="col-12 flex flex-wrap justify-content-center align-items-center">
+          <label for="" id="alert-Title">No hay contenidos guardado</label>
         </div>
-        <div class="col-12">
-          <i class="material-icons">report</i>
+        <div class="col-12 flex flex-wrap justify-content-center align-items-center">
+          <i class="material-icons alert-Icon">report</i>
         </div>
       </div>
-      <div class="col-12" *ngIf="this.isData === true">
-        <label for="">Si hay contenido guardado</label>
+
+
+
+
+      <div class="col-12 flex flex-wrap gap-3 -m-2" *ngIf="this.isData === true" >
+
+        <div class="card flex align-items-center justify-content-between w-12 p-3" id="container-Apunte" *ngFor="let contenidos of srvContenido.contentSimilarData, let i = index">
+
+          <div class="flex flex-wrap align-items-center uppercase gap-3">
+            <div>
+              <i class="material-icons">article</i>
+            </div>
+            <label for="" class="lbl-Title">{{contenidos.titulo}}</label>
+            <label for="">{{contenidos.categoria}}</label>
+
+          </div>
+
+          <div class="flex gap-3 flex-wrap">
+
+            <button mat-stroked-button (click)="showContenido(contenidos.idApunte, contenidos.titulo)" >
+              <i class="material-icons">visibility</i>
+            </button>
+
+            <button mat-stroked-button (click)="deleteContenido(contenidos.idUserContent)">
+              <i class="material-icons">delete</i>
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
     </div>
 

@@ -25,6 +25,8 @@ export class MateriaPageComponent {
   existInfo: boolean = false;
   materiaMessage: string = '';
 
+  materiaExist: boolean = false;
+
   // Constructor
     constructor(
       public srvMateria: MateriaService,
@@ -142,17 +144,9 @@ export class MateriaPageComponent {
             this.srvMateria.datosMateria = materiaData.body;
             console.log("Valor de materiaData.body =>", this.srvMateria.datosMateria);
             this.existInfo = materiaData.status;
+            this.existInfo = true;
           } else {
-            console.log("MateriaData =>", materiaData);
-            this.existInfo = materiaData.status;
-            this.materiaMessage = materiaData.message;
-            Swal.fire({
-              title: 'Error al obtener las materias',
-              text: materiaData.message,
-              icon: 'error',
-              showConfirmButton: false,
-              timer: 2500
-            })
+            console.log("No existen materias");
           }
         },
         error: (err) => {

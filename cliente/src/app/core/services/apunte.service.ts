@@ -14,6 +14,7 @@ export class ApunteService {
 
   apunteData: modApunteData = {
     id: 0,
+    idUserContent: 0,
     idUser: 0,
     idMateria: 0,
     apunteTitulo: '',
