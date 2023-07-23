@@ -19,6 +19,7 @@ export class ApuntePagesComponent {
   idUser!: any;
   idMateria!: number;
   viewApunte!: number;
+  existApunte: boolean = false;
 
   //Destroy
   private destroy$ = new Subject<any>();
@@ -105,6 +106,7 @@ export class ApuntePagesComponent {
         if(apunteData.body){
           this.srvApuntes.datosApuntes = apunteData.body;
           console.log("Valor de apunteData.body =>",this.srvApuntes.datosApuntes);
+          this.existApunte = true;
         }else{
           console.log("No hay datos");
         }
@@ -197,9 +199,9 @@ export class ApuntePagesComponent {
   }
 
   //Funcion para abrir los contenidos guardados
-  openContenidos(idApunte: number){
+  openContenidos(idUser: number){
     this.viewApunte = 3;
-    this.srvApuntes.setIdApunte(idApunte);
+    this.srvApuntes.setIdApunte(idUser);
     console.log("Valor de viewApunte en openContenidos =>",this.viewApunte);
   }
 

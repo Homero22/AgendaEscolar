@@ -17,7 +17,16 @@
       </div>
     </div>
 
-    <div class="col-12 flex flex-wrap gap-3">
+    <div class="grid col-12 flex flex-wrap justify-content-center align-items-center w-12" *ngIf="this.existInfo === false">
+      <div class="col-12 flex flex-wrap justify-content-center align-items-center">
+        <label for="" id="alert-Title">No hay materias guardadas</label>
+      </div>
+      <div class="col-12 flex flex-wrap justify-content-center align-items-center">
+        <i class="material-icons alert-Icon">report</i>
+      </div>
+    </div>
+
+    <div class="col-12 flex flex-wrap gap-3" *ngIf="this.existInfo === true">
         <div class="card flex align-items-center justify-content-between" id="containerMaterias" [style.background-color]="materia.materiaColor" *ngFor="let materia of srvMateria.datosMateria, let i = index">
           <div class="card-container p-3 w-12 justify-content-between">
 
@@ -26,15 +35,15 @@
               </div>
 
               <div class="flex gap-3">
-                <button mat-raised-button (click)="openModalEdit('Editar Materia', materia.id)">
+                <button mat-raised-button id="btn-Actions" (click)="openModalEdit('Editar Materia', materia.id)">
                   <i class="material-icons btn-Edit">create</i>
                 </button>
 
-                <button mat-raised-button (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
+                <button mat-raised-button id="btn-Actions" (click)="sendIdMateria(materia.id)" routerLink="/me/signatures/notes">
                   <i class="material-icons btn-Notes">sticky_note_2</i>
                 </button>
 
-                <button mat-raised-button (click)="deleteMateria(materia.id)">
+                <button mat-raised-button id="btn-Actions" (click)="deleteMateria(materia.id)">
                   <i class="material-icons btn-Delete">delete</i>
                 </button>
               </div>

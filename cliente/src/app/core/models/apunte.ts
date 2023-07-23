@@ -7,6 +7,7 @@ export interface ShowApunteModel{
 export interface ShowApunteData{
   id: number;
   idUser: number;
+  idUserContent: number;
   idMateria: number;
   apunteTitulo: string;
   apunteNotasClase: string;
@@ -27,6 +28,7 @@ export interface addApunteModel{
 
 export interface addApunteData{
   idUser: number;
+  idUserContent: number;
   idMateria: number;
   apunteTitulo: string;
   apunteNotasClase: string;
@@ -45,6 +47,7 @@ export interface modApunteModel {
 
 export interface modApunteData {
   id: number;
+  idUserContent: number;
   idUser: number;
   idMateria: number;
   apunteTitulo: string;
@@ -58,6 +61,7 @@ export interface modApunteData {
 export interface addApunteByID{
   id: number;
   idUser: number;
+  idUserContent: number;
   idMateria: number;
   apunteTitulo: string;
   apunteNotasClase: string;
