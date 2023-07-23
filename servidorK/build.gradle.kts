@@ -122,6 +122,11 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //Fuel
+    implementation("com.twilio.sdk:twilio:9.7.0")
+    implementation ("com.github.kittinunf.fuel:fuel:2.3.1")
+
+
 
 
 

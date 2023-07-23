@@ -3,7 +3,7 @@ package com.example.data.repositories
 
 import com.example.data.models.*
 import com.example.data.models.reportes.usuariosPorMes
-
+import java.time.LocalTime
 
 
 class cGenerica <T> {
@@ -46,6 +46,7 @@ class cGenerica <T> {
             is Contents -> {
                 obj.getAll();
             }
+
 
 
             else -> throw IllegalArgumentException("Tipo de objeto no compatible")
@@ -397,5 +398,76 @@ class cGenerica <T> {
         }
     }
 
+    fun gGetNumeroN(notes: T, idUser: Long): String? {
+        return when (notes) {
+            is Notes -> {
+                notes.getPhoneByIdN(idUser)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetNombreN(notes: T, idUser: Long, id: Int): String? {
+        return when (notes) {
+            is Notes -> {
+                notes.getNameUserNota(idUser, id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetNumero(homeworks: T, idUser: Long): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getPhoneById(idUser.toLong())
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetTituloTarea(homeworks: T, idUser: Long, id: Int): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getHomeworkByIdUserAndIdHomework(idUser, id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetNombre(homeworks: T, idUser: Long, id: Int): String? {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getNameUserTarea(idUser, id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetHoraEntrega(homeworks: T, idUser: Long, id: Int): LocalTime {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getHoraEntrega(idUser, id)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetAllNotes(notes: T): List<Note> {
+        return when (notes) {
+            is Notes -> {
+                notes.getAllByUserNote()
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
+
+    fun gGetTareas(homeworks: T, estado: String): List<Homework> {
+        return when (homeworks) {
+            is Homeworks -> {
+                homeworks.getAllByUserAndState(estado)
+            }
+            else -> throw IllegalArgumentException("Tipo de objeto no compatible")
+        }
+    }
 
 }
