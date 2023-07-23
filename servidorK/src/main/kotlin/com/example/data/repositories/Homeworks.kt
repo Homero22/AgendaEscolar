@@ -8,9 +8,11 @@ import com.example.data.entities.Users
 import com.example.data.models.Homework
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.time.LocalTime
 import kotlin.time.Duration.Companion.parse
 
 /*
@@ -152,5 +154,37 @@ object Homeworks: CrudRepository<Homework, Int>() {
     }
 
 
+    fun getPhoneById(id: Long): String = transaction {
+        val response = Users
+            .select { Users.id eq id }
+            .map { it[Users.telefono] }
+        return@transaction response[0]
+    }
+
+    fun getHomeworkByIdUserAndIdHomework(id: Long, idTarea: Int): String = transaction {
+        val result = (Homeworks innerJoin Users)
+            .select { Homeworks.idUser eq id and (Homeworks.id eq idTarea.toLong()) }
+            .map { it[Homeworks.tareaTitulo] }
+        println("OBTENCIOND DEL TITULO DE LA TAREA")
+        println(result)
+        return@transaction result[0]
+    }
+    fun getNameUserTarea(id: Long, idTarea: Int): String = transaction {
+        val result = (Users innerJoin Homeworks)
+            .select { Homeworks.idUser eq id and (Homeworks.id eq idTarea.toLong()) }
+            .map { it[Users.nombre] }
+        return@transaction result[0]
+    }
+    fun getHoraEntrega(id: Long, idTarea: Int): LocalTime = transaction {
+        val result = (Homeworks innerJoin Users)
+            .select { Homeworks.idUser eq id and (Homeworks.id eq idTarea.toLong())}
+            .map { it[Homeworks.horaEntrega] }
+        return@transaction result[0]
+    }
+    fun getAllByUserAndState(state: String): List<Homework> = transaction {
+        val res = HomeworkDAO.all()
+            .filter { it.tareaEstado == state }
+        return@transaction res.map { it.toHomework() }
+    }
 
 }

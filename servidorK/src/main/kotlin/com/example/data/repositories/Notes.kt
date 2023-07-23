@@ -4,6 +4,8 @@ import com.example.data.entities.NotesDAO
 import com.example.data.models.Note
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import com.example.data.entities.Users
+import org.jetbrains.exposed.sql.and
 
 object Notes : CrudRepository<Note, Int>() {
     override fun getAll(limit: Int, offset: Int): List<Note> = transaction{
@@ -69,6 +71,26 @@ object Notes : CrudRepository<Note, Int>() {
         return@transaction res.isNotEmpty()
 
     }
+    fun getPhoneByIdN(id: Long): String = transaction {
+        val response = Users
+            .select { Users.id eq id }
+            .map { it[Users.telefono] }
+        return@transaction response[0]
+    }
+    fun getNameUserNota(id: Long, idNote: Int): String = transaction {
+        val result = (Users innerJoin Notes)
+            .select { Notes.idUser eq id and (Notes.id eq idNote.toLong()) }
+            .map { it[Users.nombre] }
+        return@transaction result[0]
+    }
+
+    fun getAllByUserNote(): List<Note> = transaction {
+        val res = NotesDAO.all()
+        return@transaction res.map { it.toNotes() }
+    }
+
+
+
 
 
 
