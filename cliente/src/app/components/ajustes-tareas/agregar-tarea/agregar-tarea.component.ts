@@ -137,7 +137,7 @@ console.log(fechaFormateada); // Resultado: "2023/06/25"
     this.transforDate(this.myForm.value.fechaFin);
 
 
-    console.log("Valor de myForm =>",this.myForm.value);
+    this.transforDate(this.myForm.value.fechaFin);
 
     Swal.fire({
       title: 'Agregando Tarea...',
