@@ -188,7 +188,10 @@ export class EditarTareaComponent {
   }
 
   editTarea(){
+    // console.log("Valor de myForm =>",this.myForm.value);
+    this.transforDate(this.myForm.value.fechaFin);
     console.log("Valor de myForm =>",this.myForm.value);
+
     // Swal.
     this.srvTarea.putTarea(this.idTarea,this.myForm.value)
     .pipe(takeUntil(this.destroy$))
@@ -257,6 +260,15 @@ export class EditarTareaComponent {
   
   filterTareasFinalizadas() {
     return this.srvTarea.tareas.filter((tarea: any) => tarea.tareaEstado === 'FINALIZADA');
+  }
+
+  transforDate(dateFin: Date){
+    // const fechaFin = new Date("Sun Jun 25 2023 19:00:00 GMT-0500");
+
+const datePipe = new DatePipe('en-US');
+const fechaFormateada = datePipe.transform(dateFin, 'yyyy-MM-dd');
+this.myForm.get('fechaFin')?.setValue(fechaFormateada);
+console.log(fechaFormateada); // Resultado: "2023/06/25"
   }
 
   ngOnDestroy(): void {
