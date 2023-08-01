@@ -20,14 +20,11 @@
     <table>
       <thead>
         <tr>
-          <th class="headcol"></th>
-          <th>Lunes</th>
-          <th>Martes</th>
-          <th class="today">Miércoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
-          <!-- <th class="secondary">Sábado</th>
-          <th class="secondary">Domingo</th> -->
+          <th  class="headcol"></th>
+          <!-- <ng-container *ngFor="let dia of srvHorario.dias">
+            <th [ngClass]="{ 'secondary': dia === 'SÁBADO' || dia === 'DOMINGO' }">{{dia}}</th>
+          </ng-container> -->
+          <th *ngFor="let dia of srvHorario.dias ">{{dia}}</th>
         </tr>
       </thead>
     </table>
