@@ -12,5 +12,11 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field> -->
     <label for="select-input">Opciones:</label>
-    <mat-slide-toggle [(ngModel)]="horarioConFinDeSemana">Horario con fin de Semana!</mat-slide-toggle>
+    <!-- <mat-slide-toggle [(ngModel)]="horarioConFinDeSemana">Horario con fin de Semana!</mat-slide-toggle> -->
+    <mat-slide-toggle [(ngModel)]="horarioConFinDeSemana" (change)="getDiasDeHorario()">
+      Horario con fin de Semana!
+    </mat-slide-toggle>
+    
   </div>
+
+  

@@ -150,11 +150,11 @@ export class HorarioComponent implements OnInit{
     }else{
       this.mostrarContenido = true;
     }
-    // this.tooltipInitialized = true;
-    // this.display = !this.display;
-    // const buttonRect = document.querySelector('button.secondary')!.getBoundingClientRect();
-    // this.left = buttonRect.left + buttonRect.width;
-    // this.top = buttonRect.top;
+    this.tooltipInitialized = true;
+    this.display = !this.display;
+    const buttonRect = document.querySelector('button.secondary')!.getBoundingClientRect();
+    this.left = buttonRect.left + buttonRect.width;
+    this.top = buttonRect.top;
   }
 
   obtenerHorario(){

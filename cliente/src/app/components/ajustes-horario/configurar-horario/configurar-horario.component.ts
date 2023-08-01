@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { HorarioService } from 'src/app/core/services/horario.service';
 
 @Component({
@@ -14,33 +14,25 @@ export class ConfigurarHorarioComponent {
   @Input() display!: boolean;
 
   constructor(
-    public srvHorario: HorarioService
-  ) { 
-    // this.content = '';
-    // this.left = 0;
-    // this.top = 0;
-    // this.display = false;
-    
-  }
+    public srvHorario: HorarioService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) { }
+
   horarioConFinDeSemana = false;
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    console.log(this.content);
-  }
 
   getDiasDeHorario(): string[] {
+    // console.log("HORARIO CON FDS? ",this.horarioConFinDeSemana);
     if (this.horarioConFinDeSemana) {
-      return ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+      console.log("HORARIO CON FDS? en if ",this.horarioConFinDeSemana);
+      return ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
     } else {
-      return ['lunes', 'martes', 'miércoles', 'jueves', 'viernes'];
+      console.log("HORARIO CON FDS? en else ",this.horarioConFinDeSemana);
+      return ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES'];
     }
   }
-  
+
   actualizarHorario() {
-
   this.srvHorario.dias = this.getDiasDeHorario();
-
-  
+  this.changeDetectorRef.detectChanges();
   }
 }
