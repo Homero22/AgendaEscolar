@@ -55,7 +55,7 @@ export class HorarioService {
   // ------------------------ HORARIO ------------------------
 
   horas: string[] = ["7:00",'8:00', '9:00', '10:00', '11:00', '12:00','13:00',"14:00","15:00"]; // Horas del horario
-  dias: string[] = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES']; // Días del horario
+  dias: string[] = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO']; // Días del horario
   horario!: Horario 
 
     dataHorario!: HomeroItem[];
